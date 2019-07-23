@@ -1,0 +1,25 @@
+#header {
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	margin: 0px 5px;
+}
+
+#header .navbar-local {
+	background-color: #dde;
+	padding: 0px;
+	font-size: 15px;
+}
+
+#header .app-logo {
+	animation: app-logo-spin infinite 20s linear;
+	height: 50px;
+}
+
+@keyframes app-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

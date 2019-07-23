@@ -1,0 +1,42 @@
+@import "./bootstrap.min.css";
+@import "./all.min.css";
+
+@import url(https://fonts.googleapis.com/css?family=B612);
+@import url(https://fonts.googleapis.com/css?family=Cairo);
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	font: 12px B612, Arial, Helvetica, san-serif;
+	background-color: #6cc;
+	text-align: center;
+	outline: 0px;
+	margin: 0px;
+	padding: 0px 5px;
+}
+
+#root {
+	position: relative;
+	background-color: #fff;
+	width: 100%;
+	max-width: 1380px;
+	min-height: 100%;
+	border-width: 0px 1px;
+	border-style: solid;
+	border-color: #aaa;
+	padding-top: 5px;
+	margin: auto;
+}
+
+#wrapper {
+	text-align: justify;
+	margin: 0px 10px;
+	padding: 5px 0px;
+}
+
+#img {
+	border: 0px;
+}

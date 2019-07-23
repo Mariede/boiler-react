@@ -1,0 +1,10 @@
+#footer {
+	font: 11px Cairo, Arial, Helvetica, san-serif;
+	letter-spacing: 2px;
+	background-color: #dde;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	line-height: 50px;
+	border-top: 1px solid #aaa;
+}
