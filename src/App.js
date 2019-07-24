@@ -5,7 +5,7 @@ import Header from 'components/_common/Header';
 import Routes from 'routes/Routes';
 import Footer from 'components/_common/Footer';
 
-import Config from 'components/_common/Config';
+import Config from 'components/_helpers/Config';
 
 const App = props => {
 	return (

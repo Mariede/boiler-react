@@ -8,11 +8,11 @@ import 'assets/css/global.css';
 const StartApp = () => {
 	return new Promise((resolve, reject) => {
 		try {
-			const configUrl = document.getElementById('appConfig').src;
+			const appConfigUrl = document.getElementById('appConfig').src;
 
 			// Le o arquivo de configuracao da aplicacao
 			axios.get(
-				configUrl
+				appConfigUrl
 			)
 			.then(
 				result => {
@@ -32,8 +32,8 @@ const StartApp = () => {
 
 StartApp()
 .then(
-	configData => {
-		ReactDOM.render(<App configData={ configData } />, document.getElementById('root'));
+	res => {
+		ReactDOM.render(<App configData={ res } />, document.getElementById('root'));
 	}
 )
 .catch(
