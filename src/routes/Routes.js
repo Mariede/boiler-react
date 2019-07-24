@@ -9,13 +9,14 @@ import Usuario from 'components/_pages/_usuario/Usuario';
 import NotFound from 'components/_pages/NotFound';
 
 const Routes = () => {
-	const FadingRoute = ({ component: Component, ...pathDetails }) => {
+	const FadingRoute = ({ isProtected, component: Component, ...pathDetails }) => {
 		return (
 			<Route {...pathDetails} render={
 				routeProps => {
 					return (
-						<MainController { ...routeProps }>
+						<MainController isProtected={ isProtected } { ...routeProps }>
 							<Component />
+							<Login />
 						</MainController>
 					);
 				}
@@ -26,10 +27,10 @@ const Routes = () => {
 	// Rotas adicionadas aqui
 	return (
 		<Switch>
-			<FadingRoute component={ Home } exact path="/" />
-			<FadingRoute component={ Login } exact path="/login" />
-			<FadingRoute component={ Usuario } path="/usuario" />
-			<FadingRoute component={ NotFound } path="*" />
+			<FadingRoute isProtected="true" component={ Home } exact path="/" />
+			<FadingRoute isProtected="false" component={ Login } exact path="/login" />
+			<FadingRoute isProtected="true" component={ Usuario } path="/usuario" />
+			<FadingRoute isProtected="false" component={ NotFound } path="*" />
 		</Switch>
 	);
 };
