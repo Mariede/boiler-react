@@ -14,7 +14,7 @@ const MainController = props => {
 			DataFetch(
 				'/islogged',
 				false,
-				{ extraTrigger: currentPath }
+				{ extraTriggers: [currentPath] }
 			)
 		) : ({ loading: false, isLogged: undefined })
 	);

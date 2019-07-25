@@ -3,13 +3,16 @@ import axios from 'axios';
 
 import Config from 'components/_helpers/Config';
 
-const DataFetch = (route, initialValue, { params, extraTrigger } = {}) => {
+
+// params => object (parametros do get, se existirem)
+// extraTriggers = > array (hooks para o event update no useEffect, se existirem)
+const DataFetch = (route, initialValue, { params, extraTriggers } = {}) => {
 	const [data, setData] = useState(initialValue);
 	const [loading, setLoading] = useState(true);
 
 	const getUrl = React.useContext(Config).baseUrl + route;
 	const getParams = JSON.stringify((params ? { params: params } : {}));
-	const getExtraTrigger = (extraTrigger || '');
+	const getExtraTriggers = (extraTriggers || []);
 
 	useEffect(() => {
 		const fetchThis = async function() {
@@ -31,8 +34,8 @@ const DataFetch = (route, initialValue, { params, extraTrigger } = {}) => {
 			}
 		};
 
-		fetchThis();
-	}, [getUrl, getParams, getExtraTrigger]);
+		fetchThis(); // eslint-disable-next-line
+	}, [getUrl, getParams, ...getExtraTriggers]);
 
 	return { loading, data };
 };
