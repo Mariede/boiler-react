@@ -3,12 +3,13 @@ import axios from 'axios';
 
 import Config from 'components/_helpers/Config';
 
-const DataFetch = (route, initialValue, params = '') => {
+const DataFetch = (route, initialValue, { params, extraTrigger } = {}) => {
 	const [data, setData] = useState(initialValue);
 	const [loading, setLoading] = useState(true);
 
 	const getUrl = React.useContext(Config).baseUrl + route;
 	const getParams = JSON.stringify((params ? { params: params } : {}));
+	const getExtraTrigger = (extraTrigger || '');
 
 	useEffect(() => {
 		const fetchThis = async function() {
@@ -31,7 +32,7 @@ const DataFetch = (route, initialValue, params = '') => {
 		};
 
 		fetchThis();
-	}, [getUrl, getParams]);
+	}, [getUrl, getParams, getExtraTrigger]);
 
 	return { loading, data };
 };

@@ -13,7 +13,8 @@ const MainController = props => {
 		isProtected ? (
 			DataFetch(
 				'/islogged',
-				false
+				false,
+				{ extraTrigger: currentPath }
 			)
 		) : ({ loading: false, isLogged: undefined })
 	);
