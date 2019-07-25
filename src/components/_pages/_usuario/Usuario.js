@@ -1,9 +1,11 @@
 import React from 'react';
 
+import PageSubject from 'components/_common/PageSubject';
+
 const Usuario = () => {
 	return (
 		<div id="usuario">
-			<p><i className="fas fa-user"></i> Usuario</p>
+			<PageSubject subject="Usuario" icon="fas fa-user" />
 		</div>
 	);
 };

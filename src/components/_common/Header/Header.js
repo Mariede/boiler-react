@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 
-import './Header.css';
-
 import logo from 'assets/images/logo.png';
+
+import './Header.css';
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);

@@ -2,12 +2,15 @@ import React from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
+import PageSubject from 'components/_common/PageSubject';
+
+import './Login.css';
+
 const Login = () => {
 	return (
 		<div id="login">
-			<p><i className="fas fa-user"></i> Login</p><hr />
-
-			<Form>
+			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
+			<Form id="loginForm">
 				<Row form>
 					<Col md={12}>
 						<FormGroup>
