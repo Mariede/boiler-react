@@ -8,10 +8,10 @@ const Footer = () => {
 		<footer id="footer">
 			<Container fluid>
 			<Row>
-				<Col md={{ size: 6 }}>
+				<Col md={6}>
 					Footer da aplicação
 				</Col>
-				<Col md={{ size: 6 }}>
+				<Col md={6}>
 					<p>versão</p>
 				</Col>
 			</Row>
