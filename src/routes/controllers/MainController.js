@@ -1,9 +1,10 @@
 import React from 'react';
 
+import Loading from 'components/_common/Loading';
 import DataFetch from 'components/_helpers/DataFetch';
 
 const MainController = props => {
-	const Components = props.children;
+	const [Component, Login] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
 
@@ -20,17 +21,10 @@ const MainController = props => {
 	);
 
 	const AuthComponent = () => {
-		const Component = React.Children.count(Components) === 2 && React.Children.map(Components, (child, i) => {
-			return (
-				(!isProtected && i === 0 && child) || (isProtected && isLogged && i === 0 && child) || (isProtected && !isLogged && i === 1 && child)
-			);
-		});
-
 		return (
 			<div id="controller">
-				{
-					((isProtected && loading) ? 'loading...' : Component)
-				}
+				{ (isProtected ? Loading({ message: 'Aguarde...', loading: loading }) : null) }
+				{ (!isProtected ? Component : (!loading ? (isLogged ? Component : Login) : null)) }
 			</div>
 		);
 	};

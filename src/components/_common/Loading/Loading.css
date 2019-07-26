@@ -1,0 +1,23 @@
+#loading {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background-color: rgb(240, 240, 240, 0.3);
+}
+
+#loading .message {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 80px;
+	height: 80px;
+	margin-top: -40px;
+	margin-left: -40px;
+	text-align: center;
+	font: 13px Rakkas, Arial, Helvetica, san-serif;
+	font-style: italic;
+	letter-spacing: 2px;
+}

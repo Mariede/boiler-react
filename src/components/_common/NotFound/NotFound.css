@@ -3,6 +3,7 @@
 }
 
 #notFound .main-content .info {
+	color: red;
 	font-size: 80px;
 }
 
