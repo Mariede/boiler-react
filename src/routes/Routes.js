@@ -15,8 +15,8 @@ const Routes = () => {
 				routeProps => {
 					return (
 						<MainController isProtected={ isProtected } { ...routeProps }>
-							<Component />
-							<Login />
+							<Component { ...routeProps } />
+							<Login { ...routeProps } />
 						</MainController>
 					);
 				}

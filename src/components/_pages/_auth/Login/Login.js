@@ -6,7 +6,7 @@ import PageSubject from 'components/_common/PageSubject';
 
 import './Login.css';
 
-const Login = () => {
+const Login = props => {
 	return (
 		<div id="login">
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
@@ -16,21 +16,22 @@ const Login = () => {
 						<Col md={12}>
 							<FormGroup>
 								<Label for="email">Email</Label>
-								<Input type="email" name="email" id="email" placeholder="e-mail" />
+								<Input type="email" name="email" id="email" placeholder="seu@email" />
 							</FormGroup>
 						</Col>
 					</Row>
 					<Row form>
 						<Col md={12}>
 						<FormGroup>
-							<Label for="senha">Password</Label>
+							<Label for="senha">Senha</Label>
 							<Input type="password" name="senha" id="senha" placeholder="senha" />
 						</FormGroup>
 						</Col>
 					</Row>
+					<hr />
 					<Row form>
 						<Col md={12}>
-							<hr /><Button type="submit" className="btn-success float-right">Enviar</Button>
+							<Button type="submit" color="success" block>Enviar</Button>
 						</Col>
 					</Row>
 				</Form>

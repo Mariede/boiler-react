@@ -4,7 +4,7 @@ import PageSubject from 'components/_common/PageSubject';
 
 import './Home.css';
 
-const Home = () => {
+const Home = props => {
 	return (
 		<div id="home">
 			<PageSubject subject="Home" icon="fas fa-home" />

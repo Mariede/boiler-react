@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
@@ -8,7 +9,12 @@ import imgNotFound from 'assets/images/not-found.png';
 
 import './NotFound.css';
 
-const NotFound = () => {
+const NotFound = props => {
+	const navBack = e => {
+		e.preventDefault();
+		props.history.goBack();
+	};
+
 	return (
 		<div id="notFound">
 			<PageSubject subject="Informação: Erro 404" icon="fas fa-exclamation" />
@@ -21,9 +27,13 @@ const NotFound = () => {
 					Página não encontrada
 				</div>
 
+				<hr />
 				<Row form>
-					<Col md={12}>
-						<hr /><Button type="button" className="btn-success float-right">Home</Button>
+					<Col md={6}>
+						<Button type="button" color="primary" block onClick={ navBack }>Voltar</Button>
+					</Col>
+					<Col md={6}>
+						<Button type="button" color="success" block tag={ Link } to="/">Home</Button>
 					</Col>
 				</Row>
 			</div>
