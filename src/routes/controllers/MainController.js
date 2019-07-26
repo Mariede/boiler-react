@@ -24,7 +24,7 @@ const MainController = props => {
 		return (
 			<div id="controller">
 				{ (isProtected ? Loading({ message: 'Aguarde...', loading: loading }) : null) }
-				{ (!isProtected ? Component : (!loading ? (isLogged ? Component : Login) : null)) }
+				{ (!isProtected ? Component : (!loading ? (isLogged ? Component : Login) : 'carregando...')) }
 			</div>
 		);
 	};
