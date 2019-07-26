@@ -10,14 +10,14 @@ const MainController = props => {
 
 	sessionStorage.setItem('current-path', currentPath);
 
-	const { loading, isLogged } = (
+	const [ loading, isLogged ] = (
 		isProtected ? (
 			DataFetch(
 				'/islogged',
 				false,
 				{ extraTriggers: [currentPath] }
 			)
-		) : ({ loading: false, isLogged: undefined })
+		) : ([ false, undefined ])
 	);
 
 	const AuthComponent = () => {

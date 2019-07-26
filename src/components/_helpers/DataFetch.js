@@ -7,8 +7,8 @@ import Config from 'components/_helpers/Config';
 // params => object (parametros do get, se existirem)
 // extraTriggers = > array (hooks para o event update no useEffect, se existirem)
 const DataFetch = (route, initialValue, { params, extraTriggers } = {}) => {
-	const [data, setData] = useState(initialValue);
 	const [loading, setLoading] = useState(true);
+	const [data, setData] = useState(initialValue);
 
 	const getUrl = React.useContext(Config).baseUrl + route;
 	const getParams = JSON.stringify((params ? { params: params } : {}));
@@ -37,7 +37,7 @@ const DataFetch = (route, initialValue, { params, extraTriggers } = {}) => {
 		fetchThis(); // eslint-disable-next-line
 	}, [getUrl, getParams, ...getExtraTriggers]);
 
-	return { loading, data };
+	return [ loading, data ];
 };
 
 export default DataFetch;
