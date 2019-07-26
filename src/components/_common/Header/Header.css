@@ -10,7 +10,7 @@
 	font-size: 15px;
 }
 
-#header .app-logo {
+#header .navbar-local .img-logo {
 	animation: app-logo-spin infinite 20s linear;
 	height: 50px;
 }

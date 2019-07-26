@@ -1,0 +1,16 @@
+#notFound .main-content {
+	text-align: center;
+}
+
+#notFound .main-content .info {
+	font-size: 80px;
+}
+
+#notFound .main-content .info .img-not-found {
+	width: 120px;
+	max-width: 100%;
+}
+
+#notFound .main-content .description {
+	font-size: 22px;
+}

@@ -28,15 +28,25 @@ body {
 	border-style: solid;
 	border-color: #aaa;
 	padding-top: 5px;
+	padding-bottom: 60px; /* Deve sobrepor altura do rodape */
 	margin: auto;
 }
 
 #wrapper {
-	text-align: justify;
 	margin: 0px 10px;
 	padding: 5px 0px;
 }
 
-#img {
+#controller {
+	text-align: justify;
+}
+
+div.main-content {
+	width: max-content;
+	max-width: 100%;
+	margin: auto;
+}
+
+img {
 	border: 0px;
 }

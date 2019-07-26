@@ -8,7 +8,7 @@ const Home = () => {
 	return (
 		<div id="home">
 			<PageSubject subject="Home" icon="fas fa-home" />
-			<div className="welcome">
+			<div className="main-content">
 				<i className="fas fa-sitemap"></i>
 				<br />Boiler React<hr />
 				<div className="description">Projeto de Boilerplate usando o Create React App</div>

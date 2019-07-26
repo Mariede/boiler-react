@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 
-import logo from 'assets/images/logo.png';
+import imgLogo from 'assets/images/logo.png';
 
 import './Header.css';
 
@@ -31,8 +31,9 @@ const Header = () => {
 	return (
 		<header id="header">
 			<Navbar className="navbar-local" light expand="md">
-				<NavbarBrand tag={ Link } to="/"><img className="app-logo" src={logo} alt="logo" /> Boiler React</NavbarBrand>
+				<NavbarBrand tag={ Link } to="/"><img className="img-logo" src={ imgLogo } alt="logo" /> Boiler React</NavbarBrand>
 				<NavbarToggler onClick={ toggle } />
+
 				<Collapse isOpen={ isOpen } navbar>
 					{ menuContent() }
 				</Collapse>

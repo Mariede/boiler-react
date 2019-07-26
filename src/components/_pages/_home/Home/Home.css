@@ -1,19 +1,17 @@
-#home .welcome {
-	font: 32px B612, Arial, Helvetica, san-serif;
+#home .main-content {
+	font-size: 32px;
 	background-color: #edd;
 	text-align: center;
-	max-width: 500px;
 	border: 1px solid #aaa;
 	border-radius: 5px;
 	box-shadow: 0px 0px 5px #ddd;
 	padding: 20px;
-	margin: auto;
 	white-space: nowrap;
 	animation: fadein 2s;
 }
 
-#home .welcome .description {
-	font: 16px B612, Arial, Helvetica, san-serif;
+#home .main-content .description {
+	font-size: 16px;
 	font-style: italic;
 	white-space: normal;
 }
