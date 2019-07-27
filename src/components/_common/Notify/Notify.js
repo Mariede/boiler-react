@@ -61,7 +61,7 @@ const Notify = props => {
 		if (showNotify) {
 			Component = (
 				<Toast className="notify" isOpen={ isOpen }>
-					<Button type="button" className="close"><span aria-hidden="true" onClick={ closeNotify }>&times;</span></Button>
+					<Button close onClick={ closeNotify } />
 					<ToastHeader icon={ notifyHeader(1) }>
 						{ (props.header || notifyHeader(2)) }
 					</ToastHeader>
