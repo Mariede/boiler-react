@@ -13,7 +13,7 @@ const Loading = props => {
 					<div className="message">
 						<Spinner color="info" />
 						<br />
-						{ props.message }
+						{ (props.message || 'Loading...') }
 					</div>
 				</div>
 			);
