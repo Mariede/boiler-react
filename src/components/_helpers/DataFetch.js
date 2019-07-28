@@ -6,9 +6,7 @@ import Config from 'components/_helpers/Config';
 // params => object (parametros do get, se existirem)
 // extraTriggers = > array (hooks para o event update no useEffect, se existirem)
 const DataFetch = (route, initialValue, { params, extraTriggers } = {}) => {
-	const [loading, setLoading] = useState(true);
-	const [data, setData] = useState(initialValue);
-	const [error, setError] = useState({});
+	const [values, setValues] = useState({ data: initialValue, error: {}, loading: false });
 
 	const getUrl = React.useContext(Config).baseUrl + route;
 	const getParams = JSON.stringify((params ? { params: params } : {}));
@@ -17,28 +15,24 @@ const DataFetch = (route, initialValue, { params, extraTriggers } = {}) => {
 	useEffect(() => {
 		const fetchThis = async () => {
 			try {
-				setLoading(true);
+				setValues({ data: values.data, error: values.error, loading: true });
 
 				const res = await axios.get(
 					getUrl,
 					JSON.parse(getParams)
 				);
 
-				if (res.status === 200) {
-					setData(res.data);
-				}
+				setValues({ data: res.data, error: {}, loading: false });
 			} catch(err) {
-				setError({ dataErr: err });
+				setValues({ data: initialValue, error: err, loading: false });
 				throw err;
-			} finally {
-				setLoading(false);
 			}
 		};
 
 		fetchThis(); // eslint-disable-next-line
 	}, [getUrl, getParams, ...getExtraTriggers]);
 
-	return [ loading, data, error ];
+	return [ values.data, values.error, values.loading ];
 };
 
 export default DataFetch;

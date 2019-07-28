@@ -8,23 +8,24 @@ const MainController = props => {
 	const [Component, Login] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
+	const keyRoute = props.location.key;
 
 	sessionStorage.setItem('current-path', currentPath);
 
-	const [ loading, isLogged, error ] = (
+	const [ isLogged, error, loading ] = (
 		isProtected ? (
 			DataFetch(
 				'/islogged',
 				false,
-				{ extraTriggers: [currentPath] }
+				{ extraTriggers: [keyRoute] }
 			)
-		) : ([ false, undefined, {} ])
+		) : ([ undefined, {}, false ])
 	);
 
 	const AuthComponent = () => {
 		return (
 			<div id="controller">
-				{ (!loading && error.dataErr ? Notify({ type: 4, header: 'Controlador Principal', message: error.dataErr.message }) : null) }
+				{ (!loading && Object.keys(error).length ? Notify({ type: 4, header: 'Controlador Principal', info: error }) : null) }
 				{ (isProtected ? Loading({ message: 'Aguarde...', loading: loading }) : null) }
 				{ (!isProtected ? Component : (!loading ? (isLogged ? Component : Login) : 'carregando...')) }
 			</div>

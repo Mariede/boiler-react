@@ -65,7 +65,7 @@ const Notify = props => {
 						{ (props.header || notifyHeader(2)) }
 					</ToastHeader>
 					<ToastBody>
-						{ (props.message || 'Erro na aplicação') }
+						{ (props.info.message || 'Erro na aplicação') }
 					</ToastBody>
 				</Toast>
 			);
