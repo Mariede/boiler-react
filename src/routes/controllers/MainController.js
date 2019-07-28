@@ -25,7 +25,7 @@ const MainController = props => {
 	const AuthComponent = () => {
 		return (
 			<div id="controller">
-				{ (!loading && error ? Notify({ type: 4, header: componentInfo, message: error.dataErr.message }) : null) }
+				{ (!loading && error.dataErr ? Notify({ type: 4, header: componentInfo, message: error.dataErr.message }) : null) }
 				{ (isProtected ? Loading({ message: 'Aguarde...', loading: loading }) : null) }
 				{ (!isProtected ? Component : (!loading ? (isLogged ? Component : Login) : 'carregando...')) }
 			</div>

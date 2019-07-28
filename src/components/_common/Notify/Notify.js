@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { Toast, ToastHeader, ToastBody, Button } from 'reactstrap';
 
 import './Notify.css';
