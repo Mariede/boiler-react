@@ -54,8 +54,8 @@ FormValidator.setFormValidation = config => {
 					Array.from(e.rules).forEach(
 						e => {
 							// Engine --------------------------------------------------------------------------------------
-							// mustNotBeBlank
-							if (e.rule === 'mustNotBeBlank' && isValid) {
+							// ruleBlank
+							if (e.rule === 'ruleBlank' && isValid) {
 								if (elValue === '') {
 									isValid = false;
 
@@ -68,8 +68,22 @@ FormValidator.setFormValidation = config => {
 							}
 							// -------------------------------------------
 
-							// mustBeEmail
-							if (e.rule === 'mustBeEmail' && isValid) {
+							// ruleBlankTrim
+							if (e.rule === 'ruleBlankTrim' && isValid) {
+								if (elValue.trim() === '') {
+									isValid = false;
+
+									if (e.message) {
+										child.innerHTML = e.message;
+									} else {
+										child.innerHTML = 'Field must not be blank';
+									}
+								}
+							}
+							// -------------------------------------------
+
+							// ruleEmail
+							if (e.rule === 'ruleEmail' && isValid) {
 								let reEmail = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x21\x23-\x5b\x5d-\x7f]|\\[\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x21-\x5a\x53-\x7f]|\\[\x7f])+)\])$/i;
 
 								if (!elValue.match(reEmail)) {

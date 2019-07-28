@@ -6,6 +6,9 @@ const Usuario = props => {
 	return (
 		<div id="usuario">
 			<PageSubject subject="Usuario" icon="fas fa-user" />
+			<div className="main-content">
+				Detalhes usuário
+			</div>
 		</div>
 	);
 };

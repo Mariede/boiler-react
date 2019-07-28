@@ -16,11 +16,11 @@ const Login = props => {
 			value: user,
 			rules: [
 				{
-					rule: 'mustNotBeBlank',
+					rule: 'ruleBlank',
 					message: 'Texto não preenchido'
 				},
 				{
-					rule: 'mustBeEmail',
+					rule: 'ruleEmail',
 					message: 'E-mail inválido'
 				}
 			]
@@ -30,7 +30,7 @@ const Login = props => {
 			value: pass,
 			rules: [
 				{
-					rule: 'mustNotBeBlank',
+					rule: 'ruleBlank',
 					message: 'Texto não preenchido'
 				}
 			]
