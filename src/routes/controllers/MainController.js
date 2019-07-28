@@ -8,7 +8,6 @@ const MainController = props => {
 	const [Component, Login] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
-	const componentInfo = 'Controlador Principal';
 
 	sessionStorage.setItem('current-path', currentPath);
 
@@ -25,7 +24,7 @@ const MainController = props => {
 	const AuthComponent = () => {
 		return (
 			<div id="controller">
-				{ (!loading && error.dataErr ? Notify({ type: 4, header: componentInfo, message: error.dataErr.message }) : null) }
+				{ (!loading && error.dataErr ? Notify({ type: 4, header: 'Controlador Principal', message: error.dataErr.message }) : null) }
 				{ (isProtected ? Loading({ message: 'Aguarde...', loading: loading }) : null) }
 				{ (!isProtected ? Component : (!loading ? (isLogged ? Component : Login) : 'carregando...')) }
 			</div>

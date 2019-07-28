@@ -50,7 +50,7 @@ FormValidator.setFormValidation = config => {
 					child.style.display = 'none';
 					child.innerHTML = '';
 
-					// Validation Check Engine
+					// Validation Check Engine (new rules comes here)
 					Array.from(e.rules).forEach(
 						e => {
 							// Engine --------------------------------------------------------------------------------------
