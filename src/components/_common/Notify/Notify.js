@@ -4,18 +4,22 @@ import { Toast, ToastHeader, ToastBody, Button } from 'reactstrap';
 import './Notify.css';
 
 const Notify = props => {
-	const [showNotify, setShowNotify] = useState(true);
+	const [showNotify, setShowNotify] = useState(false);
 	const [isOpen, setIsOpen] = useState(true);
 
 	useEffect(() => {
-		const timer = setTimeout(() => {
-			setShowNotify(false);
-		}, 15000);
+		if (props.info && Object.keys(props.info).length) {
+			setShowNotify(true);
 
-		return () => {
-			clearTimeout(timer);
+			const timer = setTimeout(() => {
+				setShowNotify(false);
+			}, 15000);
+
+			return () => {
+				clearTimeout(timer);
+			}
 		}
-	}, []);
+	}, [props.info]);
 
 	const notifyHeader = p => {
 		let header = (p !== 2 ? 'secondary' : 'Notificação');
