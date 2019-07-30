@@ -26,7 +26,7 @@ const MainController = props => {
 		});
 	});
 
-	const [Component, Login] = newPropsChildren;
+	const [Component, Login, Home] = newPropsChildren;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
 	const keyRoute = props.location.key;
@@ -36,32 +36,29 @@ const MainController = props => {
 	useEffect(() => {
 		setResultData(false);
 		setResultError({});
+		setResultLoading(true);
 
-		if (isProtected) {
-			setResultLoading(true);
-
-			axios.get(
-				getUrl + '/isLogged'
-			)
-			.then(
-				res => {
-					setResultData(res.data);
-				}
-			)
-			.catch(
-				err => {
-					const errThis = setErrors(err, 'Controlador Principal', 4);
-					setResultError(errThis);
-					throw errThis;
-				}
-			)
-			.finally(
-				() => {
-					setResultLoading(false);
-				}
-			);
-		}
-	}, [getUrl, isProtected, keyRoute]);
+		axios.get(
+			getUrl + '/isLogged'
+		)
+		.then(
+			res => {
+				setResultData(res.data);
+			}
+		)
+		.catch(
+			err => {
+				const errThis = setErrors(err, 'Controlador Principal', 4);
+				setResultError(errThis);
+				throw errThis;
+			}
+		)
+		.finally(
+			() => {
+				setResultLoading(false);
+			}
+		);
+	}, [getUrl, keyRoute]);
 
 	const setNotify = error => {
 		setResultError(error);
@@ -86,7 +83,7 @@ const MainController = props => {
 				{ Notify({ info: resultError }) }
 				{ Loading({ message: 'Aguarde...', loading: resultLoading }) }
 				<div id="controller">
-					{ (!isProtected ? Component : (!resultLoading ? (resultData ? Component : Login) : 'carregando...')) }
+					{ (!isProtected ? (!resultLoading ? (!resultData ? Component : (Component.type.name !== 'Login' ? Component : Home)) : 'carregando...') : (!resultLoading ? (resultData ? Component : Login) : 'carregando...')) }
 				</div>
 			</React.Fragment>
 		);
