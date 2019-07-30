@@ -66,7 +66,7 @@ const Notify = props => {
 				<Toast className="notify" isOpen={ isOpen }>
 					<Button close onClick={ closeNotify } />
 					<ToastHeader icon={ notifyHeader(1) }>
-						{ (props.info.header || notifyHeader(2)) }
+						{ (props.info.header || notifyHeader(2)) }{ (props.info.code ? ` (código ${props.info.code})` : '') }
 					</ToastHeader>
 					<ToastBody>
 						{ (props.info.message || 'Erro na aplicação') }

@@ -61,17 +61,14 @@ const Login = props => {
 			)
 			.then(
 				res => {
-console.log(res.data);
+					console.log(res.data);
 				}
 			)
 			.catch(
 				err => {
-					err.header = 'Login';
-					err.type = 4;
-
-					props.setNotify(err);
-
-					throw err;
+					const errThis = props.setErrors(err, 'Login', 4);
+					props.setNotify(errThis);
+					throw errThis;
 				}
 			)
 			.finally(

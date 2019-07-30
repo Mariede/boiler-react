@@ -19,6 +19,9 @@ const MainController = props => {
 			},
 			setLoading: (l) => {
 				setLoading(l);
+			},
+			setErrors: (e, h, t) => {
+				return setErrors(e, h, t);
 			}
 		});
 	});
@@ -47,12 +50,9 @@ const MainController = props => {
 			)
 			.catch(
 				err => {
-					err.header = 'Controlador Principal';
-					err.type = 4;
-
-					setResultError(err);
-
-					throw err;
+					const errThis = setErrors(err, 'Controlador Principal', 4);
+					setResultError(errThis);
+					throw errThis;
 				}
 			)
 			.finally(
@@ -69,6 +69,15 @@ const MainController = props => {
 
 	const setLoading = loading => {
 		setResultLoading(loading);
+	};
+
+	const setErrors = (error, header, type) => {
+		const errThis = (error.response ? error.response.data : error);
+
+		errThis.header = header;
+		errThis.type = type;
+
+		return errThis;
 	};
 
 	const AuthComponent = () => {
