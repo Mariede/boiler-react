@@ -5,12 +5,12 @@ import axios from 'axios';
 
 import PageSubject from 'components/_common/PageSubject';
 import FormValidator from 'components/_helpers/FormValidator';
-import Config from 'components/_helpers/Config';
+import ConfigContext from 'components/_helpers/ConfigContext';
 
 import './Login.css';
 
 const Login = props => {
-	const getUrl = React.useContext(Config).baseUrl;
+	const getUrl = React.useContext(ConfigContext).baseUrl;
 
 	const [user, formHandleUser] = useState('');
 	const [pass, formHandlePass] = useState('');
@@ -115,7 +115,7 @@ const Login = props => {
 						<Col md={12}>
 						<FormGroup>
 							<Label for="pass">Senha</Label>
-							<Input type="password" value={ pass } id="pass" placeholder="pass" onChange={ e => handleFormElements(e, formHandlePass) } />
+							<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
 							<FormText>Insira sua senha aqui.</FormText>
 						</FormGroup>
 						</Col>

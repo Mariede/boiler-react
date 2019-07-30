@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 
+import Logged from './Logged';
+
 import imgLogo from 'assets/images/logo.png';
 
 import './Header.css';
@@ -36,6 +38,7 @@ const Header = () => {
 
 				<Collapse isOpen={ isOpen } navbar>
 					{ menuContent() }
+					<Logged />
 				</Collapse>
 			</Navbar>
 		</header>

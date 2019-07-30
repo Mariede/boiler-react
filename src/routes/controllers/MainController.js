@@ -3,14 +3,14 @@ import axios from 'axios';
 
 import Notify from 'components/_common/Notify';
 import Loading from 'components/_common/Loading';
-import Config from 'components/_helpers/Config';
+import ConfigContext from 'components/_helpers/ConfigContext';
 
 const MainController = props => {
 	const [resultData, setResultData] = useState(false);
 	const [resultError, setResultError] = useState({});
 	const [resultLoading, setResultLoading] = useState(false);
 
-	const getUrl = React.useContext(Config).baseUrl;
+	const getUrl = React.useContext(ConfigContext).baseUrl;
 
 	const newPropsChildren = React.Children.map(props.children, child => {
 		return React.cloneElement(child, {

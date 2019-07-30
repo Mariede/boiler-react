@@ -5,11 +5,11 @@ import Header from 'components/_common/Header';
 import Routes from 'routes/Routes';
 import Footer from 'components/_common/Footer';
 
-import Config from 'components/_helpers/Config';
+import ConfigContext from 'components/_helpers/ConfigContext';
 
 const App = props => {
 	return (
-		<Config.Provider value={ props.configData }>
+		<ConfigContext.Provider value={ props.configData }>
 			<Router>
 				<Header />
 				<div id="wrapper">
@@ -17,7 +17,7 @@ const App = props => {
 				</div>
 				<Footer />
 			</Router>
-		</Config.Provider>
+		</ConfigContext.Provider>
 	);
 };
 
