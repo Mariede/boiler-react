@@ -6,10 +6,24 @@ import Loading from 'components/_common/Loading';
 import Config from 'components/_helpers/Config';
 
 const MainController = props => {
-	const getUrl = React.useContext(Config).baseUrl;
-	const [logged, setLogged] = useState({ isLogged: false, error: {}, loading: false });
+	const [resultData, setResultData] = useState(false);
+	const [resultError, setResultError] = useState({});
+	const [resultLoading, setResultLoading] = useState(false);
 
-	const [Component, Login] = props.children;
+	const getUrl = React.useContext(Config).baseUrl;
+
+	const newPropsChildren = React.Children.map(props.children, child => {
+		return React.cloneElement(child, {
+			setNotify: (n) => {
+				setNotify(n);
+			},
+			setLoading: (l) => {
+				setLoading(l);
+			}
+		});
+	});
+
+	const [Component, Login] = newPropsChildren;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
 	const keyRoute = props.location.key;
@@ -17,33 +31,49 @@ const MainController = props => {
 	sessionStorage.setItem('current-path', currentPath);
 
 	useEffect(() => {
-		setLogged({ isLogged: false, error: {}, loading: true });
+		setResultData(false);
+		setResultError({});
 
 		if (isProtected) {
+			setResultLoading(true);
+
 			axios.get(
 				getUrl + '/isLogged'
 			)
 			.then(
 				res => {
-					setLogged({ isLogged: res.data, error: {}, loading: false });
+					setResultData(res.data);
 				}
 			)
 			.catch(
 				err => {
-					setLogged({ isLogged: false, error: err, loading: false });
+					setResultError(err);
 					throw err;
 				}
 			)
+			.finally(
+				() => {
+					setResultLoading(false);
+				}
+			);
 		}
 	}, [getUrl, isProtected, keyRoute]);
+
+	const setNotify = error => {
+		setResultError(error);
+	};
+
+	const setLoading = loading => {
+		setResultLoading(loading);
+	};
 
 	const AuthComponent = () => {
 		return (
 			<React.Fragment>
-				{ Notify({ type: 4, header: 'Controlador Principal', info: logged.error }) }
-				{ (isProtected ? Loading({ message: 'Aguarde...', loading: logged.loading }) : null) }
+				{ Notify({ type: 4, header: 'Controlador Principal', info: resultError }) }
+				{ Loading({ message: 'Aguarde...', loading: resultLoading }) }
 				<div id="controller">
-					{ (!isProtected ? Component : (!logged.loading ? (logged.isLogged ? Component : Login) : 'carregando...')) }
+					{ (!isProtected ? Component : (!resultLoading ? (resultData ? Component : Login) : 'carregando...')) }
 				</div>
 			</React.Fragment>
 		);

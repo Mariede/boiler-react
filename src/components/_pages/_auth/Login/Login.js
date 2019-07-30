@@ -3,8 +3,6 @@ import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import axios from 'axios';
 
-import Notify from 'components/_common/Notify';
-import Loading from 'components/_common/Loading';
 import PageSubject from 'components/_common/PageSubject';
 import FormValidator from 'components/_helpers/FormValidator';
 import Config from 'components/_helpers/Config';
@@ -13,15 +11,15 @@ import './Login.css';
 
 const Login = props => {
 	const getUrl = React.useContext(Config).baseUrl;
-	const [login, setLogin] = useState({ result: {}, error: {}, loading: false });
-	const [submit, setSubmit] = useState(false);
 
 	const [user, formHandleUser] = useState('');
 	const [pass, formHandlePass] = useState('');
+
+	const [submit, setSubmit] = useState(false);
+
 	const configFormValidation = [
 		{
 			id: 'user',
-			value: user,
 			rules: [
 				{
 					rule: 'ruleBlank',
@@ -35,7 +33,6 @@ const Login = props => {
 		},
 		{
 			id: 'pass',
-			value: pass,
 			rules: [
 				{
 					rule: 'ruleBlank',
@@ -52,7 +49,7 @@ const Login = props => {
 
 	useEffect(() => {
 		if (submit) {
-			setLogin({ result: {}, error: {}, loading: true });
+			props.setLoading(true);
 
 			axios.post(
 				getUrl + '/login',
@@ -63,22 +60,22 @@ const Login = props => {
 			)
 			.then(
 				res => {
-					setLogin({ result: res.data, error: {}, loading: false });
+console.log(res.data);
 				}
 			)
 			.catch(
 				err => {
-					setLogin({ result: {}, error: err, loading: false });
+					props.setNotify(err);
 					throw err;
 				}
 			)
 			.finally(
 				() => {
-					setSubmit(false);
+					props.setLoading(false);
 				}
 			);
 		}
-	}, [getUrl, user, pass, submit]);
+	}, [getUrl, user, pass, submit, props]);
 
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
@@ -96,41 +93,37 @@ const Login = props => {
 	};
 
 	return (
-		<React.Fragment>
-			{ Notify({ type: 4, header: 'Login', info: login.error }) }
-			{ (submit ? Loading({ message: 'Aguarde...', loading: login.loading }) : null) }
-			<div id="login">
-				<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
-				<div className="main-content">
-					<Form className="form" id="loginForm" onSubmit={ submitForm }>
-						<Row form>
-							<Col md={12}>
-								<FormGroup>
-									<Label for="user">Usuário</Label>
-									<Input type="text" value={ user } id="user" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleUser) } />
-									<FormText>Insira seu usuário aqui.</FormText>
-								</FormGroup>
-							</Col>
-						</Row>
-						<Row form>
-							<Col md={12}>
+		<div id="login">
+			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
+			<div className="main-content">
+				<Form className="form" id="loginForm" onSubmit={ submitForm }>
+					<Row form>
+						<Col md={12}>
 							<FormGroup>
-								<Label for="pass">Senha</Label>
-								<Input type="password" value={ pass } id="pass" placeholder="pass" onChange={ e => handleFormElements(e, formHandlePass) } />
-								<FormText>Insira sua senha aqui.</FormText>
+								<Label for="user">Usuário</Label>
+								<Input type="text" value={ user } id="user" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleUser) } />
+								<FormText>Insira seu usuário aqui.</FormText>
 							</FormGroup>
-							</Col>
-						</Row>
-						<hr />
-						<Row form>
-							<Col md={12}>
-								<Button type="submit" color="success" block>Enviar</Button>
-							</Col>
-						</Row>
-					</Form>
-				</div>
+						</Col>
+					</Row>
+					<Row form>
+						<Col md={12}>
+						<FormGroup>
+							<Label for="pass">Senha</Label>
+							<Input type="password" value={ pass } id="pass" placeholder="pass" onChange={ e => handleFormElements(e, formHandlePass) } />
+							<FormText>Insira sua senha aqui.</FormText>
+						</FormGroup>
+						</Col>
+					</Row>
+					<hr />
+					<Row form>
+						<Col md={12}>
+							<Button type="submit" color="success" block>Enviar</Button>
+						</Col>
+					</Row>
+				</Form>
 			</div>
-		</React.Fragment>
+		</div>
 	);
 };
 

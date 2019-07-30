@@ -44,7 +44,7 @@ FormValidator.setFormValidation = config => {
 				const child = document.getElementById(childId);
 
 				if (child) {
-					const elValue = e.value;
+					const elValue = parent.value;
 					let isValid = true;
 
 					child.style.display = 'none';
