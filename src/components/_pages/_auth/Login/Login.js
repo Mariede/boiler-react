@@ -43,8 +43,7 @@ const Login = props => {
 	];
 
 	useEffect(() => {
-		// Validacao de formulario 1/2
-		FormValidator.setFormResponse(configFormValidation);
+		FormValidator.setFormResponse(configFormValidation); // formulario: 1 de 2
 	}, [configFormValidation]);
 
 	useEffect(() => {
@@ -61,7 +60,8 @@ const Login = props => {
 			)
 			.then(
 				res => {
-					console.log(res.data);
+					const redirectCache = sessionStorage.getItem('current-path');
+					props.history.push((redirectCache && redirectCache !== '/login' ? redirectCache : '/'));
 				}
 			)
 			.catch(
@@ -81,14 +81,17 @@ const Login = props => {
 
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
+
+		FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
+
 		handler(e.target.value);
 	};
 
 	const submitForm = e => {
 		e.preventDefault();
 
-		// Validacao de formulario 2/2
-		const formCheck = FormValidator.setFormValidation(configFormValidation);
+		const formCheck = FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
+
 		if (formCheck) {
 			setSubmit(true);
 		}
