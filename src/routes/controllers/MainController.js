@@ -47,7 +47,11 @@ const MainController = props => {
 			)
 			.catch(
 				err => {
+					err.header = 'Controlador Principal';
+					err.type = 4;
+
 					setResultError(err);
+
 					throw err;
 				}
 			)
@@ -70,7 +74,7 @@ const MainController = props => {
 	const AuthComponent = () => {
 		return (
 			<React.Fragment>
-				{ Notify({ type: 4, header: 'Controlador Principal', info: resultError }) }
+				{ Notify({ info: resultError }) }
 				{ Loading({ message: 'Aguarde...', loading: resultLoading }) }
 				<div id="controller">
 					{ (!isProtected ? Component : (!resultLoading ? (resultData ? Component : Login) : 'carregando...')) }

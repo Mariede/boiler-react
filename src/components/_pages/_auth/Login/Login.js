@@ -49,6 +49,7 @@ const Login = props => {
 
 	useEffect(() => {
 		if (submit) {
+			props.setNotify({});
 			props.setLoading(true);
 
 			axios.post(
@@ -65,7 +66,11 @@ console.log(res.data);
 			)
 			.catch(
 				err => {
+					err.header = 'Login';
+					err.type = 4;
+
 					props.setNotify(err);
+
 					throw err;
 				}
 			)

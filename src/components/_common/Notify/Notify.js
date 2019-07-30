@@ -24,8 +24,8 @@ const Notify = props => {
 	const notifyHeader = p => {
 		let header = (p !== 2 ? 'secondary' : 'Notificação');
 
-		if (props.type) {
-			switch (props.type) {
+		if (props.info.type) {
+			switch (props.info.type) {
 				case 1: {
 				// Success
 					header = (p !== 2 ? 'success' : 'Sucesso');
@@ -66,7 +66,7 @@ const Notify = props => {
 				<Toast className="notify" isOpen={ isOpen }>
 					<Button close onClick={ closeNotify } />
 					<ToastHeader icon={ notifyHeader(1) }>
-						{ (props.header || notifyHeader(2)) }
+						{ (props.info.header || notifyHeader(2)) }
 					</ToastHeader>
 					<ToastBody>
 						{ (props.info.message || 'Erro na aplicação') }
