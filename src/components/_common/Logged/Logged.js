@@ -6,10 +6,10 @@ const Logged = props => {
 	const [showLogged, setShowLogged] = useState(false);
 
 	useEffect(() => {
-		if (props.usuario && Object.keys(props.usuario).length) {
+		if (props.user && Object.keys(props.user).length) {
 			setShowLogged(true);
 		}
-	}, [props.usuario]);
+	}, [props.user]);
 
 	const checkUserLogged = () => {
 		let Component = null;

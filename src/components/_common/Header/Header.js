@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 
-import Logged from './Logged';
+import Logged from 'components/_common/Logged';
 
 import imgLogo from 'assets/images/logo.png';
 
 import './Header.css';
 
-const Header = () => {
+const Header = props => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = e => {
@@ -38,7 +38,7 @@ const Header = () => {
 
 				<Collapse isOpen={ isOpen } navbar>
 					{ menuContent() }
-					<Logged />
+					<Logged user={ props.user } />
 				</Collapse>
 			</Navbar>
 		</header>

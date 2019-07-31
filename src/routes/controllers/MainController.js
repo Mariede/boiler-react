@@ -34,6 +34,10 @@ const MainController = props => {
 	sessionStorage.setItem('current-path', currentPath);
 
 	useEffect(() => {
+		props.checkUserLogged(resultData);
+	}, [props, resultData]);
+
+	useEffect(() => {
 		setResultData(false);
 		setResultError({});
 		setResultLoading(true);

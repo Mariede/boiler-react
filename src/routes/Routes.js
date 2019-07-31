@@ -8,13 +8,13 @@ import Login from 'components/_pages/_auth/Login';
 import Usuario from 'components/_pages/_usuario/Usuario';
 import NotFound from 'components/_common/NotFound';
 
-const Routes = () => {
+const Routes = props => {
 	const FadingRoute = ({ isProtected, component: Component, ...pathDetails }) => {
 		return (
 			<Route {...pathDetails} render={
 				routeProps => {
 					return (
-						<MainController isProtected={ isProtected } { ...routeProps }>
+						<MainController checkUserLogged={ props.checkUserLogged } isProtected={ isProtected } { ...routeProps }>
 							<Component { ...routeProps } />
 							<Login { ...routeProps } />
 							<Home { ...routeProps } />

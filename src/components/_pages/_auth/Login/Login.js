@@ -77,7 +77,7 @@ const Login = props => {
 				}
 			);
 		}
-	}, [getUrl, user, pass, submit, props]);
+	}, [props, getUrl, user, pass, submit]);
 
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
