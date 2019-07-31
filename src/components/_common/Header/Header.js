@@ -38,7 +38,7 @@ const Header = props => {
 
 				<Collapse isOpen={ isOpen } navbar>
 					{ menuContent() }
-					<Logged user={ props.user } />
+					<Logged isLogged={ props.isLogged } />
 				</Collapse>
 			</Navbar>
 		</header>

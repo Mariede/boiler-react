@@ -38,7 +38,6 @@ const MainController = props => {
 	}, [props, resultData]);
 
 	useEffect(() => {
-		setResultData(false);
 		setResultError({});
 		setResultLoading(true);
 
@@ -47,7 +46,9 @@ const MainController = props => {
 		)
 		.then(
 			res => {
-				setResultData(res.data);
+				if (res.data !== resultData) {
+					setResultData(res.data);
+				}
 			}
 		)
 		.catch(
@@ -62,7 +63,7 @@ const MainController = props => {
 				setResultLoading(false);
 			}
 		);
-	}, [getUrl, keyRoute]);
+	}, [getUrl, resultData, keyRoute]);
 
 	const setNotify = error => {
 		setResultError(error);
