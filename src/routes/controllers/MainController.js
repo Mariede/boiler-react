@@ -9,6 +9,7 @@ const MainController = props => {
 	const [resultData, setResultData] = useState(props.userLogged);
 	const [resultError, setResultError] = useState({});
 	const [resultLoading, setResultLoading] = useState(false);
+	const [dataLogged, setDataLogged] = useState(false);
 
 	const getUrl = React.useContext(ConfigContext).baseUrl;
 
@@ -35,6 +36,7 @@ const MainController = props => {
 
 	useEffect(() => {
 		props.checkUserLogged(resultData);
+		setDataLogged(false);
 	}, [props, resultData]);
 
 	useEffect(() => {
@@ -66,6 +68,7 @@ const MainController = props => {
 		.finally(
 			() => {
 				setResultLoading(false);
+				setDataLogged(true);
 			}
 		);
 	}, [getUrl, resultData, keyRoute]);
@@ -93,7 +96,7 @@ const MainController = props => {
 				{ Notify({ info: resultError }) }
 				{ Loading({ message: 'Aguarde...', loading: resultLoading }) }
 				<div id="controller">
-					{ (!isProtected ? (!resultLoading ? (!resultData ? Component : (Component.type.name !== 'Login' ? Component : Home)) : 'carregando...') : (!resultLoading ? (resultData ? Component : Login) : 'carregando...')) }
+					{ (dataLogged ? (!isProtected ? (!resultData ? Component : (Component.type.name !== 'Login' ? Component : Home)) : (resultData ? Component : Login)) : 'carregando...') }
 				</div>
 			</React.Fragment>
 		);
