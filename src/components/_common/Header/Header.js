@@ -20,12 +20,29 @@ const Header = props => {
 	const menuContent = () => {
 		return (
 			<Nav className="ml-auto" navbar>
+			{
+				(() => {
+					switch (props.isLogged) {
+						case true: {
+							return (
 				<NavItem>
 					<NavLink tag={ Link } to="/usuario">Usuario</NavLink>
 				</NavItem>
+							);
+						}
+						case false: {
+							return (
 				<NavItem>
 					<NavLink tag={ Link } to="/login">Login</NavLink>
 				</NavItem>
+							);
+						}
+						default: {
+							return null;
+						}
+					}
+				})()
+			}
 			</Nav>
 		);
 	};
