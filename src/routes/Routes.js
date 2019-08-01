@@ -14,7 +14,7 @@ const Routes = props => {
 			<Route {...pathDetails} render={
 				routeProps => {
 					return (
-						<MainController checkUserLogged={ props.checkUserLogged } isProtected={ isProtected } { ...routeProps }>
+						<MainController userLogged={ props.userLogged } checkUserLogged={ props.checkUserLogged } isProtected={ isProtected } { ...routeProps }>
 							<Component { ...routeProps } />
 							<Login { ...routeProps } />
 							<Home { ...routeProps } />

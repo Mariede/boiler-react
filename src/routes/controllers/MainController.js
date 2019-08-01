@@ -6,7 +6,7 @@ import Loading from 'components/_common/Loading';
 import ConfigContext from 'components/_helpers/ConfigContext';
 
 const MainController = props => {
-	const [resultData, setResultData] = useState(false);
+	const [resultData, setResultData] = useState(props.userLogged);
 	const [resultError, setResultError] = useState({});
 	const [resultLoading, setResultLoading] = useState(false);
 
