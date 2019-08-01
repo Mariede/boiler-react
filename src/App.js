@@ -8,19 +8,14 @@ import Footer from 'components/_common/Footer';
 import ConfigContext from 'components/_helpers/ConfigContext';
 
 const App = props => {
-	const renderHeader = isLogged => {
+	const checkUserLogged = isLogged => {
 console.log(isLogged);
-		return (
-			<Header isLogged={ isLogged } />
-		);
 	};
-
-	const checkUserLogged = renderHeader.bind(this);
 
 	return (
 		<ConfigContext.Provider value={ props.configData }>
 			<Router>
-				{ renderHeader(false) }
+				<Header isLogged={ false } />
 				<div id="wrapper">
 					<Routes checkUserLogged={ u => checkUserLogged(u) } />
 				</div>

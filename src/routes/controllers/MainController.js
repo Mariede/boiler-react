@@ -42,7 +42,12 @@ const MainController = props => {
 		setResultLoading(true);
 
 		axios.get(
-			getUrl + '/isLogged'
+			getUrl + '/isLogged',
+			{
+				params: {
+					result_type: 'a'
+				}
+			}
 		)
 		.then(
 			res => {
