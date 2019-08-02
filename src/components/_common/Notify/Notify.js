@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Toast, ToastHeader, ToastBody, Button } from 'reactstrap';
 
 import './Notify.css';
@@ -17,6 +18,7 @@ const Notify = props => {
 
 			return () => {
 				clearTimeout(timer);
+				setShowNotify(false);
 			}
 		}
 	}, [props.info]);
@@ -24,8 +26,8 @@ const Notify = props => {
 	const notifyHeader = p => {
 		let header = (p !== 2 ? 'secondary' : 'Notificação');
 
-		if (props.info.type) {
-			switch (props.info.type) {
+		if (props.type) {
+			switch (props.type) {
 				case 1: {
 				// Success
 					header = (p !== 2 ? 'success' : 'Sucesso');
@@ -66,7 +68,7 @@ const Notify = props => {
 				<Toast className="notify" isOpen={ isOpen }>
 					<Button close onClick={ closeNotify } />
 					<ToastHeader icon={ notifyHeader(1) }>
-						{ (props.info.header || notifyHeader(2)) }{ (props.info.code ? ` (código ${props.info.code})` : '') }
+						{ (props.header || notifyHeader(2)) }{ (props.info.code ? ` (código ${props.info.code})` : '') }
 					</ToastHeader>
 					<ToastBody>
 						{ (props.info.message || 'Erro na aplicação') }
@@ -75,7 +77,7 @@ const Notify = props => {
 			);
 		}
 
-		return Component;
+		return ReactDOM.createPortal(Component, document.getElementById('notify_p'));
 	};
 
 	return checkNotify();

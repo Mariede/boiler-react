@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Spinner } from 'reactstrap';
 
 import './Loading.css';
@@ -9,6 +10,10 @@ const Loading = props => {
 	useEffect(() => {
 		if (props.loading) {
 			setShowLoading(true);
+		}
+
+		return () => {
+			setShowLoading(false);
 		}
 	}, [props.loading]);
 
@@ -27,7 +32,7 @@ const Loading = props => {
 			);
 		}
 
-		return Component;
+		return ReactDOM.createPortal(Component, document.getElementById('loading_p'));
 	};
 
 	return checkLoading();
