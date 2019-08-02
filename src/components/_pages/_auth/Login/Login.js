@@ -15,8 +15,6 @@ const Login = props => {
 	const [user, formHandleUser] = useState('');
 	const [pass, formHandlePass] = useState('');
 
-	const [submit, setSubmit] = useState(false);
-
 	const configFormValidation = [
 		{
 			id: 'user',
@@ -46,8 +44,22 @@ const Login = props => {
 		FormValidator.setFormResponse(configFormValidation); // formulario: 1 de 2
 	}, [configFormValidation]);
 
-	useEffect(() => {
-		if (submit) {
+
+
+	const handleFormElements = (e, handler) => {
+		e.preventDefault();
+
+		FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
+
+		handler(e.target.value);
+	};
+
+	const submitForm = e => {
+		e.preventDefault();
+
+		const formCheck = FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
+
+		if (formCheck) {
 			props.setNotify({});
 			props.setLoading(true);
 
@@ -76,24 +88,6 @@ const Login = props => {
 					props.setLoading(false);
 				}
 			);
-		}
-	}, [props, getUrl, user, pass, submit]);
-
-	const handleFormElements = (e, handler) => {
-		e.preventDefault();
-
-		FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
-
-		handler(e.target.value);
-	};
-
-	const submitForm = e => {
-		e.preventDefault();
-
-		const formCheck = FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
-
-		if (formCheck) {
-			setSubmit(true);
 		}
 	};
 

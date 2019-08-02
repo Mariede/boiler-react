@@ -11,7 +11,9 @@ const App = props => {
 	const [userLogged, setUserLogged] = useState(false);
 
 	const checkUserLogged = isLogged => {
-		setUserLogged(isLogged);
+		if (isLogged !== userLogged) {
+			setUserLogged(isLogged);
+		}
 	};
 
 	return (

@@ -53,9 +53,7 @@ const MainController = props => {
 		)
 		.then(
 			res => {
-				if (res.data !== resultData) {
-					setResultData(res.data);
-				}
+				setResultData(res.data);
 			}
 		)
 		.catch(
