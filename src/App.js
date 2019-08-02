@@ -16,12 +16,19 @@ const App = props => {
 		}
 	};
 
+	const cbUserLogged = {
+		userLogged: userLogged,
+		checkUserLogged: u => {
+			checkUserLogged(u);
+		}
+	};
+
 	return (
 		<ConfigContext.Provider value={ props.configData }>
 			<Router>
 				<Header isLogged={ userLogged } />
 				<div id="wrapper">
-					<Routes userLogged={ userLogged } checkUserLogged={ u => checkUserLogged(u) } />
+					<Routes cbUserLogged={ { cbUserLogged } } />
 				</div>
 				<Footer />
 			</Router>

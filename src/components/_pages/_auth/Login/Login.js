@@ -44,8 +44,6 @@ const Login = props => {
 		FormValidator.setFormResponse(configFormValidation); // formulario: 1 de 2
 	}, [configFormValidation]);
 
-
-
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
 
@@ -60,9 +58,6 @@ const Login = props => {
 		const formCheck = FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
 
 		if (formCheck) {
-			props.setNotify({});
-			props.setLoading(true);
-
 			axios.post(
 				getUrl + '/login',
 				{
@@ -78,14 +73,7 @@ const Login = props => {
 			)
 			.catch(
 				err => {
-					const errThis = props.setErrors(err, 'Login', 4);
-					props.setNotify(errThis);
-					throw errThis;
-				}
-			)
-			.finally(
-				() => {
-					props.setLoading(false);
+					throw err;
 				}
 			);
 		}

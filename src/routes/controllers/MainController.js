@@ -6,28 +6,14 @@ import Loading from 'components/_common/Loading';
 import ConfigContext from 'components/_helpers/ConfigContext';
 
 const MainController = props => {
-	const [resultData, setResultData] = useState(props.userLogged);
+	const [resultData, setResultData] = useState(props.cbUserLogged.userLogged);
 	const [resultError, setResultError] = useState({});
 	const [resultLoading, setResultLoading] = useState(false);
 	const [dataLogged, setDataLogged] = useState(false);
 
 	const getUrl = React.useContext(ConfigContext).baseUrl;
 
-	const newPropsChildren = React.Children.map(props.children, child => {
-		return React.cloneElement(child, {
-			setNotify: (n) => {
-				setNotify(n);
-			},
-			setLoading: (l) => {
-				setLoading(l);
-			},
-			setErrors: (e, h, t) => {
-				return setErrors(e, h, t);
-			}
-		});
-	});
-
-	const [Component, Login, Home] = newPropsChildren;
+	const [Component, Login, Home] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
 	const keyRoute = props.location.key;
@@ -35,13 +21,13 @@ const MainController = props => {
 	sessionStorage.setItem('current-path', currentPath);
 
 	useEffect(() => {
-		props.checkUserLogged(resultData);
+		props.cbUserLogged.checkUserLogged(resultData);
 		setDataLogged(false);
 	}, [props, resultData]);
 
 	useEffect(() => {
-		setResultError({});
-		setResultLoading(true);
+		setNotify({});
+		setLoading(true);
 
 		axios.get(
 			getUrl + '/isLogged',
@@ -59,17 +45,17 @@ const MainController = props => {
 		.catch(
 			err => {
 				const errThis = setErrors(err, 'Controlador Principal', 4);
-				setResultError(errThis);
+				setNotify(errThis);
 				throw errThis;
 			}
 		)
 		.finally(
 			() => {
-				setResultLoading(false);
+				setLoading(false);
 				setDataLogged(true);
 			}
 		);
-	}, [getUrl, resultData, keyRoute]);
+	}, [getUrl, keyRoute]);
 
 	const setNotify = error => {
 		setResultError(error);
