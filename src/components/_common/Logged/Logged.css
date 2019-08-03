@@ -12,7 +12,7 @@
 	border: 1px #2ac solid;
 	border-radius: 5px;
 	margin: 1px 0px; /* Define centro do cabecalho */
-	padding: 14px 7px; /* Define centro do cabecalho */
+	padding: 14px 21px; /* Define centro do cabecalho */
 }
 
 #logged #loggedUser .inline {

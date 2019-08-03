@@ -86,7 +86,7 @@ const Logged = props => {
 						<div id="loggedUserData" className="inline">
 							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getDataUser.nome }</strong><br />{ getDataUser.login }
 						</div>
-						<Button type="button" color="secondary" size="sm" onClick={ logoutApp }>Sair</Button>
+						<Button type="button" color="danger" size="sm" onClick={ logoutApp }>Sair</Button>
 					</div>
 				);
 			}
