@@ -8,12 +8,12 @@ import Loading from 'components/_common/Loading';
 import PageSubject from 'components/_common/PageSubject';
 
 import FormValidator from 'components/_helpers/FormValidator';
-import ConfigContext from 'components/_helpers/ConfigContext';
+import ContextConfig from 'components/_helpers/ContextConfig';
 
 import './Login.css';
 
 const Login = props => {
-	const getUrl = React.useContext(ConfigContext).baseUrl;
+	const getUrl = React.useContext(ContextConfig).baseUrl;
 
 	const [notify, setNotify] = useState(['', 0]);
 	const [loading, setLoading] = useState(false);

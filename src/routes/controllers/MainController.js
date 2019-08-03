@@ -4,16 +4,16 @@ import axios from 'axios';
 import Notify from 'components/_common/Notify';
 import Loading from 'components/_common/Loading';
 
-import ConfigContext from 'components/_helpers/ConfigContext';
+import ContextConfig from 'components/_helpers/ContextConfig';
 
 const MainController = props => {
-	const getUrl = React.useContext(ConfigContext).baseUrl;
+	const getUrl = React.useContext(ContextConfig).baseUrl;
+	const [dataFetch, setDataFetch] = useState(false);
 
 	const [notify, setNotify] = useState(['', 0]);
 	const [loading, setLoading] = useState(false);
 
-	const [resultData, setResultData] = useState(props.cbUserLogged.userLogged);
-	const [dataFetch, setDataFetch] = useState(false);
+	const [isLogged, setIsLogged] = useState(props.cbUserLogged.userLogged);
 
 	const [Component, Login, Home] = props.children;
 	const isProtected = (props.isProtected !== 'false');
@@ -21,15 +21,15 @@ const MainController = props => {
 	const keyRoute = props.location.key;
 
 	useEffect(() => {
-		props.cbUserLogged.checkUserLogged(resultData);
+		props.cbUserLogged.checkUserLogged(isLogged);
 		setDataFetch(false);
-	}, [resultData, props]);
+	}, [isLogged, props]);
 
 	useEffect(() => {
-		if (resultData && currentPath !== '/login') { // usuario logado
+		if (isLogged && currentPath !== '/login') { // usuario logado
 			sessionStorage.setItem('current-path', currentPath);
 		}
-	}, [resultData, currentPath]);
+	}, [isLogged, currentPath]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -45,7 +45,7 @@ const MainController = props => {
 		.then(
 			res => {
 				setNotify(['', 0]);
-				setResultData(res.data);
+				setIsLogged(res.data);
 			}
 		)
 		.catch(
@@ -68,7 +68,7 @@ const MainController = props => {
 				{ Loading({ message: 'Aguarde...', loading: loading }) }
 				{ Notify({ info: (!loading ? notify[0] : ''), header: 'Controlador Principal', type: notify[1] }) }
 
-				{ (dataFetch ? (!isProtected ? (!resultData ? Component : (Component.type.name !== 'Login' ? Component : Home)) : (resultData ? Component : Login)) : 'carregando...') }
+				{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Login' ? Component : Home)) : (isLogged ? Component : Login)) : 'carregando...') }
 			</div>
 		);
 	};

@@ -6,12 +6,14 @@ import axios from 'axios';
 import Notify from 'components/_common/Notify';
 import Loading from 'components/_common/Loading';
 
-import ConfigContext from 'components/_helpers/ConfigContext';
+import ContextDataUser from 'components/_helpers/ContextDataUser';
+import ContextConfig from 'components/_helpers/ContextConfig';
 
 import './Logged.css';
 
 const Logged = props => {
-	const getUrl = React.useContext(ConfigContext).baseUrl;
+	const getDataUser = React.useContext(ContextDataUser);
+	const getUrl = React.useContext(ContextConfig).baseUrl;
 
 	const [notify, setNotify] = useState(['', 0]);
 	const [loading, setLoading] = useState(false);
@@ -70,7 +72,7 @@ const Logged = props => {
 			if (showLogged) {
 				Component = (
 					<div id="loggedUser">
-						usuário logado <Button type="button" color="info" size="sm" onClick={ logoutApp }>Sair</Button>
+						{ getDataUser.login } <Button type="button" color="info" size="sm" onClick={ logoutApp }>Sair</Button>
 					</div>
 				);
 			}

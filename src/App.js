@@ -1,15 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import axios from 'axios';
 
 import Routes from 'routes/Routes';
 
 import Header from 'components/_common/Header';
 import Footer from 'components/_common/Footer';
 
-import ConfigContext from 'components/_helpers/ConfigContext';
+import ContextConfig from 'components/_helpers/ContextConfig';
+import ContextDataUser from 'components/_helpers/ContextDataUser';
 
 const App = props => {
+	const getUrl = props.configData.baseUrl;
+	const [dataFetch, setDataFetch] = useState(false);
+
 	const [userLogged, setUserLogged] = useState(false);
+	const [dataUser, setDataUser] = useState({});
+
+	useEffect(() => {
+		setDataFetch(false);
+
+		if (userLogged) {
+			axios.get(
+				getUrl + '/isLogged',
+				{
+					params: {
+						result_type: 'b'
+					}
+				}
+			)
+			.then(
+				res => {
+					if (res.data) {
+						setDataUser(res.data);
+					}
+				}
+			)
+			.catch(
+				err => {
+					setDataUser({});
+					throw err;
+				}
+			)
+			.finally(
+				() => {
+					setDataFetch(true);
+				}
+			);
+		} else {
+			setDataUser({});
+			setDataFetch(true);
+		}
+	}, [getUrl, userLogged]);
 
 	const checkUserLogged = isLogged => {
 		if (isLogged !== userLogged) {
@@ -25,15 +67,23 @@ const App = props => {
 	};
 
 	return (
-		<ConfigContext.Provider value={ props.configData }>
-			<Router>
-				<Header isLogged={ userLogged } />
-				<div id="wrapper">
-					<Routes cbUserLogged={ { cbUserLogged } } />
-				</div>
-				<Footer />
-			</Router>
-		</ConfigContext.Provider>
+		<ContextConfig.Provider value={ props.configData }>
+			<ContextDataUser.Provider value={ dataUser }>
+		{
+			dataFetch ? (
+				<Router>
+					<Header isLogged={ userLogged } />
+					<div id="wrapper">
+						<Routes cbUserLogged={ { cbUserLogged } } />
+					</div>
+					<Footer />
+				</Router>
+			) : (
+				null
+			)
+		}
+			</ContextDataUser.Provider>
+		</ContextConfig.Provider>
 	);
 };
 

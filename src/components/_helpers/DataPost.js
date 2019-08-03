@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import ConfigContext from 'components/_helpers/ConfigContext';
+import ContextConfig from 'components/_helpers/ContextConfig';
 
 // params => object (parametros do post, se existirem)
 // config => object (configuracoes adicionais - header, etc... , se existirem)
 // extraTriggers = > array (hooks para o event update no useEffect, se existirem)
 const DataPost = (route, initialValue, { params, config, extraTriggers } = {}) => {
-	const postUrl = React.useContext(ConfigContext).baseUrl + route;
+	const postUrl = React.useContext(ContextConfig).baseUrl + route;
 
 	const [values, setValues] = useState({ data: initialValue, error: {}, loading: false });
 
