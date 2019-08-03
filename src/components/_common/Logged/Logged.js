@@ -72,7 +72,10 @@ const Logged = props => {
 			if (showLogged) {
 				Component = (
 					<div id="loggedUser">
-						{ getDataUser.login } <Button type="button" color="info" size="sm" onClick={ logoutApp }>Sair</Button>
+						<div id="loggedUserData" className="inline">
+							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getDataUser.nome }</strong><br />{ getDataUser.login }
+						</div>
+						<Button type="button" color="secondary" size="sm" onClick={ logoutApp }>Sair</Button>
 					</div>
 				);
 			}

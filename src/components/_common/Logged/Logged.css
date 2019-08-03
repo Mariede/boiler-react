@@ -1,10 +1,24 @@
 #logged {
 	position: relative;
 	height: 60px;
-	padding: 8px;
-	font: 12px Cairo, Arial, Helvetica, san-serif;
-	font-style: italic;
-	display: flex;
-	align-items: center;
 	float: right;
+}
+
+#logged #loggedUser #loggedUserData {
+	font: 10px B612, Arial, Helvetica, san-serif;
+	letter-spacing: 1px;
+	color: #000;
+	background-color: #fff;
+	border: 1px #2ac solid;
+	border-radius: 5px;
+	margin: 1px 0px; /* Define centro do cabecalho */
+	padding: 14px 7px; /* Define centro do cabecalho */
+}
+
+#logged #loggedUser .inline {
+	float: left;
+}
+
+#logged #loggedUser button {
+	margin: 15px 7px; /* Define centro do cabecalho e distancia dos elementos */
 }
