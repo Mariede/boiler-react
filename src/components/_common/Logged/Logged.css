@@ -1,8 +1,10 @@
 #logged {
 	position: relative;
-	text-align: right;
 	height: 60px;
 	padding: 8px;
 	font: 12px Cairo, Arial, Helvetica, san-serif;
 	font-style: italic;
+	display: flex;
+	align-items: center;
+	float: right;
 }

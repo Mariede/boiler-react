@@ -25,6 +25,8 @@ const Logged = props => {
 	}, [props.isLogged]);
 
 	useEffect(() => {
+		setLogout(false);
+
 		if (submit) {
 			setLoading(true);
 
