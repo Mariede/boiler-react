@@ -6,7 +6,6 @@ import './Notify.css';
 
 const Notify = props => {
 	const [showNotify, setShowNotify] = useState(false);
-	const [isOpen, setIsOpen] = useState(true);
 
 	useEffect(() => {
 		if (props.info && Object.keys(props.info).length) {
@@ -18,8 +17,13 @@ const Notify = props => {
 
 			return () => {
 				clearTimeout(timer);
-				setShowNotify(false);
 			}
+		} else {
+			setShowNotify(false);
+		}
+
+		return () => {
+			setShowNotify(false);
 		}
 	}, [props.info]);
 
@@ -57,7 +61,7 @@ const Notify = props => {
 
 	const closeNotify = e => {
 		e.preventDefault();
-		setIsOpen(false);
+		setShowNotify(false);
 	};
 
 	const checkNotify = () => {
@@ -65,13 +69,13 @@ const Notify = props => {
 
 		if (showNotify) {
 			Component = (
-				<Toast className="notify" isOpen={ isOpen }>
+				<Toast className="notify">
 					<Button close onClick={ closeNotify } />
 					<ToastHeader icon={ notifyHeader(1) }>
-						{ (props.header || notifyHeader(2)) }{ (props.info.code ? ` (código ${props.info.code})` : '') }
+						{ (props.header || notifyHeader(2)) }{ (props.info.response ? ` (código ${props.info.response.data.code})` : '') }
 					</ToastHeader>
 					<ToastBody>
-						{ (props.info.message || 'Erro na aplicação') }
+						{ (props.info.response ? props.info.response.data.message : (props.info.message || 'Erro na aplicação')) }
 					</ToastBody>
 				</Toast>
 			);

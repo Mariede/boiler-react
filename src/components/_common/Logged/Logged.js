@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import axios from 'axios';
 
+import Notify from 'components/_common/Notify';
+import Loading from 'components/_common/Loading';
+
 import ConfigContext from 'components/_helpers/ConfigContext';
 
 import './Logged.css';
@@ -10,29 +13,48 @@ import './Logged.css';
 const Logged = props => {
 	const getUrl = React.useContext(ConfigContext).baseUrl;
 
+	const [notify, setNotify] = useState(['', 0]);
+	const [loading, setLoading] = useState(false);
+
 	const [showLogged, setShowLogged] = useState(false);
+	const [submit, setSubmit] = useState(false);
 	const [logout, setLogout] = useState(false);
 
 	useEffect(() => {
 		setShowLogged(props.isLogged);
 	}, [props.isLogged]);
 
+	useEffect(() => {
+		if (submit) {
+			setLoading(true);
+
+			axios.post(
+				getUrl + '/logout'
+			)
+			.then(
+				res => {
+					setNotify(['', 0]);
+					setLogout(true);
+				}
+			)
+			.catch(
+				err => {
+					setNotify([err, 4]);
+					throw err;
+				}
+			)
+			.finally(
+				() => {
+					setLoading(false);
+					setSubmit(false);
+				}
+			);
+		}
+	}, [getUrl, submit]);
+
 	const logoutApp = e => {
 		e.preventDefault();
-
-		axios.post(
-			getUrl + '/logout'
-		)
-		.then(
-			res => {
-				setLogout(true);
-			}
-		)
-		.catch(
-			err => {
-				throw err;
-			}
-		);
+		setSubmit(true);
 	};
 
 	const checkUserLogged = () => {
@@ -45,14 +67,20 @@ const Logged = props => {
 		} else {
 			if (showLogged) {
 				Component = (
-					<div id="logged">
+					<div id="loggedUser">
 						usuário logado <Button type="button" color="info" size="sm" onClick={ logoutApp }>Sair</Button>
 					</div>
 				);
 			}
 		}
 
-		return Component;
+		return (
+			<div id="logged">
+				{ Loading({ message: 'Aguarde...', loading: loading }) }
+				{ Notify({ info: (!loading ? notify[0] : ''), header: 'Logout', type: notify[1] }) }
+				{ Component }
+			</div>
+		);
 	};
 
 	return checkUserLogged();

@@ -19,18 +19,21 @@ body {
 	padding: 0px 5px;
 }
 
-#root {
+#root, #notify_p {
 	position: relative;
-	background-color: #fff;
 	width: 100%;
 	max-width: 1380px;
+	margin: auto;
+}
+
+#root {
+	background-color: #fff;
 	min-height: 100%;
 	border-width: 0px 1px;
 	border-style: solid;
 	border-color: #aaa;
 	padding-top: 5px;
 	padding-bottom: 60px; /* Deve sobrepor altura do rodape */
-	margin: auto;
 }
 
 #wrapper {

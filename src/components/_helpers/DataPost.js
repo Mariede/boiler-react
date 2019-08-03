@@ -7,9 +7,10 @@ import ConfigContext from 'components/_helpers/ConfigContext';
 // config => object (configuracoes adicionais - header, etc... , se existirem)
 // extraTriggers = > array (hooks para o event update no useEffect, se existirem)
 const DataPost = (route, initialValue, { params, config, extraTriggers } = {}) => {
+	const postUrl = React.useContext(ConfigContext).baseUrl + route;
+
 	const [values, setValues] = useState({ data: initialValue, error: {}, loading: false });
 
-	const postUrl = React.useContext(ConfigContext).baseUrl + route;
 	const postParams = JSON.stringify((params ? { params } : {}));
 	const postConfig = JSON.stringify((config ? { config } : {}));
 	const postExtraTriggers = (extraTriggers || []);

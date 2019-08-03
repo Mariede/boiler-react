@@ -10,6 +10,8 @@ const Loading = props => {
 	useEffect(() => {
 		if (props.loading) {
 			setShowLoading(true);
+		} else {
+			setShowLoading(false);
 		}
 
 		return () => {

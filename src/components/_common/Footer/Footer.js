@@ -12,7 +12,7 @@ const Footer = () => {
 					Footer da aplicação
 				</Col>
 				<Col md={6}>
-					<p>versão</p>
+					versão
 				</Col>
 			</Row>
 			</Container>

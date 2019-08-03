@@ -15,7 +15,7 @@ import './Login.css';
 const Login = props => {
 	const getUrl = React.useContext(ConfigContext).baseUrl;
 
-	const [notify, setNotify] = useState();
+	const [notify, setNotify] = useState(['', 0]);
 	const [loading, setLoading] = useState(false);
 
 	const [user, formHandleUser] = useState('');
@@ -53,7 +53,6 @@ const Login = props => {
 
 	useEffect(() => {
 		if (submit) {
-			setNotify();
 			setLoading(true);
 
 			axios.post(
@@ -65,19 +64,22 @@ const Login = props => {
 			)
 			.then(
 				res => {
+					setNotify(['', 0]);
+
 					const redirectCache = sessionStorage.getItem('current-path');
-					props.history.push((redirectCache && redirectCache !== '/login' ? redirectCache : '/'));
+					props.history.push((redirectCache ? redirectCache : '/'));
 				}
 			)
 			.catch(
 				err => {
-					setNotify(err);
+					setNotify([err, 4]);
 					throw err;
 				}
 			)
 			.finally(
 				() => {
 					setLoading(false);
+					setSubmit(false);
 				}
 			);
 		}
@@ -103,8 +105,8 @@ const Login = props => {
 
 	return (
 		<div id="login">
-			{ Notify({ info: notify, header: 'Controlador Principal', type: 4 }) }
 			{ Loading({ message: 'Aguarde...', loading: loading }) }
+			{ Notify({ info: (!loading ? notify[0] : ''), header: 'Login', type: notify[1] }) }
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
 			<div className="main-content">
 				<Form className="form" id="loginForm" onSubmit={ submitForm }>

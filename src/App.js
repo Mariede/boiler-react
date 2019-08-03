@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Header from 'components/_common/Header';
 import Routes from 'routes/Routes';
+
+import Header from 'components/_common/Header';
 import Footer from 'components/_common/Footer';
 
 import ConfigContext from 'components/_helpers/ConfigContext';

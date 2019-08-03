@@ -6,9 +6,10 @@ import ConfigContext from 'components/_helpers/ConfigContext';
 // params => object (parametros do get, se existirem)
 // extraTriggers = > array (hooks para o event update no useEffect, se existirem)
 const DataFetch = (route, initialValue, { params, extraTriggers } = {}) => {
+	const getUrl = React.useContext(ConfigContext).baseUrl + route;
+
 	const [values, setValues] = useState({ data: initialValue, error: {}, loading: false });
 
-	const getUrl = React.useContext(ConfigContext).baseUrl + route;
 	const getParams = JSON.stringify((params ? { params: params } : {}));
 	const getExtraTriggers = (extraTriggers || []);
 
