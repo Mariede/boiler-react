@@ -27,6 +27,7 @@ const Logged = props => {
 	}, [props.isLogged]);
 
 	useEffect(() => {
+		let isMounted = true;
 		setLogout(false);
 
 		if (submit) {
@@ -37,23 +38,33 @@ const Logged = props => {
 			)
 			.then(
 				res => {
-					setNotify(['', 0]);
-					setLogout(true);
+					if (isMounted) {
+						setNotify(['', 0]);
+						setLogout(true);
+					}
 				}
 			)
 			.catch(
 				err => {
-					setNotify([err, 4]);
+					if (isMounted) {
+						setNotify([err, 4]);
+					}
 					throw err;
 				}
 			)
 			.finally(
 				() => {
-					setLoading(false);
-					setSubmit(false);
+					if (isMounted) {
+						setLoading(false);
+						setSubmit(false);
+					}
 				}
 			);
 		}
+
+		return () => (
+			isMounted = false
+		);
 	}, [getUrl, submit]);
 
 	const logoutApp = e => {

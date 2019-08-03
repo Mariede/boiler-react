@@ -32,6 +32,7 @@ const MainController = props => {
 	}, [isLogged, currentPath]);
 
 	useEffect(() => {
+		let isMounted = true;
 		setLoading(true);
 
 		axios.get(
@@ -44,21 +45,31 @@ const MainController = props => {
 		)
 		.then(
 			res => {
-				setNotify(['', 0]);
-				setIsLogged(res.data);
+				if (isMounted) {
+					setNotify(['', 0]);
+					setIsLogged(res.data);
+				}
 			}
 		)
 		.catch(
 			err => {
-				setNotify([err, 4]);
+				if (isMounted) {
+					setNotify([err, 4]);
+				}
 				throw err;
 			}
 		)
 		.finally(
 			() => {
-				setLoading(false);
-				setDataFetch(true);
+				if (isMounted) {
+					setLoading(false);
+					setDataFetch(true);
+				}
 			}
+		);
+
+		return () => (
+			isMounted = false
 		);
 	}, [getUrl, keyRoute]);
 

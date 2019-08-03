@@ -18,6 +18,7 @@ const App = props => {
 	const [dataUser, setDataUser] = useState({});
 
 	useEffect(() => {
+		let isMounted = true;
 		setDataFetch(false);
 
 		if (userLogged) {
@@ -31,26 +32,36 @@ const App = props => {
 			)
 			.then(
 				res => {
-					if (res.data) {
-						setDataUser(res.data);
+					if (isMounted) {
+						if (res.data) {
+							setDataUser(res.data);
+						}
 					}
 				}
 			)
 			.catch(
 				err => {
-					setDataUser({});
+					if (isMounted) {
+						setDataUser({});
+					}
 					throw err;
 				}
 			)
 			.finally(
 				() => {
-					setDataFetch(true);
+					if (isMounted) {
+						setDataFetch(true);
+					}
 				}
 			);
 		} else {
 			setDataUser({});
 			setDataFetch(true);
 		}
+
+		return () => (
+			isMounted = false
+		);
 	}, [getUrl, userLogged]);
 
 	const checkUserLogged = isLogged => {

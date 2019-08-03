@@ -52,6 +52,8 @@ const Login = props => {
 	}, [configFormValidation]);
 
 	useEffect(() => {
+		let isMounted = true;
+
 		if (submit) {
 			setLoading(true);
 
@@ -64,7 +66,9 @@ const Login = props => {
 			)
 			.then(
 				res => {
-					setNotify(['', 0]);
+					if (isMounted) {
+						setNotify(['', 0]);
+					}
 
 					const redirectCache = sessionStorage.getItem('current-path');
 					props.history.push((redirectCache ? redirectCache : '/'));
@@ -72,17 +76,25 @@ const Login = props => {
 			)
 			.catch(
 				err => {
-					setNotify([err, 4]);
+					if (isMounted) {
+						setNotify([err, 4]);
+					}
 					throw err;
 				}
 			)
 			.finally(
 				() => {
-					setLoading(false);
-					setSubmit(false);
+					if (isMounted) {
+						setLoading(false);
+						setSubmit(false);
+					}
 				}
 			);
 		}
+
+		return () => (
+			isMounted = false
+		);
 	}, [getUrl, user, pass, submit, props]);
 
 	const handleFormElements = (e, handler) => {
