@@ -8,6 +8,10 @@ import imgLogo from 'assets/images/logo.png';
 
 import './Header.css';
 
+/*
+	PROPS:
+		- isLogged			-> OBRIGATORIO, necessario para exibicao dos dados de usuario logado e menu
+*/
 const Header = props => {
 	const [isOpen, setIsOpen] = useState(false);
 

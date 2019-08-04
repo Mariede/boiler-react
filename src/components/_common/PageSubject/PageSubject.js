@@ -2,6 +2,11 @@ import React from 'react';
 
 import './PageSubject.css';
 
+/*
+	PROPS:
+		- icon				-> (font-awesome, default: "fas fa-thumbtack")
+		- subject
+*/
 const PageSubject = props => {
 	return (
 		<div id="pageSubject">

@@ -11,6 +11,11 @@ import ContextConfig from 'components/_helpers/ContextConfig';
 
 import './Logged.css';
 
+/*
+	PROPS:
+		- isLogged			-> OBRIGATORIO, necessario para exibicao dos dados de usuario logado
+		- icon				-> (font-awesome, default: "fa fa-user-alt")
+*/
 const Logged = props => {
 	const getDataUser = React.useContext(ContextDataUser);
 	const getUrl = React.useContext(ContextConfig).baseUrl;
@@ -94,7 +99,7 @@ const Logged = props => {
 
 		return (
 			<div id="logged">
-				{ Loading({ message: 'Aguarde...', loading: loading }) }
+				{ Loading({ loading: loading }) }
 				{ Notify({ info: (!loading ? notify[0] : ''), header: 'Logout', type: notify[1] }) }
 				{ Component }
 			</div>

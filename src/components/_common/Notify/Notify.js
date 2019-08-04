@@ -4,11 +4,17 @@ import { Toast, ToastHeader, ToastBody, Button } from 'reactstrap';
 
 import './Notify.css';
 
+/*
+	PROPS:
+		- info				-> OBRIGATORIO, texto ou objeto (default: "Erro na aplicação")
+		- header			-> (default: "Notificação")
+		- type				-> exibe ícone (default: info)
+*/
 const Notify = props => {
 	const [showNotify, setShowNotify] = useState(false);
 
 	useEffect(() => {
-		if (props.info && Object.keys(props.info).length) {
+		if (props.info) {
 			setShowNotify(true);
 
 			const timer = setTimeout(() => {
@@ -65,6 +71,8 @@ const Notify = props => {
 	};
 
 	const checkNotify = () => {
+		const handledInfo = props.info && props.info.response; // erro tratado do back-end
+
 		let Component = null;
 
 		if (showNotify) {
@@ -72,10 +80,10 @@ const Notify = props => {
 				<Toast className="notify">
 					<Button close onClick={ closeNotify } />
 					<ToastHeader icon={ notifyHeader(1) }>
-						{ (props.header || notifyHeader(2)) }{ (props.info.response ? ` (código ${props.info.response.data.code})` : '') }
+						{ (props.header || notifyHeader(2)) }{ (handledInfo ? ` (código ${handledInfo.data.code})` : '') }
 					</ToastHeader>
 					<ToastBody>
-						{ (props.info.response ? props.info.response.data.message : (props.info.message || 'Erro na aplicação')) }
+						{ (handledInfo ? handledInfo.data.message : (props.info.message || props.info)) }
 					</ToastBody>
 				</Toast>
 			);

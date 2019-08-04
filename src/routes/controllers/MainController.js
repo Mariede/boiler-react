@@ -76,7 +76,7 @@ const MainController = props => {
 	const AuthComponent = () => {
 		return (
 			<div id="controller">
-				{ Loading({ message: 'Aguarde...', loading: loading }) }
+				{ Loading({ loading: loading }) }
 				{ Notify({ info: (!loading ? notify[0] : ''), header: 'Controlador Principal', type: notify[1] }) }
 
 				{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Login' ? Component : Home)) : (isLogged ? Component : Login)) : 'carregando...') }

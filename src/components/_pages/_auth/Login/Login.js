@@ -117,7 +117,7 @@ const Login = props => {
 
 	return (
 		<div id="login">
-			{ Loading({ message: 'Aguarde...', loading: loading }) }
+			{ Loading({ loading: loading }) }
 			{ Notify({ info: (!loading ? notify[0] : ''), header: 'Login', type: notify[1] }) }
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
 			<div className="main-content">
