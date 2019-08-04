@@ -55,3 +55,8 @@ div.main-content {
 img {
 	border: 0px;
 }
+
+/* alteracoes layout padrao bootstrap */
+button.btn-link {
+	padding: 0px;
+}

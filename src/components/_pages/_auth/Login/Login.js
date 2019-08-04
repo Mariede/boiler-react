@@ -121,7 +121,7 @@ const Login = props => {
 			{ Notify({ info: (!loading ? notify[0] : ''), header: 'Login', type: notify[1] }) }
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
 			<div className="main-content">
-				<Form className="form" id="loginForm" onSubmit={ submitForm }>
+				<Form id="loginForm" className="form" onSubmit={ submitForm }>
 					<Row form>
 						<Col md={12}>
 							<FormGroup>

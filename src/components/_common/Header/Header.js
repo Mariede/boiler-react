@@ -53,8 +53,8 @@ const Header = props => {
 
 	return (
 		<header id="header">
-			<Navbar className="navbar-local" light expand="md">
-				<NavbarBrand tag={ Link } to="/"><img className="img-logo" src={ imgLogo } alt="logo" /> Boiler React</NavbarBrand>
+			<Navbar expand="md" className="navbar-local" light>
+				<NavbarBrand tag={ Link } to="/"><img src={ imgLogo } alt="logo" className="img-logo" /> Boiler React</NavbarBrand>
 				<NavbarToggler onClick={ toggle } />
 
 				<Collapse isOpen={ isOpen } navbar>

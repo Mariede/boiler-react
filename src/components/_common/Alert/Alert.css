@@ -1,0 +1,17 @@
+.alert-group {
+	display: inline;
+	padding: 0px;
+}
+
+.my-alert .modal-header-local {
+	background-color: #ddc;
+	padding: 8px !important;
+}
+.my-alert .modal-body-local {
+	text-align: justify;
+}
+
+.my-alert .modal-footer-local {
+	background-color: #ddc;
+	padding: 8px !important;
+}

@@ -20,7 +20,7 @@ const NotFound = props => {
 			<PageSubject subject="Informação: Erro 404" icon="fas fa-exclamation" />
 			<div className="main-content">
 				<div className="info">
-					4 <img className="img-not-found" src={ imgNotFound } alt="not-found" /> 4
+					4 <img src={ imgNotFound } alt="not-found" className="img-not-found" /> 4
 				</div>
 
 				<div className="description">
