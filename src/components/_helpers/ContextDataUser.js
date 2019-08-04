@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Acesso global ao config
+// Acesso global aos dados do usuario logado
 const ContextDataUser = React.createContext();
 
 export default ContextDataUser;
