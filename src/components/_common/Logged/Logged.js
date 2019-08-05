@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Button } from 'reactstrap';
 import axios from 'axios';
 
+import Alert from 'components/_common/Alert';
 import Notify from 'components/_common/Notify';
 import Loading from 'components/_common/Loading';
 
@@ -72,8 +72,7 @@ const Logged = props => {
 		);
 	}, [getUrl, submit]);
 
-	const logoutApp = e => {
-		e.preventDefault();
+	const logoutApp = () => {
 		setSubmit(true);
 	};
 
@@ -91,7 +90,7 @@ const Logged = props => {
 						<div id="loggedUserData" className="inline">
 							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getDataUser.nome }</strong><br />{ getDataUser.login }
 						</div>
-						<Button type="button" color="danger" size="sm" onClick={ logoutApp }>Sair</Button>
+						<Alert message="Deseja realmente sair do sistema?" footerSize="sm" buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" callback={ logoutApp } confirm />
 					</div>
 				);
 			}

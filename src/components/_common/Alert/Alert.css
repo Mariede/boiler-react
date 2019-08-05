@@ -7,6 +7,11 @@
 	background-color: #ddd;
 	padding: 8px !important;
 }
+
+.my-alert .modal-title {
+	font-size: 16px;
+}
+
 .my-alert .modal-body-local {
 	text-align: justify;
 }

@@ -9,6 +9,7 @@ import './Alert.css';
 		- message			-> Modal: Aviso a ser emitido, recomendado
 		- centered			-> Modal: true/false (default: { false })
 		- size				-> Modal (default: "lg")
+		- footerSize		-> Modal: tamanho do botao no footer do modal (default: "md")
 		- buttonType		-> Botao de chamada (default: "button")
 		- buttonColor		-> Botao de chamada (default: "success")
 		- buttonSize		-> Botao de chamada (default: "md")
@@ -65,11 +66,11 @@ const Alert = props => {
 						{
 							isConfirm ? (
 						<React.Fragment>
-							<Button type="button" color="danger" onClick={ e => toggleThis(e) }>Cancelar</Button>
-							<Button type="button" color="success" onClick={ e => exitCallback(isConfirm, true) }>Confirmar</Button>
+							<Button type="button" color="danger" size={ props.footerSize } onClick={ e => toggleThis(e) }>Cancelar</Button>
+							<Button type="button" color="success" size={ props.footerSize } onClick={ e => exitCallback(isConfirm, true) }>Confirmar</Button>
 						</React.Fragment>
 							) : (
-						<Button type="button" color="success" onClick={ e => toggleThis(e) }>Fechar</Button>
+						<Button type="button" color="success" size={ props.footerSize } onClick={ e => toggleThis(e) }>Fechar</Button>
 							)
 						}
 					</ModalFooter>
@@ -85,7 +86,7 @@ const Alert = props => {
 	return (
 		<div className="alert-group">
 			<Button type={ (props.buttonType || "button") } color={ (props.buttonColor || "success") } size={ (props.buttonSize || "md") } outline={ (props.buttonOutline || false) } block={ (props.buttonBlock || false) } onClick={ e => toggleThis(e) }>{ (props.buttonText || "Confirmar") }</Button>
-			<AlertComponent title={ (props.title || (props.confirm ? "Confirme" : "Aviso")) } message={ props.message } centered={ (props.centered || false) } size={ (props.size || "lg") } confirm={ props.confirm } />
+			<AlertComponent title={ (props.title || (props.confirm ? "Confirme" : "Aviso")) } message={ props.message } centered={ (props.centered || false) } size={ (props.size || "lg") } footerSize={ (props.footerSize || "md") } confirm={ props.confirm } />
 		</div>
 	);
 };
