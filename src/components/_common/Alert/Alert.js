@@ -5,7 +5,8 @@ import './Alert.css';
 
 /*
 	PROPS:
-		- title				-> Modal (default: "Aviso")
+		- title				-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
+									- se title igual "!no" nao exibe o header do modal
 		- message			-> Modal: Aviso a ser emitido, recomendado
 		- centered			-> Modal: true/false (default: { false })
 		- size				-> Modal (default: "lg")
@@ -50,6 +51,8 @@ const Alert = props => {
 		if (modalShow) {
 			Component = (
 				<Modal isOpen={ modalShow } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(isConfirm, false) }>
+				{
+					props.title !== '!no' ? (
 					<ModalHeader className="modal-header-local" toggle={ e => toggleThis(e) }>
 						{
 							isConfirm ? (
@@ -59,6 +62,8 @@ const Alert = props => {
 							)
 						} { props.title }
 					</ModalHeader>
+					) : ''
+				}
 					<ModalBody className="modal-body-local">
 						{ props.message }
 					</ModalBody>
