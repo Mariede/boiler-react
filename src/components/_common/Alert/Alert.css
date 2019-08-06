@@ -4,12 +4,12 @@
 }
 
 .my-alert .modal-header-local {
-	background-color: #ddd;
+	background-color: #bcd;
 	padding: 8px !important;
 }
 
 .my-alert .modal-title {
-	font-size: 16px;
+	font-size: 15px;
 }
 
 .my-alert .modal-body-local {
@@ -17,6 +17,6 @@
 }
 
 .my-alert .modal-footer-local {
-	background-color: #ddd;
+	background-color: #bcd;
 	padding: 8px !important;
 }

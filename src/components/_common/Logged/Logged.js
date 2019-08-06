@@ -90,7 +90,7 @@ const Logged = props => {
 						<div id="loggedUserData" className="inline">
 							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getDataUser.nome }</strong><br />{ getDataUser.login }
 						</div>
-						<Alert message="Deseja realmente sair do sistema?" footerSize="sm" buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" callback={ logoutApp } confirm />
+						<Alert message="Deseja realmente sair do sistema?" size="sm" footerSize="sm" buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" callback={ logoutApp } confirm />
 					</div>
 				);
 			}

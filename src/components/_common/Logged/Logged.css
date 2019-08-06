@@ -9,10 +9,10 @@
 	letter-spacing: 1px;
 	color: #000;
 	background-color: #fff;
-	border: 1px #2ac solid;
+	border: 1px #aaa solid;
 	border-radius: 5px;
-	margin: 1px 0px; /* Define centro do cabecalho */
-	padding: 14px 21px; /* Define centro do cabecalho */
+	margin: 8px 0px; /* Define centro do cabecalho */
+	padding: 7px 21px; /* Define centro do cabecalho */
 }
 
 #logged #loggedUser .inline {
