@@ -43,6 +43,8 @@ const Logged = props => {
 					if (isMounted) {
 						setNotify(['', 0]);
 						setLogout(true);
+
+						sessionStorage.removeItem('current-path');
 					}
 				}
 			)

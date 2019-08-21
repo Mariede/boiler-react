@@ -65,10 +65,10 @@ const Login = props => {
 				res => {
 					if (isMounted) {
 						setNotify(['', 0]);
-					}
 
-					const redirectCache = sessionStorage.getItem('current-path');
-					props.history.push((redirectCache ? redirectCache : '/'));
+						const redirectCache = sessionStorage.getItem('current-path');
+						props.history.push((redirectCache ? redirectCache : '/'));
+					}
 				}
 			)
 			.catch(
