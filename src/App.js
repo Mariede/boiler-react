@@ -18,8 +18,12 @@ const App = props => {
 	const [dataUser, setDataUser] = useState({});
 
 	useEffect(() => {
-		let isMounted = true;
 		setDataFetch(false);
+		setDataUser({});
+	}, [userLogged]);
+
+	useEffect(() => {
+		let isMounted = true;
 
 		if (userLogged) {
 			axios.get(
@@ -41,9 +45,6 @@ const App = props => {
 			)
 			.catch(
 				err => {
-					if (isMounted) {
-						setDataUser({});
-					}
 					throw err;
 				}
 			)
@@ -55,7 +56,6 @@ const App = props => {
 				}
 			);
 		} else {
-			setDataUser({});
 			setDataFetch(true);
 		}
 

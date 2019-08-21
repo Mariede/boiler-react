@@ -8,21 +8,19 @@ import ContextConfig from 'components/_helpers/ContextConfig';
 
 const MainController = props => {
 	const getUrl = React.useContext(ContextConfig).baseUrl;
-	const [dataFetch, setDataFetch] = useState(false);
 
 	const [notify, setNotify] = useState(['', 0]);
-	const [loading, setLoading] = useState(false);
+	const [dataFetch, setDataFetch] = useState(false);
 
 	const [isLogged, setIsLogged] = useState(props.cbUserLogged.userLogged);
 
 	const [Component, Login, Home] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
-	const keyRoute = props.location.key;
 
 	useEffect(() => {
-		props.cbUserLogged.checkUserLogged(isLogged);
 		setDataFetch(false);
+		props.cbUserLogged.checkUserLogged(isLogged);
 	}, [isLogged, props]);
 
 	useEffect(() => {
@@ -33,7 +31,6 @@ const MainController = props => {
 
 	useEffect(() => {
 		let isMounted = true;
-		setLoading(true);
 
 		axios.get(
 			getUrl + '/isLogged',
@@ -56,13 +53,13 @@ const MainController = props => {
 				if (isMounted) {
 					setNotify([err, 4]);
 				}
+
 				throw err;
 			}
 		)
 		.finally(
 			() => {
 				if (isMounted) {
-					setLoading(false);
 					setDataFetch(true);
 				}
 			}
@@ -71,13 +68,13 @@ const MainController = props => {
 		return () => (
 			isMounted = false
 		);
-	}, [getUrl, keyRoute]);
+	}, [getUrl, isLogged, props]);
 
 	const AuthComponent = () => {
 		return (
 			<div id="controller">
-				{ Loading({ loading: loading }) }
-				{ Notify({ info: (!loading ? notify[0] : ''), header: 'Controlador Principal', type: notify[1] }) }
+				{ Loading({ loading: !dataFetch }) }
+				{ Notify({ info: (dataFetch ? notify[0] : ''), header: 'Controlador Principal', type: notify[1] }) }
 
 				{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Login' ? Component : Home)) : (isLogged ? Component : Login)) : 'carregando...') }
 			</div>
