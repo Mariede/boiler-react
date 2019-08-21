@@ -16,11 +16,10 @@ const Login = props => {
 	const getUrl = React.useContext(ContextConfig).baseUrl;
 
 	const [notify, setNotify] = useState(['', 0]);
-	const [loading, setLoading] = useState(false);
+	const [submit, setSubmit] = useState(false);
 
 	const [user, formHandleUser] = useState('');
 	const [pass, formHandlePass] = useState('');
-	const [submit, setSubmit] = useState(false);
 
 	const configFormValidation = [
 		{
@@ -55,8 +54,6 @@ const Login = props => {
 		let isMounted = true;
 
 		if (submit) {
-			setLoading(true);
-
 			axios.post(
 				getUrl + '/login',
 				{
@@ -79,13 +76,13 @@ const Login = props => {
 					if (isMounted) {
 						setNotify([err, 4]);
 					}
+
 					throw err;
 				}
 			)
 			.finally(
 				() => {
 					if (isMounted) {
-						setLoading(false);
 						setSubmit(false);
 					}
 				}
@@ -117,8 +114,8 @@ const Login = props => {
 
 	return (
 		<div id="login">
-			{ Loading({ loading: loading }) }
-			{ Notify({ info: (!loading ? notify[0] : ''), header: 'Login', type: notify[1] }) }
+			{ Loading({ loading: submit }) }
+			{ Notify({ info: (!submit ? notify[0] : ''), header: 'Login', type: notify[1] }) }
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
 			<div className="main-content">
 				<Form id="loginForm" className="form" onSubmit={ submitForm }>

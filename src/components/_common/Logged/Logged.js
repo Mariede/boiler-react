@@ -17,15 +17,14 @@ import './Logged.css';
 		- icon				-> (font-awesome, default: "fa fa-user-alt")
 */
 const Logged = props => {
-	const getDataUser = React.useContext(ContextDataUser);
 	const getUrl = React.useContext(ContextConfig).baseUrl;
+	const getDataUser = React.useContext(ContextDataUser);
 
 	const [notify, setNotify] = useState(['', 0]);
-	const [loading, setLoading] = useState(false);
-
-	const [showLogged, setShowLogged] = useState(false);
 	const [submit, setSubmit] = useState(false);
+
 	const [logout, setLogout] = useState(false);
+	const [showLogged, setShowLogged] = useState(false);
 
 	useEffect(() => {
 		setShowLogged(props.isLogged);
@@ -36,8 +35,6 @@ const Logged = props => {
 		setLogout(false);
 
 		if (submit) {
-			setLoading(true);
-
 			axios.post(
 				getUrl + '/logout'
 			)
@@ -54,13 +51,13 @@ const Logged = props => {
 					if (isMounted) {
 						setNotify([err, 4]);
 					}
+
 					throw err;
 				}
 			)
 			.finally(
 				() => {
 					if (isMounted) {
-						setLoading(false);
 						setSubmit(false);
 					}
 				}
@@ -98,8 +95,8 @@ const Logged = props => {
 
 		return (
 			<div id="logged">
-				{ Loading({ loading: loading }) }
-				{ Notify({ info: (!loading ? notify[0] : ''), header: 'Logout', type: notify[1] }) }
+				{ Loading({ loading: submit }) }
+				{ Notify({ info: (!submit ? notify[0] : ''), header: 'Logout', type: notify[1] }) }
 				{ Component }
 			</div>
 		);
