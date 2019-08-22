@@ -12,15 +12,9 @@ import ContextDataUser from 'components/_helpers/ContextDataUser';
 
 const App = props => {
 	const getUrl = props.configData.baseUrl;
-	const [dataFetch, setDataFetch] = useState(false);
 
 	const [userLogged, setUserLogged] = useState(false);
 	const [dataUser, setDataUser] = useState({});
-
-	useEffect(() => {
-		setDataFetch(false);
-		setDataUser({});
-	}, [userLogged]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -47,16 +41,7 @@ const App = props => {
 				err => {
 					throw err;
 				}
-			)
-			.finally(
-				() => {
-					if (isMounted) {
-						setDataFetch(true);
-					}
-				}
 			);
-		} else {
-			setDataFetch(true);
 		}
 
 		return () => (
@@ -80,8 +65,6 @@ const App = props => {
 	return (
 		<ContextConfig.Provider value={ props.configData }>
 			<ContextDataUser.Provider value={ dataUser }>
-		{
-			dataFetch ? (
 				<Router>
 					<Header isLogged={ userLogged } />
 					<div id="wrapper">
@@ -89,10 +72,6 @@ const App = props => {
 					</div>
 					<Footer />
 				</Router>
-			) : (
-				null
-			)
-		}
 			</ContextDataUser.Provider>
 		</ContextConfig.Provider>
 	);
