@@ -17,8 +17,8 @@ const Routes = props => {
 					return (
 						<MainController { ...props.cbUserLogged } isProtected={ isProtected } { ...routeProps }>
 							<Component { ...routeProps } />
-							<Login { ...routeProps } />
 							<Home { ...routeProps } />
+							<Login { ...routeProps } />
 						</MainController>
 					);
 				}

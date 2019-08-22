@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
@@ -17,8 +17,8 @@ import './Logged.css';
 		- icon				-> (font-awesome, default: "fa fa-user-alt")
 */
 const Logged = props => {
-	const getUrl = React.useContext(ContextConfig).baseUrl;
-	const getDataUser = React.useContext(ContextDataUser);
+	const getUrl = useContext(ContextConfig).baseUrl;
+	const getDataUser = useContext(ContextDataUser);
 
 	const [notify, setNotify] = useState(['', 0]);
 	const [submit, setSubmit] = useState(false);
@@ -75,7 +75,7 @@ const Logged = props => {
 		setSubmit(true);
 	};
 
-	const checkUserLogged = () => {
+	const CheckUserLogged = () => {
 		let Component = null;
 
 		if (logout) {
@@ -99,12 +99,15 @@ const Logged = props => {
 			<div id="logged">
 				{ Loading({ loading: submit }) }
 				{ Notify({ info: (!submit ? notify[0] : ''), header: 'Logout', type: notify[1] }) }
+
 				{ Component }
 			</div>
 		);
 	};
 
-	return checkUserLogged();
+	return (
+		<CheckUserLogged />
+	);
 };
 
 export default Logged;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import Notify from 'components/_common/Notify';
@@ -7,14 +7,14 @@ import Loading from 'components/_common/Loading';
 import ContextConfig from 'components/_helpers/ContextConfig';
 
 const MainController = props => {
-	const getUrl = React.useContext(ContextConfig).baseUrl;
+	const getUrl = useContext(ContextConfig).baseUrl;
 
 	const [notify, setNotify] = useState(['', 0]);
 	const [dataFetch, setDataFetch] = useState(false);
 
 	const [isLogged, setIsLogged] = useState(props.cbUserLogged.userLogged);
 
-	const [Component, Login, Home] = props.children;
+	const [Component, Home, Login] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
 

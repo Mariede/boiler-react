@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import ContextConfig from 'components/_helpers/ContextConfig';
@@ -6,7 +6,7 @@ import ContextConfig from 'components/_helpers/ContextConfig';
 // params => object (parametros do get, se existirem)
 // extraTriggers = > array (hooks para o event update no useEffect, se existirem)
 const DataFetch = (route, initialValue, { params, extraTriggers } = {}) => {
-	const getUrl = React.useContext(ContextConfig).baseUrl + route;
+	const getUrl = useContext(ContextConfig).baseUrl + route;
 
 	const [values, setValues] = useState({ data: initialValue, error: {}, loading: false });
 

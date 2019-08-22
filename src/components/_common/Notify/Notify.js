@@ -14,22 +14,19 @@ const Notify = props => {
 	const [showNotify, setShowNotify] = useState(false);
 
 	useEffect(() => {
+		let timer;
+
 		if (props.info) {
 			setShowNotify(true);
 
-			const timer = setTimeout(() => {
+			timer = setTimeout(() => {
 				setShowNotify(false);
 			}, 15000);
-
-			return () => {
-				clearTimeout(timer);
-			}
-		} else {
-			setShowNotify(false);
 		}
 
 		return () => {
 			setShowNotify(false);
+			clearTimeout(timer);
 		}
 	}, [props.info]);
 
@@ -70,7 +67,7 @@ const Notify = props => {
 		setShowNotify(false);
 	};
 
-	const checkNotify = () => {
+	const CheckNotify = () => {
 		const handledInfo = props.info && props.info.response; // erro tratado do back-end
 
 		let Component = null;
@@ -92,7 +89,9 @@ const Notify = props => {
 		return ReactDOM.createPortal(Component, document.getElementById('notify_p'));
 	};
 
-	return checkNotify();
+	return (
+		<CheckNotify />
+	);
 };
 
 export default Notify;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import axios from 'axios';
@@ -13,7 +13,7 @@ import ContextConfig from 'components/_helpers/ContextConfig';
 import './Login.css';
 
 const Login = props => {
-	const getUrl = React.useContext(ContextConfig).baseUrl;
+	const getUrl = useContext(ContextConfig).baseUrl;
 
 	const [notify, setNotify] = useState(['', 0]);
 	const [submit, setSubmit] = useState(false);
@@ -116,6 +116,7 @@ const Login = props => {
 		<div id="login">
 			{ Loading({ loading: submit }) }
 			{ Notify({ info: (!submit ? notify[0] : ''), header: 'Login', type: notify[1] }) }
+
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
 			<div className="main-content">
 				<Form id="loginForm" className="form" onSubmit={ submitForm }>

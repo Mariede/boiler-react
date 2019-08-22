@@ -24,7 +24,7 @@ const Loading = props => {
 		}
 	}, [props.loading]);
 
-	const checkLoading = () => {
+	const CheckLoading = () => {
 		let Component = null;
 
 		if (showLoading) {
@@ -42,7 +42,9 @@ const Loading = props => {
 		return ReactDOM.createPortal(Component, document.getElementById('loading_p'));
 	};
 
-	return checkLoading();
+	return (
+		<CheckLoading />
+	);
 };
 
 export default Loading;

@@ -21,7 +21,7 @@ const Header = props => {
 	};
 
 	// Conteudo do menu
-	const menuContent = () => {
+	const MenuContent = () => {
 		return (
 			<Nav className="ml-auto" navbar>
 			{
@@ -58,7 +58,7 @@ const Header = props => {
 				<NavbarToggler onClick={ toggle } />
 
 				<Collapse isOpen={ isOpen } navbar>
-					{ menuContent() }
+					<MenuContent />
 					<Logged isLogged={ props.isLogged } />
 				</Collapse>
 			</Navbar>
