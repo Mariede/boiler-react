@@ -27,6 +27,7 @@ npm run build
   - Roteamento com react-router-dom
   - Controlador principal (MainController)
   - Rotas protegidas ou abertas
+  - Salva última rota acessada (logado, via sessionStorage) pra caso de disconnect inesperado do servidor
 
 ## Helpers (Libs de apoio)
   - FormValidator => integrado, para validação de formulários
@@ -34,7 +35,7 @@ npm run build
 ## Componentes Gerais
   - Alert (modal de confirmação / informação) com callback
   - Loading (Carregamento de página)
-  - Notify (Informações na tela) com temporizador
+  - Notify (Informações na tela - Erros / Avisos / etc...) com temporizador
 
 ## Componentes de Páginas
   - Divididas em Header / Content (wrapper) / Footer
