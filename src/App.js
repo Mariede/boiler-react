@@ -42,6 +42,8 @@ const App = props => {
 					throw err;
 				}
 			);
+		} else {
+			setDataUser({});
 		}
 
 		return () => (
