@@ -34,8 +34,8 @@ npm run build
 
 ## Componentes Gerais
   - Alert (modal de confirmação / informação) com callback
-  - Loading (Carregamento de página)
-  - Notify (Informações na tela - Erros / Avisos / etc...) com temporizador
+  - Loading (carregamento de página)
+  - Notify (informações na tela - Erros / Avisos / etc...) com temporizador
 
 ## Componentes de Páginas
   - Divididas em Header / Content (wrapper) / Footer
