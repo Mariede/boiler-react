@@ -18,6 +18,7 @@ npm run build
 ## Front-end em React
   - Arquivo de configuração unificado (Config.json)
   - Integrado com servidor em Express/Node.js (node-boiler-server)
+  - Single Page Application (SPA)
   - RESTFUL
   - Utiliza Bootstrap 4 (reactstrap)
   - CSS responsivo
