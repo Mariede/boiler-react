@@ -19,7 +19,6 @@ const MainController = props => {
 	const currentPath = props.location.pathname;
 
 	useEffect(() => {
-		setDataFetch(false);
 		props.cbUserLogged.checkUserLogged(isLogged);
 	}, [isLogged, props]);
 
@@ -31,6 +30,8 @@ const MainController = props => {
 
 	useEffect(() => {
 		let isMounted = true;
+
+		setDataFetch(false);
 
 		axios.get(
 			getUrl + '/isLogged',
@@ -68,7 +69,7 @@ const MainController = props => {
 		return () => (
 			isMounted = false
 		);
-	}, [getUrl, isLogged, props]);
+	}, [getUrl, props]);
 
 	const AuthComponent = () => {
 		return (

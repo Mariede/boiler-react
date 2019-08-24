@@ -26,7 +26,11 @@ import './Alert.css';
 const Alert = props => {
 	const [modalShow, setModalShow] = useState(false);
 
-	const exitCallback = (isConfirm, isButton) => {
+	const exitCallback = (e, isConfirm, isButton) => {
+		if (e) {
+			e.preventDefault();
+		}
+
 		if (typeof props.callback === 'function') {
 			if ((!isConfirm && !isButton) || (isConfirm && isButton)) {
 				props.callback();
@@ -50,7 +54,7 @@ const Alert = props => {
 
 		if (modalShow) {
 			Component = (
-				<Modal isOpen={ modalShow } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(isConfirm, false) }>
+				<Modal isOpen={ modalShow } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(e, isConfirm, false) }>
 				{
 					props.title !== '!no' ? (
 					<ModalHeader className="modal-header-local" toggle={ e => toggleThis(e) }>
@@ -72,7 +76,7 @@ const Alert = props => {
 							isConfirm ? (
 						<React.Fragment>
 							<Button type="button" color="danger" size={ props.footerSize } onClick={ e => toggleThis(e) }>Cancelar</Button>
-							<Button type="button" color="success" size={ props.footerSize } onClick={ e => exitCallback(isConfirm, true) }>Confirmar</Button>
+							<Button type="button" color="success" size={ props.footerSize } onClick={ e => exitCallback(e, isConfirm, true) }>Confirmar</Button>
 						</React.Fragment>
 							) : (
 						<Button type="button" color="success" size={ props.footerSize } onClick={ e => toggleThis(e) }>Fechar</Button>

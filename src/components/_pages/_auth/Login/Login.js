@@ -98,7 +98,6 @@ const Login = props => {
 		e.preventDefault();
 
 		FormValidator.setFormValidation(configFormValidation); // formulario: 2 de 2
-
 		handler(e.target.value);
 	};
 
