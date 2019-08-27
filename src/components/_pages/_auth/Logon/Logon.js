@@ -10,20 +10,20 @@ import PageSubject from 'components/_common/PageSubject';
 import FormValidator from 'components/_helpers/FormValidator';
 import ContextConfig from 'components/_helpers/ContextConfig';
 
-import './Login.css';
+import './Logon.css';
 
-const Login = props => {
+const Logon = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
 
 	const [notify, setNotify] = useState(['', 0]);
 	const [submit, setSubmit] = useState(false);
 
-	const [user, formHandleUser] = useState('');
+	const [login, formHandleLogin] = useState('');
 	const [pass, formHandlePass] = useState('');
 
 	const configFormValidation = [
 		{
-			id: 'user',
+			id: 'login',
 			rules: [
 				{
 					rule: 'ruleBlank',
@@ -55,9 +55,9 @@ const Login = props => {
 
 		if (submit) {
 			axios.post(
-				getUrl + '/login',
+				getUrl + '/logon',
 				{
-					login: user,
+					login: login,
 					pass: pass
 				}
 			)
@@ -92,7 +92,7 @@ const Login = props => {
 		return () => (
 			isMounted = false
 		);
-	}, [getUrl, user, pass, submit, props]);
+	}, [getUrl, login, pass, submit, props]);
 
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
@@ -112,18 +112,18 @@ const Login = props => {
 	};
 
 	return (
-		<div id="login">
+		<div id="logon">
 			{ Loading({ loading: submit }) }
 			{ Notify({ info: (!submit ? notify[0] : ''), header: 'Login', type: notify[1] }) }
 
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
 			<div className="main-content">
-				<Form id="loginForm" className="form" onSubmit={ submitForm }>
+				<Form id="logonForm" className="form" onSubmit={ submitForm }>
 					<Row form>
 						<Col md={12}>
 							<FormGroup>
-								<Label for="user">Usuário</Label>
-								<Input type="text" value={ user } id="user" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleUser) } />
+								<Label for="login">Usuário</Label>
+								<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
 								<FormText>Insira seu usuário aqui.</FormText>
 							</FormGroup>
 						</Col>
@@ -149,4 +149,4 @@ const Login = props => {
 	);
 };
 
-export default Login;
+export default Logon;

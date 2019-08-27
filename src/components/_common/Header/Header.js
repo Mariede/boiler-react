@@ -37,7 +37,7 @@ const Header = props => {
 						case false: {
 							return (
 				<NavItem>
-					<NavLink tag={ Link } to="/login">Login</NavLink>
+					<NavLink tag={ Link } to="/logon">Logon</NavLink>
 				</NavItem>
 							);
 						}

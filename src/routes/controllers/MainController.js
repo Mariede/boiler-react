@@ -14,7 +14,7 @@ const MainController = props => {
 
 	const [isLogged, setIsLogged] = useState(props.cbUserLogged.userLogged);
 
-	const [Component, Home, Login] = props.children;
+	const [Component, Home, Logon] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
 
@@ -23,7 +23,7 @@ const MainController = props => {
 	}, [isLogged, props]);
 
 	useEffect(() => {
-		if (isLogged && currentPath !== '/login') { // usuario logado
+		if (isLogged && currentPath !== '/logon') { // usuario logado
 			sessionStorage.setItem('current-path', currentPath);
 		}
 	}, [isLogged, currentPath]);
@@ -77,7 +77,7 @@ const MainController = props => {
 				{ Loading({ loading: !dataFetch }) }
 				{ Notify({ info: (dataFetch ? notify[0] : ''), header: 'Controlador Principal', type: notify[1] }) }
 
-				{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Login' ? Component : Home)) : (isLogged ? Component : Login)) : 'carregando...') }
+				{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Logon' ? Component : Home)) : (isLogged ? Component : Logon)) : 'carregando...') }
 			</div>
 		);
 	};

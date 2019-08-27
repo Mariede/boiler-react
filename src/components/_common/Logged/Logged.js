@@ -80,14 +80,14 @@ const Logged = props => {
 
 		if (logout) {
 			Component = (
-				<Redirect to="/login" />
+				<Redirect to="/logon" />
 			);
 		} else {
 			if (showLogged) {
 				Component = (
 					<div id="loggedUser">
 						<div id="loggedUserData" className="inline">
-							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getDataUser.nome }</strong><br />{ getDataUser.login }
+							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getDataUser.nome }</strong><br />{ getDataUser.email }
 						</div>
 						<Alert title="Logout" message="Deseja realmente sair do sistema?" size="sm" footerSize="sm" buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" callback={ logoutApp } confirm />
 					</div>
