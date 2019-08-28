@@ -3,19 +3,19 @@ import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import axios from 'axios';
 
-import Notify from 'components/_common/Notify';
 import Loading from 'components/_common/Loading';
 import PageSubject from 'components/_common/PageSubject';
 
 import FormValidator from 'components/_helpers/FormValidator';
 import ContextConfig from 'components/_helpers/ContextConfig';
+import ContextNotify from 'components/_helpers/ContextNotify';
 
 import './Logon.css';
 
 const Logon = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
+	const setNotify = useContext(ContextNotify).setNotify;
 
-	const [notify, setNotify] = useState(['', 0]);
 	const [submit, setSubmit] = useState(false);
 
 	const [login, formHandleLogin] = useState('');
@@ -64,7 +64,7 @@ const Logon = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						setNotify(['', 0]);
+						setNotify({ info: '' });
 
 						const redirectCache = sessionStorage.getItem('current-path');
 						props.history.push((redirectCache ? redirectCache : '/'));
@@ -74,7 +74,7 @@ const Logon = props => {
 			.catch(
 				err => {
 					if (isMounted) {
-						setNotify([err, 4]);
+						setNotify({ info: (err.response || err), header: 'Login', type: 4 });
 					}
 
 					throw err;
@@ -92,7 +92,7 @@ const Logon = props => {
 		return () => (
 			isMounted = false
 		);
-	}, [getUrl, login, pass, submit, props]);
+	}, [getUrl, login, pass, submit, props, setNotify]);
 
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
@@ -114,7 +114,6 @@ const Logon = props => {
 	return (
 		<div id="logon">
 			{ Loading({ loading: submit }) }
-			{ Notify({ info: (!submit ? notify[0] : ''), header: 'Login', type: notify[1] }) }
 
 			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
 			<div className="main-content">

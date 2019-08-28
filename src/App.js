@@ -7,14 +7,19 @@ import Routes from 'routes/Routes';
 import Header from 'components/_common/Header';
 import Footer from 'components/_common/Footer';
 
+import Notify from 'components/_common/Notify';
+
 import ContextConfig from 'components/_helpers/ContextConfig';
-import ContextDataUser from 'components/_helpers/ContextDataUser';
+import ContextUserData from 'components/_helpers/ContextUserData';
+import ContextNotify from 'components/_helpers/ContextNotify';
 
 const App = props => {
 	const getUrl = props.configData.baseUrl;
 
+	const [notify, setNotify] = useState({});
+
 	const [userLogged, setUserLogged] = useState(false);
-	const [dataUser, setDataUser] = useState({});
+	const [userData, setUserData] = useState({});
 
 	useEffect(() => {
 		let isMounted = true;
@@ -32,7 +37,7 @@ const App = props => {
 				res => {
 					if (isMounted) {
 						if (res.data) {
-							setDataUser(res.data);
+							setUserData(res.data);
 						}
 					}
 				}
@@ -43,7 +48,7 @@ const App = props => {
 				}
 			);
 		} else {
-			setDataUser({});
+			setUserData({});
 		}
 
 		return () => (
@@ -66,15 +71,19 @@ const App = props => {
 
 	return (
 		<ContextConfig.Provider value={ props.configData }>
-			<ContextDataUser.Provider value={ dataUser }>
-				<Router>
-					<Header isLogged={ userLogged } />
-					<div id="wrapper">
-						<Routes cbUserLogged={ { cbUserLogged } } />
-					</div>
-					<Footer />
-				</Router>
-			</ContextDataUser.Provider>
+			<ContextUserData.Provider value={ userData }>
+				<ContextNotify.Provider value={ { setNotify } }>
+					<Notify info={ notify.info } header={ notify.header } type={ notify.type } />
+
+					<Router>
+						<Header isLogged={ userLogged } />
+						<div id="wrapper">
+							<Routes cbUserLogged={ { cbUserLogged } } />
+						</div>
+						<Footer />
+					</Router>
+				</ContextNotify.Provider>
+			</ContextUserData.Provider>
 		</ContextConfig.Provider>
 	);
 };

@@ -3,11 +3,11 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import Alert from 'components/_common/Alert';
-import Notify from 'components/_common/Notify';
 import Loading from 'components/_common/Loading';
 
-import ContextDataUser from 'components/_helpers/ContextDataUser';
 import ContextConfig from 'components/_helpers/ContextConfig';
+import ContextUserData from 'components/_helpers/ContextUserData';
+import ContextNotify from 'components/_helpers/ContextNotify';
 
 import './Logged.css';
 
@@ -18,9 +18,9 @@ import './Logged.css';
 */
 const Logged = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
-	const getDataUser = useContext(ContextDataUser);
+	const getUserData = useContext(ContextUserData);
+	const setNotify = useContext(ContextNotify).setNotify;
 
-	const [notify, setNotify] = useState(['', 0]);
 	const [submit, setSubmit] = useState(false);
 
 	const [logout, setLogout] = useState(false);
@@ -41,7 +41,7 @@ const Logged = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						setNotify(['', 0]);
+						setNotify({ info: '' });
 						setLogout(true);
 
 						sessionStorage.removeItem('current-path');
@@ -51,7 +51,7 @@ const Logged = props => {
 			.catch(
 				err => {
 					if (isMounted) {
-						setNotify([err, 4]);
+						setNotify({ info: (err.response || err), header: 'Logout', type: 4 });
 					}
 
 					throw err;
@@ -69,7 +69,7 @@ const Logged = props => {
 		return () => (
 			isMounted = false
 		);
-	}, [getUrl, submit]);
+	}, [getUrl, submit, setNotify]);
 
 	const logoutApp = () => {
 		setSubmit(true);
@@ -87,7 +87,7 @@ const Logged = props => {
 				Component = (
 					<div id="loggedUser">
 						<div id="loggedUserData" className="inline">
-							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getDataUser.nome }</strong><br />{ getDataUser.email }
+							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getUserData.nome }</strong><br />{ getUserData.email }
 						</div>
 						<Alert title="Logout" message="Deseja realmente sair do sistema?" size="sm" footerSize="sm" buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" callback={ logoutApp } confirm />
 					</div>
@@ -98,7 +98,6 @@ const Logged = props => {
 		return (
 			<div id="logged">
 				{ Loading({ loading: submit }) }
-				{ Notify({ info: (!submit ? notify[0] : ''), header: 'Logout', type: notify[1] }) }
 
 				{ Component }
 			</div>

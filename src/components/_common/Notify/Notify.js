@@ -68,7 +68,7 @@ const Notify = props => {
 	};
 
 	const CheckNotify = () => {
-		const handledInfo = props.info && props.info.response; // erro tratado do back-end
+		const handledInfo = props.info && props.info.data;
 
 		let Component = null;
 
@@ -77,10 +77,10 @@ const Notify = props => {
 				<Toast className="notify">
 					<Button close onClick={ closeNotify } />
 					<ToastHeader icon={ notifyHeader(1) }>
-						{ (props.header || notifyHeader(2)) }{ (handledInfo ? ` (código ${handledInfo.status})` : '') }
+						{ (props.header || notifyHeader(2)) }{ (handledInfo ? ` (código ${props.info.status})` : '') }
 					</ToastHeader>
 					<ToastBody>
-						{ (handledInfo ? handledInfo.data.message : (props.info.message || props.info)) }
+						{ (handledInfo ? handledInfo.message : (props.info.message || props.info)) }
 					</ToastBody>
 				</Toast>
 			);
