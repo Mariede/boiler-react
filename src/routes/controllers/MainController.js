@@ -4,23 +4,22 @@ import axios from 'axios';
 import Loading from 'components/_common/Loading';
 
 import ContextConfig from 'components/_helpers/ContextConfig';
+import ContextUserData from 'components/_helpers/ContextUserData';
 import ContextNotify from 'components/_helpers/ContextNotify';
 
 const MainController = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
+
+	const setUserData = useContext(ContextUserData).setUserData;
 	const setNotify = useContext(ContextNotify).setNotify;
 
+	const [isLogged, setIsLogged] = useState(false);
 	const [dataFetch, setDataFetch] = useState(false);
-
-	const [isLogged, setIsLogged] = useState(props.cbUserLogged.userLogged);
 
 	const [Component, Home, Logon] = props.children;
 	const isProtected = (props.isProtected !== 'false');
 	const currentPath = props.location.pathname;
-
-	useEffect(() => {
-		props.cbUserLogged.checkUserLogged(isLogged);
-	}, [isLogged, props]);
+	const currentKey = props.location.key;
 
 	useEffect(() => {
 		if (isLogged && currentPath !== '/logon') { // usuario logado
@@ -37,22 +36,23 @@ const MainController = props => {
 			getUrl + '/isLogged',
 			{
 				params: {
-					result_type: 'a'
+					result_type: 'b'
 				}
 			}
 		)
 		.then(
 			res => {
 				if (isMounted) {
-					// setNotify({ info: '' });
-					setIsLogged(res.data);
+					// setNotify(false);
+					setIsLogged((res.data ? true : false));
+					setUserData((res.data ? JSON.stringify(res.data) : false));
 				}
 			}
 		)
 		.catch(
 			err => {
 				if (isMounted) {
-					setNotify({ info: (err.response || err), header: 'Controlador Principal', type: 4 });
+					// setNotify({ info: (err.response || err), header: 'Controlador Principal', type: 4 });
 				}
 
 				throw err;
@@ -69,15 +69,16 @@ const MainController = props => {
 		return () => (
 			isMounted = false
 		);
-	}, [getUrl, props, setNotify]);
+	}, [getUrl, currentKey, setUserData, setNotify]);
 
 	const AuthComponent = () => {
 		return (
-			<div id="controller">
+			<React.Fragment>
 				{ Loading({ loading: !dataFetch }) }
-
-				{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Logon' ? Component : Home)) : (isLogged ? Component : Logon)) : 'carregando...') }
-			</div>
+				<div id="controller">
+					{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Logon' ? Component : Home)) : (isLogged ? Component : Logon)) : 'carregando...') }
+				</div>
+			</React.Fragment>
 		);
 	};
 

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import axios from 'axios';
 
 import Routes from 'routes/Routes';
 
@@ -14,71 +13,35 @@ import ContextUserData from 'components/_helpers/ContextUserData';
 import ContextNotify from 'components/_helpers/ContextNotify';
 
 const App = props => {
-	const getUrl = props.configData.baseUrl;
+	const [userData, setUserData] = useState(false);
+	const [notify, setNotify] = useState(false);
 
-	const [notify, setNotify] = useState({});
-
-	const [userLogged, setUserLogged] = useState(false);
-	const [userData, setUserData] = useState({});
-
-	useEffect(() => {
-		let isMounted = true;
-
-		if (userLogged) {
-			axios.get(
-				getUrl + '/isLogged',
-				{
-					params: {
-						result_type: 'b'
-					}
-				}
-			)
-			.then(
-				res => {
-					if (isMounted) {
-						if (res.data) {
-							setUserData(res.data);
-						}
-					}
-				}
-			)
-			.catch(
-				err => {
-					throw err;
-				}
-			);
+	const changeUserDataContext = o => {
+		if (o) {
+			setUserData(o);
 		} else {
-			setUserData({});
-		}
-
-		return () => (
-			isMounted = false
-		);
-	}, [getUrl, userLogged]);
-
-	const checkUserLogged = isLogged => {
-		if (isLogged !== userLogged) {
-			setUserLogged(isLogged);
+			setUserData(false);
 		}
 	};
 
-	const cbUserLogged = {
-		userLogged: userLogged,
-		checkUserLogged: u => {
-			checkUserLogged(u);
+	const changeNotifyContext = o => {
+		if (o) {
+			setNotify(o);
+		} else {
+			setNotify(false);
 		}
 	};
 
 	return (
 		<ContextConfig.Provider value={ props.configData }>
-			<ContextUserData.Provider value={ userData }>
-				<ContextNotify.Provider value={ { setNotify } }>
-					<Notify info={ notify.info } header={ notify.header } type={ notify.type } />
+			<ContextUserData.Provider value={ { data: userData ? JSON.parse(userData) : '', setUserData: changeUserDataContext } }>
+				<ContextNotify.Provider value={ { setNotify: changeNotifyContext } }>
+					<Notify info={ notify ? notify.info : '' } header={ notify ? notify.header : '' } type={ notify ? notify.type : 2 } />
 
 					<Router>
-						<Header isLogged={ userLogged } />
+						<Header isLogged={ (userData ? true : false) } />
 						<div id="wrapper">
-							<Routes cbUserLogged={ { cbUserLogged } } />
+							<Routes />
 						</div>
 						<Footer />
 					</Router>

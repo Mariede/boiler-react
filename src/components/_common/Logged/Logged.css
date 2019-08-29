@@ -4,7 +4,7 @@
 	float: right;
 }
 
-#logged #loggedUser #loggedUserData {
+#logged #loggedUser {
 	font: 10px B612, Arial, Helvetica, san-serif;
 	letter-spacing: 1px;
 	color: #000;
@@ -15,10 +15,10 @@
 	padding: 7px 21px; /* Define centro do cabecalho */
 }
 
-#logged #loggedUser .inline {
+#logged .inline {
 	float: left;
 }
 
-#logged #loggedUser button {
+#logged button {
 	margin: 15px 8px; /* Define centro do cabecalho e distancia dos elementos */
 }

@@ -18,12 +18,12 @@ import './Logged.css';
 */
 const Logged = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
-	const getUserData = useContext(ContextUserData);
+	const getUserData = useContext(ContextUserData).data;
 	const setNotify = useContext(ContextNotify).setNotify;
 
 	const [submit, setSubmit] = useState(false);
 
-	const [logout, setLogout] = useState(false);
+	const [goLogout, setGoLogout] = useState(false);
 	const [showLogged, setShowLogged] = useState(false);
 
 	useEffect(() => {
@@ -32,7 +32,8 @@ const Logged = props => {
 
 	useEffect(() => {
 		let isMounted = true;
-		setLogout(false);
+
+		setGoLogout(false);
 
 		if (submit) {
 			axios.post(
@@ -41,8 +42,8 @@ const Logged = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						setNotify({ info: '' });
-						setLogout(true);
+						setNotify(false);
+						setGoLogout(true);
 
 						sessionStorage.removeItem('current-path');
 					}
@@ -78,15 +79,15 @@ const Logged = props => {
 	const CheckUserLogged = () => {
 		let Component = null;
 
-		if (logout) {
+		if (goLogout) {
 			Component = (
 				<Redirect to="/logon" />
 			);
 		} else {
 			if (showLogged) {
 				Component = (
-					<div id="loggedUser">
-						<div id="loggedUserData" className="inline">
+					<div id="logged">
+						<div id="loggedUser" className="inline">
 							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getUserData.nome }</strong><br />{ getUserData.email }
 						</div>
 						<Alert title="Logout" message="Deseja realmente sair do sistema?" size="sm" footerSize="sm" buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" callback={ logoutApp } confirm />
@@ -96,11 +97,10 @@ const Logged = props => {
 		}
 
 		return (
-			<div id="logged">
+			<React.Fragment>
 				{ Loading({ loading: submit }) }
-
 				{ Component }
-			</div>
+			</React.Fragment>
 		);
 	};
 

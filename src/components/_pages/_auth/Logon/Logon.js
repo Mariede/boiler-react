@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import axios from 'axios';
@@ -16,6 +17,7 @@ const Logon = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
 	const setNotify = useContext(ContextNotify).setNotify;
 
+	const [goLogon, setGoLogon] = useState(false);
 	const [submit, setSubmit] = useState(false);
 
 	const [login, formHandleLogin] = useState('');
@@ -53,6 +55,8 @@ const Logon = props => {
 	useEffect(() => {
 		let isMounted = true;
 
+		setGoLogon(false);
+
 		if (submit) {
 			axios.post(
 				getUrl + '/logon',
@@ -64,17 +68,17 @@ const Logon = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						setNotify({ info: '' });
+						setNotify(false);
+						setGoLogon(true);
 
-						const redirectCache = sessionStorage.getItem('current-path');
-						props.history.push((redirectCache ? redirectCache : '/'));
+						sessionStorage.getItem('current-path');
 					}
 				}
 			)
 			.catch(
 				err => {
 					if (isMounted) {
-						setNotify({ info: (err.response || err), header: 'Login', type: 4 });
+						setNotify({ info: (err.response || err), header: 'Logon', type: 4 });
 					}
 
 					throw err;
@@ -92,7 +96,7 @@ const Logon = props => {
 		return () => (
 			isMounted = false
 		);
-	}, [getUrl, login, pass, submit, props, setNotify]);
+	}, [getUrl, login, pass, submit, setNotify]);
 
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
@@ -112,39 +116,45 @@ const Logon = props => {
 	};
 
 	return (
-		<div id="logon">
+		<React.Fragment>
 			{ Loading({ loading: submit }) }
-
-			<PageSubject subject="Login" icon="fas fa-sign-in-alt" />
-			<div className="main-content">
-				<Form id="logonForm" className="form" onSubmit={ submitForm }>
-					<Row form>
-						<Col md={12}>
+		{ goLogon ? (
+			<Redirect to="/" />
+			) : (
+			<div id="logon">
+				<PageSubject subject="Logon" icon="fas fa-sign-in-alt" />
+				<div className="main-content">
+					<Form id="logonForm" className="form" onSubmit={ submitForm }>
+						<Row form>
+							<Col md={12}>
+								<FormGroup>
+									<Label for="login">Usuário</Label>
+									<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
+									<FormText>Insira seu usuário aqui.</FormText>
+								</FormGroup>
+							</Col>
+						</Row>
+						<Row form>
+							<Col md={12}>
 							<FormGroup>
-								<Label for="login">Usuário</Label>
-								<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
-								<FormText>Insira seu usuário aqui.</FormText>
+								<Label for="pass">Senha</Label>
+								<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
+								<FormText>Insira sua senha aqui.</FormText>
 							</FormGroup>
-						</Col>
-					</Row>
-					<Row form>
-						<Col md={12}>
-						<FormGroup>
-							<Label for="pass">Senha</Label>
-							<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
-							<FormText>Insira sua senha aqui.</FormText>
-						</FormGroup>
-						</Col>
-					</Row>
-					<hr />
-					<Row form>
-						<Col md={12}>
-							<Button type="submit" color="success" block>Enviar</Button>
-						</Col>
-					</Row>
-				</Form>
+							</Col>
+						</Row>
+						<hr />
+						<Row form>
+							<Col md={12}>
+								<Button type="submit" color="success" block>Enviar</Button>
+							</Col>
+						</Row>
+					</Form>
+				</div>
 			</div>
-		</div>
+			)
+		}
+		</React.Fragment>
 	);
 };
 
