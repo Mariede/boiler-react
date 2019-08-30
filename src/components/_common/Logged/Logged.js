@@ -18,7 +18,7 @@ import './Logged.css';
 */
 const Logged = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
-	const getUserData = useContext(ContextUserData).data;
+	const getUserData = useContext(ContextUserData).getUserData;
 
 	const [showLogged, setShowLogged] = useState(false);
 

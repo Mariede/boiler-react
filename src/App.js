@@ -22,7 +22,7 @@ const App = props => {
 
 	return (
 		<ContextConfig.Provider value={ props.configData }>
-			<ContextUserData.Provider value={ { data: userData ? JSON.parse(userData) : '', setUserData: changeUserDataContext } }>
+			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : '', setUserData: changeUserDataContext } }>
 				<Router>
 					<Header isLogged={ (userData ? true : false) } />
 					<div id="wrapper">
