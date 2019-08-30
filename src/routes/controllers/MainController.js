@@ -2,17 +2,16 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import Loading from 'components/_common/Loading';
+import Notify from 'components/_common/Notify';
 
 import ContextConfig from 'components/_helpers/ContextConfig';
 import ContextUserData from 'components/_helpers/ContextUserData';
-import ContextNotify from 'components/_helpers/ContextNotify';
 
 const MainController = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
-
 	const setUserData = useContext(ContextUserData).setUserData;
-	const setNotify = useContext(ContextNotify).setNotify;
 
+	const [notify, setNotify] = useState(false);
 	const [isLogged, setIsLogged] = useState(false);
 	const [dataFetch, setDataFetch] = useState(false);
 
@@ -31,6 +30,7 @@ const MainController = props => {
 		let isMounted = true;
 
 		setDataFetch(false);
+		setNotify(false);
 
 		axios.get(
 			getUrl + '/isLogged',
@@ -43,7 +43,6 @@ const MainController = props => {
 		.then(
 			res => {
 				if (isMounted) {
-					// setNotify(false);
 					setIsLogged((res.data ? true : false));
 					setUserData((res.data ? JSON.stringify(res.data) : false));
 				}
@@ -52,7 +51,7 @@ const MainController = props => {
 		.catch(
 			err => {
 				if (isMounted) {
-					// setNotify({ info: (err.response || err), header: 'Controlador Principal', type: 4 });
+					setNotify({ info: (err.response || err), header: 'Controlador Principal', type: 4 });
 				}
 
 				throw err;
@@ -74,7 +73,8 @@ const MainController = props => {
 	const AuthComponent = () => {
 		return (
 			<React.Fragment>
-				{ Loading({ loading: !dataFetch }) }
+				<Loading loading={ !dataFetch } />
+				<Notify info={ notify ? notify.info : '' } header={ notify ? notify.header : '' } type={ notify ? notify.type : 2 } />
 				<div id="controller">
 					{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Logon' ? Component : Home)) : (isLogged ? Component : Logon)) : 'carregando...') }
 				</div>

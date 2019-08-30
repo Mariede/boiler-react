@@ -5,20 +5,20 @@ import { Row, Col } from 'reactstrap';
 import axios from 'axios';
 
 import Loading from 'components/_common/Loading';
+import Notify from 'components/_common/Notify';
 import PageSubject from 'components/_common/PageSubject';
 
-import FormValidator from 'components/_helpers/FormValidator';
 import ContextConfig from 'components/_helpers/ContextConfig';
-import ContextNotify from 'components/_helpers/ContextNotify';
+import FormValidator from 'components/_helpers/FormValidator';
 
 import './Logon.css';
 
 const Logon = props => {
 	const getUrl = useContext(ContextConfig).baseUrl;
-	const setNotify = useContext(ContextNotify).setNotify;
 
-	const [goLogon, setGoLogon] = useState(false);
+	const [notify, setNotify] = useState(false);
 	const [submit, setSubmit] = useState(false);
+	const [goLogon, setGoLogon] = useState(false);
 
 	const [login, formHandleLogin] = useState('');
 	const [pass, formHandlePass] = useState('');
@@ -58,6 +58,8 @@ const Logon = props => {
 		setGoLogon(false);
 
 		if (submit) {
+			setNotify(false);
+
 			axios.post(
 				getUrl + '/logon',
 				{
@@ -68,9 +70,7 @@ const Logon = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						setNotify(false);
 						setGoLogon(true);
-
 						sessionStorage.getItem('current-path');
 					}
 				}
@@ -117,7 +117,8 @@ const Logon = props => {
 
 	return (
 		<React.Fragment>
-			{ Loading({ loading: submit }) }
+			<Loading loading={ submit } />
+			<Notify info={ notify ? notify.info : '' } header={ notify ? notify.header : '' } type={ notify ? notify.type : 2 } />
 		{ goLogon ? (
 			<Redirect to="/" />
 			) : (
