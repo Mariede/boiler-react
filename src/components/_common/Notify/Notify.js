@@ -6,9 +6,11 @@ import './Notify.css';
 
 /*
 	PROPS:
-		- info				-> OBRIGATORIO, texto ou objeto (default: "Erro na aplicação")
+		- info				-> OBRIGATORIO, texto ou objeto
 		- header			-> (default: "Notificação")
 		- type				-> exibe ícone (default: info)
+		- form				-> Opcional: informa o id do elemento DOM de formulario
+								- habilitar/desabilitar elementos do form durante exibicao da mensagem de erro
 */
 const Notify = props => {
 	const [showNotify, setShowNotify] = useState(false);
@@ -30,11 +32,33 @@ const Notify = props => {
 		}
 	}, [props.info]);
 
-	const notifyHeader = p => {
+	useEffect(() => {
+		toggleElements(showNotify, props.form);
+	}, [showNotify, props.form]);
+
+	const toggleElements = (block, form) => {
+		if (form) {
+			const formElements = document.getElementById(form) && document.getElementById(form).elements;
+
+			if (formElements) {
+				const formLength = formElements.length;
+
+				for (let i = 0; i < formLength; ++i) {
+					if (block) {
+						formElements[i].disabled = true;
+					} else {
+						formElements[i].disabled = false;
+					}
+				}
+			}
+		}
+	};
+
+	const notifyHeader = (p, type) => {
 		let header = (p !== 2 ? 'secondary' : 'Notificação');
 
-		if (props.type) {
-			switch (props.type) {
+		if (type) {
+			switch (type) {
 				case 1: {
 				// Success
 					header = (p !== 2 ? 'success' : 'Sucesso');
@@ -76,8 +100,8 @@ const Notify = props => {
 			Component = (
 				<Toast className="notify">
 					<Button close onClick={ closeNotify } />
-					<ToastHeader icon={ notifyHeader(1) }>
-						{ (props.header || notifyHeader(2)) }{ (handledInfo ? ` (código ${props.info.status})` : '') }
+					<ToastHeader icon={ notifyHeader(1, props.type) }>
+						{ (props.header || notifyHeader(2, props.type)) }{ (handledInfo ? ` (código ${props.info.status})` : '') }
 					</ToastHeader>
 					<ToastBody>
 						{ (handledInfo ? handledInfo.message : (props.info ? (props.info.message || props.info) : '')) }

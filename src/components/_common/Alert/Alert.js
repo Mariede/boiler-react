@@ -26,14 +26,14 @@ import './Alert.css';
 const Alert = props => {
 	const [modalShow, setModalShow] = useState(false);
 
-	const exitCallback = (e, isConfirm, isButton) => {
+	const exitCallback = (e, isConfirm, isButton, callback) => {
 		if (e) {
 			e.preventDefault();
 		}
 
-		if (typeof props.callback === 'function') {
+		if (typeof callback === 'function') {
 			if ((!isConfirm && !isButton) || (isConfirm && isButton)) {
-				props.callback();
+				callback();
 			}
 		}
 
@@ -54,7 +54,7 @@ const Alert = props => {
 
 		if (modalShow) {
 			Component = (
-				<Modal isOpen={ modalShow } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(e, isConfirm, false) }>
+				<Modal isOpen={ modalShow } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(e, isConfirm, false, props.callback) }>
 				{
 					props.title !== '!no' ? (
 					<ModalHeader className="modal-header-local" toggle={ e => toggleThis(e) }>
@@ -76,7 +76,7 @@ const Alert = props => {
 							isConfirm ? (
 						<React.Fragment>
 							<Button type="button" color="danger" size={ props.footerSize } onClick={ e => toggleThis(e) }>Cancelar</Button>
-							<Button type="button" color="success" size={ props.footerSize } onClick={ e => exitCallback(e, isConfirm, true) }>Confirmar</Button>
+							<Button type="button" color="success" size={ props.footerSize } onClick={ e => exitCallback(e, isConfirm, true, props.callback) }>Confirmar</Button>
 						</React.Fragment>
 							) : (
 						<Button type="button" color="success" size={ props.footerSize } onClick={ e => toggleThis(e) }>Fechar</Button>
@@ -95,7 +95,7 @@ const Alert = props => {
 	return (
 		<div className="alert-group">
 			<Button type={ (props.buttonType || "button") } color={ (props.buttonColor || "success") } size={ (props.buttonSize || "md") } outline={ (props.buttonOutline || false) } block={ (props.buttonBlock || false) } onClick={ e => toggleThis(e) }>{ (props.buttonText || "Confirmar") }</Button>
-			<AlertComponent title={ (props.title || (props.confirm ? "Confirme" : "Aviso")) } message={ props.message } centered={ (props.centered || false) } size={ (props.size || "lg") } footerSize={ (props.footerSize || "md") } confirm={ props.confirm } />
+			<AlertComponent title={ (props.title || (props.confirm ? "Confirme" : "Aviso")) } message={ props.message } centered={ (props.centered || false) } size={ (props.size || "lg") } footerSize={ (props.footerSize || "md") } confirm={ props.confirm } callback={ props.callback } />
 		</div>
 	);
 };

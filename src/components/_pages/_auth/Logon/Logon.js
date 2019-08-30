@@ -118,7 +118,7 @@ const Logon = props => {
 	return (
 		<React.Fragment>
 			<Loading loading={ submit } />
-			<Notify info={ notify.info } header={ notify.header } type={ notify.type } />
+			<Notify info={ notify.info } header={ notify.header } type={ notify.type } form="logonForm" />
 		{ goLogon ? (
 			<Redirect to="/" />
 			) : (
