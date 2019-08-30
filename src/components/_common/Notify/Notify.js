@@ -80,7 +80,7 @@ const Notify = props => {
 						{ (props.header || notifyHeader(2)) }{ (handledInfo ? ` (código ${props.info.status})` : '') }
 					</ToastHeader>
 					<ToastBody>
-						{ (handledInfo ? handledInfo.message : (props.info.message || props.info)) }
+						{ (handledInfo ? handledInfo.message : (props.info ? (props.info.message || props.info) : '')) }
 					</ToastBody>
 				</Toast>
 			);

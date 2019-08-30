@@ -74,7 +74,7 @@ const MainController = props => {
 		return (
 			<React.Fragment>
 				<Loading loading={ !dataFetch } />
-				<Notify info={ notify ? notify.info : '' } header={ notify ? notify.header : '' } type={ notify ? notify.type : 2 } />
+				<Notify info={ notify.info } header={ notify.header } type={ notify.type } />
 				<div id="controller">
 					{ (dataFetch ? (!isProtected ? (!isLogged ? Component : (Component.type.name !== 'Logon' ? Component : Home)) : (isLogged ? Component : Logon)) : 'carregando...') }
 				</div>
