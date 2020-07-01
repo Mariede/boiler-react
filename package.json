@@ -6,12 +6,16 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.4.0",
-    "reactstrap": "^8.0.1"
+    "axios": "^0.19.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
+    "reactstrap": "^8.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-plugin-react": "^7.20.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,5 +34,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "keywords": [
+    "node",
+    "react",
+    "application",
+    "javascript",
+    "js",
+    "front-end"
+  ],
+  "author": "Michel Guimarães Ariede"
 }
