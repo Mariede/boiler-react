@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
+
 import axios from 'axios';
 
 import Loading from 'components/_common/Loading';
@@ -17,14 +18,13 @@ import './Logged.css';
 		- icon				-> (font-awesome, default: "fa fa-user-alt")
 */
 const Logged = props => {
+	const [goLogout, setGoLogout] = useState(false);
+	const [notify, setNotify] = useState(false);
+	const [showLogged, setShowLogged] = useState(false);
+	const [submit, setSubmit] = useState(false);
+
 	const getUrl = useContext(ContextConfig).baseUrl;
 	const getUserData = useContext(ContextUserData).getUserData;
-
-	const [showLogged, setShowLogged] = useState(false);
-
-	const [notify, setNotify] = useState(false);
-	const [submit, setSubmit] = useState(false);
-	const [goLogout, setGoLogout] = useState(false);
 
 	useEffect(() => {
 		setShowLogged(props.isLogged);
@@ -39,7 +39,7 @@ const Logged = props => {
 			setNotify(false);
 
 			axios.post(
-				getUrl + '/logout'
+				`${getUrl}/logout`
 			)
 			.then(
 				res => {
@@ -67,10 +67,10 @@ const Logged = props => {
 			);
 		}
 
-		return () => (
-			isMounted = false
-		);
-	}, [getUrl, submit, setNotify]);
+		return () => {
+			isMounted = false;
+		};
+	}, [getUrl, submit]);
 
 	const logoutApp = () => {
 		setSubmit(true);

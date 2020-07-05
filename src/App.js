@@ -10,23 +10,27 @@ import ContextConfig from 'components/_helpers/ContextConfig';
 import ContextUserData from 'components/_helpers/ContextUserData';
 
 const App = props => {
-	const [userData, setUserData] = useState(false);
+	const [userData, setUserData] = useState(null);
 
-	const changeUserDataContext = o => {
-		if (o) {
-			setUserData(o);
-		} else {
-			setUserData(false);
+	const changeUserData = uData => {
+		setUserData(uData);
+	};
+
+	const checkUserIsLogged = uData => {
+		if (uData) {
+			return true;
 		}
+
+		return false;
 	};
 
 	return (
 		<ContextConfig.Provider value={ props.configData }>
-			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : '', setUserData: changeUserDataContext } }>
+			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: changeUserData } }>
 				<Router>
-					<Header isLogged={ (userData ? true : false) } />
+					<Header isLogged={ checkUserIsLogged(userData) } />
 					<div id="wrapper">
-						<Routes />
+						<Routes isLogged={ checkUserIsLogged(userData) } />
 					</div>
 					<Footer />
 				</Router>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 
 import Logged from 'components/_common/Logged';
@@ -24,29 +25,28 @@ const Header = props => {
 	const MenuContent = () => {
 		return (
 			<Nav className="ml-auto" navbar>
-			{
-				(() => {
-					switch (props.isLogged) {
-						case true: {
-							return (
-				<NavItem>
-					<NavLink tag={ Link } to="/usuario">Usuario</NavLink>
-				</NavItem>
-							);
+				{
+					(
+						() => {
+							switch (props.isLogged) {
+								case true: {
+									return (
+										<NavItem>
+											<NavLink tag={ Link } to="/usuario">Usuario</NavLink>
+										</NavItem>
+									);
+								}
+								default: {
+									return (
+										<NavItem>
+											<NavLink tag={ Link } to="/logon">Logon</NavLink>
+										</NavItem>
+									);
+								}
+							}
 						}
-						case false: {
-							return (
-				<NavItem>
-					<NavLink tag={ Link } to="/logon">Logon</NavLink>
-				</NavItem>
-							);
-						}
-						default: {
-							return null;
-						}
-					}
-				})()
-			}
+					)()
+				}
 			</Nav>
 		);
 	};

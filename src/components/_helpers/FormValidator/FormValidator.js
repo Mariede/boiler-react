@@ -30,9 +30,10 @@ FormValidator.setFormResponse = config => {
 };
 
 FormValidator.setFormValidation = config => {
-	let invalidList = [],
-		validList = [],
-		result = true;
+	const invalidList = [];
+	const validList = [];
+
+	let result = true;
 
 	config.forEach(
 		e => {
@@ -84,7 +85,7 @@ FormValidator.setFormValidation = config => {
 
 							// ruleEmail
 							if (e.rule === 'ruleEmail' && isValid) {
-								let reEmail = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x21\x23-\x5b\x5d-\x7f]|\\[\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x21-\x5a\x53-\x7f]|\\[\x7f])+)\])$/i;
+								const reEmail = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x21\x23-\x5b\x5d-\x7f]|\\[\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x21-\x5a\x53-\x7f]|\\[\x7f])+)\])$/i;
 
 								if (!elValue.match(reEmail)) {
 									isValid = false;
@@ -116,20 +117,20 @@ FormValidator.setFormValidation = config => {
 		}
 	);
 
-	// classes bootstrap 4
-	[ ...new Set(invalidList) ].forEach(
+	// Classes bootstrap 4
+	[...new Set(invalidList)].forEach(
 		e => {
-			let element = document.getElementById(e);
+			const element = document.getElementById(e);
 
 			element.classList.remove('is-valid');
 			element.classList.add('is-invalid');
 		}
 	);
 
-	// classes bootstrap 4
-	[ ...new Set(validList) ].forEach(
+	// Classes bootstrap 4
+	[...new Set(validList)].forEach(
 		e => {
-			let element = document.getElementById(e);
+			const element = document.getElementById(e);
 
 			element.classList.remove('is-invalid');
 			element.classList.add('is-valid');

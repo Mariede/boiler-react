@@ -7,14 +7,14 @@ const Footer = () => {
 	return (
 		<footer id="footer">
 			<Container fluid>
-			<Row>
-				<Col md={6}>
-					Footer da aplicação
-				</Col>
-				<Col md={6}>
-					versão
-				</Col>
-			</Row>
+				<Row>
+					<Col md={ 6 }>
+						Footer da aplicação
+					</Col>
+					<Col md={ 6 }>
+						versão
+					</Col>
+				</Row>
 			</Container>
 		</footer>
 	);

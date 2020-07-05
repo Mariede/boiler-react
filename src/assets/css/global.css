@@ -2,8 +2,6 @@
 @import "./all.min.css";
 
 @import url(https://fonts.googleapis.com/css?family=B612);
-@import url(https://fonts.googleapis.com/css?family=Cairo);
-@import url(https://fonts.googleapis.com/css?family=Rakkas);
 
 html, body {
 	width: 100%;
@@ -20,14 +18,11 @@ body {
 	padding: 0px 5px;
 }
 
-#root, #notify_p {
+#root {
 	position: relative;
 	width: 100%;
 	max-width: 1380px;
 	margin: auto;
-}
-
-#root {
 	background-color: #fff;
 	min-height: 100%;
 	border-width: 0px 1px;

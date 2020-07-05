@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+
 import { Toast, ToastHeader, ToastBody, Button } from 'reactstrap';
 
 import './Notify.css';
@@ -29,7 +30,7 @@ const Notify = props => {
 		return () => {
 			setShowNotify(false);
 			clearTimeout(timer);
-		}
+		};
 	}, [props.info]);
 
 	useEffect(() => {
@@ -110,7 +111,12 @@ const Notify = props => {
 			);
 		}
 
-		return ReactDOM.createPortal(Component, document.getElementById('notify_p'));
+		return (
+			ReactDOM.createPortal(
+				Component,
+				document.getElementById('root')
+			)
+		);
 	};
 
 	return (

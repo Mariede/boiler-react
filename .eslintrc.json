@@ -22,7 +22,7 @@
 	"rules": {
 		"arrow-body-style": [
 			2,
-			"always"
+			"as-needed"
 		],
 		"array-bracket-spacing": [
 			2,
