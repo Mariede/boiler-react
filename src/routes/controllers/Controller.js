@@ -6,7 +6,7 @@ import ContextConfig from 'components/_helpers/ContextConfig';
 import ContextUserData from 'components/_helpers/ContextUserData';
 
 const Controller = props => {
-	const [dataFetch, setDataFetch] = useState(false);
+	const [dataReady, setDataReady] = useState(false);
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 	const setUserData = useContext(ContextUserData).setUserData;
@@ -26,7 +26,7 @@ const Controller = props => {
 	useEffect(() => {
 		let isMounted = true;
 
-		setDataFetch(false);
+		setDataReady(false);
 
 		axios
 		.get(
@@ -52,7 +52,7 @@ const Controller = props => {
 		.finally(
 			() => {
 				if (isMounted) {
-					setDataFetch(true);
+					setDataReady(true);
 				}
 			}
 		);
@@ -66,7 +66,7 @@ const Controller = props => {
 		<div id="controller">
 			{
 				(
-					!dataFetch ? (
+					!dataReady ? (
 						null
 					) : (
 						!isProtected ? (

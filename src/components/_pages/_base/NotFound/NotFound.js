@@ -18,7 +18,7 @@ const NotFound = props => {
 
 	return (
 		<div id="notFound">
-			<PageSubject subject="Informação: Erro 404" icon="fas fa-exclamation" />
+			<PageSubject subject="Aviso" icon="fas fa-exclamation-triangle" />
 			<div className="main-content">
 				<div className="info">
 					4 <img src={ imgNotFound } alt="not-found" className="img-not-found" /> 4
@@ -29,6 +29,7 @@ const NotFound = props => {
 				</div>
 
 				<hr />
+
 				<Row form>
 					<Col md={ 6 }>
 						<Button type="button" color="primary" block onClick={ navBack }>Voltar</Button>

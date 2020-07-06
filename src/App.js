@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Routes from 'routes/Routes';
+import RouteGate from 'routes/RouteGate';
 
 import Header from 'components/_common/Header';
 import Footer from 'components/_common/Footer';
@@ -30,7 +30,7 @@ const App = props => {
 				<Router>
 					<Header isLogged={ checkUserIsLogged(userData) } />
 					<div id="wrapper">
-						<Routes isLogged={ checkUserIsLogged(userData) } />
+						<RouteGate isLogged={ checkUserIsLogged(userData) } />
 					</div>
 					<Footer />
 				</Router>

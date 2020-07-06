@@ -51,6 +51,23 @@ img {
 	border: 0px;
 }
 
+/* link */
+a:not([type="button"]):link {
+	color: #3D9970;
+}
+
+a:not([type="button"]):visited {
+	color: #3D9970;
+}
+
+a:not([type="button"]):hover {
+	color: #2ECC40;
+}
+
+a:not([type="button"]):active {
+	color: #3D9970;
+}
+
 /* alteracoes layout padrao bootstrap */
 button.btn-link {
 	padding: 0px;

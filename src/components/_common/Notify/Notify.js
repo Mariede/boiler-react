@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Toast, ToastHeader, ToastBody, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
+import { Toast, ToastHeader, ToastBody } from 'reactstrap';
 
 import './Notify.css';
 
@@ -22,9 +23,11 @@ const Notify = props => {
 		if (props.info) {
 			setShowNotify(true);
 
-			timer = setTimeout(() => {
-				setShowNotify(false);
-			}, 15000);
+			timer = setTimeout(
+				() => {
+					setShowNotify(false);
+				}, 15000
+			);
 		}
 
 		return () => {
@@ -34,65 +37,65 @@ const Notify = props => {
 	}, [props.info]);
 
 	useEffect(() => {
-		toggleElements(showNotify, props.form);
-	}, [showNotify, props.form]);
+		const toggleFormElements = (block, form) => {
+			if (form) {
+				const formElements = document.getElementById(form) && document.getElementById(form).elements;
 
-	const toggleElements = (block, form) => {
-		if (form) {
-			const formElements = document.getElementById(form) && document.getElementById(form).elements;
+				if (formElements) {
+					const formLength = formElements.length;
 
-			if (formElements) {
-				const formLength = formElements.length;
-
-				for (let i = 0; i < formLength; ++i) {
-					if (block) {
-						formElements[i].disabled = true;
-					} else {
-						formElements[i].disabled = false;
+					for (let i = 0; i < formLength; ++i) {
+						if (block) {
+							formElements[i].disabled = true;
+						} else {
+							formElements[i].disabled = false;
+						}
 					}
 				}
 			}
-		}
-	};
+		};
 
-	const notifyHeader = (p, type) => {
-		let header = (p !== 2 ? 'secondary' : 'Notificação');
-
-		if (type) {
-			switch (type) {
-				case 1: {
-				// Success
-					header = (p !== 2 ? 'success' : 'Sucesso');
-					break;
-				}
-				case 2: {
-				// Info
-					header = (p !== 2 ? 'info' : 'Informação');
-					break;
-				}
-				case 3: {
-				// Warning
-					header = (p !== 2 ? 'warning' : 'Aviso');
-					break;
-				}
-				case 4: {
-				// Error
-					header = (p !== 2 ? 'danger' : 'Erro');
-					break;
-				}
-				default:
-			}
-		}
-
-		return header;
-	};
-
-	const closeNotify = e => {
-		e.preventDefault();
-		setShowNotify(false);
-	};
+		toggleFormElements(showNotify, props.form);
+	}, [showNotify, props.form]);
 
 	const CheckNotify = () => {
+		const notifyHeader = (p, type) => {
+			let header = (p !== 2 ? 'secondary' : 'Notificação');
+
+			if (type) {
+				switch (type) {
+					case 1: {
+					// Success
+						header = (p !== 2 ? 'success' : 'Sucesso');
+						break;
+					}
+					case 2: {
+					// Info
+						header = (p !== 2 ? 'info' : 'Informação');
+						break;
+					}
+					case 3: {
+					// Warning
+						header = (p !== 2 ? 'warning' : 'Aviso');
+						break;
+					}
+					case 4: {
+					// Error
+						header = (p !== 2 ? 'danger' : 'Erro');
+						break;
+					}
+					default:
+				}
+			}
+
+			return header;
+		};
+
+		const closeNotify = e => {
+			e.preventDefault();
+			setShowNotify(false);
+		};
+
 		const handledInfo = props.info && props.info.data;
 
 		let Component = null;
@@ -111,16 +114,14 @@ const Notify = props => {
 			);
 		}
 
-		return (
-			ReactDOM.createPortal(
-				Component,
-				document.getElementById('root')
-			)
-		);
+		return Component;
 	};
 
 	return (
-		<CheckNotify />
+		ReactDOM.createPortal(
+			<CheckNotify />,
+			document.getElementById('root')
+		)
 	);
 };
 

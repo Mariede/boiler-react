@@ -38,16 +38,14 @@ const Loading = props => {
 			);
 		}
 
-		return (
-			ReactDOM.createPortal(
-				Component,
-				document.getElementById('root')
-			)
-		);
+		return Component;
 	};
 
 	return (
-		<CheckLoading />
+		ReactDOM.createPortal(
+			<CheckLoading />,
+			document.getElementById('root')
+		)
 	);
 };
 

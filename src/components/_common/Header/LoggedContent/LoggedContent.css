@@ -13,8 +13,8 @@
 	background-color: #fff;
 	border: 1px #aaa solid;
 	border-radius: 5px;
-	margin: 8px 0px; /* Define centro do cabecalho */
-	padding: 7px 21px; /* Define centro do cabecalho */
+	margin: 11px 0px; /* Define centro do cabecalho */
+	padding: 4px 21px; /* Define centro do cabecalho */
 }
 
 #logged .inline {

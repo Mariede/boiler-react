@@ -10,33 +10,27 @@ import Alert from 'components/_common/Alert';
 import ContextConfig from 'components/_helpers/ContextConfig';
 import ContextUserData from 'components/_helpers/ContextUserData';
 
-import './Logged.css';
+import './LoggedContent.css';
 
 /*
 	PROPS:
 		- isLogged			-> OBRIGATORIO, necessario para exibicao dos dados de usuario logado
 		- icon				-> (font-awesome, default: "fa fa-user-alt")
 */
-const Logged = props => {
+const LoggedContent = props => {
 	const [goLogout, setGoLogout] = useState(false);
-	const [notify, setNotify] = useState(false);
-	const [showLogged, setShowLogged] = useState(false);
+	const [notify, setNotify] = useState(null);
 	const [submit, setSubmit] = useState(false);
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 	const getUserData = useContext(ContextUserData).getUserData;
 
 	useEffect(() => {
-		setShowLogged(props.isLogged);
-	}, [props.isLogged]);
-
-	useEffect(() => {
 		let isMounted = true;
 
-		setGoLogout(false);
-
 		if (submit) {
-			setNotify(false);
+			setGoLogout(false);
+			setNotify(null);
 
 			axios.post(
 				`${getUrl}/logout`
@@ -84,7 +78,7 @@ const Logged = props => {
 				<Redirect to="/logon" />
 			);
 		} else {
-			if (showLogged) {
+			if (props.isLogged) {
 				Component = (
 					<div id="logged">
 						<div id="loggedUser" className="inline">
@@ -99,15 +93,13 @@ const Logged = props => {
 		return (
 			<React.Fragment>
 				<Loading loading={ submit } />
-				<Notify info={ notify.info } header={ notify.header } type={ notify.type } />
+				<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
 				{ Component }
 			</React.Fragment>
 		);
 	};
 
-	return (
-		<CheckUserLogged />
-	);
+	return <CheckUserLogged />;
 };
 
-export default Logged;
+export default LoggedContent;

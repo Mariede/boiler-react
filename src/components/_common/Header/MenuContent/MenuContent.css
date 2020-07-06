@@ -1,0 +1,22 @@
+#menu {
+	font-size: 15px;
+	padding: 8px;
+}
+
+#menu button {
+	font-size: 15px;
+	cursor: default;
+}
+
+#menu button:hover {
+	background-color: #efe;
+}
+
+#menu button:focus {
+	background-color: #efe;
+	outline: none;
+}
+
+#menu button.disabled {
+	color: #ddd !important;
+}

@@ -3,20 +3,11 @@ import { Route, Switch } from 'react-router-dom';
 
 import Controller from 'routes/controllers/Controller';
 
-import Home from 'components/_pages/_home/Home';
-import Logon from 'components/_pages/_auth/Logon';
-import Usuario from 'components/_pages/_usuario/Usuario';
+import routes from 'routes/routes';
 
-import NotFound from 'components/_common/NotFound';
-
-const Routes = props => {
-	// Rotas adicionadas aqui
-	const routes = [
-		{ isProtected: true, component: Home, exact: true, path: '/' },
-		{ isProtected: false, component: Logon, exact: true, path: '/logon' },
-		{ isProtected: true, component: Usuario, exact: false, path: '/usuario' },
-		{ isProtected: false, component: NotFound, exact: false, path: '*' }
-	];
+const RouteGate = props => {
+	const Home = routes.getHome;
+	const Logon = routes.getLogon;
 
 	const FadingRoute = ({ isProtected, component: Component, ...pathDetails }) => (
 		<Route { ...pathDetails } render={
@@ -33,7 +24,7 @@ const Routes = props => {
 	return (
 		<Switch>
 			{
-				routes.map(
+				routes.getRoutes.map(
 					(route, i = 0) => <FadingRoute isProtected={ route.isProtected } component={ route.component } exact={ route.exact } path={ route.path } key={ i } />
 				)
 			}
@@ -41,4 +32,4 @@ const Routes = props => {
 	);
 };
 
-export default Routes;
+export default RouteGate;
