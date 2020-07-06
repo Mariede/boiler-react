@@ -11,7 +11,7 @@ import Notify from 'components/_common/Notify';
 import PageSubject from 'components/_common/PageSubject';
 
 import ContextConfig from 'components/_helpers/ContextConfig';
-import FormValidator from 'components/_helpers/FormValidator';
+import formValidator from 'components/_helpers/formValidator';
 
 import './Logon.css';
 
@@ -30,11 +30,11 @@ const Logon = () => {
 			id: 'login',
 			rules: [
 				{
-					rule: 'ruleBlank',
+					rule: 'isNotEmpty',
 					message: 'Texto não preenchido'
 				},
 				{
-					rule: 'ruleEmail',
+					rule: 'isEmail',
 					message: 'E-mail inválido'
 				}
 			]
@@ -43,7 +43,7 @@ const Logon = () => {
 			id: 'pass',
 			rules: [
 				{
-					rule: 'ruleBlank',
+					rule: 'isNotEmpty',
 					message: 'Texto não preenchido'
 				}
 			]
@@ -51,7 +51,7 @@ const Logon = () => {
 	];
 
 	useEffect(() => {
-		FormValidator.setFormResponse(configFormValidation); // Formulario: 1 de 2
+		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 2
 	}, [configFormValidation]);
 
 	useEffect(() => {
@@ -102,14 +102,14 @@ const Logon = () => {
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
 
-		FormValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
+		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
 		handler(e.target.value);
 	};
 
 	const submitForm = e => {
 		e.preventDefault();
 
-		const formCheck = FormValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
+		const formCheck = formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
 
 		if (formCheck) {
 			setSubmit(true);
