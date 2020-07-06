@@ -61,7 +61,7 @@ npm run build
       * webfonts
         - arquivos utilizados pelo "Font Awesome"
   - components
-    + componentes programáveis do react (_as pastas começam por _ para não confundir com os componentes em si_)
+    + componentes programáveis do react _(as pastas começam por _ para não confundir com os componentes em si)_
       + _common
         * componentes comuns ao projeto (subcomponentes), utilizados em um ou mais componentes
       + _context
@@ -71,4 +71,4 @@ npm run build
   - helpers
     + arquivos de ajuda em js para executar tarefas compartilhadas nos componentes ou manipulação do DOM
   - routes
-    + arquivo separado de roteamento do projeto (routes)
+    + arquivo separado de roteamento do projeto _(routes)_
