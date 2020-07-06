@@ -2,16 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import axios from 'axios';
 
+import Loading from 'components/_common/Loading';
+import Notify from 'components/_common/Notify';
+
 import ContextConfig from 'components/_helpers/ContextConfig';
 import ContextUserData from 'components/_helpers/ContextUserData';
 
 const Controller = props => {
 	const [dataReady, setDataReady] = useState(false);
+	const [notify, setNotify] = useState(null);
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 	const setUserData = useContext(ContextUserData).setUserData;
 
-	const [Component, Home, Logon] = props.children;
+	const [Target, Home, Logon] = props.children;
 	const isLogged = props.isLogged;
 	const isProtected = props.isProtected;
 	const currentPath = props.location.pathname;
@@ -27,6 +31,7 @@ const Controller = props => {
 		let isMounted = true;
 
 		setDataReady(false);
+		setNotify(null);
 
 		axios
 		.get(
@@ -46,6 +51,10 @@ const Controller = props => {
 		)
 		.catch(
 			err => {
+				if (isMounted) {
+					setNotify({ info: (err.response || err), header: 'Controller', type: 4 });
+				}
+
 				throw err;
 			}
 		)
@@ -62,7 +71,7 @@ const Controller = props => {
 		};
 	}, [getUrl, setUserData, currentKey]);
 
-	return (
+	const Component = (
 		<div id="controller">
 			{
 				(
@@ -71,21 +80,29 @@ const Controller = props => {
 					) : (
 						!isProtected ? (
 							!isLogged ? (
-								Component
+								Target
 							) : (
-								Component.type.name !== 'Logon' ? Component : Home
+								Target.type.name !== 'Logon' ? Target : Home
 							)
 						) : (
 							!isLogged ? (
 								Logon
 							) : (
-								Component
+								Target
 							)
 						)
 					)
 				)
 			}
 		</div>
+	);
+
+	return (
+		<React.Fragment>
+			<Loading loading={ !dataReady } />
+			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
+			{ Component }
+		</React.Fragment>
 	);
 };
 

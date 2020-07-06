@@ -9,11 +9,11 @@ const RouteGate = props => {
 	const Home = routes.getHome;
 	const Logon = routes.getLogon;
 
-	const FadingRoute = ({ isProtected, component: Component, ...pathDetails }) => (
+	const FadingRoute = ({ isProtected, component: Target, ...pathDetails }) => (
 		<Route { ...pathDetails } render={
 			routeProps => (
 				<Controller isLogged={ props.isLogged } isProtected={ isProtected } { ...routeProps }>
-					<Component { ...routeProps } />
+					<Target { ...routeProps } />
 					<Home { ...routeProps } />
 					<Logon { ...routeProps } />
 				</Controller>

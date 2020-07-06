@@ -18,17 +18,17 @@ const Notify = props => {
 	const [showNotify, setShowNotify] = useState(false);
 
 	useEffect(() => {
-		let timer;
-
 		if (props.info) {
 			setShowNotify(true);
-
-			timer = setTimeout(
-				() => {
-					setShowNotify(false);
-				}, 15000
-			);
 		}
+
+		const timer = setTimeout(
+			() => {
+				if (props.info) {
+					setShowNotify(false);
+				}
+			}, 15000
+		);
 
 		return () => {
 			setShowNotify(false);
