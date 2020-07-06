@@ -7,8 +7,8 @@ import Loading from 'components/_common/Loading';
 import Notify from 'components/_common/Notify';
 import Alert from 'components/_common/Alert';
 
-import ContextConfig from 'components/_helpers/ContextConfig';
-import ContextUserData from 'components/_helpers/ContextUserData';
+import ContextConfig from 'components/_context/ContextConfig';
+import ContextUserData from 'components/_context/ContextUserData';
 
 import './LoggedContent.css';
 

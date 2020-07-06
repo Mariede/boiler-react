@@ -10,8 +10,8 @@ import Loading from 'components/_common/Loading';
 import Notify from 'components/_common/Notify';
 import PageSubject from 'components/_common/PageSubject';
 
-import ContextConfig from 'components/_helpers/ContextConfig';
-import formValidator from 'components/_helpers/formValidator';
+import ContextConfig from 'components/_context/ContextConfig';
+import formValidator from 'helpers/formValidator';
 
 import './Logon.css';
 

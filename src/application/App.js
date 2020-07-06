@@ -6,8 +6,8 @@ import RouteGate from 'application/RouteGate';
 import Header from 'components/_common/Header';
 import Footer from 'components/_common/Footer';
 
-import ContextConfig from 'components/_helpers/ContextConfig';
-import ContextUserData from 'components/_helpers/ContextUserData';
+import ContextConfig from 'components/_context/ContextConfig';
+import ContextUserData from 'components/_context/ContextUserData';
 
 const App = props => {
 	const [userData, setUserData] = useState(null);

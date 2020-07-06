@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import axios from 'axios';
 
 import Loading from 'components/_common/Loading';
 import Notify from 'components/_common/Notify';
 
-import ContextConfig from 'components/_helpers/ContextConfig';
-import ContextUserData from 'components/_helpers/ContextUserData';
+import ContextConfig from 'components/_context/ContextConfig';
+import ContextUserData from 'components/_context/ContextUserData';
 
 const Controller = props => {
 	const [dataReady, setDataReady] = useState(false);
