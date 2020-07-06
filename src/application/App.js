@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import RouteGate from 'routes/RouteGate';
+import RouteGate from 'application/RouteGate';
 
 import Header from 'components/_common/Header';
 import Footer from 'components/_common/Footer';

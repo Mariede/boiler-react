@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Controller from 'routes/controllers/Controller';
+import Controller from 'application/Controller';
 
 import routes from 'routes/routes';
 
