@@ -28,6 +28,7 @@ const Logon = () => {
 	const configFormValidation = [
 		{
 			id: 'login',
+			optional: false,
 			rules: [
 				{
 					rule: 'isNotEmpty',
@@ -41,6 +42,7 @@ const Logon = () => {
 		},
 		{
 			id: 'pass',
+			optional: false,
 			rules: [
 				{
 					rule: 'isNotEmpty',
