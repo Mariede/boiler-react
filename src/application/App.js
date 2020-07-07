@@ -10,7 +10,7 @@ import ContextConfig from 'components/_context/ContextConfig';
 import ContextUserData from 'components/_context/ContextUserData';
 
 const App = props => {
-	const [userData, setUserData] = useState(null);
+	const [userData, setUserData] = useState(undefined);
 
 	const changeUserData = uData => {
 		setUserData(uData);
@@ -31,7 +31,7 @@ const App = props => {
 		<ContextConfig.Provider value={ props.configData }>
 			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: changeUserData } }>
 				<Router>
-					<Header isLogged={ isLogged } />
+					<Header isLogged={ (userData !== undefined ? isLogged : undefined) } />
 					<div id="wrapper">
 						<RouteGate isLogged={ isLogged } />
 					</div>

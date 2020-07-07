@@ -27,11 +27,16 @@ const Header = props => {
 			<Navbar expand="md" className="navbar-local" light>
 				<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" /> Boiler React</NavbarBrand>
 				<NavbarToggler onClick={ toggleHeaderContent } />
-
-				<Collapse isOpen={ isOpenHeaderContent } navbar>
-					<MenuContent isLogged={ props.isLogged } />
-					<LoggedContent isLogged={ props.isLogged } />
-				</Collapse>
+				{
+					props.isLogged !== undefined ? (
+						<Collapse isOpen={ isOpenHeaderContent } navbar>
+							<MenuContent isLogged={ props.isLogged } />
+							<LoggedContent isLogged={ props.isLogged } />
+						</Collapse>
+					) : (
+						null
+					)
+				}
 			</Navbar>
 		</header>
 	);
