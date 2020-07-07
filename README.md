@@ -38,7 +38,8 @@ npm run build
     + Permite campos e mensagens opcionais
 
 ## Componentes Gerais
-  - Alert (modal de confirmação / informação) com callback
+  - ModalWindow (modais diversos com estrutura configurável e callback)
+  - Alert (popup de confirmação / informação com callback - acoplado com ModalWindow)
   - Loading (carregamento de página)
   - Notify (informações na tela - Erros / Avisos / etc...) com temporizador
 
