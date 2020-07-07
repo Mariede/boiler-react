@@ -55,6 +55,9 @@ const MenuContent = props => {
 				) : (
 					<Nav tabs>
 						<NavItem>
+							<NavLink tag={ Link } to="/dsdsds">Not Found</NavLink>
+						</NavItem>
+						<NavItem>
 							<NavLink tag={ Link } to="/logon">Logon</NavLink>
 						</NavItem>
 					</Nav>
