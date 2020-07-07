@@ -12,28 +12,36 @@ import ContextUserData from 'components/_context/ContextUserData';
 const App = props => {
 	const [userData, setUserData] = useState(undefined);
 
-	const changeUserData = uData => {
+	const cbSetUserData = uData => {
 		setUserData(uData);
 	};
 
-	const checkUserIsLogged = uData => {
+	const setUserIsLogged = uData => {
+		let logged = false;
+
 		if (uData) {
 			sessionStorage.setItem('is-logged', true);
-			return true;
+			logged = true;
+		} else {
+			sessionStorage.removeItem('is-logged');
+
+			if (uData === undefined) {
+				logged = undefined;
+			}
 		}
 
-		return false;
+		return logged;
 	};
 
-	const isLogged = checkUserIsLogged(userData);
+	const userIsLogged = setUserIsLogged(userData);
 
 	return (
 		<ContextConfig.Provider value={ props.configData }>
-			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: changeUserData } }>
+			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: cbSetUserData } }>
 				<Router>
-					<Header isLogged={ (userData !== undefined ? isLogged : undefined) } />
+					<Header isLogged={ userIsLogged } />
 					<div id="wrapper">
-						<RouteGate isLogged={ isLogged } />
+						<RouteGate isLogged={ userIsLogged } />
 					</div>
 					<Footer />
 				</Router>

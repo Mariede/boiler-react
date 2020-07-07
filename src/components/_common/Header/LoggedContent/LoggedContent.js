@@ -38,7 +38,6 @@ const LoggedContent = props => {
 				res => {
 					if (isMounted) {
 						setGoLogout(true);
-						sessionStorage.removeItem('is-logged');
 						sessionStorage.removeItem('current-path');
 					}
 				}

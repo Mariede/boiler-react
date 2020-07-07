@@ -73,7 +73,6 @@ const Logon = () => {
 				res => {
 					if (isMounted) {
 						setGoLogon(true);
-						sessionStorage.getItem('current-path');
 					}
 				}
 			)
@@ -120,7 +119,7 @@ const Logon = () => {
 
 	const Component = (
 		goLogon ? (
-			<Redirect to="/" />
+			<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
 		) : (
 			<div id="logon">
 				<PageSubject subject="Logon" icon="fas fa-sign-in-alt" />

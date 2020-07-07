@@ -26,15 +26,15 @@ npm run build
 
 ## Estrutura de código com pontos definidos de entrada / saída
   - Roteamento com react-router-dom
-  - Core da aplicação separado, com controlador principal de acesso
-  - Configuração das rotas da aplicação em arquivo separado
+  - Core da aplicação separado, com roteamento, controlador principal de sessão e de acesso
   - Rotas protegidas ou abertas
+  - Configuração das rotas da aplicação em arquivo separado
   - Informações de usuário salvas globalmente em contexto
-  - Salva última rota acessada (logado, via sessionStorage) pra caso de disconnect inesperado do servidor
+  - Reloga direto na última rota acessada, para caso de disconnect inesperado do servidor
 
 ## Helpers (Libs de apoio)
   - formValidator => integrado, para validação de formulários
-    + Com regras acopladas da mesma lib **validator** usada no template boiler-server
+    + Com regras acopladas da mesma lib **validator** utilizada no template boiler-server
     + Permite campos e mensagens opcionais
 
 ## Componentes Gerais
@@ -50,7 +50,7 @@ npm run build
 
 ## Estrutura das pastas da aplicação
   - application
-    + arquivos de inicialização e assistência ao seu funcionamento
+    + arquivos de inicialização e assistência ao funcionamento
     + núcleo da aplicação, transparente para os projetos
   - assets
     + arquivos visuais globais da aplicação

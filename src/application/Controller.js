@@ -21,7 +21,8 @@ const Controller = props => {
 	const currentPath = props.location.pathname;
 	const currentKey = props.location.key;
 
-	const targetCheckPass = (Target.type.name !== 'Logon');
+	const targetCheckPassA = (Target.type.name !== 'Logon');
+	const targetCheckPassB = targetCheckPassA && !sessionStorage.getItem('is-logged');
 
 	useEffect(() => {
 		if (isLogged && currentPath !== '/logon') { // Usuario logado
@@ -32,7 +33,7 @@ const Controller = props => {
 	useEffect(() => {
 		let isMounted = true;
 
-		if (!isProtected && targetCheckPass && !sessionStorage.getItem('is-logged')) {
+		if (!isProtected && targetCheckPassB) {
 			setDataReady(true);
 			setUserData(null);
 		} else {
@@ -76,7 +77,7 @@ const Controller = props => {
 		return () => {
 			isMounted = false;
 		};
-	}, [getUrl, setUserData, isProtected, targetCheckPass, currentKey]);
+	}, [getUrl, setUserData, isProtected, targetCheckPassB, currentKey]);
 
 	const Component = (
 		<div id="controller">
@@ -89,7 +90,7 @@ const Controller = props => {
 							!isLogged ? (
 								Target
 							) : (
-								targetCheckPass ? Target : Home
+								targetCheckPassA ? Target : Home
 							)
 						) : (
 							!isLogged ? (

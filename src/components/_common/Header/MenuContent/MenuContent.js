@@ -32,11 +32,23 @@ const MenuContent = props => {
 							</DropdownToggle>
 
 							<DropdownMenu>
-								<DropdownItem header><i>Selecione a opção desejada</i></DropdownItem>
-								<DropdownItem><Link to="/usuario">Action 1</Link></DropdownItem>
-								<DropdownItem disabled>Action 2</DropdownItem>
+								<DropdownItem header>
+									<i>Selecione a opção desejada</i>
+								</DropdownItem>
+
+								<DropdownItem>
+									<Link to="/dsdsds">Action 2 (dsdsds)</Link>
+								</DropdownItem>
+
+								<DropdownItem disabled>
+									Action 2
+								</DropdownItem>
+
 								<DropdownItem divider />
-								<DropdownItem><Link to="/usuario">Action 3</Link></DropdownItem>
+
+								<DropdownItem>
+									<Link to="/logon">Action 3 (logon)</Link>
+								</DropdownItem>
 							</DropdownMenu>
 						</Dropdown>
 					</Nav>
