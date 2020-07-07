@@ -60,7 +60,6 @@ const Logon = () => {
 		let isMounted = true;
 
 		if (submit) {
-			setGoLogon(false);
 			setNotify(null);
 
 			axios.post(
@@ -97,6 +96,7 @@ const Logon = () => {
 		}
 
 		return () => {
+			setGoLogon(false);
 			isMounted = false;
 		};
 	}, [getUrl, login, pass, submit]);

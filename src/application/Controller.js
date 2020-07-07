@@ -21,6 +21,8 @@ const Controller = props => {
 	const currentPath = props.location.pathname;
 	const currentKey = props.location.key;
 
+	const targetCheckPass = (Target.type.name !== 'Logon');
+
 	useEffect(() => {
 		if (isLogged && currentPath !== '/logon') { // Usuario logado
 			sessionStorage.setItem('current-path', currentPath);
@@ -30,46 +32,50 @@ const Controller = props => {
 	useEffect(() => {
 		let isMounted = true;
 
-		setDataReady(false);
-		setNotify(null);
+		if (!isProtected && targetCheckPass && !sessionStorage.getItem('is-logged')) {
+			setDataReady(true);
+		} else {
+			setDataReady(false);
+			setNotify(null);
 
-		axios
-		.get(
-			`${getUrl}/isLogged`,
-			{
-				params: {
-					result_type: 1
+			axios
+			.get(
+				`${getUrl}/isLogged`,
+				{
+					params: {
+						result_type: 1
+					}
 				}
-			}
-		)
-		.then(
-			res => {
-				if (isMounted) {
-					setUserData((res.data ? JSON.stringify(res.data) : null));
+			)
+			.then(
+				res => {
+					if (isMounted) {
+						setUserData((res.data ? JSON.stringify(res.data) : null));
+					}
 				}
-			}
-		)
-		.catch(
-			err => {
-				if (isMounted) {
-					setNotify({ info: (err.response || err), header: 'Controller', type: 4 });
-				}
+			)
+			.catch(
+				err => {
+					if (isMounted) {
+						setNotify({ info: (err.response || err), header: 'Controller', type: 4 });
+					}
 
-				throw err;
-			}
-		)
-		.finally(
-			() => {
-				if (isMounted) {
-					setDataReady(true);
+					throw err;
 				}
-			}
-		);
+			)
+			.finally(
+				() => {
+					if (isMounted) {
+						setDataReady(true);
+					}
+				}
+			);
+		}
 
 		return () => {
 			isMounted = false;
 		};
-	}, [getUrl, setUserData, currentKey]);
+	}, [getUrl, setUserData, isProtected, targetCheckPass, currentKey]);
 
 	const Component = (
 		<div id="controller">
@@ -82,7 +88,7 @@ const Controller = props => {
 							!isLogged ? (
 								Target
 							) : (
-								Target.type.name !== 'Logon' ? Target : Home
+								targetCheckPass ? Target : Home
 							)
 						) : (
 							!isLogged ? (

@@ -26,11 +26,11 @@ import './Alert.css';
 		- confirm			-> Opcional, true/false, se habilitado => modo CONFIRMA, se nao => modo INFORMATIVO
 */
 const Alert = props => {
-	const [modalShow, setModalShow] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 
 	const toggleModal = e => {
 		e.preventDefault();
-		setModalShow(!modalShow);
+		setShowModal(!showModal);
 	};
 
 	const AlertComponent = props => {
@@ -46,7 +46,7 @@ const Alert = props => {
 			}
 
 			if (isButton) {
-				setModalShow(!modalShow);
+				setShowModal(!showModal);
 			}
 		};
 
@@ -54,9 +54,9 @@ const Alert = props => {
 
 		let Component = null;
 
-		if (modalShow) {
+		if (showModal) {
 			Component = (
-				<Modal isOpen={ modalShow } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(e, isConfirm, false, props.callback) }>
+				<Modal isOpen={ showModal } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(e, isConfirm, false, props.callback) }>
 					{
 						props.title !== '!no' ? (
 							<ModalHeader className="modal-header-local" toggle={ toggleModal }>

@@ -15,11 +15,11 @@ import './Header.css';
 		- isLogged			-> OBRIGATORIO, necessario para exibicao dos dados de usuario logado e menu
 */
 const Header = props => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpenHeaderContent, setIsOpenHeaderContent] = useState(false);
 
 	const toggleHeaderContent = e => {
 		e.preventDefault();
-		setIsOpen(!isOpen);
+		setIsOpenHeaderContent(!isOpenHeaderContent);
 	};
 
 	return (
@@ -28,7 +28,7 @@ const Header = props => {
 				<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" /> Boiler React</NavbarBrand>
 				<NavbarToggler onClick={ toggleHeaderContent } />
 
-				<Collapse isOpen={ isOpen } navbar>
+				<Collapse isOpen={ isOpenHeaderContent } navbar>
 					<MenuContent isLogged={ props.isLogged } />
 					<LoggedContent isLogged={ props.isLogged } />
 				</Collapse>

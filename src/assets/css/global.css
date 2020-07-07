@@ -69,6 +69,10 @@ a:not([type="button"]):active {
 }
 
 /* alteracoes layout padrao bootstrap */
+button:focus {
+	outline: none;
+}
+
 button.btn-link {
 	padding: 0px;
 }

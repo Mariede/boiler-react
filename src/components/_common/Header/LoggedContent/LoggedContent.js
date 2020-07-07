@@ -29,7 +29,6 @@ const LoggedContent = props => {
 		let isMounted = true;
 
 		if (submit) {
-			setGoLogout(false);
 			setNotify(null);
 
 			axios.post(
@@ -39,6 +38,7 @@ const LoggedContent = props => {
 				res => {
 					if (isMounted) {
 						setGoLogout(true);
+						sessionStorage.removeItem('is-logged');
 						sessionStorage.removeItem('current-path');
 					}
 				}
@@ -62,6 +62,7 @@ const LoggedContent = props => {
 		}
 
 		return () => {
+			setGoLogout(false);
 			isMounted = false;
 		};
 	}, [getUrl, submit]);

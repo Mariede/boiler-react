@@ -18,19 +18,22 @@ const App = props => {
 
 	const checkUserIsLogged = uData => {
 		if (uData) {
+			sessionStorage.setItem('is-logged', true);
 			return true;
 		}
 
 		return false;
 	};
 
+	const isLogged = checkUserIsLogged(userData);
+
 	return (
 		<ContextConfig.Provider value={ props.configData }>
 			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: changeUserData } }>
 				<Router>
-					<Header isLogged={ checkUserIsLogged(userData) } />
+					<Header isLogged={ isLogged } />
 					<div id="wrapper">
-						<RouteGate isLogged={ checkUserIsLogged(userData) } />
+						<RouteGate isLogged={ isLogged } />
 					</div>
 					<Footer />
 				</Router>
