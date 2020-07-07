@@ -58,37 +58,19 @@ const Notify = props => {
 		toggleFormElements(showNotify, props.form);
 	}, [showNotify, props.form]);
 
-	const CheckNotify = () => {
+	const Component = () => {
 		const notifyHeader = (p, type) => {
-			let header = (p !== 2 ? 'secondary' : 'Notificação');
+			const tableNotify = [
+				['secondary', 'Notificação'],
+				['success', 'Sucesso'],
+				['info', 'Informação'],
+				['warning', 'Aviso'],
+				['danger', 'Erro']
+			];
 
-			if (type) {
-				switch (type) {
-					case 1: {
-					// Success
-						header = (p !== 2 ? 'success' : 'Sucesso');
-						break;
-					}
-					case 2: {
-					// Info
-						header = (p !== 2 ? 'info' : 'Informação');
-						break;
-					}
-					case 3: {
-					// Warning
-						header = (p !== 2 ? 'warning' : 'Aviso');
-						break;
-					}
-					case 4: {
-					// Error
-						header = (p !== 2 ? 'danger' : 'Erro');
-						break;
-					}
-					default:
-				}
-			}
-
-			return header;
+			return (
+				type ? tableNotify[type][p] : null
+			);
 		};
 
 		const closeNotify = e => {
@@ -98,28 +80,26 @@ const Notify = props => {
 
 		const handledInfo = props.info && props.info.data;
 
-		let Component = null;
-
-		if (showNotify) {
-			Component = (
+		return (
+			showNotify ? (
 				<Toast className="notify">
 					<Button close onClick={ closeNotify } />
-					<ToastHeader icon={ notifyHeader(1, props.type) }>
-						{ (props.header || notifyHeader(2, props.type)) }{ (handledInfo ? ` (código ${handledInfo.code})` : '') }
+					<ToastHeader icon={ notifyHeader(0, props.type) }>
+						{ (props.header || notifyHeader(1, props.type)) }{ (handledInfo ? ` (código ${handledInfo.code})` : '') }
 					</ToastHeader>
 					<ToastBody>
 						{ (handledInfo ? handledInfo.message : (props.info ? (props.info.message || props.info) : '')) }
 					</ToastBody>
 				</Toast>
-			);
-		}
-
-		return Component;
+			) : (
+				null
+			)
+		);
 	};
 
 	return (
 		ReactDOM.createPortal(
-			<CheckNotify />,
+			<Component />,
 			document.getElementById('root')
 		)
 	);

@@ -70,36 +70,30 @@ const LoggedContent = props => {
 		setSubmit(true);
 	};
 
-	const CheckUserLogged = () => {
-		let Component = null;
-
-		if (goLogout) {
-			Component = (
-				<Redirect to="/logon" />
-			);
-		} else {
-			if (props.isLogged) {
-				Component = (
-					<div id="logged">
-						<div id="loggedUser" className="inline">
-							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getUserData.nome }</strong><br />{ getUserData.email }
-						</div>
-						<Alert title="Logout" message="Deseja realmente sair do sistema?" size="sm" footerSize="sm" buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" callback={ logoutApp } confirm />
+	const Component = (
+		goLogout ? (
+			<Redirect to="/logon" />
+		) : (
+			props.isLogged ? (
+				<div id="logged">
+					<div id="loggedUser" className="inline">
+						<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getUserData.nome }</strong><br />{ getUserData.email }
 					</div>
-				);
-			}
-		}
+					<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" callback={ logoutApp } modalConfirm />
+				</div>
+			) : (
+				null
+			)
+		)
+	);
 
-		return (
-			<React.Fragment>
-				<Loading loading={ submit } />
-				<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
-				{ Component }
-			</React.Fragment>
-		);
-	};
-
-	return <CheckUserLogged />;
+	return (
+		<React.Fragment>
+			<Loading loading={ submit } />
+			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
+			{ Component }
+		</React.Fragment>
+	);
 };
 
 export default LoggedContent;

@@ -7,66 +7,83 @@ import './Alert.css';
 
 /*
 	PROPS:
-		- title				-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
-									- se title igual "!no" nao exibe o header do modal
-		- message			-> Modal: Aviso a ser emitido, recomendado
-		- centered			-> Modal: true/false (default: { false })
-		- size				-> Modal (default: "lg")
-		- footerSize		-> Modal: tamanho do botao no footer do modal (default: "md")
-		- buttonType		-> Botao de chamada (default: "button")
-		- buttonColor		-> Botao de chamada (default: "success")
-		- buttonSize		-> Botao de chamada (default: "md")
-		- buttonOutline		-> Botao de chamada: true/false (default: { false })
-		- buttonBlock		-> Botao de chamada: true/false (default: { false })
-		- buttonText		-> Botao de chamada (default: "Confirmar")
 
-		- callback			-> Executa uma funcao de callback na saida do modal
-									- caso exista, se modo INFORMATIVO sempre executa
-									- caso exista, se modo CONFIRMA executa somente no botao Confirmar
-		- confirm			-> Opcional, true/false, se habilitado => modo CONFIRMA, se nao => modo INFORMATIVO
+		BUTTON:
+
+			- buttonType		-> Botao de chamada (default: "button")
+			- buttonColor		-> Botao de chamada (default: "success")
+			- buttonSize		-> Botao de chamada (default: "md")
+			- buttonOutline		-> Botao de chamada: true/false (default: { false })
+			- buttonBlock		-> Botao de chamada: true/false (default: { false })
+			- buttonText		-> Botao de chamada (default: "Confirmar")
+
+		MODAL:
+			- modalConfirm		-> Opcional, true/false, se habilitado => modo CONFIRMA, se nao => modo INFORMATIVO
+			- modalCentered		-> Opcional, true/false, se habilitado => modo CENTRALIZADO, se nao => modo PADRAO
+			- modalTitle		-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
+										- se modalTitle igual "!no" nao exibe o header do modal
+			- modalMessage		-> Modal: Aviso a ser emitido, recomendado
+			- modalSize			-> Modal (default: "lg")
+			- modalFooterSize	-> Modal: tamanho do botao no footer do modal (default: "md")
+
+			- callback			-> Executa uma funcao de callback na saida do modal
+										- caso exista, se modo INFORMATIVO sempre executa
+										- caso exista, se modo CONFIRMA executa somente no botao Confirmar
 */
 const Alert = props => {
 	const [showModal, setShowModal] = useState(false);
+
+	const buttonProperties = {
+		type: (props.buttonType || 'button'),
+		color: (props.buttonColor || 'success'),
+		size: (props.buttonSize || 'md'),
+		outline: (props.buttonOutline || false),
+		block: (props.buttonBlock || false)
+	};
 
 	const toggleModal = e => {
 		e.preventDefault();
 		setShowModal(!showModal);
 	};
 
-	const AlertComponent = props => {
-		const exitCallback = (e, isConfirm, isButton, callback) => {
+	const Component = () => {
+		const exitCallback = (e, _modalConfirm, _isButton, _callback) => {
 			if (e) {
 				e.preventDefault();
 			}
 
-			if (typeof callback === 'function') {
-				if ((!isConfirm && !isButton) || (isConfirm && isButton)) {
-					callback();
+			if (typeof _callback === 'function') {
+				if ((!_modalConfirm && !_isButton) || (_modalConfirm && _isButton)) {
+					_callback();
 				}
 			}
 
-			if (isButton) {
+			if (_isButton) {
 				setShowModal(!showModal);
 			}
 		};
 
-		const isConfirm = props.confirm || false;
+		const modalConfirm = (props.modalConfirm || false);
+		const modalCentered = (props.modalCentered || false);
+		const modalTitle = (props.modalTitle || (props.modalConfirm ? 'Confirme' : 'Aviso'));
+		const modalMessage = props.modalMessage;
+		const modalSize = (props.modalSize || 'lg');
+		const modalFooterSize = (props.modalFooterSize || 'md');
+		const callback = props.callback;
 
-		let Component = null;
-
-		if (showModal) {
-			Component = (
-				<Modal isOpen={ showModal } centered={ props.centered } size={ props.size } className="my-alert" onExit={ e => exitCallback(e, isConfirm, false, props.callback) }>
+		return (
+			showModal ? (
+				<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="my-alert" onExit={ e => exitCallback(e, modalConfirm, false, callback) }>
 					{
-						props.title !== '!no' ? (
+						modalTitle !== '!no' ? (
 							<ModalHeader className="modal-header-local" toggle={ toggleModal }>
 								{
-									isConfirm ? (
+									modalConfirm ? (
 										<i className="fas fa-check-double"></i>
 									) : (
 										<i className="fas fa-bell"></i>
 									)
-								} { props.title }
+								} { modalTitle }
 							</ModalHeader>
 						) : (
 							null
@@ -74,32 +91,32 @@ const Alert = props => {
 					}
 
 					<ModalBody className="modal-body-local">
-						{ props.message }
+						{ modalMessage }
 					</ModalBody>
 
 					<ModalFooter className="modal-footer-local">
 						{
-							isConfirm ? (
+							modalConfirm ? (
 								<React.Fragment>
-									<Button type="button" color="success" size={ props.footerSize } onClick={ e => exitCallback(e, isConfirm, true, props.callback) }>Confirmar</Button>
-									<Button type="button" color="danger" size={ props.footerSize } onClick={ toggleModal }>Cancelar</Button>
+									<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, callback) }>Confirmar</Button>
+									<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
 								</React.Fragment>
 							) : (
-								<Button type="button" color="success" size={ props.footerSize } onClick={ toggleModal }>Fechar</Button>
+								<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
 							)
 						}
 					</ModalFooter>
 				</Modal>
-			);
-		}
-
-		return Component;
+			) : (
+				null
+			)
+		);
 	};
 
 	return (
 		<div className="alert-group">
-			<Button type={ (props.buttonType || 'button') } color={ (props.buttonColor || 'success') } size={ (props.buttonSize || 'md') } outline={ (props.buttonOutline || false) } block={ (props.buttonBlock || false) } onClick={ toggleModal }>{ (props.buttonText || 'Confirmar') }</Button>
-			<AlertComponent title={ (props.title || (props.confirm ? 'Confirme' : 'Aviso')) } message={ props.message } centered={ (props.centered || false) } size={ (props.size || 'lg') } footerSize={ (props.footerSize || 'md') } confirm={ props.confirm } callback={ props.callback } />
+			<Button { ...buttonProperties } onClick={ toggleModal }>{ (props.buttonText || 'Confirmar') }</Button>
+			<Component />
 		</div>
 	);
 };

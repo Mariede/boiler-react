@@ -28,27 +28,23 @@ const Loading = props => {
 		};
 	}, [props.loading]);
 
-	const CheckLoading = () => {
-		let Component = null;
-
-		if (showLoading) {
-			Component = (
-				<div id="loading">
-					<div className="message">
-						<Spinner color="info" />
-						<br />
-						{ (props.message || 'Aguarde...') }
-					</div>
+	const Component = () => (
+		showLoading ? (
+			<div id="loading">
+				<div className="message">
+					<Spinner color="info" />
+					<br />
+					{ (props.message || 'Aguarde...') }
 				</div>
-			);
-		}
-
-		return Component;
-	};
+			</div>
+		) : (
+			null
+		)
+	);
 
 	return (
 		ReactDOM.createPortal(
-			<CheckLoading />,
+			<Component />,
 			document.getElementById('root')
 		)
 	);
