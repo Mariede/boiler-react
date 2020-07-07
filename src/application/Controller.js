@@ -34,6 +34,7 @@ const Controller = props => {
 
 		if (!isProtected && targetCheckPass && !sessionStorage.getItem('is-logged')) {
 			setDataReady(true);
+			setUserData(null);
 		} else {
 			setDataReady(false);
 			setNotify(null);
