@@ -1,0 +1,17 @@
+.modal-window .modal-header-local {
+	background-color: #bcd;
+	padding: 8px !important;
+}
+
+.modal-window .modal-title {
+	font-size: 15px;
+}
+
+.modal-window .modal-body-local {
+	text-align: justify;
+}
+
+.modal-window .modal-footer-local {
+	background-color: #bcd;
+	padding: 8px !important;
+}

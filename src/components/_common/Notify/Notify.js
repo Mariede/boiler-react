@@ -68,9 +68,7 @@ const Notify = props => {
 				['danger', 'Erro']
 			];
 
-			return (
-				type ? tableNotify[type][p] : null
-			);
+			return (type ? tableNotify[type][p] : null);
 		};
 
 		const closeNotify = e => {

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 
 import { Button } from 'reactstrap';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
+import ModalWindow from 'components/_common/ModalWindow';
 
 import './Alert.css';
 
 /*
+	** Component Alert requer o componente de Modal (ModalWindow) instalado **
+
 	PROPS:
 
-		BUTTON:
+		Button:
 
 			- buttonType		-> Botao de chamada (default: "button")
 			- buttonColor		-> Botao de chamada (default: "success")
@@ -17,7 +20,7 @@ import './Alert.css';
 			- buttonBlock		-> Botao de chamada: true/false (default: { false })
 			- buttonText		-> Botao de chamada (default: "Confirmar")
 
-		MODAL:
+		ModalWindow:
 			- modalConfirm		-> Opcional, true/false, se habilitado => modo CONFIRMA, se nao => modo INFORMATIVO
 			- modalCentered		-> Opcional, true/false, se habilitado => modo CENTRALIZADO, se nao => modo PADRAO
 			- modalTitle		-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
@@ -31,7 +34,7 @@ import './Alert.css';
 										- caso exista, se modo CONFIRMA executa somente no botao Confirmar
 */
 const Alert = props => {
-	const [showModal, setShowModal] = useState(false);
+	const [showAlert, setShowAlert] = useState({ show: false, render: 0 });
 
 	const buttonProperties = {
 		type: (props.buttonType || 'button'),
@@ -41,82 +44,26 @@ const Alert = props => {
 		block: (props.buttonBlock || false)
 	};
 
-	const toggleModal = e => {
-		e.preventDefault();
-		setShowModal(!showModal);
+	const modalProperties = {
+		modalShow: showAlert.show,
+		modalConfirm: props.modalConfirm,
+		modalCentered: props.modalCentered,
+		modalTitle: props.modalTitle,
+		modalMessage: props.modalMessage,
+		modalSize: props.modalSize,
+		modalFooterSize: props.modalFooterSize,
+		callback: props.callback
 	};
 
-	const Component = () => {
-		const exitCallback = (e, _modalConfirm, _isButton, _callback) => {
-			if (e) {
-				e.preventDefault();
-			}
-
-			if (typeof _callback === 'function') {
-				if ((!_modalConfirm && !_isButton) || (_modalConfirm && _isButton)) {
-					_callback();
-				}
-			}
-
-			if (_isButton) {
-				setShowModal(!showModal);
-			}
-		};
-
-		const modalConfirm = (props.modalConfirm || false);
-		const modalCentered = (props.modalCentered || false);
-		const modalTitle = (props.modalTitle || (props.modalConfirm ? 'Confirme' : 'Aviso'));
-		const modalMessage = props.modalMessage;
-		const modalSize = (props.modalSize || 'lg');
-		const modalFooterSize = (props.modalFooterSize || 'md');
-		const callback = props.callback;
-
-		return (
-			showModal ? (
-				<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="my-alert" onExit={ e => exitCallback(e, modalConfirm, false, callback) }>
-					{
-						modalTitle !== '!no' ? (
-							<ModalHeader className="modal-header-local" toggle={ toggleModal }>
-								{
-									modalConfirm ? (
-										<i className="fas fa-check-double"></i>
-									) : (
-										<i className="fas fa-bell"></i>
-									)
-								} { modalTitle }
-							</ModalHeader>
-						) : (
-							null
-						)
-					}
-
-					<ModalBody className="modal-body-local">
-						{ modalMessage }
-					</ModalBody>
-
-					<ModalFooter className="modal-footer-local">
-						{
-							modalConfirm ? (
-								<React.Fragment>
-									<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, callback) }>Confirmar</Button>
-									<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
-								</React.Fragment>
-							) : (
-								<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
-							)
-						}
-					</ModalFooter>
-				</Modal>
-			) : (
-				null
-			)
-		);
+	const toggleAlert = e => {
+		e.preventDefault();
+		setShowAlert({ show: true, render: ++showAlert.render });
 	};
 
 	return (
-		<div className="alert-group">
-			<Button { ...buttonProperties } onClick={ toggleModal }>{ (props.buttonText || 'Confirmar') }</Button>
-			<Component />
+		<div className="alert-group" key={ showAlert.render }>
+			<Button { ...buttonProperties } onClick={ toggleAlert }>{ (props.buttonText || 'Confirmar') }</Button>
+			<ModalWindow { ...modalProperties } />
 		</div>
 	);
 };

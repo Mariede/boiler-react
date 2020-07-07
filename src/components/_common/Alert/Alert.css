@@ -2,21 +2,3 @@
 	display: inline;
 	padding: 0px;
 }
-
-.my-alert .modal-header-local {
-	background-color: #bcd;
-	padding: 8px !important;
-}
-
-.my-alert .modal-title {
-	font-size: 15px;
-}
-
-.my-alert .modal-body-local {
-	text-align: justify;
-}
-
-.my-alert .modal-footer-local {
-	background-color: #bcd;
-	padding: 8px !important;
-}
