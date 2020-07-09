@@ -10,7 +10,7 @@ import ContextConfig from 'components/_context/ContextConfig';
 import ContextUserData from 'components/_context/ContextUserData';
 
 const App = props => {
-	const [userData, setUserData] = useState(undefined);
+	const [userData, setUserData] = useState(null);
 
 	const cbSetUserData = uData => {
 		setUserData(uData);
@@ -20,14 +20,10 @@ const App = props => {
 		let logged = false;
 
 		if (uData) {
-			sessionStorage.setItem('is-logged', true);
+			sessionStorage.setItem('is-logged', 'true');
 			logged = true;
 		} else {
 			sessionStorage.removeItem('is-logged');
-
-			if (uData === undefined) {
-				logged = undefined;
-			}
 		}
 
 		return logged;

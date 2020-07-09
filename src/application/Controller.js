@@ -13,6 +13,7 @@ const Controller = props => {
 	const [notify, setNotify] = useState(null);
 
 	const getUrl = useContext(ContextConfig).baseUrl;
+	const getUserData = useContext(ContextUserData).getUserData;
 	const setUserData = useContext(ContextUserData).setUserData;
 
 	const [Target, Logon] = props.children;
@@ -21,7 +22,7 @@ const Controller = props => {
 	const currentPath = props.location.pathname;
 	const currentKey = props.location.key;
 
-	const targetCheckPass = (Target.type.name !== 'Logon') && !sessionStorage.getItem('is-logged');
+	const targetCheckPass = !isProtected && !sessionStorage.getItem('is-logged');
 
 	useEffect(() => {
 		if (dataReady && isLogged && currentPath !== '/logon') { // Usuario logado
@@ -32,16 +33,15 @@ const Controller = props => {
 	useEffect(() => {
 		let isMounted = true;
 
-		if (!isProtected && targetCheckPass) {
+		if (targetCheckPass) {
 			setDataReady(true);
-			setUserData(null);
 		} else {
 			setDataReady(false);
 			setNotify(null);
 
 			axios
 			.get(
-				`${getUrl}/isLogged`,
+				`${getUrl}/islogged`,
 				{
 					params: {
 						result_type: 1
@@ -51,7 +51,11 @@ const Controller = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						setUserData((res.data ? JSON.stringify(res.data) : null));
+						const resDataLen = Object.keys(res.data).length;
+
+						if (resDataLen !== Object.keys(getUserData).length) {
+							setUserData((resDataLen ? JSON.stringify(res.data) : null));
+						}
 					}
 				}
 			)
@@ -76,7 +80,7 @@ const Controller = props => {
 		return () => {
 			isMounted = false;
 		};
-	}, [getUrl, setUserData, isProtected, targetCheckPass, currentKey]);
+	}, [getUrl, getUserData, setUserData, targetCheckPass, currentKey]);
 
 	const Component = (
 		<div id="controller">

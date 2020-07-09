@@ -51,7 +51,11 @@ const MenuContent = props => {
 								</DropdownItem>
 
 								<DropdownItem>
-									<Link to="/logon">Action 4 (logon)</Link>
+									<Link to="/usuario/34">Action 4 (usuario/34)</Link>
+								</DropdownItem>
+
+								<DropdownItem>
+									<Link to="/logon">Action 5 (logon)</Link>
 								</DropdownItem>
 							</DropdownMenu>
 						</Dropdown>
@@ -59,8 +63,21 @@ const MenuContent = props => {
 				) : (
 					<Nav tabs>
 						<NavItem>
+							<NavLink tag={ Link } to="/usuario">Usuario Out</NavLink>
+						</NavItem>
+
+						<NavItem>
+							<NavLink tag={ Link } to="/usuario/33">Usuario/33 Out</NavLink>
+						</NavItem>
+
+						<NavItem>
+							<NavLink tag={ Link } to="/usuario/34">Usuario/34 Out</NavLink>
+						</NavItem>
+
+						<NavItem>
 							<NavLink tag={ Link } to="/dsdsds">Not Found</NavLink>
 						</NavItem>
+
 						<NavItem>
 							<NavLink tag={ Link } to="/logon">Logon</NavLink>
 						</NavItem>

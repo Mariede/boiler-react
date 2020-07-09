@@ -40,6 +40,6 @@ startApp()
 )
 .catch(
 	err => {
-		throw err;
+		console.error('config.json', err); // eslint-disable-line no-console
 	}
 );

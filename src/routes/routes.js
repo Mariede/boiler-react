@@ -8,7 +8,7 @@ const routes = {
 	getRoutes: [
 		{ isProtected: true, component: Home, exact: true, path: '/' },
 		{ isProtected: false, component: Logon, exact: true, path: '/logon' },
-		{ isProtected: true, component: Usuario, exact: false, path: '/usuario' },
+		{ isProtected: true, component: Usuario, exact: true, path: '/usuario/:id?' },
 		{ isProtected: false, component: NotFound, exact: false, path: '*' }
 	],
 	getLogon: Logon

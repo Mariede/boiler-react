@@ -21,16 +21,17 @@ npm run build
   - Single Page Application (SPA)
   - RESTFUL
   - Utiliza Bootstrap 4 (reactstrap)
-  - CSS responsivo
+  - CSS responsivo - interface se adapta ao tamanho da tela (inclusive mobile)
   - Webfonts => Font Awesome
 
 ## Estrutura de código com pontos definidos de entrada / saída
   - Roteamento com react-router-dom
-  - Core da aplicação separado, com roteamento, controlador principal de sessão e de acesso
+  - Core da aplicação separado: roteamento, controlador principal de sessão e de acessos
+  - Configuração das rotas da aplicação em arquivo separado
   - Rotas protegidas ou abertas
   - Configuração das rotas da aplicação em arquivo separado
   - Informações de usuário salvas globalmente em contexto
-  - Reloga direto na última rota acessada, para caso de disconnect inesperado do servidor
+  - Reloga direto na última rota acessada, caso de disconnect inesperado do servidor
 
 ## Helpers (Libs de apoio)
   - formValidator => integrado, para validação de formulários
