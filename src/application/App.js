@@ -38,7 +38,7 @@ const App = props => {
 	return (
 		<ContextConfig.Provider value={ props.configData }>
 			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: cbSetUserData } }>
-				<Router>
+				<Router basename='/#/'>
 					<Header isLogged={ userIsLogged } />
 					<div id="wrapper">
 						<RouteGate isLogged={ userIsLogged } />

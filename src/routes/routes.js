@@ -11,7 +11,6 @@ const routes = {
 		{ isProtected: true, component: Usuario, exact: false, path: '/usuario' },
 		{ isProtected: false, component: NotFound, exact: false, path: '*' }
 	],
-	getHome: Home,
 	getLogon: Logon
 };
 

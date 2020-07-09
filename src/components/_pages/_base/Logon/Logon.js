@@ -118,40 +118,44 @@ const Logon = () => {
 	};
 
 	const Component = (
-		goLogon ? (
-			<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
+		sessionStorage.getItem('is-logged') ? (
+			<Redirect to="/" />
 		) : (
-			<div id="logon">
-				<PageSubject subject="Logon" icon="fas fa-sign-in-alt" />
-				<div className="main-content">
-					<Form id="logonForm" className="form" onSubmit={ submitForm }>
-						<Row form>
-							<Col md={ 12 }>
-								<FormGroup>
-									<Label for="login">Usuário</Label>
-									<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
-									<FormText>Insira seu usuário aqui.</FormText>
-								</FormGroup>
-							</Col>
-						</Row>
-						<Row form>
-							<Col md={ 12 }>
-								<FormGroup>
-									<Label for="pass">Senha</Label>
-									<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
-									<FormText>Insira sua senha aqui.</FormText>
-								</FormGroup>
-							</Col>
-						</Row>
-						<hr />
-						<Row form>
-							<Col md={ 12 }>
-								<Button type="submit" color="success" block>Enviar</Button>
-							</Col>
-						</Row>
-					</Form>
+			goLogon ? (
+				<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
+			) : (
+				<div id="logon">
+					<PageSubject subject="Logon" icon="fas fa-sign-in-alt" />
+					<div className="main-content">
+						<Form id="logonForm" className="form" onSubmit={ submitForm }>
+							<Row form>
+								<Col md={ 12 }>
+									<FormGroup>
+										<Label for="login">Usuário</Label>
+										<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
+										<FormText>Insira seu usuário aqui.</FormText>
+									</FormGroup>
+								</Col>
+							</Row>
+							<Row form>
+								<Col md={ 12 }>
+									<FormGroup>
+										<Label for="pass">Senha</Label>
+										<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
+										<FormText>Insira sua senha aqui.</FormText>
+									</FormGroup>
+								</Col>
+							</Row>
+							<hr />
+							<Row form>
+								<Col md={ 12 }>
+									<Button type="submit" color="success" block>Enviar</Button>
+								</Col>
+							</Row>
+						</Form>
+					</div>
 				</div>
-			</div>
+			)
 		)
 	);
 

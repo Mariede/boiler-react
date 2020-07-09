@@ -6,7 +6,6 @@ import Controller from 'application/Controller';
 import routes from 'routes/routes';
 
 const RouteGate = props => {
-	const Home = routes.getHome;
 	const Logon = routes.getLogon;
 
 	const FadingRoute = ({ isProtected, component: Target, ...pathDetails }) => (
@@ -14,7 +13,6 @@ const RouteGate = props => {
 			routeProps => (
 				<Controller isLogged={ props.isLogged } isProtected={ isProtected } { ...routeProps }>
 					<Target { ...routeProps } />
-					<Home { ...routeProps } />
 					<Logon { ...routeProps } />
 				</Controller>
 			)

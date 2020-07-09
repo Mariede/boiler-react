@@ -47,7 +47,11 @@ const MenuContent = props => {
 								<DropdownItem divider />
 
 								<DropdownItem>
-									<Link to="/logon">Action 3 (logon)</Link>
+									<Link to="/usuario/33">Action 3 (usuario/33)</Link>
+								</DropdownItem>
+
+								<DropdownItem>
+									<Link to="/logon">Action 4 (logon)</Link>
 								</DropdownItem>
 							</DropdownMenu>
 						</Dropdown>
