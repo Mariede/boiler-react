@@ -2,7 +2,7 @@
 
 Cliente boilerplate para aplicações Web em React - front-end
 
-Utiliza framework de desenvolvimento [Create React App](https://github.com/facebook/create-react-app)
+Utiliza react-scripts do framework de desenvolvimento [Create React App](https://github.com/facebook/create-react-app)
 
 * Rodar local:
 ```
