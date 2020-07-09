@@ -13,10 +13,13 @@ import './Loading.css';
 const Loading = props => {
 	const [showLoading, setShowLoading] = useState(false);
 
+	const isLoading = props.loading;
+	const message = props.message;
+
 	useEffect(() => {
 		const timer = setTimeout(
 			() => {
-				if (props.loading) {
+				if (isLoading) {
 					setShowLoading(true);
 				}
 			}, 1000
@@ -26,7 +29,7 @@ const Loading = props => {
 			setShowLoading(false);
 			clearTimeout(timer);
 		};
-	}, [props.loading]);
+	}, [isLoading]);
 
 	const Component = () => (
 		showLoading ? (
@@ -34,7 +37,7 @@ const Loading = props => {
 				<div className="message">
 					<Spinner color="info" />
 					<br />
-					{ (props.message || 'Aguarde...') }
+					{ (message || 'Aguarde...') }
 				</div>
 			</div>
 		) : (

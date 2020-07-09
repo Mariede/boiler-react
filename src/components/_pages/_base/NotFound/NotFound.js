@@ -27,9 +27,7 @@ const NotFound = props => {
 				<div className="description">
 					Página não encontrada
 				</div>
-
 				<hr />
-
 				<Row form>
 					<Col md={ 6 }>
 						<Button type="button" color="primary" block onClick={ navBack }>Voltar</Button>

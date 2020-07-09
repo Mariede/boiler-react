@@ -19,11 +19,11 @@ const MenuContent = props => {
 				props.isLogged ? (
 					<Nav tabs>
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Usuario 1</NavLink>
+							<NavLink tag={ Link } to="/usuario">Usuário 1</NavLink>
 						</NavItem>
 
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Usuario 2</NavLink>
+							<NavLink tag={ Link } to="/usuario">Usuário 2</NavLink>
 						</NavItem>
 
 						<Dropdown nav isOpen={ isOpenMenuUsuario } direction="down" toggle={ e => toggleMenuPage(e, isOpenMenuUsuario, setIsOpenMenuUsuario) }>
@@ -63,15 +63,15 @@ const MenuContent = props => {
 				) : (
 					<Nav tabs>
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Usuario Out</NavLink>
+							<NavLink tag={ Link } to="/usuario">Usuário Out</NavLink>
 						</NavItem>
 
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario/33">Usuario/33 Out</NavLink>
+							<NavLink tag={ Link } to="/usuario/33">Usuário/33 Out</NavLink>
 						</NavItem>
 
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario/34">Usuario/34 Out</NavLink>
+							<NavLink tag={ Link } to="/usuario/34">Usuário/34 Out</NavLink>
 						</NavItem>
 
 						<NavItem>

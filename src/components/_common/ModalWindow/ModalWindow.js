@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Button } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -26,15 +26,13 @@ import './ModalWindow.css';
 const ModalWindow = props => {
 	const [showModal, setShowModal] = useState((props.modalShow || false));
 
-	useEffect(() => {
-		if (props.modalShow) {
-			setShowModal(true);
-		}
-
-		return () => {
-			setShowModal(false);
-		};
-	}, [props.modalShow]);
+	const modalConfirm = (props.modalConfirm || false);
+	const modalCentered = (props.modalCentered || false);
+	const modalTitle = (props.modalTitle || (props.modalConfirm ? 'Confirme' : 'Aviso'));
+	const modalMessage = props.modalMessage;
+	const modalSize = (props.modalSize || 'lg');
+	const modalFooterSize = (props.modalFooterSize || 'md');
+	const callback = props.callback;
 
 	const Component = () => {
 		const toggleModal = e => {
@@ -57,14 +55,6 @@ const ModalWindow = props => {
 				setShowModal(!showModal);
 			}
 		};
-
-		const modalConfirm = (props.modalConfirm || false);
-		const modalCentered = (props.modalCentered || false);
-		const modalTitle = (props.modalTitle || (props.modalConfirm ? 'Confirme' : 'Aviso'));
-		const modalMessage = props.modalMessage;
-		const modalSize = (props.modalSize || 'lg');
-		const modalFooterSize = (props.modalFooterSize || 'md');
-		const callback = props.callback;
 
 		return (
 			showModal ? (

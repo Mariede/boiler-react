@@ -18,7 +18,7 @@ const formValidator = {
 					const childId = elId + _setConfig.feedBackIdComplement;
 
 					if (!document.getElementById(childId)) {
-						const child = parent.parentNode.insertBefore(document.createElement(('div')), parent.nextSibling);
+						const child = parent.parentNode.insertBefore(document.createElement('div'), parent.nextSibling);
 
 						child.className = _setConfig.feedBackClass;
 						child.id = childId;

@@ -20,10 +20,10 @@ const Logon = () => {
 	const [notify, setNotify] = useState(null);
 	const [submit, setSubmit] = useState(false);
 
+	const getUrl = useContext(ContextConfig).baseUrl;
+
 	const [login, formHandleLogin] = useState('');
 	const [pass, formHandlePass] = useState('');
-
-	const getUrl = useContext(ContextConfig).baseUrl;
 
 	const configFormValidation = [
 		{

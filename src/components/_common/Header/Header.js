@@ -17,6 +17,8 @@ import './Header.css';
 const Header = props => {
 	const [isOpenHeaderContent, setIsOpenHeaderContent] = useState(false);
 
+	const userIsLogged = props.isLogged;
+
 	const toggleHeaderContent = e => {
 		e.preventDefault();
 		setIsOpenHeaderContent(!isOpenHeaderContent);
@@ -29,8 +31,8 @@ const Header = props => {
 				<NavbarToggler onClick={ toggleHeaderContent } />
 
 				<Collapse isOpen={ isOpenHeaderContent } navbar>
-					<MenuContent isLogged={ props.isLogged } />
-					<LoggedContent isLogged={ props.isLogged } />
+					<MenuContent isLogged={ userIsLogged } />
+					<LoggedContent isLogged={ userIsLogged } />
 				</Collapse>
 			</Navbar>
 		</header>

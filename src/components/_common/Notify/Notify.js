@@ -17,14 +17,21 @@ import './Notify.css';
 const Notify = props => {
 	const [showNotify, setShowNotify] = useState(false);
 
+	const notifyInfo = props.info;
+	const notifyHeader = props.header;
+	const notifyType = props.type;
+	const notifyForm = props.form;
+
+	const handledNotifyInfo = notifyInfo && notifyInfo.data;
+
 	useEffect(() => {
-		if (props.info) {
+		if (notifyInfo) {
 			setShowNotify(true);
 		}
 
 		const timer = setTimeout(
 			() => {
-				if (props.info) {
+				if (notifyInfo) {
 					setShowNotify(false);
 				}
 			}, 15000
@@ -34,7 +41,7 @@ const Notify = props => {
 			setShowNotify(false);
 			clearTimeout(timer);
 		};
-	}, [props.info]);
+	}, [notifyInfo]);
 
 	useEffect(() => {
 		const toggleFormElements = (block, form) => {
@@ -55,11 +62,11 @@ const Notify = props => {
 			}
 		};
 
-		toggleFormElements(showNotify, props.form);
-	}, [showNotify, props.form]);
+		toggleFormElements(showNotify, notifyForm);
+	}, [showNotify, notifyForm]);
 
 	const Component = () => {
-		const notifyHeader = (p, type) => {
+		const _notifyHeader = (p, type) => {
 			const tableNotify = [
 				['secondary', 'Notificação'],
 				['success', 'Sucesso'],
@@ -68,7 +75,7 @@ const Notify = props => {
 				['danger', 'Erro']
 			];
 
-			return (type ? tableNotify[type][p] : null);
+			return tableNotify[(type || 0)][p];
 		};
 
 		const closeNotify = e => {
@@ -76,17 +83,15 @@ const Notify = props => {
 			setShowNotify(false);
 		};
 
-		const handledInfo = props.info && props.info.data;
-
 		return (
 			showNotify ? (
 				<Toast className="notify">
 					<Button close onClick={ closeNotify } />
-					<ToastHeader icon={ notifyHeader(0, props.type) }>
-						{ (props.header || notifyHeader(1, props.type)) }{ (handledInfo ? ` (código ${handledInfo.code})` : '') }
+					<ToastHeader icon={ _notifyHeader(0, notifyType) }>
+						{ (notifyHeader || _notifyHeader(1, notifyType)) }{ (handledNotifyInfo ? ` (código ${handledNotifyInfo.code})` : '') }
 					</ToastHeader>
 					<ToastBody>
-						{ (handledInfo ? handledInfo.message : (props.info ? (props.info.message || props.info) : '')) }
+						{ (handledNotifyInfo ? handledNotifyInfo.message : (notifyInfo ? (notifyInfo.message || notifyInfo) : '')) }
 					</ToastBody>
 				</Toast>
 			) : (
