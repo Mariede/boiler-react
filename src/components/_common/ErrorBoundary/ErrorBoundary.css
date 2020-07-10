@@ -1,0 +1,20 @@
+#error-boundary {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid #cc9966;
+	border-radius: 5px;
+	background-color: #ffcc99;
+	color: white;
+	width: 100%;
+	padding: 20px;
+}
+
+#error-boundary .error-boundary-details {
+	border: 1px solid white;
+	border-radius: 5px;
+	white-space: pre-wrap;
+	margin-top: 20px;
+	padding: 10px;
+}

@@ -1,10 +1,10 @@
-#pageSubject {
+#page-subject {
 	padding-top: 15px;
 	font-size: 14px;
 	font-style: italic;
 }
 
-#pageSubject hr {
+#page-subject hr {
 	border: 2px solid #edd;
 	border-radius: 5px;
 	margin: 15px 0px 30px 0px;

@@ -17,7 +17,7 @@ const NotFound = props => {
 	};
 
 	return (
-		<div id="notFound">
+		<div id="not-found">
 			<PageSubject subject="Aviso" icon="fas fa-exclamation-triangle" />
 			<div className="main-content">
 				<div className="info">

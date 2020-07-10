@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import axios from 'axios';
@@ -66,33 +66,35 @@ const LoggedContent = props => {
 		};
 	}, [getUrl, submit]);
 
-	const logoutApp = () => {
-		setSubmit(true);
+	const Component = () => {
+		const logoutApp = () => {
+			setSubmit(true);
+		};
+
+		return (
+			goLogout ? (
+				<Redirect to="/logon" />
+			) : (
+				props.isLogged ? (
+					<div id="logged">
+						<div id="logged-user" className="inline">
+							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getUserData.nome }</strong><br />{ getUserData.email }
+						</div>
+						<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" callback={ logoutApp } modalConfirm />
+					</div>
+				) : (
+					null
+				)
+			)
+		);
 	};
 
-	const Component = (
-		goLogout ? (
-			<Redirect to="/logon" />
-		) : (
-			props.isLogged ? (
-				<div id="logged">
-					<div id="loggedUser" className="inline">
-						<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getUserData.nome }</strong><br />{ getUserData.email }
-					</div>
-					<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" callback={ logoutApp } modalConfirm />
-				</div>
-			) : (
-				null
-			)
-		)
-	);
-
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Loading loading={ submit } />
 			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
-			{ Component }
-		</React.Fragment>
+			<Component />
+		</Fragment>
 	);
 };
 

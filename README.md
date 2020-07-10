@@ -43,6 +43,7 @@ npm run build
   - Alert (popup de confirmação / informação com callback - acoplado com ModalWindow)
   - Loading (carregamento de página)
   - Notify (informações na tela - Erros / Avisos / etc...) com temporizador
+  - ErrorBoundary (captura error síncronos nos componentes do react e mostra na UI)
 
 ## Componentes de Páginas
   - Divididas em Header / Content (wrapper) / Footer
@@ -68,6 +69,8 @@ npm run build
         * componentes comuns ao projeto (subcomponentes), utilizados em um ou mais componentes
       + _context
         * arquivos de contexto do react
+      + _custom-hooks
+        * hooks personalizados
       + _pages
         * componentes primários das páginas, em geral definidos nas rotas
   - helpers

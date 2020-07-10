@@ -8,7 +8,7 @@ import './PageSubject.css';
 		- subject
 */
 const PageSubject = props => (
-	<div id="pageSubject">
+	<div id="page-subject">
 		<i className={ (props.icon || 'fas fa-thumbtack') }></i> { (props.subject || '') }<hr />
 	</div>
 );

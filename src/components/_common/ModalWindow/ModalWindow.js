@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { Button } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -82,10 +82,10 @@ const ModalWindow = props => {
 					<ModalFooter className="modal-footer-local">
 						{
 							modalConfirm ? (
-								<React.Fragment>
+								<Fragment>
 									<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, callback) }>Confirmar</Button>
 									<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
-								</React.Fragment>
+								</Fragment>
 							) : (
 								<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
 							)

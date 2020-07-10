@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import RouteGate from 'application/RouteGate';
 
+import ErrorBoundary from 'components/_common/ErrorBoundary';
 import Header from 'components/_common/Header';
 import Footer from 'components/_common/Footer';
 
@@ -35,11 +36,13 @@ const App = props => {
 		<ContextConfig.Provider value={ props.configData }>
 			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: cbSetUserData } }>
 				<Router basename='/#/'>
-					<Header isLogged={ userIsLogged } />
-					<div id="wrapper">
-						<RouteGate isLogged={ userIsLogged } />
-					</div>
-					<Footer />
+					<ErrorBoundary>
+						<Header isLogged={ userIsLogged } />
+						<div id="wrapper">
+							<RouteGate isLogged={ userIsLogged } />
+						</div>
+						<Footer />
+					</ErrorBoundary>
 				</Router>
 			</ContextUserData.Provider>
 		</ContextConfig.Provider>

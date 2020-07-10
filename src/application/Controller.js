@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 
 import axios from 'axios';
 
@@ -105,11 +105,11 @@ const Controller = props => {
 	);
 
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Loading loading={ !dataReady } />
 			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
 			{ Component }
-		</React.Fragment>
+		</Fragment>
 	);
 };
 

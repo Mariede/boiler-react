@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
@@ -127,7 +127,7 @@ const Logon = () => {
 				<div id="logon">
 					<PageSubject subject="Logon" icon="fas fa-sign-in-alt" />
 					<div className="main-content">
-						<Form id="logonForm" className="form" onSubmit={ submitForm }>
+						<Form id="logon-form" className="form" onSubmit={ submitForm }>
 							<Row form>
 								<Col md={ 12 }>
 									<FormGroup>
@@ -160,11 +160,11 @@ const Logon = () => {
 	);
 
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Loading loading={ submit } />
-			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } form="logonForm" />
+			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } form="logon-form" />
 			{ Component }
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
