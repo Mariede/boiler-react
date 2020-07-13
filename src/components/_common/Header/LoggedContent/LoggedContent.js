@@ -12,11 +12,6 @@ import ContextUserData from 'components/_context/ContextUserData';
 
 import './LoggedContent.css';
 
-/*
-	PROPS:
-		- isLogged			-> OBRIGATORIO, necessario para exibicao dos dados de usuario logado
-		- icon				-> (font-awesome, default: "fa fa-user-alt")
-*/
 const LoggedContent = props => {
 	const [goLogout, setGoLogout] = useState(false);
 	const [notify, setNotify] = useState(null);
@@ -66,34 +61,40 @@ const LoggedContent = props => {
 		};
 	}, [getUrl, submit]);
 
-	const Component = () => {
-		const logoutApp = () => {
-			setSubmit(true);
-		};
+	const formatName = _name => {
+		const name = String(_name || '').trim();
+		const spaceCheck = name.indexOf(' ');
+		const showName = (spaceCheck !== -1 ? (`${name.substr(name.lastIndexOf(' ') + 1)}, ${name.substr(0, spaceCheck)}`) : name);
 
-		return (
-			goLogout ? (
-				<Redirect to="/logon" />
-			) : (
-				props.isLogged ? (
-					<div id="logged">
-						<div id="logged-user" className="inline">
-							<i className={ (props.icon || 'fa fa-user-alt') }></i> <strong>{ getUserData.nome }</strong><br />{ getUserData.email }
-						</div>
-						<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" callback={ logoutApp } modalConfirm />
-					</div>
-				) : (
-					null
-				)
-			)
-		);
+		return showName;
 	};
+
+	const logoutApp = () => {
+		setSubmit(true);
+	};
+
+	const Component = (
+		goLogout ? (
+			<Redirect to="/logon" />
+		) : (
+			props.isLogged ? (
+				<div id="logged">
+					<span className="logged-user">
+						<i className="fa fa-user-alt"></i> <strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
+					</span>
+					<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" callback={ logoutApp } modalConfirm />
+				</div>
+			) : (
+				null
+			)
+		)
+	);
 
 	return (
 		<Fragment>
 			<Loading loading={ submit } />
 			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
-			<Component />
+			{ Component }
 		</Fragment>
 	);
 };

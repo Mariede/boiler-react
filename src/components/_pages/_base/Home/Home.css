@@ -1,4 +1,4 @@
-#home .main-content {
+#home {
 	font-size: 32px;
 	background-color: #edd;
 	text-align: center;
@@ -10,7 +10,7 @@
 	animation: fadein 2s;
 }
 
-#home .main-content .description {
+#home .description {
 	font-size: 16px;
 	font-style: italic;
 	white-space: normal;

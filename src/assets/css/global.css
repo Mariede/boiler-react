@@ -35,16 +35,7 @@ body {
 #wrapper {
 	margin: 0px 10px;
 	padding: 5px 0px;
-}
-
-#controller {
 	text-align: justify;
-}
-
-div.main-content {
-	width: max-content;
-	max-width: 100%;
-	margin: auto;
 }
 
 img {

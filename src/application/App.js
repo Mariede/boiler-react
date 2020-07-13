@@ -13,10 +13,6 @@ import ContextUserData from 'components/_context/ContextUserData';
 const App = props => {
 	const [userData, setUserData] = useState(null);
 
-	const cbSetUserData = uData => {
-		setUserData(uData);
-	};
-
 	const setUserIsLogged = uData => {
 		let logged = false;
 
@@ -34,7 +30,7 @@ const App = props => {
 
 	return (
 		<ContextConfig.Provider value={ props.configData }>
-			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: cbSetUserData } }>
+			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: uData => setUserData(uData) } }>
 				<Router basename='/#/'>
 					<ErrorBoundary>
 						<Header isLogged={ userIsLogged } />

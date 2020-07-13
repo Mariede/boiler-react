@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Container } from 'reactstrap';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse } from 'reactstrap';
 
 import MenuContent from 'components/_common/Header/MenuContent';
@@ -17,8 +18,6 @@ import './Header.css';
 const Header = props => {
 	const [isOpenHeaderContent, setIsOpenHeaderContent] = useState(false);
 
-	const userIsLogged = props.isLogged;
-
 	const toggleHeaderContent = e => {
 		e.preventDefault();
 		setIsOpenHeaderContent(!isOpenHeaderContent);
@@ -26,15 +25,17 @@ const Header = props => {
 
 	return (
 		<header id="header">
-			<Navbar expand="md" className="navbar-local" light>
-				<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" /> Boiler React</NavbarBrand>
-				<NavbarToggler onClick={ toggleHeaderContent } />
+			<Container fluid="md">
+				<Navbar expand="md" className="navbar-local" light>
+					<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" /> Boiler React</NavbarBrand>
+					<NavbarToggler onClick={ toggleHeaderContent } />
 
-				<Collapse isOpen={ isOpenHeaderContent } navbar>
-					<MenuContent isLogged={ userIsLogged } />
-					<LoggedContent isLogged={ userIsLogged } />
-				</Collapse>
-			</Navbar>
+					<Collapse isOpen={ isOpenHeaderContent } navbar>
+						<MenuContent isLogged={ props.isLogged } />
+						<LoggedContent isLogged={ props.isLogged } />
+					</Collapse>
+				</Navbar>
+			</Container>
 		</header>
 	);
 };

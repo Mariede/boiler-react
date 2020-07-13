@@ -1,19 +1,20 @@
 import React from 'react';
 
-import PageSubject from 'components/_common/PageSubject';
+import MainContent from 'components/_common/MainContent';
 
 import './Home.css';
 
 const Home = () => (
-	<div id="home">
-		<PageSubject subject="Home" icon="fas fa-home" />
-		<div className="main-content">
+	<MainContent subject="Home" icon="fas fa-home">
+		<div id="home">
 			<i className="fas fa-sitemap"></i>
 			<br />Boiler React
+
 			<hr />
+
 			<div className="description">Projeto de Boilerplate usando o Create React App</div>
 		</div>
-	</div>
+	</MainContent>
 );
 
 export default Home;

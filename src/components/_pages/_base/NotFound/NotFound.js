@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
-import PageSubject from 'components/_common/PageSubject';
+import MainContent from 'components/_common/MainContent';
 
 import imgNotFound from 'assets/images/not-found.png';
 
@@ -17,9 +17,8 @@ const NotFound = props => {
 	};
 
 	return (
-		<div id="not-found">
-			<PageSubject subject="Aviso" icon="fas fa-exclamation-triangle" />
-			<div className="main-content">
+		<MainContent subject="Aviso" icon="fas fa-exclamation-triangle">
+			<div id="not-found">
 				<div className="info">
 					4 <img src={ imgNotFound } alt="not-found" className="img-not-found" /> 4
 				</div>
@@ -27,7 +26,9 @@ const NotFound = props => {
 				<div className="description">
 					Página não encontrada
 				</div>
+
 				<hr />
+
 				<Row form>
 					<Col md={ 6 }>
 						<Button type="button" color="primary" block onClick={ navBack }>Voltar</Button>
@@ -37,7 +38,7 @@ const NotFound = props => {
 					</Col>
 				</Row>
 			</div>
-		</div>
+		</MainContent>
 	);
 };
 

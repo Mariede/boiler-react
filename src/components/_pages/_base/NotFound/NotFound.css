@@ -1,17 +1,17 @@
-#not-found .main-content {
+#not-found {
 	text-align: center;
 }
 
-#not-found .main-content .info {
+#not-found .info {
 	color: red;
 	font-size: 80px;
 }
 
-#not-found .main-content .info .img-not-found {
+#not-found .info .img-not-found {
 	width: 120px;
 	max-width: 100%;
 }
 
-#not-found .main-content .description {
+#not-found .description {
 	font-size: 22px;
 }

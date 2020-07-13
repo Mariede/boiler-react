@@ -82,8 +82,10 @@ const Controller = props => {
 		};
 	}, [getUrl, getUserData, setUserData, targetCheckPass, currentKey]);
 
-	const Component = (
-		<div id="controller">
+	return (
+		<Fragment>
+			<Loading loading={ !dataReady } />
+			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
 			{
 				(
 					!dataReady ? (
@@ -101,14 +103,6 @@ const Controller = props => {
 					)
 				)
 			}
-		</div>
-	);
-
-	return (
-		<Fragment>
-			<Loading loading={ !dataReady } />
-			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
-			{ Component }
 		</Fragment>
 	);
 };

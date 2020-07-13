@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import Loading from 'components/_common/Loading';
 import Notify from 'components/_common/Notify';
-import PageSubject from 'components/_common/PageSubject';
+import MainContent from 'components/_common/MainContent';
 
 import ContextConfig from 'components/_context/ContextConfig';
 import formValidator from 'helpers/formValidator';
@@ -20,10 +20,10 @@ const Logon = () => {
 	const [notify, setNotify] = useState(null);
 	const [submit, setSubmit] = useState(false);
 
-	const getUrl = useContext(ContextConfig).baseUrl;
-
 	const [login, formHandleLogin] = useState('');
 	const [pass, formHandlePass] = useState('');
+
+	const getUrl = useContext(ContextConfig).baseUrl;
 
 	const configFormValidation = [
 		{
@@ -124,9 +124,8 @@ const Logon = () => {
 			goLogon ? (
 				<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
 			) : (
-				<div id="logon">
-					<PageSubject subject="Logon" icon="fas fa-sign-in-alt" />
-					<div className="main-content">
+				<MainContent subject="Logon" icon="fas fa-sign-in-alt">
+					<div id="logon">
 						<Form id="logon-form" className="form" onSubmit={ submitForm }>
 							<Row form>
 								<Col md={ 12 }>
@@ -154,7 +153,7 @@ const Logon = () => {
 							</Row>
 						</Form>
 					</div>
-				</div>
+				</MainContent>
 			)
 		)
 	);

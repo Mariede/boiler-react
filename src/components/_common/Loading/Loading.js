@@ -22,7 +22,7 @@ const Loading = props => {
 				if (isLoading) {
 					setShowLoading(true);
 				}
-			}, 1000
+			}, 500
 		);
 
 		return () => {

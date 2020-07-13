@@ -61,10 +61,10 @@ const Alert = props => {
 	};
 
 	return (
-		<div className="alert-group" key={ showAlert.render }>
+		<span className="alert-group" key={ showAlert.render }>
 			<Button { ...buttonProperties } onClick={ toggleAlert }>{ (props.buttonText || 'Confirmar') }</Button>
 			<ModalWindow { ...modalProperties } />
-		</div>
+		</span>
 	);
 };
 

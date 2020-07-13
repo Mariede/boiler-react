@@ -3,10 +3,11 @@
 #logged {
 	position: relative;
 	height: 60px;
+	white-space: nowrap;
 	float: right;
 }
 
-#logged #logged-user {
+#logged .logged-user {
 	font: 10px B612, Arial, Helvetica, san-serif;
 	letter-spacing: 1px;
 	color: #000;
@@ -15,12 +16,10 @@
 	border-radius: 5px;
 	margin: 11px 0px; /* Define centro do cabecalho */
 	padding: 4px 21px; /* Define centro do cabecalho */
-}
-
-#logged .inline {
-	float: left;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 #logged button {
-	margin: 15px 8px; /* Define centro do cabecalho e distancia dos elementos */
+	margin: 0px 8px; /* Define centro do cabecalho e distancia dos elementos */
 }
