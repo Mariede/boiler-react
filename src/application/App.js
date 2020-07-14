@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import RouteGate from 'application/RouteGate';
