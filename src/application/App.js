@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import RouteGate from 'application/RouteGate';
@@ -13,6 +13,12 @@ import ContextUserData from 'components/_context/ContextUserData';
 const App = props => {
 	const [userData, setUserData] = useState(null);
 
+	const renderCount = useRef(0);
+
+	useEffect(() => {
+		renderCount.current++;
+	});
+
 	const setUserIsLogged = uData => {
 		let logged = false;
 
@@ -20,6 +26,10 @@ const App = props => {
 			sessionStorage.setItem('is-logged', 'true');
 			logged = true;
 		} else {
+			if (renderCount.current === 0 && sessionStorage.getItem('is-logged') === 'true') {
+				logged = undefined;
+			}
+
 			sessionStorage.removeItem('is-logged');
 		}
 
@@ -35,7 +45,7 @@ const App = props => {
 					<ErrorBoundary>
 						<Header isLogged={ userIsLogged } />
 						<div id="wrapper">
-							<RouteGate isLogged={ userIsLogged } />
+							<RouteGate isLogged={ (userIsLogged || false) } />
 						</div>
 						<Footer />
 					</ErrorBoundary>
