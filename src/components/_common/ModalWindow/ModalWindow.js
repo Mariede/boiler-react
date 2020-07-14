@@ -34,71 +34,67 @@ const ModalWindow = props => {
 	const modalFooterSize = (props.modalFooterSize || 'md');
 	const callback = props.callback;
 
-	const Component = () => {
-		const toggleModal = e => {
-			e.preventDefault();
-			setShowModal(!showModal);
-		};
-
-		const exitCallback = (e, _modalConfirm, _isButton, _callback) => {
-			if (e) {
-				e.preventDefault();
-			}
-
-			if (typeof _callback === 'function') {
-				if ((!_modalConfirm && !_isButton) || (_modalConfirm && _isButton)) {
-					_callback();
-				}
-			}
-
-			if (_isButton) {
-				setShowModal(!showModal);
-			}
-		};
-
-		return (
-			showModal ? (
-				<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(e, modalConfirm, false, callback) }>
-					{
-						modalTitle !== '!no' ? (
-							<ModalHeader className="modal-header-local" toggle={ toggleModal }>
-								{
-									modalConfirm ? (
-										<i className="fas fa-check-double"></i>
-									) : (
-										<i className="fas fa-bell"></i>
-									)
-								} { modalTitle }
-							</ModalHeader>
-						) : (
-							null
-						)
-					}
-
-					<ModalBody className="modal-body-local">
-						{ modalMessage }
-					</ModalBody>
-
-					<ModalFooter className="modal-footer-local">
-						{
-							modalConfirm ? (
-								<Fragment>
-									<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, callback) }>Confirmar</Button>
-									<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
-								</Fragment>
-							) : (
-								<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
-							)
-						}
-					</ModalFooter>
-				</Modal>
-			) : (
-				null
-			)
-		);
+	const toggleModal = e => {
+		e.preventDefault();
+		setShowModal(!showModal);
 	};
 
-	return <Component />;
+	const exitCallback = (e, _modalConfirm, _isButton, _callback) => {
+		if (e) {
+			e.preventDefault();
+		}
+
+		if (typeof _callback === 'function') {
+			if ((!_modalConfirm && !_isButton) || (_modalConfirm && _isButton)) {
+				_callback();
+			}
+		}
+
+		if (_isButton) {
+			setShowModal(!showModal);
+		}
+	};
+
+	return (
+		showModal ? (
+			<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(e, modalConfirm, false, callback) }>
+				{
+					modalTitle !== '!no' ? (
+						<ModalHeader className="modal-header-local" toggle={ toggleModal }>
+							{
+								modalConfirm ? (
+									<i className="fas fa-check-double"></i>
+								) : (
+									<i className="fas fa-bell"></i>
+								)
+							} { modalTitle }
+						</ModalHeader>
+					) : (
+						null
+					)
+				}
+
+				<ModalBody className="modal-body-local">
+					{ modalMessage }
+				</ModalBody>
+
+				<ModalFooter className="modal-footer-local">
+					{
+						modalConfirm ? (
+							<Fragment>
+								<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, callback) }>Confirmar</Button>
+								<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
+							</Fragment>
+						) : (
+							<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
+						)
+					}
+				</ModalFooter>
+			</Modal>
+		) : (
+			null
+		)
+	);
 };
 
 export default ModalWindow;

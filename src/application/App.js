@@ -15,10 +15,6 @@ const App = props => {
 
 	const renderCount = useRef(0);
 
-	useEffect(() => {
-		renderCount.current++;
-	});
-
 	const setUserIsLogged = uData => {
 		let logged = false;
 
@@ -35,6 +31,12 @@ const App = props => {
 
 		return logged;
 	};
+
+	useEffect(
+		() => {
+			renderCount.current++;
+		}
+	);
 
 	const userIsLogged = setUserIsLogged(userData);
 

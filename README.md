@@ -37,6 +37,7 @@ npm run build
   - formValidator => integrado, para validação de formulários
     + Com regras acopladas da mesma lib **validator** utilizada no template boiler-server
     + Permite campos e mensagens opcionais
+    + Permite validação a partir de eventos variados
 
 ## Componentes Gerais
   - ModalWindow (modais diversos com estrutura configurável e callback)
@@ -46,7 +47,7 @@ npm run build
   - ErrorBoundary (captura error síncronos nos componentes do react e mostra na UI)
 
 ## Componentes de Páginas
-  - Divididas em Header / Content (wrapper) / Footer
+  - Divididas em Header / MainContent (wrapper) / Footer
   - Cabeçalhos
   - Página 404 "Não Encontrado"
   - Home / Logon / Logout

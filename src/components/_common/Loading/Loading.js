@@ -16,20 +16,23 @@ const Loading = props => {
 	const isLoading = props.loading;
 	const message = props.message;
 
-	useEffect(() => {
-		const timer = setTimeout(
-			() => {
-				if (isLoading) {
-					setShowLoading(true);
-				}
-			}, 500
-		);
+	useEffect(
+		() => {
+			const timer = setTimeout(
+				() => {
+					if (isLoading) {
+						setShowLoading(true);
+					}
+				}, 500
+			);
 
-		return () => {
-			setShowLoading(false);
-			clearTimeout(timer);
-		};
-	}, [isLoading]);
+			return () => {
+				setShowLoading(false);
+				clearTimeout(timer);
+			};
+		},
+		[isLoading]
+	);
 
 	const Component = () => (
 		showLoading ? (

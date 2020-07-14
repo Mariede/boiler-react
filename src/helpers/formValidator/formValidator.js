@@ -4,11 +4,14 @@ import './formValidator.css';
 
 const _setConfig = {
 	feedBackClass: 'form-feedback',
-	feedBackIdComplement: 'FormFeedback'
+	feedBackIdComplement: 'FormFeedback',
+	validationStart: false
 };
 
 const formValidator = {
 	setFormResponse: config => {
+		_setConfig.validationStart = false;
+
 		config.forEach(
 			e => {
 				const elId = e.id;
@@ -29,110 +32,118 @@ const formValidator = {
 			}
 		);
 	},
-	setFormValidation: config => {
+	setFormValidation: (config, validationStart = _setConfig.validationStart) => {
+	// Param validationStart => set it as true, from which page validation will be constantly enabled
+
 		const invalidList = [];
 		const validList = [];
 
 		let result = true;
 
-		config.forEach(
-			e => {
-				const elId = e.id;
-				const parent = document.getElementById(elId);
-				const elOptional = (e.optional || false);
+		if (validationStart) {
+			if (!_setConfig.validationStart) {
+				_setConfig.validationStart = true;
+			}
 
-				if (parent) {
-					const childId = elId + _setConfig.feedBackIdComplement;
-					const child = document.getElementById(childId);
+			config.forEach(
+				e => {
+					const elId = e.id;
+					const parent = document.getElementById(elId);
+					const elOptional = (e.optional || false);
 
-					if (child) {
-						const elValue = parent.value;
+					if (parent) {
+						const childId = elId + _setConfig.feedBackIdComplement;
+						const child = document.getElementById(childId);
 
-						let isValid = true;
+						if (child) {
+							const elValue = parent.value;
 
-						child.style.display = 'none';
-						child.innerHTML = '';
+							let isValid = true;
 
-						if (!elOptional || elValue !== '') {
-						/*
-						Validation Check Engine
+							child.style.display = 'none';
+							child.innerHTML = '';
 
-							-> create a new rule name and add here a new validation from the validator pool of functions
-							-> validator file is basically the same as the one in boiler-server template
-						*/
-							Array.from(e.rules).forEach(
-								e => {
-									const defaultMessage = 'Field is invalid';
+							if (!elOptional || elValue !== '') {
+							/*
+							Validation Check Engine
 
-									// Engine --------------------------------------------------------------------------------------
-									// isNotEmpty
-									if (e.rule === 'isNotEmpty' && isValid) {
-										isValid = !validator.isEmpty(elValue, false);
+								-> create a new rule name and add here a new validation from the validator pool of functions
+								-> validator file is basically the same as the one in boiler-server template
+							*/
+								Array.from(e.rules).forEach(
+									e => {
+										const defaultMessage = 'Field is invalid';
 
-										if (!isValid) {
-											child.innerHTML = (e.message || defaultMessage);
+										// Engine --------------------------------------------------------------------------------------
+										// isNotEmpty
+										if (e.rule === 'isNotEmpty' && isValid) {
+											isValid = !validator.isEmpty(elValue, false);
+
+											if (!isValid) {
+												child.innerHTML = (e.message || defaultMessage);
+											}
 										}
-									}
-									// -------------------------------------------
+										// -------------------------------------------
 
-									// isNotEmptyTrimmed
-									if (e.rule === 'isNotEmptyTrimmed' && isValid) {
-										isValid = !validator.isEmpty(elValue);
+										// isNotEmptyTrimmed
+										if (e.rule === 'isNotEmptyTrimmed' && isValid) {
+											isValid = !validator.isEmpty(elValue);
 
-										if (!isValid) {
-											child.innerHTML = (e.message || defaultMessage);
+											if (!isValid) {
+												child.innerHTML = (e.message || defaultMessage);
+											}
 										}
-									}
-									// -------------------------------------------
+										// -------------------------------------------
 
-									// isEmail
-									if (e.rule === 'isEmail' && isValid) {
-										isValid = validator.isEmail(elValue);
+										// isEmail
+										if (e.rule === 'isEmail' && isValid) {
+											isValid = validator.isEmail(elValue);
 
-										if (!isValid) {
-											child.innerHTML = (e.message || defaultMessage);
+											if (!isValid) {
+												child.innerHTML = (e.message || defaultMessage);
+											}
 										}
+										// -------------------------------------------
+										// ---------------------------------------------------------------------------------------------
 									}
-									// -------------------------------------------
-									// ---------------------------------------------------------------------------------------------
-								}
-							);
-						}
-
-						if (!isValid) {
-							child.style.display = 'block';
-							invalidList.push(elId);
-
-							if (result) {
-								result = false;
+								);
 							}
-						} else {
-							validList.push(elId);
+
+							if (!isValid) {
+								child.style.display = 'block';
+								invalidList.push(elId);
+
+								if (result) {
+									result = false;
+								}
+							} else {
+								validList.push(elId);
+							}
 						}
 					}
 				}
-			}
-		);
+			);
 
-		// Classes bootstrap 4
-		[...new Set(invalidList)].forEach(
-			e => {
-				const element = document.getElementById(e);
+			// Classes bootstrap 4
+			[...new Set(invalidList)].forEach(
+				e => {
+					const element = document.getElementById(e);
 
-				element.classList.remove('is-valid');
-				element.classList.add('is-invalid');
-			}
-		);
+					element.classList.remove('is-valid');
+					element.classList.add('is-invalid');
+				}
+			);
 
-		// Classes bootstrap 4
-		[...new Set(validList)].forEach(
-			e => {
-				const element = document.getElementById(e);
+			// Classes bootstrap 4
+			[...new Set(validList)].forEach(
+				e => {
+					const element = document.getElementById(e);
 
-				element.classList.remove('is-invalid');
-				element.classList.add('is-valid');
-			}
-		);
+					element.classList.remove('is-invalid');
+					element.classList.add('is-valid');
+				}
+			);
+		}
 
 		return result;
 	}

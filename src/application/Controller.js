@@ -24,81 +24,85 @@ const Controller = props => {
 
 	const targetCheckPass = !isProtected && !sessionStorage.getItem('is-logged');
 
-	useEffect(() => {
-		if (dataReady && isLogged && currentPath !== '/logon') { // Usuario logado
-			sessionStorage.setItem('current-path', currentPath);
-		}
-	}, [dataReady, isLogged, currentPath]);
+	useEffect(
+		() => {
+			if (dataReady && isLogged && currentPath !== '/logon') { // Usuario logado
+				sessionStorage.setItem('current-path', currentPath);
+			}
+		},
+		[dataReady, isLogged, currentPath]
+	);
 
-	useEffect(() => {
-		let isMounted = true;
+	useEffect(
+		() => {
+			let isMounted = true;
 
-		if (targetCheckPass) {
-			setDataReady(true);
-		} else {
-			setDataReady(false);
-			setNotify(null);
+			if (targetCheckPass) {
+				setDataReady(true);
+			} else {
+				setDataReady(false);
+				setNotify(null);
 
-			axios
-			.get(
-				`${getUrl}/islogged`,
-				{
-					params: {
-						result_type: 1
-					}
-				}
-			)
-			.then(
-				res => {
-					if (isMounted) {
-						const resDataLen = Object.keys(res.data).length;
-
-						if (resDataLen !== Object.keys(getUserData).length) {
-							setUserData((resDataLen ? JSON.stringify(res.data) : null));
+				axios
+				.get(
+					`${getUrl}/islogged`,
+					{
+						params: {
+							result_type: 1
 						}
 					}
-				}
-			)
-			.catch(
-				err => {
-					if (isMounted) {
-						setNotify({ info: (err.response || err), header: 'Controller', type: 4 });
-					}
+				)
+				.then(
+					res => {
+						if (isMounted) {
+							const resDataLen = Object.keys(res.data).length;
 
-					throw err;
-				}
-			)
-			.finally(
-				() => {
-					if (isMounted) {
-						setDataReady(true);
+							if (resDataLen !== Object.keys(getUserData).length) {
+								setUserData((resDataLen ? JSON.stringify(res.data) : null));
+							}
+						}
 					}
-				}
-			);
-		}
+				)
+				.catch(
+					err => {
+						if (isMounted) {
+							setNotify({ info: (err.response || err), header: 'Controller', type: 4 });
+						}
 
-		return () => {
-			isMounted = false;
-		};
-	}, [getUrl, getUserData, setUserData, targetCheckPass, currentKey]);
+						throw err;
+					}
+				)
+				.finally(
+					() => {
+						if (isMounted) {
+							setDataReady(true);
+						}
+					}
+				);
+			}
+
+			return () => {
+				isMounted = false;
+			};
+		},
+		[getUrl, getUserData, setUserData, targetCheckPass, currentKey]
+	);
 
 	return (
 		<Fragment>
 			<Loading loading={ !dataReady } />
 			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
 			{
-				(
-					!dataReady ? (
-						null
+				!dataReady ? (
+					null
+				) : (
+					!isProtected ? (
+						Target
 					) : (
-						!isProtected ? (
-							Target
+						!isLogged ? (
+							Logon
 						) : (
-							!isLogged ? (
-								Logon
-							) : (
-								Target
-							)
+							Target
 						)
 					)
 				)

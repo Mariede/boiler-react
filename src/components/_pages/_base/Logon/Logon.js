@@ -52,53 +52,9 @@ const Logon = () => {
 		}
 	];
 
-	useEffect(() => {
+	const initiateFormValidation = () => {
 		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 2
-	}, [configFormValidation]);
-
-	useEffect(() => {
-		let isMounted = true;
-
-		if (submit) {
-			setNotify(null);
-
-			axios.post(
-				`${getUrl}/logon`,
-				{
-					login: login,
-					pass: pass
-				}
-			)
-			.then(
-				res => {
-					if (isMounted) {
-						setGoLogon(true);
-					}
-				}
-			)
-			.catch(
-				err => {
-					if (isMounted) {
-						setNotify({ info: (err.response || err), header: 'Logon', type: 4 });
-					}
-
-					throw err;
-				}
-			)
-			.finally(
-				() => {
-					if (isMounted) {
-						setSubmit(false);
-					}
-				}
-			);
-		}
-
-		return () => {
-			setGoLogon(false);
-			isMounted = false;
-		};
-	}, [getUrl, login, pass, submit]);
+	};
 
 	const handleFormElements = (e, handler) => {
 		e.preventDefault();
@@ -110,59 +66,108 @@ const Logon = () => {
 	const submitForm = e => {
 		e.preventDefault();
 
-		const formCheck = formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
+		const formCheck = formValidator.setFormValidation(configFormValidation, true); // Formulario: 2 de 2
 
 		if (formCheck) {
 			setSubmit(true);
 		}
 	};
 
-	const Component = (
-		sessionStorage.getItem('is-logged') ? (
-			<Redirect to="/" />
-		) : (
-			goLogon ? (
-				<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
-			) : (
-				<MainContent subject="Logon" icon="fas fa-sign-in-alt">
-					<div id="logon">
-						<Form id="logon-form" className="form" onSubmit={ submitForm }>
-							<Row form>
-								<Col md={ 12 }>
-									<FormGroup>
-										<Label for="login">Usuário</Label>
-										<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
-										<FormText>Insira seu usuário aqui.</FormText>
-									</FormGroup>
-								</Col>
-							</Row>
-							<Row form>
-								<Col md={ 12 }>
-									<FormGroup>
-										<Label for="pass">Senha</Label>
-										<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
-										<FormText>Insira sua senha aqui.</FormText>
-									</FormGroup>
-								</Col>
-							</Row>
-							<hr />
-							<Row form>
-								<Col md={ 12 }>
-									<Button type="submit" color="success" block>Enviar</Button>
-								</Col>
-							</Row>
-						</Form>
-					</div>
-				</MainContent>
-			)
-		)
+	useEffect(
+		initiateFormValidation,
+		[]
+	);
+
+	useEffect(
+		() => {
+			let isMounted = true;
+
+			if (submit) {
+				setNotify(null);
+
+				axios.post(
+					`${getUrl}/logon`,
+					{
+						login: login,
+						pass: pass
+					}
+				)
+				.then(
+					res => {
+						if (isMounted) {
+							setGoLogon(true);
+						}
+					}
+				)
+				.catch(
+					err => {
+						if (isMounted) {
+							setNotify({ info: (err.response || err), header: 'Logon', type: 4 });
+						}
+
+						throw err;
+					}
+				)
+				.finally(
+					() => {
+						if (isMounted) {
+							setSubmit(false);
+						}
+					}
+				);
+			}
+
+			return () => {
+				isMounted = false;
+			};
+		},
+		[getUrl, login, pass, submit]
 	);
 
 	return (
 		<Fragment>
 			<Loading loading={ submit } />
 			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } form="logon-form" />
-			{ Component }
+			{
+				sessionStorage.getItem('is-logged') ? (
+					<Redirect to="/" />
+				) : (
+					goLogon ? (
+						<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
+					) : (
+						<MainContent subject="Logon" icon="fas fa-sign-in-alt">
+							<div id="logon">
+								<Form id="logon-form" className="form" onSubmit={ submitForm }>
+									<Row form>
+										<Col md={ 12 }>
+											<FormGroup>
+												<Label for="login">Usuário</Label>
+												<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
+												<FormText>Insira seu usuário aqui.</FormText>
+											</FormGroup>
+										</Col>
+									</Row>
+									<Row form>
+										<Col md={ 12 }>
+											<FormGroup>
+												<Label for="pass">Senha</Label>
+												<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
+												<FormText>Insira sua senha aqui.</FormText>
+											</FormGroup>
+										</Col>
+									</Row>
+									<hr />
+									<Row form>
+										<Col md={ 12 }>
+											<Button type="submit" color="success" block>Enviar</Button>
+										</Col>
+									</Row>
+								</Form>
+							</div>
+						</MainContent>
+					)
+				)
+			}
 		</Fragment>
 	);
 };

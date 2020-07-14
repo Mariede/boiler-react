@@ -24,46 +24,52 @@ const Notify = props => {
 
 	const handledNotifyInfo = notifyInfo && notifyInfo.data;
 
-	useEffect(() => {
-		if (notifyInfo) {
-			setShowNotify(true);
-		}
+	useEffect(
+		() => {
+			if (notifyInfo) {
+				setShowNotify(true);
+			}
 
-		const timer = setTimeout(
-			() => {
-				if (notifyInfo) {
-					setShowNotify(false);
-				}
-			}, 15000
-		);
+			const timer = setTimeout(
+				() => {
+					if (notifyInfo) {
+						setShowNotify(false);
+					}
+				}, 15000
+			);
 
-		return () => {
-			setShowNotify(false);
-			clearTimeout(timer);
-		};
-	}, [notifyInfo]);
+			return () => {
+				setShowNotify(false);
+				clearTimeout(timer);
+			};
+		},
+		[notifyInfo]
+	);
 
-	useEffect(() => {
-		const toggleFormElements = (block, form) => {
-			if (form) {
-				const formElements = document.getElementById(form) && document.getElementById(form).elements;
+	useEffect(
+		() => {
+			const toggleFormElements = (block, form) => {
+				if (form) {
+					const formElements = document.getElementById(form) && document.getElementById(form).elements;
 
-				if (formElements) {
-					const formLength = formElements.length;
+					if (formElements) {
+						const formLength = formElements.length;
 
-					for (let i = 0; i < formLength; ++i) {
-						if (block) {
-							formElements[i].disabled = true;
-						} else {
-							formElements[i].disabled = false;
+						for (let i = 0; i < formLength; ++i) {
+							if (block) {
+								formElements[i].disabled = true;
+							} else {
+								formElements[i].disabled = false;
+							}
 						}
 					}
 				}
-			}
-		};
+			};
 
-		toggleFormElements(showNotify, notifyForm);
-	}, [showNotify, notifyForm]);
+			toggleFormElements(showNotify, notifyForm);
+		},
+		[showNotify, notifyForm]
+	);
 
 	const Component = () => {
 		const _notifyHeader = (p, type) => {
