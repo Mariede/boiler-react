@@ -17,10 +17,7 @@ import './Notify.css';
 const Notify = props => {
 	const [showNotify, setShowNotify] = useState(false);
 
-	const notifyInfo = props.info;
-	const notifyHeader = props.header;
-	const notifyType = props.type;
-	const notifyForm = props.form;
+	const { info: notifyInfo, header: notifyHeader, type: notifyType, form: notifyForm } = props;
 
 	const handledNotifyInfo = notifyInfo && notifyInfo.data;
 

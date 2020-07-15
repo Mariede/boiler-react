@@ -13,14 +13,13 @@ import './Loading.css';
 const Loading = props => {
 	const [showLoading, setShowLoading] = useState(false);
 
-	const isLoading = props.loading;
-	const message = props.message;
+	const { loading, message } = props;
 
 	useEffect(
 		() => {
 			const timer = setTimeout(
 				() => {
-					if (isLoading) {
+					if (loading) {
 						setShowLoading(true);
 					}
 				}, 500
@@ -31,7 +30,7 @@ const Loading = props => {
 				clearTimeout(timer);
 			};
 		},
-		[isLoading]
+		[loading]
 	);
 
 	const Component = () => (

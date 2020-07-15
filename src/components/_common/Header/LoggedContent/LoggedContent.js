@@ -1,23 +1,18 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import axios from 'axios';
-
-import Loading from 'components/_common/Loading';
-import Notify from 'components/_common/Notify';
 import Alert from 'components/_common/Alert';
 
-import ContextConfig from 'components/_context/ContextConfig';
+import useDataPostPutPatch from 'components/_custom-hooks/useDataPostPutPatch';
+
 import ContextUserData from 'components/_context/ContextUserData';
 
 import './LoggedContent.css';
 
 const LoggedContent = () => {
 	const [goLogout, setGoLogout] = useState(false);
-	const [notify, setNotify] = useState(null);
 	const [submit, setSubmit] = useState(false);
 
-	const getUrl = useContext(ContextConfig).baseUrl;
 	const getUserData = useContext(ContextUserData).getUserData;
 
 	const formatName = _name => {
@@ -32,53 +27,29 @@ const LoggedContent = () => {
 		setSubmit(true);
 	};
 
-	useEffect(
-		() => {
-			let isMounted = true;
-
-			if (submit) {
-				setNotify(null);
-
-				axios.post(
-					`${getUrl}/logout`
-				)
-				.then(
-					res => {
-						if (isMounted) {
-							sessionStorage.removeItem('current-path');
-							setGoLogout(true);
-						}
-					}
-				)
-				.catch(
-					err => {
-						if (isMounted) {
-							setNotify({ info: (err.response || err), header: 'Logout', type: 4 });
-						}
-
-						throw err;
-					}
-				)
-				.finally(
-					() => {
-						if (isMounted) {
-							setSubmit(false);
-						}
-					}
-				);
-			}
-
-			return () => {
-				isMounted = false;
-			};
-		},
-		[getUrl, submit]
+	const Component = useDataPostPutPatch(
+		{
+			method: 'POST',
+			route: '/logout',
+			submit: submit,
+			cbSubmit: () => {
+				setSubmit(false);
+			},
+			cbThen: () => {
+				sessionStorage.removeItem('current-path');
+				setGoLogout(true);
+			},
+			cbCatch: {
+				header: 'Logout',
+				type: 4
+			},
+			message: 'Efetuando logout...'
+		}
 	);
 
 	return (
 		<Fragment>
-			<Loading loading={ submit } />
-			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } />
+			{ Component }
 			{
 				goLogout ? (
 					<Redirect to="/logon" />

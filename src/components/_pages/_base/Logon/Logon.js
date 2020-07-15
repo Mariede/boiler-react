@@ -1,29 +1,23 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
-import axios from 'axios';
-
-import Loading from 'components/_common/Loading';
-import Notify from 'components/_common/Notify';
 import MainContent from 'components/_common/MainContent';
 
-import ContextConfig from 'components/_context/ContextConfig';
+import useDataPostPutPatch from 'components/_custom-hooks/useDataPostPutPatch';
+
 import formValidator from 'helpers/formValidator';
 
 import './Logon.css';
 
 const Logon = () => {
 	const [goLogon, setGoLogon] = useState(false);
-	const [notify, setNotify] = useState(null);
 	const [submit, setSubmit] = useState(false);
 
 	const [login, formHandleLogin] = useState('');
 	const [pass, formHandlePass] = useState('');
-
-	const getUrl = useContext(ContextConfig).baseUrl;
 
 	const configFormValidation = [
 		{
@@ -78,56 +72,33 @@ const Logon = () => {
 		[]
 	);
 
-	useEffect(
-		() => {
-			let isMounted = true;
-
-			if (submit) {
-				setNotify(null);
-
-				axios.post(
-					`${getUrl}/logon`,
-					{
-						login: login,
-						pass: pass
-					}
-				)
-				.then(
-					res => {
-						if (isMounted) {
-							setGoLogon(true);
-						}
-					}
-				)
-				.catch(
-					err => {
-						if (isMounted) {
-							setNotify({ info: (err.response || err), header: 'Logon', type: 4 });
-						}
-
-						throw err;
-					}
-				)
-				.finally(
-					() => {
-						if (isMounted) {
-							setSubmit(false);
-						}
-					}
-				);
-			}
-
-			return () => {
-				isMounted = false;
-			};
-		},
-		[getUrl, login, pass, submit]
+	const Component = useDataPostPutPatch(
+		{
+			method: 'POST',
+			route: '/logon',
+			submit: submit,
+			cbSubmit: () => {
+				setSubmit(false);
+			},
+			data: {
+				login: login,
+				pass: pass
+			},
+			cbThen: () => {
+				setGoLogon(true);
+			},
+			cbCatch: {
+				header: 'Logon',
+				type: 4,
+				form: 'logon-form'
+			},
+			message: 'Efetuando logon...'
+		}
 	);
 
 	return (
 		<Fragment>
-			<Loading loading={ submit } />
-			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } form="logon-form" />
+			{ Component }
 			{
 				sessionStorage.getItem('is-logged') ? (
 					<Redirect to="/" />
