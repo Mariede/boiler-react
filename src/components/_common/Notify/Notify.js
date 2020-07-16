@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Button } from 'reactstrap';
@@ -66,6 +66,30 @@ const Notify = props => {
 			toggleFormElements(showNotify, notifyForm);
 		},
 		[showNotify, notifyForm]
+	);
+
+	useLayoutEffect(
+		() => {
+			if (showNotify) {
+				const arrayHeight = [];
+
+				let totalHeight = 0,
+					lastElement = null;
+
+				Array.from(document.getElementsByClassName('notify')).forEach(
+					(element, i) => {
+						arrayHeight.push(element.offsetHeight);
+						totalHeight = totalHeight + (i === 0 ? element.offsetTop : arrayHeight[i - 1]);
+						lastElement = element;
+					}
+				);
+
+				if (lastElement) {
+					lastElement.style.top = `${totalHeight}px`;
+				}
+			}
+		},
+		[showNotify]
 	);
 
 	const Component = () => {
