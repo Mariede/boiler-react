@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useReducer, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
@@ -16,8 +16,13 @@ const Logon = () => {
 	const [goLogon, setGoLogon] = useState(false);
 	const [submit, setSubmit] = useState(false);
 
-	const [login, formHandleLogin] = useState('');
-	const [pass, formHandlePass] = useState('');
+	const [{ login, pass }, handleFormElements] = useReducer(
+		(formElementsValues, newFormElementsValues) => ({ ...formElementsValues, ...newFormElementsValues }),
+		{
+			login: '',
+			pass: ''
+		}
+	);
 
 	const configFormValidation = [
 		{
@@ -50,11 +55,13 @@ const Logon = () => {
 		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 2
 	};
 
-	const handleFormElements = (e, handler) => {
+	const changeFormElements = e => {
 		e.preventDefault();
 
 		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
-		handler(e.target.value);
+
+		const { id, name, value } = e.target;
+		handleFormElements({ [(id || name)]: value });
 	};
 
 	const submitForm = e => {
@@ -113,7 +120,7 @@ const Logon = () => {
 										<Col md={ 12 }>
 											<FormGroup>
 												<Label for="login">Usuário</Label>
-												<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ e => handleFormElements(e, formHandleLogin) } />
+												<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ changeFormElements } />
 												<FormText>Insira seu usuário aqui.</FormText>
 											</FormGroup>
 										</Col>
@@ -123,7 +130,7 @@ const Logon = () => {
 										<Col md={ 12 }>
 											<FormGroup>
 												<Label for="pass">Senha</Label>
-												<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ e => handleFormElements(e, formHandlePass) } />
+												<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
 												<FormText>Insira sua senha aqui.</FormText>
 											</FormGroup>
 										</Col>

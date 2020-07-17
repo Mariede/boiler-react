@@ -63,6 +63,18 @@ const formValidator = {
 		);
 	},
 	setFormValidation: (config, validationStart = _setConfig.validationStart) => {
+		const getElement = _e => (
+			document.getElementById(_e) ? (
+				document.getElementById(_e)
+			) : (
+				Array.from(document.getElementsByName(_e)).length === 1 ? (
+					document.getElementsByName(_e)[0]
+				) : (
+					null
+				)
+			)
+		);
+
 		const invalidList = [];
 		const validList = [];
 
@@ -82,13 +94,13 @@ const formValidator = {
 						const child = document.getElementById(childId);
 
 						if (child) {
-							const getElementValue = _parent => {
-								switch (_parent.type) {
+							const getElementValue = () => {
+								switch (parent.type) {
 									case 'select-multiple': {
 										const value = [];
 
-										for (let i = 0; i < _parent.options.length; i++) {
-											const opt = _parent.options[i];
+										for (let i = 0; i < parent.options.length; i++) {
+											const opt = parent.options[i];
 
 											if (opt.selected) {
 												value.push(opt.value);
@@ -104,7 +116,7 @@ const formValidator = {
 									case 'radio':
 									case 'checkbox': {
 										const value = [];
-										const elements = Array.from(document.getElementsByName(_parent.name));
+										const elements = Array.from(document.getElementsByName(parent.name));
 
 										elements.forEach(
 											e => {
@@ -123,8 +135,8 @@ const formValidator = {
 									case 'file': {
 										const value = [];
 
-										for (let i = 0; i < _parent.files.length; i++) {
-											value.push(_parent.files[i].name);
+										for (let i = 0; i < parent.files.length; i++) {
+											value.push(parent.files[i].name);
 										}
 
 										if (value.length > 1) {
@@ -134,13 +146,13 @@ const formValidator = {
 										return (value[0] || '');
 									}
 									default: {
-										return _parent.value;
+										return parent.value;
 									}
 								}
 							};
 
 							const elOptional = (e.optional || false);
-							const elValue = getElementValue(parent);
+							const elValue = getElementValue();
 
 							let isValid = true;
 
@@ -156,37 +168,36 @@ const formValidator = {
 							if (!elOptional || elValue !== '') {
 								Array.from(e.rules).forEach(
 									e => {
-										const defaultMessage = 'Field is invalid';
+										const setRule = (ruleName, ruleResult, ruleDefaultMessage = 'Field is invalid') => {
+											if (e.rule === ruleName && isValid) {
+												isValid = ruleResult;
+
+												if (!isValid) {
+													child.innerHTML = (e.message || ruleDefaultMessage);
+												}
+											}
+										};
 
 										// Engine --------------------------------------------------------------------------------------
 										// isNotEmpty
-										if (e.rule === 'isNotEmpty' && isValid) {
-											isValid = !validator.isEmpty(elValue, false);
-
-											if (!isValid) {
-												child.innerHTML = (e.message || defaultMessage);
-											}
-										}
+										setRule(
+											'isNotEmpty',
+											!validator.isEmpty(elValue, false)
+										);
 										// -------------------------------------------
 
 										// isNotEmptyTrimmed
-										if (e.rule === 'isNotEmptyTrimmed' && isValid) {
-											isValid = !validator.isEmpty(elValue);
-
-											if (!isValid) {
-												child.innerHTML = (e.message || defaultMessage);
-											}
-										}
+										setRule(
+											'isNotEmptyTrimmed',
+											!validator.isEmpty(elValue)
+										);
 										// -------------------------------------------
 
 										// isEmail
-										if (e.rule === 'isEmail' && isValid) {
-											isValid = validator.isEmail(elValue);
-
-											if (!isValid) {
-												child.innerHTML = (e.message || defaultMessage);
-											}
-										}
+										setRule(
+											'isEmail',
+											validator.isEmail(elValue)
+										);
 										// -------------------------------------------
 										// ---------------------------------------------------------------------------------------------
 									}
@@ -211,17 +222,7 @@ const formValidator = {
 			// Classes bootstrap 4
 			[...new Set(invalidList)].forEach(
 				e => {
-					const element = (
-						document.getElementById(e) ? (
-							document.getElementById(e)
-						) : (
-							Array.from(document.getElementsByName(e)).length === 1 ? (
-								document.getElementsByName(e)[0]
-							) : (
-								null
-							)
-						)
-					);
+					const element = getElement(e);
 
 					if (element) {
 						element.classList.add('is-invalid-element');
@@ -232,17 +233,7 @@ const formValidator = {
 			// Classes bootstrap 4
 			[...new Set(validList)].forEach(
 				e => {
-					const element = (
-						document.getElementById(e) ? (
-							document.getElementById(e)
-						) : (
-							Array.from(document.getElementsByName(e)).length === 1 ? (
-								document.getElementsByName(e)[0]
-							) : (
-								null
-							)
-						)
-					);
+					const element = getElement(e);
 
 					if (element) {
 						element.classList.remove('is-invalid-element');
