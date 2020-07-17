@@ -6,7 +6,7 @@ import './formValidator.css';
 Configuracoes iniciais para montagem do validador
 	-> feedBackClass: classe css dos recipientes de validacao
 	-> feedBackIdComplement: utilizado para identifica unicamente cada recipiente de validacao
-	-> parentToAttach: Ancestral mais proximo onde cada recipiente de validacao sera acoplado (deve existir no DOM)
+	-> parentToAttach: Ancestral mais proximo, base onde cada recipiente de validacao sera acoplado (deve existir no DOM)
 	-> validationStart: Se true, o motor de validacao comeca a funcionar (validar com eventos na pagina hospedeira, ex. submit ou change)
 */
 const _setConfig = {
@@ -17,11 +17,9 @@ const _setConfig = {
 };
 
 /*
-Retorna a base onde cada recipiente de validacao ira se acoplar (grupos de elementos existentes dentro do formulario)
-	-> Informa a resposta de cada validacao
-	-> Acoplado a parentToAttach, exemplo com um agrupador FormGroup de elementos
-		-> id: para elemento unico a ser validado no formulario (ex. text ou select)
-		-> name: para colecao de elementos em comum a serem validados no formulario (ex. checkbox ou radio)
+Retorna o elemento a ser validado. Trabalha em conjunto com parentToAttach, onde cada recipiente de validacao ira se acoplar
+	-> id: para elemento unico a ser validado no formulario (ex. text, select ou file)
+	-> name: para colecao de elementos em comum a serem validados no formulario (ex. checkbox ou radio)
 */
 const _getParent = _e => {
 	const ref = (_e.id ? _e.id : _e.name);
@@ -32,7 +30,7 @@ const _getParent = _e => {
 
 /*
 Componente de validacao de formularios
-	-> setFormResponse: prepara a resposta do formulario com seus recipientes de validacao
+	-> setFormResponse: prepara a resposta de validacao do formulario, acoplando os respectivos recipientes de validacao
 	-> setFormValidation: executa o motor de validacao e exibe a resposta na tela
 */
 const formValidator = {
@@ -50,7 +48,7 @@ const formValidator = {
 						const parentToAttach = parent.closest(_setConfig.parentToAttach);
 
 						if (parentToAttach) {
-							const child = parentToAttach.insertBefore(document.createElement('span'), parent.nextElementSibling);
+							const child = parentToAttach.insertBefore(document.createElement('span'), parent.nextSibling);
 
 							child.className = _setConfig.feedBackClass;
 							child.id = childId;
@@ -116,7 +114,7 @@ const formValidator = {
 									case 'radio':
 									case 'checkbox': {
 										const value = [];
-										const elements = Array.from(document.getElementsByName(parent.name));
+										const elements = (e.id ? [parent] : Array.from(document.getElementsByName(parent.name)));
 
 										elements.forEach(
 											e => {

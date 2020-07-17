@@ -19,9 +19,10 @@ import './ModalWindow.css';
 			- modalSize			-> Modal (default: "lg")
 			- modalFooterSize	-> Modal: tamanho do botao no footer do modal (default: "md")
 
-			- callback			-> Executa uma funcao de callback na saida do modal
+			- modalCallback		-> Executa uma funcao de callback na saida do modal
 										- caso exista, se modo INFORMATIVO sempre executa
 										- caso exista, se modo CONFIRMA executa somente no botao Confirmar
+										- Executa o preventDefault no Modal
 */
 const ModalWindow = props => {
 	const [showModal, setShowModal] = useState((props.modalShow || false));
@@ -32,7 +33,7 @@ const ModalWindow = props => {
 	const modalMessage = props.modalMessage;
 	const modalSize = (props.modalSize || 'lg');
 	const modalFooterSize = (props.modalFooterSize || 'md');
-	const callback = props.callback;
+	const modalCallback = props.modalCallback;
 
 	const toggleModal = e => {
 		e.preventDefault();
@@ -57,7 +58,7 @@ const ModalWindow = props => {
 
 	return (
 		showModal ? (
-			<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(e, modalConfirm, false, callback) }>
+			<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(e, modalConfirm, false, modalCallback) }>
 				{
 					modalTitle !== '!no' ? (
 						<ModalHeader className="modal-header-local" toggle={ toggleModal }>
@@ -82,7 +83,7 @@ const ModalWindow = props => {
 					{
 						modalConfirm ? (
 							<Fragment>
-								<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, callback) }>Confirmar</Button>
+								<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, modalCallback) }>Confirmar</Button>
 								<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
 							</Fragment>
 						) : (

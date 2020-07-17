@@ -58,7 +58,7 @@ const LoggedContent = () => {
 						<span className="logged-user">
 							<i className="fa fa-user-alt"></i> <strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
 						</span>
-						<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" callback={ logoutApp } modalConfirm />
+						<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" modalCallback={ logoutApp } modalConfirm />
 					</div>
 				)
 			}
