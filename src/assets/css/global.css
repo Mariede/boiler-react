@@ -60,6 +60,10 @@ a:not([type="button"]):active {
 }
 
 /* alteracoes layout padrao bootstrap */
+input:focus {
+	outline: none;
+}
+
 button {
 	margin: 1px;
 }

@@ -118,6 +118,7 @@ const Logon = () => {
 											</FormGroup>
 										</Col>
 									</Row>
+
 									<Row form>
 										<Col md={ 12 }>
 											<FormGroup>
@@ -127,7 +128,9 @@ const Logon = () => {
 											</FormGroup>
 										</Col>
 									</Row>
+
 									<hr />
+
 									<Row form>
 										<Col md={ 12 }>
 											<Button type="submit" color="success" block>Enviar</Button>

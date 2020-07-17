@@ -2,39 +2,67 @@ import validator from './validator'; // Motor de validacao (copiado do boiler-se
 
 import './formValidator.css';
 
+/*
+Configuracoes iniciais para montagem do validador
+	-> feedBackClass: classe css dos recipientes de validacao
+	-> feedBackIdComplement: utilizado para identifica unicamente cada recipiente de validacao
+	-> parentToAttach: Ancestral mais proximo onde cada recipiente de validacao sera acoplado (deve existir no DOM)
+	-> validationStart: Se true, o motor de validacao comeca a funcionar (validar com eventos na pagina hospedeira, ex. submit ou change)
+*/
 const _setConfig = {
 	feedBackClass: 'form-feedback',
-	feedBackIdComplement: 'FormFeedback',
+	feedBackIdComplement: '-form-feedback',
+	parentToAttach: 'div.form-group',
 	validationStart: false
 };
 
+/*
+Retorna a base onde cada recipiente de validacao ira se acoplar (grupos de elementos existentes dentro do formulario)
+	-> Informa a resposta de cada validacao
+	-> Acoplado a parentToAttach, exemplo com um agrupador FormGroup de elementos
+		-> id: para elemento unico a ser validado no formulario (ex. text ou select)
+		-> name: para colecao de elementos em comum a serem validados no formulario (ex. checkbox ou radio)
+*/
+const _getParent = _e => {
+	const ref = (_e.id ? _e.id : _e.name);
+	const elementBase = (_e.id ? document.getElementById(ref) : Array.from(document.getElementsByName(ref)).slice(-1).pop());
+
+	return [ref, elementBase]; // Se unico: via id ; Se colecao: via name, nesse caso retorna o ultimo elemento name do DOM
+};
+
+/*
+Componente de validacao de formularios
+	-> setFormResponse: prepara a resposta do formulario com seus recipientes de validacao
+	-> setFormValidation: executa o motor de validacao e exibe a resposta na tela
+*/
 const formValidator = {
 	setFormResponse: config => {
 		_setConfig.validationStart = false;
 
 		config.forEach(
 			e => {
-				const elId = e.id;
-				const parent = document.getElementById(elId);
+				const [elId, parent] = _getParent(e);
 
 				if (parent) {
 					const childId = elId + _setConfig.feedBackIdComplement;
 
 					if (!document.getElementById(childId)) {
-						const child = parent.parentNode.insertBefore(document.createElement('div'), parent.nextSibling);
+						const parentToAttach = parent.closest(_setConfig.parentToAttach);
 
-						child.className = _setConfig.feedBackClass;
-						child.id = childId;
-						child.style.display = 'none';
-						child.innerHTML = '';
+						if (parentToAttach) {
+							const child = parentToAttach.insertBefore(document.createElement('span'), parent.nextElementSibling);
+
+							child.className = _setConfig.feedBackClass;
+							child.id = childId;
+							child.style.display = 'none';
+							child.innerHTML = '';
+						}
 					}
 				}
 			}
 		);
 	},
 	setFormValidation: (config, validationStart = _setConfig.validationStart) => {
-	// Param validationStart => set it as true, from which page validation will be constantly enabled
-
 		const invalidList = [];
 		const validList = [];
 
@@ -47,29 +75,85 @@ const formValidator = {
 
 			config.forEach(
 				e => {
-					const elId = e.id;
-					const parent = document.getElementById(elId);
-					const elOptional = (e.optional || false);
+					const [elId, parent] = _getParent(e);
 
 					if (parent) {
 						const childId = elId + _setConfig.feedBackIdComplement;
 						const child = document.getElementById(childId);
 
 						if (child) {
-							const elValue = parent.value;
+							const getElementValue = _parent => {
+								switch (_parent.type) {
+									case 'select-multiple': {
+										const value = [];
+
+										for (let i = 0; i < _parent.options.length; i++) {
+											const opt = _parent.options[i];
+
+											if (opt.selected) {
+												value.push(opt.value);
+											}
+										}
+
+										if (value.length > 1) {
+											return value;
+										}
+
+										return (value[0] || '');
+									}
+									case 'radio':
+									case 'checkbox': {
+										const value = [];
+										const elements = Array.from(document.getElementsByName(_parent.name));
+
+										elements.forEach(
+											e => {
+												if (e.checked) {
+													value.push((e.value || e.name));
+												}
+											}
+										);
+
+										if (value.length > 1) {
+											return value;
+										}
+
+										return (value[0] || '');
+									}
+									case 'file': {
+										const value = [];
+
+										for (let i = 0; i < _parent.files.length; i++) {
+											value.push(_parent.files[i].name);
+										}
+
+										if (value.length > 1) {
+											return value;
+										}
+
+										return (value[0] || '');
+									}
+									default: {
+										return _parent.value;
+									}
+								}
+							};
+
+							const elOptional = (e.optional || false);
+							const elValue = getElementValue(parent);
 
 							let isValid = true;
 
 							child.style.display = 'none';
 							child.innerHTML = '';
 
-							if (!elOptional || elValue !== '') {
 							/*
-							Validation Check Engine
-
-								-> create a new rule name and add here a new validation from the validator pool of functions
-								-> validator file is basically the same as the one in boiler-server template
+							Motor de validacao
+								-> Novos tipos de regras sao acopladas aqui, interfaceando o arquivo validator.js
+									- nome da regra no front-end aqui
+									- validacao no arquivo validator.js (mesmo do boiler-server)
 							*/
+							if (!elOptional || elValue !== '') {
 								Array.from(e.rules).forEach(
 									e => {
 										const defaultMessage = 'Field is invalid';
@@ -127,20 +211,42 @@ const formValidator = {
 			// Classes bootstrap 4
 			[...new Set(invalidList)].forEach(
 				e => {
-					const element = document.getElementById(e);
+					const element = (
+						document.getElementById(e) ? (
+							document.getElementById(e)
+						) : (
+							Array.from(document.getElementsByName(e)).length === 1 ? (
+								document.getElementsByName(e)[0]
+							) : (
+								null
+							)
+						)
+					);
 
-					element.classList.remove('is-valid');
-					element.classList.add('is-invalid');
+					if (element) {
+						element.classList.add('is-invalid-element');
+					}
 				}
 			);
 
 			// Classes bootstrap 4
 			[...new Set(validList)].forEach(
 				e => {
-					const element = document.getElementById(e);
+					const element = (
+						document.getElementById(e) ? (
+							document.getElementById(e)
+						) : (
+							Array.from(document.getElementsByName(e)).length === 1 ? (
+								document.getElementsByName(e)[0]
+							) : (
+								null
+							)
+						)
+					);
 
-					element.classList.remove('is-invalid');
-					element.classList.add('is-valid');
+					if (element) {
+						element.classList.remove('is-invalid-element');
+					}
 				}
 			);
 		}

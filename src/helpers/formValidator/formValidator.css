@@ -1,9 +1,14 @@
-div.form-feedback {
+span.form-feedback {
 	color: red;
 	text-align: left;
 	padding: 4px 12px;
 	border-width: 0px 1px 1px 1px;
 	border-style: solid;
 	border-color: #dc3545;
-	border-radius:5px;
+	border-radius: 4px;
+}
+
+.is-invalid-element {
+	border: 1px solid #dc3545 !important;
+	border-radius: 4px;
 }
