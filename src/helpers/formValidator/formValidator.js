@@ -1,4 +1,8 @@
-import validator from './rules/validator'; // Motor de validacao (copiado do boiler-server)
+/*
+Interface onde as regras no front-end sao definidas
+	-> Todas as regras de validacao front-end sao inseridas no arquivo apiRules
+*/
+import apiRules from './apiRules';
 
 import './formValidator.css';
 
@@ -18,12 +22,12 @@ const _setConfig = {
 
 /*
 Retorna o elemento a ser validado. Trabalha em conjunto com parentToAttach, onde cada recipiente de validacao ira se acoplar
-	-> id: para elemento unico a ser validado no formulario (ex. text, select ou file)
+	-> id ou name: para elemento unico a ser validado no formulario (ex. text, select ou file)
 	-> name: para colecao de elementos em comum a serem validados no formulario (ex. checkbox ou radio)
 */
-const _getParent = _e => {
-	const ref = (_e.id ? _e.id : _e.name);
-	const elementBase = (_e.id ? document.getElementById(ref) : Array.from(document.getElementsByName(ref)).slice(-1).pop());
+const _getParent = e => {
+	const ref = (e.id ? e.id : e.name);
+	const elementBase = (e.id ? document.getElementById(ref) : Array.from(document.getElementsByName(ref)).slice(-1).pop());
 
 	return [ref, elementBase]; // Se unico: via id ; Se colecao: via name, nesse caso retorna o ultimo elemento name do DOM
 };
@@ -38,8 +42,8 @@ const formValidator = {
 		_setConfig.validationStart = false;
 
 		config.forEach(
-			e => {
-				const [elId, parent] = _getParent(e);
+			blockElement => {
+				const [elId, parent] = _getParent(blockElement);
 
 				if (parent) {
 					const childId = elId + _setConfig.feedBackIdComplement;
@@ -61,12 +65,12 @@ const formValidator = {
 		);
 	},
 	setFormValidation: (config, validationStart = _setConfig.validationStart) => {
-		const getElement = _e => (
-			document.getElementById(_e) ? (
-				document.getElementById(_e)
+		const getElement = e => (
+			document.getElementById(e) ? (
+				document.getElementById(e)
 			) : (
-				Array.from(document.getElementsByName(_e)).length === 1 ? (
-					document.getElementsByName(_e)[0]
+				Array.from(document.getElementsByName(e)).length === 1 ? (
+					document.getElementsByName(e)[0]
 				) : (
 					null
 				)
@@ -84,8 +88,8 @@ const formValidator = {
 			}
 
 			config.forEach(
-				e => {
-					const [elId, parent] = _getParent(e);
+				blockElement => {
+					const [elId, parent] = _getParent(blockElement);
 
 					if (parent) {
 						const childId = elId + _setConfig.feedBackIdComplement;
@@ -114,7 +118,7 @@ const formValidator = {
 									case 'radio':
 									case 'checkbox': {
 										const value = [];
-										const elements = (e.id ? [parent] : Array.from(document.getElementsByName(parent.name)));
+										const elements = (blockElement.id ? [parent] : Array.from(document.getElementsByName(parent.name)));
 
 										elements.forEach(
 											e => {
@@ -149,7 +153,7 @@ const formValidator = {
 								}
 							};
 
-							const elOptional = (e.optional || false);
+							const elOptional = (blockElement.optional || false);
 							const elValue = getElementValue();
 
 							let isValid = true;
@@ -159,14 +163,11 @@ const formValidator = {
 
 							/*
 							Motor de validacao
-								-> Novos tipos de regras sao acopladas aqui, interfaceando o arquivo validator.js
-									- nome da regra no front-end aqui
-									- validacao no arquivo /rules/validator.js (mesmo do boiler-server)
 							*/
 							if (!elOptional || elValue !== '') {
-								Array.from(e.rules).forEach(
+								Array.from(blockElement.rules).forEach(
 									e => {
-										const setRule = (ruleName, ruleResult, ruleDefaultMessage = 'Field is invalid') => {
+										const setRule = (ruleName, ruleResult, ruleDefaultMessage) => {
 											if (e.rule === ruleName && isValid) {
 												isValid = ruleResult;
 
@@ -177,26 +178,20 @@ const formValidator = {
 										};
 
 										// Engine --------------------------------------------------------------------------------------
-										// isNotEmpty
-										setRule(
-											'isNotEmpty',
-											!validator.isEmpty(elValue, false)
-										);
-										// -------------------------------------------
+										apiRules.forEach(
+											rule => {
+												const extraParams = (Array.isArray(rule.extraParams) ? rule.extraParams : []);
+												const result = rule.validatorFunction(elValue, ...extraParams);
+												const negateResult = (rule.negateResult || false);
+												const defaultMessage = (rule.defaultMessage || 'Field is invalid');
 
-										// isNotEmptyTrimmed
-										setRule(
-											'isNotEmptyTrimmed',
-											!validator.isEmpty(elValue)
+												setRule(
+													rule.name,
+													(negateResult ? !result : result),
+													defaultMessage
+												);
+											}
 										);
-										// -------------------------------------------
-
-										// isEmail
-										setRule(
-											'isEmail',
-											validator.isEmail(elValue)
-										);
-										// -------------------------------------------
 										// ---------------------------------------------------------------------------------------------
 									}
 								);
@@ -217,7 +212,6 @@ const formValidator = {
 				}
 			);
 
-			// Classes bootstrap 4
 			[...new Set(invalidList)].forEach(
 				e => {
 					const element = getElement(e);
@@ -228,7 +222,6 @@ const formValidator = {
 				}
 			);
 
-			// Classes bootstrap 4
 			[...new Set(validList)].forEach(
 				e => {
 					const element = getElement(e);
