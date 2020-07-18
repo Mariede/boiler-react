@@ -12,7 +12,7 @@ const Footer = () => (
 					Footer da aplicação
 				</Col>
 				<Col md={ 6 }>
-					versão
+					versão { (process.env.REACT_APP_VERSION || 'N/D') }
 				</Col>
 			</Row>
 		</Container>

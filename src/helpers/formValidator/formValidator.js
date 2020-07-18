@@ -1,4 +1,4 @@
-import validator from './validator'; // Motor de validacao (copiado do boiler-server)
+import validator from './rules/validator'; // Motor de validacao (copiado do boiler-server)
 
 import './formValidator.css';
 
@@ -161,7 +161,7 @@ const formValidator = {
 							Motor de validacao
 								-> Novos tipos de regras sao acopladas aqui, interfaceando o arquivo validator.js
 									- nome da regra no front-end aqui
-									- validacao no arquivo validator.js (mesmo do boiler-server)
+									- validacao no arquivo /rules/validator.js (mesmo do boiler-server)
 							*/
 							if (!elOptional || elValue !== '') {
 								Array.from(e.rules).forEach(

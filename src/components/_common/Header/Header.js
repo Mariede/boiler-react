@@ -27,7 +27,7 @@ const Header = props => {
 		<header id="header">
 			<Container fluid="md">
 				<Navbar expand="md" className="navbar-local" light>
-					<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" /> Boiler React</NavbarBrand>
+					<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" />{ (process.env.REACT_APP_NAME ? ` ${process.env.REACT_APP_NAME}` : '') }</NavbarBrand>
 					<NavbarToggler onClick={ toggleHeaderContent } />
 					{
 						props.isLogged !== undefined ? (

@@ -33,7 +33,7 @@ const MenuContent = props => {
 
 							<DropdownMenu>
 								<DropdownItem header>
-									<i>Selecione a opção desejada</i>
+									<em>Selecione a opção desejada</em>
 								</DropdownItem>
 
 								<DropdownItem>
