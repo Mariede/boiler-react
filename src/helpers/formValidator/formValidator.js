@@ -51,8 +51,12 @@ const formValidator = {
 					if (!document.getElementById(childId)) {
 						const parentToAttach = parent.closest(_setConfig.parentToAttach);
 
+						/*
+						Insere o recipiente de validacao logo abaixo de parent: se parent for filho direto de parentToAttach
+						Insere o recipiente de validacao logo acima de parentToAttach: se parent NAO for filho direto de parentToAttach
+						*/
 						if (parentToAttach) {
-							const child = parentToAttach.insertBefore(document.createElement('span'), parent.nextSibling);
+							const child = parentToAttach.insertBefore(document.createElement('span'), (parent.parentNode === parentToAttach ? parent.nextSibling : null));
 
 							child.className = _setConfig.feedBackClass;
 							child.id = childId;
