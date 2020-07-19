@@ -11,13 +11,16 @@ Configuracoes iniciais para montagem do validador
 	-> feedBackClass: classe css dos recipientes de validacao
 	-> feedBackIdComplement: utilizado para identifica unicamente cada recipiente de validacao
 	-> parentToAttach: Ancestral mais proximo, base onde cada recipiente de validacao sera acoplado (deve existir no DOM)
-	-> validationStart: Se true, o motor de validacao comeca a funcionar (validar com eventos na pagina hospedeira, ex. submit ou change)
+	-> validationStart: Se true, o motor de validacao comeca a funcionar (ativar em evento da pagina hospedeira, ex. submit ou change)
+		- depois da primeira ativacao nao precisa passar o parametro novamente - fica ativo direto
+	-> defaultMessage: Mensagem generica default do motor de regras (para todas as regras, exibe apenas se nao informada nas fases anteriores)
 */
 const _setConfig = {
 	feedBackClass: 'form-feedback',
 	feedBackIdComplement: '-form-feedback',
 	parentToAttach: 'div.form-group',
-	validationStart: false
+	validationStart: false,
+	defaultMessage: 'Field is invalid'
 };
 
 /*
@@ -187,7 +190,7 @@ const formValidator = {
 												const extraParams = (Array.isArray(rule.extraParams) ? rule.extraParams : []);
 												const result = rule.validatorFunction(elValue, ...extraParams);
 												const negateResult = (rule.negateResult || false);
-												const defaultMessage = (rule.defaultMessage || 'Field is invalid');
+												const defaultMessage = (rule.defaultMessage || _setConfig.defaultMessage);
 
 												setRule(
 													rule.name,

@@ -30,12 +30,10 @@ const Logon = () => {
 			optional: false,
 			rules: [
 				{
-					rule: 'isNotEmpty',
-					message: 'Texto não preenchido'
+					rule: 'isNotEmpty'
 				},
 				{
-					rule: 'isEmail',
-					message: 'E-mail inválido'
+					rule: 'isEmail'
 				}
 			]
 		},
@@ -44,8 +42,7 @@ const Logon = () => {
 			optional: false,
 			rules: [
 				{
-					rule: 'isNotEmpty',
-					message: 'Texto não preenchido'
+					rule: 'isNotEmpty'
 				}
 			]
 		}

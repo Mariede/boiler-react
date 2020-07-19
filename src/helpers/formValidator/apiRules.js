@@ -7,8 +7,8 @@ As regras sao acopladas aqui, interfaceando o arquivo validator.js
 	-> extraParams: parametro extras exigidos por validatorFunction na regra - sempre array (opcional, se nao informado default e [])
 	-> negateResult: inverte o valor booleano no resultado de validatorFunction na regra (opcional, se nao informado default e false - mantem original)
 	-> defaultMessage: mensagem default para a regra (opcional)
-		-> se nao informado utiliza o valor de message em rules na pagina de origem (configFormValidation) ou o valor generico default em formValidator.js
-		-> a orderm de prioridades para informar a mensagem e:
+		-> se nao informada, utiliza o valor de message em rules na pagina de origem (configFormValidation) ou o valor generico default em formValidator.js
+		-> orderm de prioridades para informar a mensagem:
 			1) propriedade message em rules na pagina de origem (configFormValidation)
 			2) valor definido em defaultMessage aqui
 			3) valor generico default na pagina do motor de regras (formValidator.js)
@@ -26,8 +26,11 @@ Formato de configFormValidation na pagina de origem (exemplo Logon.js)
 				optional: false,
 				rules: [
 					{
-						rule: 'ruleName',
-						message: 'errorMessaToShow'
+						rule: 'ruleName1',
+					},
+					{
+						rule: 'ruleName2',
+						message: 'SpecificErrorMessageToShow'
 					},
 					...
 				]
@@ -46,16 +49,19 @@ const apiRules = [
 		name: 'isNotEmpty',
 		validatorFunction: validator.isEmpty,
 		extraParams: [false],
-		negateResult: true
+		negateResult: true,
+		defaultMessage: 'Texto não preenchido'
 	},
 	{
 		name: 'isNotEmptyTrimmed',
 		validatorFunction: validator.isEmpty,
-		negateResult: true
+		negateResult: true,
+		defaultMessage: 'Texto não preenchido'
 	},
 	{
 		name: 'isEmail',
-		validatorFunction: validator.isEmail
+		validatorFunction: validator.isEmail,
+		defaultMessage: 'E-mail inválido'
 	}
 ];
 
