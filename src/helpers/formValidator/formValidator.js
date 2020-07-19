@@ -26,11 +26,45 @@ const _setConfig = {
 /*
 Retorna o elemento a ser validado. Trabalha em conjunto com parentToAttach, onde cada recipiente de validacao ira se acoplar
 	-> id ou name: para elemento unico a ser validado no formulario (ex. text, select ou file)
-	-> name: para colecao de elementos em comum a serem validados no formulario (ex. checkbox ou radio)
+	-> name: para colecao de elementos em comum a serem validados no formulario (ex. radio ou checkbox)
 */
 const _getParent = e => {
 	const ref = (e.id ? e.id : e.name);
-	const elementBase = (e.id ? document.getElementById(ref) : Array.from(document.getElementsByName(ref)).slice(-1).pop());
+
+	let elementBase = null;
+
+	if (e.id) {
+		const element = document.getElementById(ref);
+
+		if (element) {
+			if (!element.disabled && !element.readOnly) {
+				elementBase = element;
+			}
+		}
+	} else {
+		const elements = document.getElementsByName(ref);
+
+		if (elements) {
+			const elementsAr = Array.from(elements);
+
+			let allCount = 0,
+				foundUnusable = 0;
+
+			elementsAr.forEach(
+				e => {
+					allCount++;
+
+					if (e.disabled || e.readOnly) {
+						foundUnusable++;
+					}
+				}
+			);
+
+			if (allCount && (!foundUnusable || (foundUnusable !== allCount))) {
+				elementBase = elementsAr.slice(-1).pop();
+			}
+		}
+	}
 
 	return [ref, elementBase]; // Se unico: via id ; Se colecao: via name, nesse caso retorna o ultimo elemento name do DOM
 };
@@ -72,24 +106,76 @@ const formValidator = {
 		);
 	},
 	setFormValidation: (config, validationStart = _setConfig.validationStart) => {
-		const getElement = e => (
-			document.getElementById(e) ? (
-				document.getElementById(e)
-			) : (
-				Array.from(document.getElementsByName(e)).length === 1 ? (
-					document.getElementsByName(e)[0]
-				) : (
-					null
-				)
-			)
-		);
-
-		const invalidList = [];
-		const validList = [];
-
 		let result = true;
 
 		if (validationStart) {
+			const getElement = e => (
+				document.getElementById(e) ? (
+					document.getElementById(e)
+				) : (
+					Array.from(document.getElementsByName(e)).length > 1 ? (
+						document.getElementsByName(e)
+					) : (
+						Array.from(document.getElementsByName(e)).length === 1 ? (
+							document.getElementsByName(e)[0]
+						) : (
+							null
+						)
+					)
+				)
+			);
+
+			const setClassName = (e, isValidList) => {
+				if (e) {
+					const isNodeList = e instanceof NodeList;
+
+					if (!isNodeList) {
+						const type = e.type;
+
+						if (type === 'radio' || type === 'checkbox') {
+							const eParentToAttach = e.closest(_setConfig.parentToAttach);
+
+							if (isValidList) {
+								eParentToAttach.classList.remove('is-invalid-group');
+							} else {
+								eParentToAttach.classList.add('is-invalid-group');
+							}
+						} else {
+							if (isValidList) {
+								e.classList.remove('is-invalid-element');
+							} else {
+								e.classList.add('is-invalid-element');
+							}
+						}
+					} else {
+						e.forEach(
+							_e => {
+								const type = _e.type;
+
+								if (type === 'radio' || type === 'checkbox') {
+									const eParentToAttach = _e.closest(_setConfig.parentToAttach);
+
+									if (isValidList) {
+										eParentToAttach.classList.remove('is-invalid-group');
+									} else {
+										eParentToAttach.classList.add('is-invalid-group');
+									}
+								} else {
+									if (isValidList) {
+										_e.classList.remove('is-invalid-element');
+									} else {
+										_e.classList.add('is-invalid-element');
+									}
+								}
+							}
+						);
+					}
+				}
+			};
+
+			const invalidList = [];
+			const validList = [];
+
 			if (!_setConfig.validationStart) {
 				_setConfig.validationStart = true;
 			}
@@ -222,20 +308,14 @@ const formValidator = {
 			[...new Set(invalidList)].forEach(
 				e => {
 					const element = getElement(e);
-
-					if (element) {
-						element.classList.add('is-invalid-element');
-					}
+					setClassName(element, false);
 				}
 			);
 
 			[...new Set(validList)].forEach(
 				e => {
 					const element = getElement(e);
-
-					if (element) {
-						element.classList.remove('is-invalid-element');
-					}
+					setClassName(element, true);
 				}
 			);
 		}

@@ -8,7 +8,11 @@ span.form-feedback {
 	border-radius: 4px;
 }
 
-.is-invalid-element {
+input:not([type="radio"]):not([type="checkbox"]).is-invalid-element, select.is-invalid-element, textarea.is-invalid-element {
 	border: 1px solid #dc3545 !important;
 	border-radius: 4px;
+}
+
+.is-invalid-group {
+	color: #dc3545;
 }
