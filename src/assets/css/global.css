@@ -64,6 +64,10 @@ input:focus {
 	outline: none;
 }
 
+.form-check > .form-check-label {
+	line-height: 24px;
+}
+
 button {
 	margin: 1px;
 }
