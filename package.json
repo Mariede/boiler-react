@@ -5,6 +5,9 @@
   "main": "./src/index.js",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": ">=10.5.0"
+  },
   "dependencies": {
     "axios": "^0.19.2",
     "react": "^16.13.1",

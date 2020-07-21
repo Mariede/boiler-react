@@ -21,15 +21,15 @@
 		"sourceType": "module"
 	},
 	"rules": {
-		"arrow-body-style": [
-			2,
-			"as-needed"
-		],
 		"array-bracket-spacing": [
 			2,
 			"never"
 		],
 		"array-callback-return": 2,
+		"arrow-body-style": [
+			2,
+			"as-needed"
+		],
 		"arrow-parens": [
 			2,
 			"as-needed"
@@ -105,8 +105,6 @@
 			2,
 			"consistent"
 		],
-		"global-require": 2,
-		"handle-callback-err": 2,
 		"implicit-arrow-linebreak": [
 			2,
 			"beside"
@@ -133,7 +131,6 @@
 		"new-cap": 2,
 		"no-array-constructor": 2,
 		"no-async-promise-executor": 2,
-		"no-buffer-constructor": 2,
 		"no-confusing-arrow": 2,
 		"no-console": 2,
 		"no-else-return": 2,
@@ -157,7 +154,6 @@
 		"no-lone-blocks": 2,
 		"no-loop-func": 2,
 		"no-mixed-operators": 2,
-		"no-mixed-requires": 2,
 		"no-multi-assign": 2,
 		"no-multi-spaces": 2,
 		"no-multiple-empty-lines": [
@@ -170,16 +166,12 @@
 		],
 		"no-new-func": 2,
 		"no-new-object": 2,
-		"no-new-require": 2,
 		"no-new-wrappers": 2,
 		"no-param-reassign": 2,
-		"no-path-concat": 2,
-		"no-process-exit": 2,
 		"no-restricted-globals": 2,
 		"no-return-assign": 2,
 		"no-self-assign": 2,
 		"no-self-compare": 2,
-		"no-sync": 2,
 		"no-throw-literal": 2,
 		"no-trailing-spaces": 2,
 		"no-undef": 2,
