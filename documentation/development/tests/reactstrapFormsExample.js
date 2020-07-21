@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, FormText, Button, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
 import MainContent from 'components/_common/MainContent';
@@ -115,6 +115,24 @@ const ReactComponent = () => (
 							<Label for="exampleTextArea">Text Area</Label>
 							<Input type="textarea" name="textArea" id="exampleTextArea" />
 							<FormText>Textarea aqui.</FormText>
+						</FormGroup>
+					</Col>
+				</Row>
+
+				<Row form>
+					<Col md={ 12 }>
+						<FormGroup>
+							<Label>Campo duplo</Label>
+							<InputGroup>
+								<InputGroupAddon addonType="prepend">
+									<InputGroupText>$</InputGroupText>
+								</InputGroupAddon>
+								<Input type="text" id="test-pre" placeholder="pre" />
+								<Input type="text" id="test-pos" placeholder="pos" />
+								<InputGroupAddon addonType="append">
+									<InputGroupText>$</InputGroupText>
+								</InputGroupAddon>
+							</InputGroup>
 						</FormGroup>
 					</Col>
 				</Row>
