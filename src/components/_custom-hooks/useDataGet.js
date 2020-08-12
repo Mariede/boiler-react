@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useRef, useState, useEffect, useContext } from 'react';
 
 import axios from 'axios';
 
@@ -14,32 +14,35 @@ import ContextConfig from 'components/_context/ContextConfig';
 		PROPS:
 			{
 				route		=> caminho da rota, com /
-				dataReady	=> controle da pagina pai
-				cbDataReady	=> funcao de callback, controle da pagina pai
-				checkPass	=> indica se o GET na chamada deve ser executado ou nao (opcional - default sempre executa)
+				goReady		=> indica se o GET na chamada deve ser executado ou nao (opcional - default SEMPRE executa)
 				currentKey	=> renova a cada leitura da pagina
 				params		=> parametros do GET (opcional) <-> objeto
 				config		=> configuracoes extras da rota (opcional) <-> objeto
-				cbThen		=> funcao de callback em Then - get de dados
+				cbThen		=> funcao de callback em Then (opcional)
 				cbCatch		=> configuracoes extras para Notify (opcional) <-> objeto
 				message		=> configuracoes extras para componente Loading (opcional)
 			}
 */
 const useDataGet = props => {
+	const [dataReady, setDataReady] = useState(false);
 	const [notify, setNotify] = useState(null);
+
+	const dataContent = useRef(null);
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 
-	const { route, dataReady, cbDataReady, checkPass, currentKey, params, config, cbThen, cbCatch, message } = props;
+	const { route, goReady, currentKey, params, config, cbThen, cbCatch, message } = props;
 
 	const getExecute = () => {
 		let isMounted = true;
 
-		if (checkPass) {
-			cbDataReady(true);
+		if (goReady) {
+			setDataReady(true);
 		} else {
-			cbDataReady(false);
+			setDataReady(false);
 			setNotify(null);
+
+			dataContent.current = null;
 
 			axios
 			.get(
@@ -49,7 +52,11 @@ const useDataGet = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						cbThen(res);
+						dataContent.current = res.data;
+
+						if (cbThen) {
+							cbThen(res);
+						}
 					}
 				}
 			)
@@ -65,7 +72,7 @@ const useDataGet = props => {
 			.finally(
 				() => {
 					if (isMounted) {
-						cbDataReady(true);
+						setDataReady(true);
 					}
 				}
 			);
@@ -78,15 +85,21 @@ const useDataGet = props => {
 
 	useEffect(
 		getExecute,
-		[getUrl, route, checkPass, currentKey]
+		[getUrl, route, goReady, currentKey]
 	);
 
-	return (
+	const Component = (
 		<Fragment>
 			<Loading loading={ !dataReady } message={ message } />
 			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } form={ notify && notify.form } />
 		</Fragment>
 	);
+
+	return [
+		Component,
+		dataReady,
+		dataContent.current
+	];
 };
 
 export default useDataGet;

@@ -38,8 +38,42 @@ body {
 	text-align: justify;
 }
 
+/* image */
 img {
 	border: 0px;
+}
+
+/* table */
+table {
+	border: 1px solid #dee2e6;
+	border-collapse: separate;
+	border-radius: 4px;
+}
+
+table th {
+	text-align: center;
+	text-transform: uppercase;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+}
+
+table:not(.table-dark) th {
+	background-color: #edd;
+}
+
+table td, th {
+	padding: 10px 20px !important;
+}
+
+table td.not-found {
+	color: red;
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+table tfoot {
+	text-align: center;
 }
 
 /* link */

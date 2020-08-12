@@ -1,38 +1,23 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
 import ContextUserData from 'components/_context/ContextUserData';
 
 const Controller = props => {
-	const [dataReady, setDataReady] = useState(false);
-
 	const getUserData = useContext(ContextUserData).getUserData;
 	const setUserData = useContext(ContextUserData).setUserData;
 
-	const [Target, Logon] = props.children;
+	const { isLogged, isProtected, children, location } = props;
 
-	const { isLogged, isProtected, location } = props;
+	const [Target, Logon] = children;
 	const currentPath = location.pathname;
 	const currentKey = location.key;
 
-	useEffect(
-		() => {
-			if (dataReady && isLogged && currentPath !== '/logon') { // Usuario logado
-				sessionStorage.setItem('current-path', currentPath);
-			}
-		},
-		[dataReady, isLogged, currentPath]
-	);
-
-	const Component = useDataGet(
+	const [Component, dataReady] = useDataGet(
 		{
 			route: '/islogged',
-			dataReady: dataReady,
-			cbDataReady: dataWhen => {
-				setDataReady(dataWhen);
-			},
-			checkPass: (!isProtected && !sessionStorage.getItem('is-logged')),
+			goReady: (!isProtected && !sessionStorage.getItem('is-logged')),
 			currentKey: currentKey,
 			params: {
 				result_type: 1
@@ -49,6 +34,15 @@ const Controller = props => {
 				type: 4
 			}
 		}
+	);
+
+	useEffect(
+		() => {
+			if (dataReady && isLogged && currentPath !== '/logon') { // Usuario logado
+				sessionStorage.setItem('current-path', currentPath);
+			}
+		},
+		[dataReady, isLogged, currentPath]
 	);
 
 	return (
