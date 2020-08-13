@@ -10,7 +10,6 @@ import ContextUserData from 'components/_context/ContextUserData';
 import './LoggedContent.css';
 
 const LoggedContent = () => {
-	const [goLogout, setGoLogout] = useState(false);
 	const [submit, setSubmit] = useState(false);
 
 	const getUserData = useContext(ContextUserData).getUserData;
@@ -27,7 +26,7 @@ const LoggedContent = () => {
 		setSubmit(true);
 	};
 
-	const Component = useDataPostPutPatch(
+	const [Component, goDataAction] = useDataPostPutPatch(
 		{
 			method: 'POST',
 			route: '/logout',
@@ -37,7 +36,6 @@ const LoggedContent = () => {
 			},
 			cbThen: () => {
 				sessionStorage.removeItem('current-path');
-				setGoLogout(true);
 			},
 			cbCatch: {
 				header: 'Logout',
@@ -51,7 +49,7 @@ const LoggedContent = () => {
 		<Fragment>
 			{ Component }
 			{
-				goLogout ? (
+				goDataAction ? (
 					<Redirect to="/logon" />
 				) : (
 					<div id="logged">

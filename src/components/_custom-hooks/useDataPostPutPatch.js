@@ -19,12 +19,13 @@ import ContextConfig from 'components/_context/ContextConfig';
 				cbSubmit	=> funcao de callback em Finally, controle da pagina pai
 				data		=> dados do metodo (opcional) <-> objeto ou string
 				headers		=> configuracoes extras da rota: headers personalizados (opcional) <-> objeto
-				cbThen		=> funcao de callback em Then, controle da pagina pai
+				cbThen		=> funcao de callback em Then (opcional)
 				cbCatch		=> configuracoes extras para Notify (opcional) <-> objeto
 				message		=> configuracoes extras para componente Loading (opcional)
 			}
 */
 const useDataPostPutPatch = props => {
+	const [goDataAction, setGoDataAction] = useState(false);
 	const [notify, setNotify] = useState(null);
 
 	const getUrl = useContext(ContextConfig).baseUrl;
@@ -48,7 +49,11 @@ const useDataPostPutPatch = props => {
 			.then(
 				res => {
 					if (isMounted) {
-						cbThen(res);
+						setGoDataAction(true);
+
+						if (cbThen) {
+							cbThen(res);
+						}
 					}
 				}
 			)
@@ -80,12 +85,17 @@ const useDataPostPutPatch = props => {
 		[getUrl, method, route, submit]
 	);
 
-	return (
+	const Component = (
 		<Fragment>
 			<Loading loading={ submit } message={ message } />
 			<Notify info={ notify && notify.info } header={ notify && notify.header } type={ notify && notify.type } form={ notify && notify.form } />
 		</Fragment>
 	);
+
+	return [
+		Component,
+		goDataAction
+	];
 };
 
 export default useDataPostPutPatch;

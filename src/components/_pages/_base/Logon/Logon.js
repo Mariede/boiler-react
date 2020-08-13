@@ -13,7 +13,6 @@ import formValidator from 'helpers/formValidator';
 import './Logon.css';
 
 const Logon = () => {
-	const [goLogon, setGoLogon] = useState(false);
 	const [submit, setSubmit] = useState(false);
 
 	const [{ login, pass }, handleFormElements] = useReducer(
@@ -76,7 +75,7 @@ const Logon = () => {
 		[]
 	);
 
-	const Component = useDataPostPutPatch(
+	const [Component, goDataAction] = useDataPostPutPatch(
 		{
 			method: 'POST',
 			route: '/logon',
@@ -87,9 +86,6 @@ const Logon = () => {
 			data: {
 				login: login,
 				pass: pass
-			},
-			cbThen: () => {
-				setGoLogon(true);
 			},
 			cbCatch: {
 				header: 'Logon',
@@ -107,7 +103,7 @@ const Logon = () => {
 				sessionStorage.getItem('is-logged') ? (
 					<Redirect to="/" />
 				) : (
-					goLogon ? (
+					goDataAction ? (
 						<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
 					) : (
 						<MainContent subject="Logon" icon="fas fa-sign-in-alt">
