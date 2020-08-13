@@ -29,7 +29,7 @@ body {
 	border-style: solid;
 	border-color: #aaa;
 	padding-top: 5px;
-	padding-bottom: 70px; /* Deve sobrepor altura do rodape */
+	padding-bottom: 65px; /* Deve sobrepor altura do rodape */
 }
 
 #wrapper {
@@ -48,6 +48,7 @@ table {
 	border: 1px solid #dee2e6;
 	border-collapse: separate;
 	border-radius: 4px;
+	margin-bottom: 0px !important;
 }
 
 table th {
