@@ -7,10 +7,14 @@ import './PageSubject.css';
 		- icon				-> (font-awesome, default: "fas fa-thumbtack")
 		- subject
 */
-const PageSubject = props => (
-	<div id="page-subject">
-		<i className={ (props.icon || 'fas fa-thumbtack') }></i> { (props.subject || '') }<hr />
-	</div>
-);
+const PageSubject = props => {
+	const { icon, subject } = props;
+
+	return (
+		<div id="page-subject">
+			<i className={ (icon || 'fas fa-thumbtack') }></i> { (subject || '') }<hr />
+		</div>
+	);
+};
 
 export default PageSubject;

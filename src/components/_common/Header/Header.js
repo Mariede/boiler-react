@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse } from 'reactstrap';
 
-import MenuContent from 'components/_common/Header/MenuContent';
-import LoggedContent from 'components/_common/Header/LoggedContent';
+import MenuContent from './MenuContent';
+import LoggedContent from './LoggedContent';
 
 import imgLogo from 'assets/images/logo.png';
 
@@ -17,6 +17,8 @@ import './Header.css';
 */
 const Header = props => {
 	const [isOpenHeaderContent, setIsOpenHeaderContent] = useState(false);
+
+	const { isLogged } = props;
 
 	const toggleHeaderContent = e => {
 		e.preventDefault();
@@ -30,11 +32,11 @@ const Header = props => {
 					<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" />{ (process.env.REACT_APP_NAME ? ` ${process.env.REACT_APP_NAME}` : '') }</NavbarBrand>
 					<NavbarToggler onClick={ toggleHeaderContent } />
 					{
-						props.isLogged !== undefined ? (
+						isLogged !== undefined ? (
 							<Collapse isOpen={ isOpenHeaderContent } navbar>
-								<MenuContent isLogged={ props.isLogged } />
+								<MenuContent isLogged={ isLogged } />
 								{
-									props.isLogged ? (
+									isLogged ? (
 										<LoggedContent />
 									) : (
 										null
