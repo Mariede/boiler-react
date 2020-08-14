@@ -34,6 +34,7 @@ const Usuario = props => {
 			{ Component }
 			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">
 				<div id="usuario">
+					Dados dos usuários
 					<GridTable dataReady={ dataReady } dataContent={ dataContent } url={ { currentPath, currentSearch } } />
 				</div>
 			</MainContent>

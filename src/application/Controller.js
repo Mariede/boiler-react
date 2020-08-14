@@ -14,10 +14,12 @@ const Controller = props => {
 	const currentPath = location.pathname;
 	const currentKey = location.key;
 
+	const goReady = (!isProtected && sessionStorage.getItem('is-logged') !== 'true') || (isProtected && sessionStorage.getItem('is-logged') === 'true');
+
 	const [Component, dataReady] = useDataGet(
 		{
 			route: '/islogged',
-			goReady: (!isProtected && !sessionStorage.getItem('is-logged')),
+			goReady: goReady,
 			currentKey: currentKey,
 			params: {
 				result_type: 1
