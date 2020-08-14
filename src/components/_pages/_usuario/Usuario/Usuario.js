@@ -10,7 +10,9 @@ const Usuario = props => {
 
 	const paramId = match.params.id;
 	const currentKey = location.key;
-	const urlParams = new URLSearchParams(location.search);
+	const currentPath = location.pathname;
+	const currentSearch = location.search;
+	const urlParams = new URLSearchParams(currentSearch);
 
 	const [Component, dataReady, dataContent] = useDataGet(
 		{
@@ -32,7 +34,7 @@ const Usuario = props => {
 			{ Component }
 			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">
 				<div id="usuario">
-					<GridTable dataReady={ dataReady } dataContent={ dataContent } />
+					<GridTable dataReady={ dataReady } dataContent={ dataContent } url={ { currentPath, currentSearch } } />
 				</div>
 			</MainContent>
 		</Fragment>

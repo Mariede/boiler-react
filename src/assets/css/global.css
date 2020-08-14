@@ -59,7 +59,7 @@ table th {
 }
 
 table:not(.table-dark) th {
-	background-color: #edd;
+	background-color: #fec;
 }
 
 table td, th {
@@ -73,25 +73,25 @@ table td.not-found {
 	letter-spacing: 1px;
 }
 
-table tfoot {
-	text-align: center;
+table:not(.table-dark) tfoot td {
+	background: #fec;
 }
 
 /* link */
 a:not([type="button"]):link {
-	color: #3D9970;
+	color: #69c;
 }
 
 a:not([type="button"]):visited {
-	color: #3D9970;
+	color: #69c;
 }
 
 a:not([type="button"]):hover {
-	color: #2ECC40;
+	color: red;
 }
 
 a:not([type="button"]):active {
-	color: #3D9970;
+	color: #69c;
 }
 
 /* alteracoes layout padrao bootstrap */

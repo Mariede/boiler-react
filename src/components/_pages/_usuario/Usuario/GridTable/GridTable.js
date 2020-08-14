@@ -2,8 +2,10 @@ import React, { Fragment } from 'react';
 
 import { Table } from 'reactstrap';
 
+import Paginator from 'components/_common/Paginator';
+
 const GridTable = props => {
-	const { dataReady, dataContent } = props;
+	const { dataReady, dataContent, url } = props;
 
 	return (
 		<Fragment>
@@ -46,7 +48,7 @@ const GridTable = props => {
 						<tfoot>
 							<tr>
 								<td colSpan="3">
-									Table Footer</td>
+									<Paginator pageDetails={ dataContent.pageDetails } url={ url } /></td>
 							</tr>
 						</tfoot>
 					</Table>
