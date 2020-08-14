@@ -1,7 +1,9 @@
+.pagination-root {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .pagination {
-	width: max-content;
-	max-width: 100%;
-	margin: auto;
 	margin-bottom: 0px;
 	font: 8px Helvetica;
 }
@@ -17,7 +19,6 @@
 	font: 12px Helvetica !important;
 	width: 170px !important;
 	border-color: #dee2e6 !important;
-	margin-right: 10px;
 }
 
 .pagination-select:hover {
