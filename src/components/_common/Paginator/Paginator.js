@@ -6,6 +6,11 @@ import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 import './Paginator.css';
 
+/*
+	PROPS:
+		- pageDetails		-> OBRIGATORIO, controle dos dados paginados
+		- url				-> OBRIGATORIO, controle da URL e links de paginacao
+*/
 const Paginator = props => {
 	const [newItemsPerPage, setNewItemsPerPage] = useState(null);
 

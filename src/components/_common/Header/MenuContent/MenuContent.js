@@ -5,6 +5,10 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 
 import './MenuContent.css';
 
+/*
+	PROPS:
+		- isLogged
+*/
 const MenuContent = props => (
 	<Nav id="menu" className="ml-auto" navbar>
 		{
