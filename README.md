@@ -46,7 +46,8 @@ npm run build
   - Notify (informações na tela - Erros / Avisos / etc...) com temporizador
   - ErrorBoundary (captura error síncronos nos componentes do react e mostra na UI)
   - GridTable (componente de tabulação de dados baseado no custom hook useDataGet)
-  - Paginator (paginação nas páginas)
+  - Paginator (paginação nas páginas - compatível com back-end boiler-server)
+  - Sorter (ordenação nas páginas - compatível com back-end boiler-server)
 
 ## Componentes de Páginas
   - Divididas em Header / MainContent (wrapper) / Footer
