@@ -9,36 +9,24 @@ import './Paginator.css';
 /*
 	PROPS:
 		- pageDetails		-> OBRIGATORIO, controle dos dados paginados
-		- url				-> OBRIGATORIO, controle da URL e links de paginacao
+		- url				-> OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)
 */
 const Paginator = props => {
 	const [newItemsPerPage, setNewItemsPerPage] = useState(null);
 
 	const { pageDetails, url } = props;
 
-	const _currentPage = ((pageDetails && pageDetails.currentPage) || 0);
-
 	const initialPage = 1;
-	const finalPage = ((pageDetails && pageDetails.totalPages) || 0);
-	const currentPage = (_currentPage >= initialPage && _currentPage <= finalPage ? _currentPage : 0);
+	const finalPage = ((pageDetails && pageDetails.totalPages) || 1);
 
-	const paginationInterval = () => {
-		const paginationInterval = [];
-		const rangeInterval = 3;
+	const _currentPage = ((pageDetails && pageDetails.currentPage) || 0);
+	const currentPage = (_currentPage >= initialPage && _currentPage <= finalPage ? _currentPage : 1);
 
-		const initialInterval = (currentPage - rangeInterval >= initialPage ? currentPage - rangeInterval : initialPage);
-		const finalInterval = (currentPage + rangeInterval <= finalPage ? currentPage + rangeInterval : finalPage);
-
-		for (let i = initialInterval; i <= finalInterval; i++) {
-			paginationInterval.push(i);
-		}
-
-		return paginationInterval;
-	};
+	const urlBase = (url.currentPath || '');
+	const urlSearch = (url.currentSearch || '');
 
 	const paginationUrl = to => {
-		const urlBase = url.currentPath;
-		const urlParams = new URLSearchParams(url.currentSearch);
+		const urlParams = new URLSearchParams(urlSearch);
 
 		switch (to) {
 			case 'first': {
@@ -68,12 +56,58 @@ const Paginator = props => {
 	const changeItemsPerPage = e => {
 		e.preventDefault();
 
-		const urlBase = url.currentPath;
-		const urlParams = new URLSearchParams(url.currentSearch);
+		const urlParams = new URLSearchParams(urlSearch);
 
 		urlParams.set('items_per_page', e.currentTarget.value);
 
 		setNewItemsPerPage(`${urlBase}?${urlParams.toString()}`);
+	};
+
+	const paginationInterval = () => {
+		const pages = [];
+		const interval = 1;
+
+		const _initialInterval = (currentPage - interval > initialPage ? currentPage - interval : initialPage);
+		const _finalInterval = (currentPage + interval < finalPage ? currentPage + interval : finalPage);
+
+		const initialInterval = (currentPage === finalPage && _initialInterval > initialPage ? _initialInterval - interval : _initialInterval);
+		const finalInterval = (currentPage === initialPage && _finalInterval < finalPage ? _finalInterval + interval : _finalInterval);
+
+		for (let i = initialInterval; i <= finalInterval; i++) {
+			pages.push(i);
+		}
+
+		return (
+			pages.map(
+				(i, index) => (
+					<Fragment key={ i }>
+						{
+							(index === 0 && i !== initialPage) ? (
+								<PaginationItem className="break">
+									<i className="fas fa-ellipsis-h"></i>
+								</PaginationItem>
+							) : (
+								null
+							)
+						}
+						<PaginationItem active={ (_currentPage === i) }>
+							<PaginationLink tag={ Link } to={ paginationUrl(i) }>
+								{ i }
+							</PaginationLink>
+						</PaginationItem>
+						{
+							(index + 1 === pages.length && i !== finalPage) ? (
+								<PaginationItem className="break">
+									<i className="fas fa-ellipsis-h"></i>
+								</PaginationItem>
+							) : (
+								null
+							)
+						}
+					</Fragment>
+				)
+			)
+		);
 	};
 
 	return (
@@ -85,7 +119,7 @@ const Paginator = props => {
 					pageDetails ? (
 						<Fragment>
 							<div className="pagination-main justify-content-sm-between justify-content-around">
-								<Input type="select" bsSize="sm" defaultValue={ pageDetails.itemsPerPage } className="pagination-select" onChange={ changeItemsPerPage }>
+								<Input type="select" bsSize="sm" value={ pageDetails.itemsPerPage } className="pagination-select" onChange={ changeItemsPerPage }>
 									{
 										[5, 10, 25, 50, 100].map(
 											i => (
@@ -108,17 +142,7 @@ const Paginator = props => {
 										</PaginationLink>
 									</PaginationItem>
 
-									{
-										paginationInterval().map(
-											i => (
-												<PaginationItem key={ i } active={ (pageDetails.currentPage === i) }>
-													<PaginationLink tag={ Link } to={ paginationUrl(i) }>
-														{ i }
-													</PaginationLink>
-												</PaginationItem>
-											)
-										)
-									}
+									{ paginationInterval() }
 
 									<PaginationItem disabled={ currentPage === finalPage }>
 										<PaginationLink tag={ Link } to={ paginationUrl('next') } next>

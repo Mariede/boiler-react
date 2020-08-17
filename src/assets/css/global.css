@@ -73,6 +73,10 @@ table td.not-found {
 	letter-spacing: 1px;
 }
 
+table tfoot td {
+	height: 36px;
+}
+
 table:not(.table-dark) tfoot td {
 	background: #fec;
 }

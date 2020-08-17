@@ -9,11 +9,11 @@
 }
 
 #menu button:hover {
-	background-color: #efe;
+	background-color: #def;
 }
 
 #menu button:focus {
-	background-color: #efe;
+	background-color: #def;
 }
 
 #menu button.disabled {
