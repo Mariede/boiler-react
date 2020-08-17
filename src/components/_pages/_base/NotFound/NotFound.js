@@ -17,7 +17,7 @@ const NotFound = props => {
 	};
 
 	return (
-		<MainContent subject="Aviso" icon="fas fa-exclamation-triangle">
+		<MainContent subject="Aviso" icon="fas fa-exclamation-triangle" maxContent={ true }>
 			<div id="not-found">
 				<div className="info">
 					4 <img src={ imgNotFound } alt="not-found" className="img-not-found" /> 4

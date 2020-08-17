@@ -106,7 +106,7 @@ const Logon = () => {
 					goDataAction ? (
 						<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
 					) : (
-						<MainContent subject="Logon" icon="fas fa-sign-in-alt">
+						<MainContent subject="Logon" icon="fas fa-sign-in-alt" maxContent={ true }>
 							<div id="logon">
 								<Form id="logon-form" className="form" onSubmit={ submitForm }>
 									<Row form>

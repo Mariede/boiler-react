@@ -10,14 +10,15 @@ import './MainContent.css';
 	PROPS:
 		- icon				-> (font-awesome, default: "fas fa-thumbtack")
 		- subject
+		- maxContent		-> Opcional, se true width e o tamanho do conteudo
 */
 const MainContent = props => {
-	const { subject, icon, children } = props;
+	const { subject, icon, maxContent, children } = props;
 
 	return (
 		<Fragment>
 			<PageSubject subject={ subject } icon={ icon } />
-			<div id="main-content">
+			<div id="main-content" className={ maxContent ? 'main-content-max-content' : 'main-content-fixed' }>
 				<Container fluid="md">
 					{ children }
 				</Container>

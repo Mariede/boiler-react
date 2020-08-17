@@ -14,7 +14,7 @@ const Controller = props => {
 	const currentPath = location.pathname;
 	const currentKey = location.key;
 
-	const goReady = (!isProtected && sessionStorage.getItem('is-logged') !== 'true') || (isProtected && sessionStorage.getItem('is-logged') === 'true');
+	const goReady = (!isProtected && !isLogged) || (isProtected && isLogged);
 
 	const [Component, dataReady] = useDataGet(
 		{

@@ -1,5 +1,14 @@
 #main-content {
-	width: 800px;
 	max-width: 100%;
 	margin: auto;
 }
+
+/* um ou outro */
+#main-content.main-content-fixed {
+	width: 1024px;
+}
+
+#main-content.main-content-max-content {
+	width: max-content;
+}
+/* um ou outro */
