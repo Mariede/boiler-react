@@ -16,9 +16,9 @@ import './Header.css';
 		- isLogged			-> OBRIGATORIO, necessario para exibicao dos dados de usuario logado e menu
 */
 const Header = props => {
-	const [isOpenHeaderContent, setIsOpenHeaderContent] = useState(false);
-
 	const { isLogged } = props;
+
+	const [isOpenHeaderContent, setIsOpenHeaderContent] = useState(false);
 
 	const toggleHeaderContent = e => {
 		e.preventDefault();

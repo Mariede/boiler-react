@@ -38,27 +38,28 @@ import './Alert.css';
 											- Executa o preventDefault no Modal
 */
 const Alert = props => {
+	const { buttonType, buttonColor, buttonSize, buttonOutline, buttonBlock, buttonText, buttonExecuteBeforeShow } = props;
+	const { modalConfirm, modalCentered, modalTitle, modalMessage, modalSize, modalFooterSize, modalCallback } = props;
+
 	const [showAlert, setShowAlert] = useState({ show: false, render: 0 });
 
-	const buttonExecuteBeforeShow = props.buttonExecuteBeforeShow;
-
 	const buttonProperties = {
-		type: (props.buttonType || 'button'),
-		color: (props.buttonColor || 'success'),
-		size: (props.buttonSize || 'md'),
-		outline: (props.buttonOutline || false),
-		block: (props.buttonBlock || false)
+		type: (buttonType || 'button'),
+		color: (buttonColor || 'success'),
+		size: (buttonSize || 'md'),
+		outline: (buttonOutline || false),
+		block: (buttonBlock || false)
 	};
 
 	const modalProperties = {
 		modalShow: showAlert.show,
-		modalConfirm: props.modalConfirm,
-		modalCentered: props.modalCentered,
-		modalTitle: props.modalTitle,
-		modalMessage: props.modalMessage,
-		modalSize: props.modalSize,
-		modalFooterSize: props.modalFooterSize,
-		modalCallback: props.modalCallback
+		modalConfirm: modalConfirm,
+		modalCentered: modalCentered,
+		modalTitle: modalTitle,
+		modalMessage: modalMessage,
+		modalSize: modalSize,
+		modalFooterSize: modalFooterSize,
+		modalCallback: modalCallback
 	};
 
 	const toggleAlert = e => {
@@ -75,7 +76,7 @@ const Alert = props => {
 
 	return (
 		<span className="alert-group" key={ showAlert.render }>
-			<Button { ...buttonProperties } onClick={ toggleAlert }>{ (props.buttonText || 'Confirmar') }</Button>
+			<Button { ...buttonProperties } onClick={ toggleAlert }>{ (buttonText || 'Confirmar') }</Button>
 			<ModalWindow { ...modalProperties } />
 		</span>
 	);

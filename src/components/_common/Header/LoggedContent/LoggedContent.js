@@ -10,9 +10,9 @@ import ContextUserData from 'components/_context/ContextUserData';
 import './LoggedContent.css';
 
 const LoggedContent = () => {
-	const [submit, setSubmit] = useState(false);
-
 	const getUserData = useContext(ContextUserData).getUserData;
+
+	const [submit, setSubmit] = useState(false);
 
 	const formatName = _name => {
 		const name = String(_name || '').trim();

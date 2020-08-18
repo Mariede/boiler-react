@@ -15,9 +15,9 @@ import './Notify.css';
 								- habilitar/desabilitar elementos do form durante exibicao da mensagem de erro
 */
 const Notify = props => {
-	const [showNotify, setShowNotify] = useState(false);
-
 	const { info: notifyInfo, header: notifyHeader, type: notifyType, form: notifyForm } = props;
+
+	const [showNotify, setShowNotify] = useState(false);
 
 	const handledNotifyInfo = notifyInfo && notifyInfo.data;
 

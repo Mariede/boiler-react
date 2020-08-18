@@ -5,10 +5,10 @@ import useDataGet from 'components/_custom-hooks/useDataGet';
 import ContextUserData from 'components/_context/ContextUserData';
 
 const Controller = props => {
+	const { isLogged, isProtected, children, location } = props;
+
 	const getUserData = useContext(ContextUserData).getUserData;
 	const setUserData = useContext(ContextUserData).setUserData;
-
-	const { isLogged, isProtected, children, location } = props;
 
 	const [Target, Logon] = children;
 	const currentPath = location.pathname;

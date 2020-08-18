@@ -11,9 +11,9 @@ import './Loading.css';
 		- message			-> (default: "Aguarde...")
 */
 const Loading = props => {
-	const [showLoading, setShowLoading] = useState(false);
-
 	const { loading, message } = props;
+
+	const [showLoading, setShowLoading] = useState(false);
 
 	useEffect(
 		() => {

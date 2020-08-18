@@ -25,8 +25,6 @@ import './ModalWindow.css';
 										- Executa o preventDefault no Modal
 */
 const ModalWindow = props => {
-	const [showModal, setShowModal] = useState((props.modalShow || false));
-
 	const modalConfirm = (props.modalConfirm || false);
 	const modalCentered = (props.modalCentered || false);
 	const modalTitle = (props.modalTitle || (props.modalConfirm ? 'Confirme' : 'Aviso'));
@@ -34,6 +32,8 @@ const ModalWindow = props => {
 	const modalSize = (props.modalSize || 'lg');
 	const modalFooterSize = (props.modalFooterSize || 'md');
 	const modalCallback = props.modalCallback;
+
+	const [showModal, setShowModal] = useState((props.modalShow || false));
 
 	const toggleModal = e => {
 		e.preventDefault();

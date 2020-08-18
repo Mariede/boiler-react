@@ -12,9 +12,9 @@ import './Paginator.css';
 		- url				-> OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)
 */
 const Paginator = props => {
-	const [newItemsPerPage, setNewItemsPerPage] = useState(null);
-
 	const { pageDetails, url } = props;
+
+	const [newItemsPerPage, setNewItemsPerPage] = useState(null);
 
 	const initialPage = 1;
 	const finalPage = ((pageDetails && pageDetails.totalPages) || 1);
@@ -51,16 +51,6 @@ const Paginator = props => {
 		}
 
 		return `${urlBase}?${urlParams.toString()}`;
-	};
-
-	const changeItemsPerPage = e => {
-		e.preventDefault();
-
-		const urlParams = new URLSearchParams(urlSearch);
-
-		urlParams.set('items_per_page', e.currentTarget.value);
-
-		setNewItemsPerPage(`${urlBase}?${urlParams.toString()}`);
 	};
 
 	const paginationInterval = () => {
@@ -108,6 +98,16 @@ const Paginator = props => {
 				)
 			)
 		);
+	};
+
+	const changeItemsPerPage = e => {
+		e.preventDefault();
+
+		const urlParams = new URLSearchParams(urlSearch);
+
+		urlParams.set('items_per_page', e.currentTarget.value);
+
+		setNewItemsPerPage(`${urlBase}?${urlParams.toString()}`);
 	};
 
 	return (

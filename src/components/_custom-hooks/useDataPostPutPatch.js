@@ -25,12 +25,12 @@ import ContextConfig from 'components/_context/ContextConfig';
 			}
 */
 const useDataPostPutPatch = props => {
-	const [goDataAction, setGoDataAction] = useState(false);
-	const [notify, setNotify] = useState(null);
+	const { method, route, submit, cbSubmit, data, headers, cbThen, cbCatch, message } = props;
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 
-	const { method, route, submit, cbSubmit, data, headers, cbThen, cbCatch, message } = props;
+	const [goDataAction, setGoDataAction] = useState(false);
+	const [notify, setNotify] = useState(null);
 
 	const postExecute = () => {
 		let isMounted = true;

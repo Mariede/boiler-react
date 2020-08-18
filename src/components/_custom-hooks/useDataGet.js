@@ -24,14 +24,14 @@ import ContextConfig from 'components/_context/ContextConfig';
 			}
 */
 const useDataGet = props => {
+	const { route, goReady, currentKey, params, config, cbThen, cbCatch, message } = props;
+
+	const getUrl = useContext(ContextConfig).baseUrl;
+
 	const [dataReady, setDataReady] = useState(false);
 	const [notify, setNotify] = useState(null);
 
 	const dataContent = useRef(null);
-
-	const getUrl = useContext(ContextConfig).baseUrl;
-
-	const { route, goReady, currentKey, params, config, cbThen, cbCatch, message } = props;
 
 	const getExecute = () => {
 		let isMounted = true;

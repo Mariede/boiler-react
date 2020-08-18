@@ -5,7 +5,13 @@ import { Nav, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, Dropdown
 
 import './MenuContent.css';
 
+/*
+	PROPS:
+		- isLogged
+*/
 const MenuContent = props => {
+	const { isLogged } = props;
+
 	const [isOpenMenuUsuario, setIsOpenMenuUsuario] = useState(false);
 
 	const toggleMenuPage = (e, drop, setDrop) => {
@@ -16,7 +22,7 @@ const MenuContent = props => {
 	return (
 		<Nav id="menu" className="ml-auto" navbar>
 			{
-				props.isLogged ? (
+				isLogged ? (
 					<Nav tabs>
 						<NavItem>
 							<NavLink tag={ Link } to="/usuario">Usuário 1</NavLink>

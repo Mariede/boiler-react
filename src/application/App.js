@@ -11,6 +11,8 @@ import ContextConfig from 'components/_context/ContextConfig';
 import ContextUserData from 'components/_context/ContextUserData';
 
 const App = props => {
+	const { configData } = props;
+
 	const [userData, setUserData] = useState(null);
 
 	const renderCount = useRef(0);
@@ -41,7 +43,7 @@ const App = props => {
 	const userIsLogged = setUserIsLogged(userData);
 
 	return (
-		<ContextConfig.Provider value={ props.configData }>
+		<ContextConfig.Provider value={ configData }>
 			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: uData => setUserData(uData) } }>
 				<Router basename='/#/'>
 					<ErrorBoundary>

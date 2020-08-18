@@ -11,9 +11,11 @@ import imgNotFound from 'assets/images/not-found.png';
 import './NotFound.css';
 
 const NotFound = props => {
+	const { history } = props;
+
 	const navBack = e => {
 		e.preventDefault();
-		props.history.goBack();
+		history.goBack();
 	};
 
 	return (
