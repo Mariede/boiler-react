@@ -69,7 +69,7 @@ table td, th {
 table td.not-found {
 	color: red;
 	text-align: center;
-	font-weight: bold;
+	font-style: italic;
 	letter-spacing: 1px;
 }
 

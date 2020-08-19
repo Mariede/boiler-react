@@ -14,6 +14,19 @@ const LoggedContent = () => {
 
 	const [submit, setSubmit] = useState(false);
 
+	const showHideProfile = e => {
+		e.preventDefault();
+
+		const button = e.currentTarget;
+		const profile = button.querySelector('.logged-user-profile-data');
+
+		if (profile.classList.contains('show')) {
+			profile.classList.remove('show');
+		} else {
+			profile.classList.add('show');
+		}
+	};
+
 	const formatName = _name => {
 		const name = String(_name || '').trim();
 		const spaceCheck = name.indexOf(' ');
@@ -54,7 +67,28 @@ const LoggedContent = () => {
 				) : (
 					<div id="logged">
 						<span className="logged-user">
-							<i className="fa fa-user-alt"></i> <strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
+							<span className="logged-user-profile" onClick={ showHideProfile }>
+								<i className="fa fa-user-alt"></i>
+								<div className="logged-user-profile-data">
+									Perfis associados
+									<hr />
+									{
+										(Array.isArray(getUserData.perfis) && getUserData.perfis.length > 0) ? (
+											getUserData.perfis.map(
+												(perfil, index) => (
+													<Fragment key={ index }>
+														<i className="fa fa-lock-open"></i> { perfil }<br />
+													</Fragment>
+												)
+											)
+										) : (
+											<span className="not-found"><i className="fa fa-ban"></i> Nenhum perfil informado</span>
+										)
+									}
+									<hr/>
+								</div>
+							</span>
+							<strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
 						</span>
 						<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" modalCallback={ logoutApp } modalConfirm />
 					</div>

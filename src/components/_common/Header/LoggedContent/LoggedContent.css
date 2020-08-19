@@ -7,7 +7,7 @@
 	float: right;
 }
 
-#logged .logged-user {
+#logged > .logged-user {
 	font: 10px B612, Arial, Helvetica, san-serif;
 	letter-spacing: 1px;
 	color: #000;
@@ -20,6 +20,44 @@
 	vertical-align: middle;
 }
 
+#logged > .logged-user > .logged-user-profile {
+	position: relative;
+	margin-right: 1px;
+}
+
+#logged > .logged-user > .logged-user-profile:hover {
+	cursor: pointer;
+}
+
+#logged > .logged-user > .logged-user-profile > .logged-user-profile-data {
+	position: absolute;
+	right: 0px;
+	z-index: 2;
+	padding: 5px 5px 0px 5px;
+	text-align: left;
+	background-color: rgba(250, 250, 250, 0.8);
+	border: 1px #aaa solid;
+	border-radius: 4px;
+	box-shadow: 0 5px 15px rgba(150, 100, 200, 0.4);
+	display: none;
+}
+
+/* Fica abaixo para poder sobrepor display, quando solicitado */
+#logged > .logged-user > .logged-user-profile > .logged-user-profile-data.show {
+	display: block;
+}
+
+#logged > .logged-user > .logged-user-profile > .logged-user-profile-data > .not-found {
+	color: red;
+	text-align: center;
+	font-style: italic;
+	letter-spacing: 1px;
+}
+
 #logged button {
 	margin: 0px 8px; /* Define centro do cabecalho e distancia dos elementos */
+}
+
+#logged hr {
+	margin: 5px 0px;
 }
