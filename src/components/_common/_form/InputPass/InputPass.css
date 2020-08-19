@@ -1,0 +1,9 @@
+.input-pass .input-group-text {
+	cursor: pointer;
+	width: 46px;
+	transition: all 0.4s ease 0s;
+}
+
+.input-pass .input-group-text:hover {
+	box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+}

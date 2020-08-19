@@ -48,6 +48,8 @@ npm run build
   - GridTable (componente de tabulação de dados baseado no custom hook useDataGet)
   - Paginator (paginação nas páginas - compatível com back-end boiler-server)
   - Sorter (ordenação nas páginas - compatível com back-end boiler-server)
+  - Componentes de formulários personalizados:
+    + InputPass
 
 ## Componentes de Páginas
   - Divididas em Header / MainContent (wrapper) / Footer
@@ -71,6 +73,8 @@ npm run build
     + componentes programáveis do react _(as pastas começam por _ para não confundir com os componentes em si)_
       + _common
         * componentes comuns ao projeto (subcomponentes), utilizados em um ou mais componentes
+          - _form
+            + componentes de formulário personalizados
       + _context
         * arquivos de contexto do react
       + _custom-hooks

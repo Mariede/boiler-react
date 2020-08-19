@@ -5,6 +5,7 @@ import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
 import MainContent from 'components/_common/MainContent';
+import InputPass from 'components/_common/_form/InputPass';
 
 import useDataPostPutPatch from 'components/_custom-hooks/useDataPostPutPatch';
 
@@ -114,8 +115,8 @@ const Logon = () => {
 											<FormGroup>
 												<Label for="login">Usuário</Label>
 												<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ changeFormElements } />
-												<FormText>Insira seu usuário aqui.</FormText>
 											</FormGroup>
+											<FormText>Insira seu usuário aqui.</FormText>
 										</Col>
 									</Row>
 
@@ -123,9 +124,9 @@ const Logon = () => {
 										<Col md={ 12 }>
 											<FormGroup>
 												<Label for="pass">Senha</Label>
-												<Input type="password" value={ pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
-												<FormText>Insira sua senha aqui.</FormText>
+												<InputPass value={ pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
 											</FormGroup>
+											<FormText>Insira sua senha aqui.</FormText>
 										</Col>
 									</Row>
 
