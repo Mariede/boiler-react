@@ -1,0 +1,8 @@
+.sorter > .sorter-column {
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.sorter > .sorter-column > i {
+	margin-left: 1px;
+}

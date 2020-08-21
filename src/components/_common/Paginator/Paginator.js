@@ -16,41 +16,42 @@ const Paginator = props => {
 
 	const [newItemsPerPage, setNewItemsPerPage] = useState(null);
 
+	const urlBase = (url.currentPath || '');
+	const urlSearch = (url.currentSearch || '');
+	const urlParams = new URLSearchParams(urlSearch);
+
 	const initialPage = 1;
 	const finalPage = ((pageDetails && pageDetails.totalPages) || 1);
 
 	const _currentPage = ((pageDetails && pageDetails.currentPage) || 0);
 	const currentPage = (_currentPage >= initialPage && _currentPage <= finalPage ? _currentPage : 1);
 
-	const urlBase = (url.currentPath || '');
-	const urlSearch = (url.currentSearch || '');
-
 	const paginationUrl = to => {
-		const urlParams = new URLSearchParams(urlSearch);
+		const paginationParams = new URLSearchParams(urlSearch);
 
 		switch (to) {
 			case 'first': {
-				urlParams.set('page', initialPage);
+				paginationParams.set('page', initialPage);
 				break;
 			}
 			case 'previous': {
-				urlParams.set('page', (currentPage > initialPage ? currentPage - 1 : initialPage));
+				paginationParams.set('page', (currentPage > initialPage ? currentPage - 1 : initialPage));
 				break;
 			}
 			case 'next': {
-				urlParams.set('page', (currentPage < finalPage ? currentPage + 1 : finalPage));
+				paginationParams.set('page', (currentPage < finalPage ? currentPage + 1 : finalPage));
 				break;
 			}
 			case 'last': {
-				urlParams.set('page', finalPage);
+				paginationParams.set('page', finalPage);
 				break;
 			}
 			default: {
-				urlParams.set('page', to);
+				paginationParams.set('page', to);
 			}
 		}
 
-		return `${urlBase}?${urlParams.toString()}`;
+		return `${urlBase}?${paginationParams.toString()}`;
 	};
 
 	const paginationInterval = () => {
@@ -100,10 +101,16 @@ const Paginator = props => {
 		);
 	};
 
+	const itemsPerPage = () => (
+		[5, 10, 25, 50, 100].map(
+			i => (
+				<option key={ i } value={ i }>{ i } registros por página</option>
+			)
+		)
+	);
+
 	const changeItemsPerPage = e => {
 		e.preventDefault();
-
-		const urlParams = new URLSearchParams(urlSearch);
 
 		urlParams.set('items_per_page', e.currentTarget.value);
 
@@ -120,13 +127,9 @@ const Paginator = props => {
 						<Fragment>
 							<div className="pagination-main justify-content-sm-between justify-content-around">
 								<Input type="select" bsSize="sm" value={ pageDetails.itemsPerPage } className="pagination-select" onChange={ changeItemsPerPage }>
-									{
-										[5, 10, 25, 50, 100].map(
-											i => (
-												<option key={ i } value={ i }>{ i } registros por página</option>
-											)
-										)
-									}
+
+									{ itemsPerPage() }
+
 								</Input>
 
 								<Pagination>

@@ -20,7 +20,8 @@ const Usuario = props => {
 			currentKey: currentKey,
 			params: {
 				page: (urlParams.get('page') || 1),
-				items_per_page: urlParams.get('items_per_page')
+				items_per_page: urlParams.get('items_per_page'),
+				sort_fields: urlParams.get('sort_fields')
 			},
 			cbCatch: {
 				header: 'Usuario',

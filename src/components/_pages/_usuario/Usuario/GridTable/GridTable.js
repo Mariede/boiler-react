@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { Table } from 'reactstrap';
 
 import Paginator from 'components/_common/Paginator';
+import Sorter from 'components/_common/Sorter';
 
 const GridTable = props => {
 	const { dataReady, dataContent, url } = props;
@@ -17,9 +18,11 @@ const GridTable = props => {
 								<th>
 									#</th>
 								<th>
-									NOME</th>
+									<Sorter title="nome" sortElement="nome" url={ url } /></th>
 								<th>
-									EMAIL</th>
+									<Sorter title="email" sortElement="email" url={ url } /></th>
+								<th>
+									<Sorter title="tipo" sortElement="tipo.id" url={ url } /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -34,12 +37,14 @@ const GridTable = props => {
 													{ usuario.nome }</td>
 												<td>
 													{ usuario.email }</td>
+												<td>
+													{ usuario.tipo.id }</td>
 											</tr>
 										)
 									)
 								) : (
 									<tr>
-										<td className="not-found" colSpan="3">
+										<td className="not-found" colSpan="4">
 											Dados não encontrados...</td>
 									</tr>
 								)
@@ -47,7 +52,7 @@ const GridTable = props => {
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colSpan="3">
+								<td colSpan="4">
 									<Paginator pageDetails={ dataContent.pageDetails } url={ url } /></td>
 							</tr>
 						</tfoot>
