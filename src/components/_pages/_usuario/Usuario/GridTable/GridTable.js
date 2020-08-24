@@ -21,11 +21,11 @@ const GridTable = props => {
 								<th>
 									#</th>
 								<th>
-									<Sorter title="nome" sortElement="nome" url={ url } /></th>
+									<Sorter title="nome" sortElement="nome" url={ url } key={ dataReady } /></th>
 								<th>
-									<Sorter title="email" sortElement="email" url={ url } /></th>
+									<Sorter title="email" sortElement="email" url={ url } key={ dataReady } /></th>
 								<th>
-									<Sorter title="tipo" sortElement="tipo.id" url={ url } /></th>
+									<Sorter title="tipo" sortElement="tipo.id" url={ url } key={ dataReady } /></th>
 							</tr>
 						</thead>
 						<tbody>
