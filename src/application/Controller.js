@@ -5,21 +5,18 @@ import useDataGet from 'components/_custom-hooks/useDataGet';
 import ContextUserData from 'components/_context/ContextUserData';
 
 const Controller = props => {
-	const { isLogged, isProtected, children, location } = props;
+	const { isLogged, isProtected, onlyNotLogged, children, location } = props;
 
 	const getUserData = useContext(ContextUserData).getUserData;
 	const setUserData = useContext(ContextUserData).setUserData;
 
-	const [Target, Logon] = children;
+	const [Target, Logon, Home] = children;
 	const currentPath = location.pathname;
 	const currentKey = location.key;
 
-	const goReady = (!isProtected && !isLogged) || (isProtected && isLogged);
-
-	const [Component, dataReady] = useDataGet(
+	const { Component, dataReady } = useDataGet(
 		{
 			route: '/islogged',
-			goReady: goReady,
 			currentKey: currentKey,
 			params: {
 				result_type: 1
@@ -29,6 +26,16 @@ const Controller = props => {
 
 				if (resDataLen !== Object.keys(getUserData).length) {
 					setUserData((resDataLen ? JSON.stringify(res.data) : null));
+				} else {
+					if (resDataLen === 0) {
+						if (sessionStorage.getItem('is-logged') === 'true') {
+							sessionStorage.removeItem('is-logged');
+						}
+					} else {
+						if (sessionStorage.getItem('is-logged') !== 'true') {
+							sessionStorage.setItem('is-logged', 'true');
+						}
+					}
 				}
 			},
 			cbCatch: {
@@ -51,11 +58,17 @@ const Controller = props => {
 		<Fragment>
 			{ Component }
 			{
-				!dataReady ? (
-					null
-				) : (
+				isLogged !== undefined ? (
 					!isProtected ? (
-						Target
+						!isLogged ? (
+							Target
+						) : (
+							onlyNotLogged ? (
+								Home
+							) : (
+								Target
+							)
+						)
 					) : (
 						!isLogged ? (
 							Logon
@@ -63,6 +76,8 @@ const Controller = props => {
 							Target
 						)
 					)
+				) : (
+					null
 				)
 			}
 		</Fragment>

@@ -49,7 +49,7 @@ const App = props => {
 					<ErrorBoundary>
 						<Header isLogged={ userIsLogged } />
 						<div id="wrapper">
-							<RouteGate isLogged={ (userIsLogged || false) } />
+							<RouteGate isLogged={ userIsLogged } />
 						</div>
 						<Footer />
 					</ErrorBoundary>

@@ -76,7 +76,7 @@ const Logon = () => {
 		[]
 	);
 
-	const [Component, goDataAction] = useDataPostPutPatch(
+	const { Component, goDataAction } = useDataPostPutPatch(
 		{
 			method: 'POST',
 			route: '/logon',
@@ -101,46 +101,42 @@ const Logon = () => {
 		<Fragment>
 			{ Component }
 			{
-				sessionStorage.getItem('is-logged') ? (
-					<Redirect to="/" />
+				goDataAction ? (
+					<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
 				) : (
-					goDataAction ? (
-						<Redirect to={ (sessionStorage.getItem('current-path') || '/') } />
-					) : (
-						<MainContent subject="Logon" icon="fas fa-sign-in-alt" maxContent={ true }>
-							<div id="logon">
-								<Form id="logon-form" className="form" onSubmit={ submitForm }>
-									<Row form>
-										<Col md={ 12 }>
-											<FormGroup>
-												<Label for="login">Usuário</Label>
-												<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ changeFormElements } />
-											</FormGroup>
-											<FormText>Insira seu usuário aqui.</FormText>
-										</Col>
-									</Row>
+					<MainContent subject="Logon" icon="fas fa-sign-in-alt" maxContent={ true }>
+						<div id="logon">
+							<Form id="logon-form" className="form" onSubmit={ submitForm }>
+								<Row form>
+									<Col md={ 12 }>
+										<FormGroup>
+											<Label for="login">Usuário</Label>
+											<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ changeFormElements } />
+										</FormGroup>
+										<FormText>Insira seu usuário aqui.</FormText>
+									</Col>
+								</Row>
 
-									<Row form>
-										<Col md={ 12 }>
-											<FormGroup>
-												<Label for="pass">Senha</Label>
-												<InputPass value={ pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
-											</FormGroup>
-											<FormText>Insira sua senha aqui.</FormText>
-										</Col>
-									</Row>
+								<Row form>
+									<Col md={ 12 }>
+										<FormGroup>
+											<Label for="pass">Senha</Label>
+											<InputPass value={ pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
+										</FormGroup>
+										<FormText>Insira sua senha aqui.</FormText>
+									</Col>
+								</Row>
 
-									<hr />
+								<hr />
 
-									<Row form>
-										<Col md={ 12 }>
-											<Button type="submit" color="success" block>Enviar</Button>
-										</Col>
-									</Row>
-								</Form>
-							</div>
-						</MainContent>
-					)
+								<Row form>
+									<Col md={ 12 }>
+										<Button type="submit" color="success" block>Enviar</Button>
+									</Col>
+								</Row>
+							</Form>
+						</div>
+					</MainContent>
 				)
 			}
 		</Fragment>

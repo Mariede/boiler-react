@@ -39,7 +39,7 @@ const LoggedContent = () => {
 		setSubmit(true);
 	};
 
-	const [Component, goDataAction] = useDataPostPutPatch(
+	const { Component, goDataAction } = useDataPostPutPatch(
 		{
 			method: 'POST',
 			route: '/logout',

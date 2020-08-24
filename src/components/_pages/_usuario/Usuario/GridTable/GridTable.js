@@ -8,10 +8,13 @@ import Sorter from 'components/_common/Sorter';
 const GridTable = props => {
 	const { dataReady, dataContent, url } = props;
 
+	const recordset = (dataContent ? dataContent.recordset : null);
+	const pageDetails = (dataContent ? dataContent.pageDetails : null);
+
 	return (
 		<Fragment>
 			{
-				(dataReady && dataContent) ? (
+				recordset ? (
 					<Table hover striped>
 						<thead>
 							<tr>
@@ -27,8 +30,8 @@ const GridTable = props => {
 						</thead>
 						<tbody>
 							{
-								(Array.isArray(dataContent.recordset) && dataContent.recordset.length) ? (
-									dataContent.recordset.map(
+								(Array.isArray(recordset) && recordset.length) ? (
+									recordset.map(
 										usuario => (
 											<tr key={ usuario.idUsuario }>
 												<td>
@@ -53,7 +56,7 @@ const GridTable = props => {
 						<tfoot>
 							<tr>
 								<td colSpan="4">
-									<Paginator pageDetails={ dataContent.pageDetails } url={ url } /></td>
+									<Paginator pageDetails={ pageDetails } url={ url } key={ dataReady } /></td>
 							</tr>
 						</tfoot>
 					</Table>

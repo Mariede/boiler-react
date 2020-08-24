@@ -9,13 +9,15 @@ const RouteGate = props => {
 	const { isLogged } = props;
 
 	const Logon = routes.getLogon;
+	const Home = routes.getHome;
 
-	const FadingRoute = ({ isProtected, component: Target, ...pathDetails }) => (
+	const FadingRoute = ({ isProtected, onlyNotLogged, component: Target, ...pathDetails }) => (
 		<Route { ...pathDetails } render={
 			routeProps => (
-				<Controller isLogged={ isLogged } isProtected={ isProtected } { ...routeProps }>
+				<Controller isLogged={ isLogged } isProtected={ isProtected } onlyNotLogged={ onlyNotLogged } { ...routeProps }>
 					<Target { ...routeProps } />
 					<Logon { ...routeProps } />
+					<Home { ...routeProps } />
 				</Controller>
 			)
 		} />
@@ -25,7 +27,7 @@ const RouteGate = props => {
 		<Switch>
 			{
 				routes.getRoutes.map(
-					(route, i = 0) => <FadingRoute isProtected={ route.isProtected } component={ route.component } exact={ route.exact } path={ route.path } key={ i } />
+					(route, i = 0) => <FadingRoute isProtected={ route.isProtected } onlyNotLogged={ (route.onlyNotLogged || false) } component={ route.component } exact={ route.exact } path={ route.path } key={ i } />
 				)
 			}
 		</Switch>

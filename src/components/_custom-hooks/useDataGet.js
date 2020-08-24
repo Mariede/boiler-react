@@ -42,8 +42,6 @@ const useDataGet = props => {
 			setDataReady(false);
 			setNotify(null);
 
-			dataContent.current = null;
-
 			axios
 			.get(
 				getUrl + route,
@@ -95,11 +93,11 @@ const useDataGet = props => {
 		</Fragment>
 	);
 
-	return [
-		Component,
-		dataReady,
-		dataContent.current
-	];
+	return {
+		Component: Component,
+		dataReady: dataReady,
+		dataContent: dataContent.current
+	};
 };
 
 export default useDataGet;

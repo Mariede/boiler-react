@@ -92,10 +92,10 @@ const useDataPostPutPatch = props => {
 		</Fragment>
 	);
 
-	return [
+	return {
 		Component,
 		goDataAction
-	];
+	};
 };
 
 export default useDataPostPutPatch;

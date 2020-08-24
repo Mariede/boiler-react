@@ -14,7 +14,7 @@ const Usuario = props => {
 	const currentSearch = location.search;
 	const urlParams = new URLSearchParams(currentSearch);
 
-	const [Component, dataReady, dataContent] = useDataGet(
+	const { Component, dataReady, dataContent } = useDataGet(
 		{
 			route: `/usuario${paramId ? `/${paramId}` : ''}`,
 			currentKey: currentKey,
