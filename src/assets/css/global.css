@@ -82,6 +82,10 @@ table:not(.table-dark) tfoot td {
 }
 
 /* link */
+a[type="button"] {
+	margin-bottom: 1px;
+}
+
 a:not([type="button"]):link {
 	color: #69c;
 }
@@ -108,7 +112,7 @@ input:focus {
 }
 
 button {
-	margin: 1px;
+	margin-bottom: 1px;
 }
 
 button:focus {

@@ -14,7 +14,7 @@ const MenuContent = props => {
 
 	const [isOpenMenuUsuario, setIsOpenMenuUsuario] = useState(false);
 
-	const toggleMenuPage = (e, drop, setDrop) => {
+	const toggleMenuPage = (drop, setDrop, e) => {
 		e.preventDefault();
 		setDrop(!drop);
 	};
@@ -32,7 +32,7 @@ const MenuContent = props => {
 							<NavLink tag={ Link } to="/usuario">Usuário 2</NavLink>
 						</NavItem>
 
-						<Dropdown nav isOpen={ isOpenMenuUsuario } direction="down" toggle={ e => toggleMenuPage(e, isOpenMenuUsuario, setIsOpenMenuUsuario) }>
+						<Dropdown nav isOpen={ isOpenMenuUsuario } direction="down" toggle={ e => toggleMenuPage(isOpenMenuUsuario, setIsOpenMenuUsuario, e) }>
 							<DropdownToggle nav caret>
 								Usuário 3
 							</DropdownToggle>

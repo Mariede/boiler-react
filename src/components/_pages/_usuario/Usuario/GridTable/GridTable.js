@@ -15,17 +15,17 @@ const GridTable = props => {
 		<Fragment>
 			{
 				recordset ? (
-					<Table hover striped>
+					<Table hover striped key={ dataReady }>
 						<thead>
 							<tr>
 								<th>
 									#</th>
 								<th>
-									<Sorter title="nome" sortElement="nome" url={ url } key={ dataReady } /></th>
+									<Sorter title="nome" sortElement="nome" url={ url } /></th>
 								<th>
-									<Sorter title="email" sortElement="email" url={ url } key={ dataReady } /></th>
+									<Sorter title="email" sortElement="email" url={ url } /></th>
 								<th>
-									<Sorter title="tipo" sortElement="tipo.id" url={ url } key={ dataReady } /></th>
+									<Sorter title="tipo" sortElement="tipo.id" url={ url } /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -56,7 +56,7 @@ const GridTable = props => {
 						<tfoot>
 							<tr>
 								<td colSpan="4">
-									<Paginator pageDetails={ pageDetails } url={ url } key={ dataReady } /></td>
+									<Paginator pageDetails={ pageDetails } url={ url } /></td>
 							</tr>
 						</tfoot>
 					</Table>
