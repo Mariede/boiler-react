@@ -10,7 +10,7 @@ npm install
 npm start
 ```
 
-* Build (Webpack):
+* Build (Webpack com linter):
 ```
 npm run build
 ```

@@ -9,15 +9,15 @@
     "node": ">=10.5.0"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^3.4.3",
     "reactstrap": "^8.5.1"
   },
   "devDependencies": {
-    "eslint-plugin-react": "^7.20.3"
+    "eslint-plugin-react": "^7.20.6"
   },
   "scripts": {
     "start": "react-scripts start",
