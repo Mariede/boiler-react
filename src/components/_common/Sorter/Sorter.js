@@ -11,7 +11,7 @@ import './Sorter.css';
 
 	PROPS:
 		- title			-> OBRIGATORIO, nome da coluna na tabela ou elemento
-		- sortElement	-> OBRIGATORIO, elemento a ser ordenado, em formato de notacao por ponto em string (se necessario)
+		- sortElement	-> OBRIGATORIO, elemento a ser ordenado (formato string), pode ser aninhado por ponto
 		- url			-> OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)
 */
 const Sorter = props => {

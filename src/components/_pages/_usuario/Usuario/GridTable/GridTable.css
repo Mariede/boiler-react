@@ -1,0 +1,38 @@
+table.grid-table {
+	border: 1px solid #dee2e6;
+	border-collapse: separate;
+	border-radius: 4px;
+	margin-bottom: 0px;
+}
+
+table.grid-table th {
+	text-align: center;
+	text-transform: uppercase;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+}
+
+table.grid-table:not(.table-dark) th {
+	background-color: #fec;
+}
+
+table.grid-table td, th {
+	padding: 10px 20px !important;
+}
+
+table.grid-table td.not-found {
+	color: red;
+	text-align: center;
+	font-style: italic;
+	letter-spacing: 1px;
+}
+
+table.grid-table tfoot td {
+	text-align: center;
+	font-size: 10px;
+	height: 36px;
+}
+
+table.grid-table:not(.table-dark) tfoot td {
+	background: #fec;
+}

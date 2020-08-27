@@ -36,7 +36,16 @@ const Usuario = props => {
 			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">
 				<div id="usuario">
 					Dados dos usuários
-					<GridTable dataReady={ dataReady } dataContent={ dataContent } url={ { currentPath, currentSearch } } />
+					<GridTable dataReady={ dataReady } dataContent={ dataContent } url={ { currentPath, currentSearch } }
+						columns={
+							[
+								['#', 'idUsuario', false],
+								['nome', 'nome', true],
+								['email', 'email', true],
+								['tipo', 'tipo.nome', true]
+							]
+						}
+					/>
 				</div>
 			</MainContent>
 		</Fragment>

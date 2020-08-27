@@ -43,44 +43,6 @@ img {
 	border: 0px;
 }
 
-/* table */
-table {
-	border: 1px solid #dee2e6;
-	border-collapse: separate;
-	border-radius: 4px;
-	margin-bottom: 0px !important;
-}
-
-table th {
-	text-align: center;
-	text-transform: uppercase;
-	border: 1px solid #dee2e6;
-	border-radius: 4px;
-}
-
-table:not(.table-dark) th {
-	background-color: #fec;
-}
-
-table td, th {
-	padding: 10px 20px !important;
-}
-
-table td.not-found {
-	color: red;
-	text-align: center;
-	font-style: italic;
-	letter-spacing: 1px;
-}
-
-table tfoot td {
-	height: 36px;
-}
-
-table:not(.table-dark) tfoot td {
-	background: #fec;
-}
-
 /* link */
 a[type="button"] {
 	margin-bottom: 1px;
