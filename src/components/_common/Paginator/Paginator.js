@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useMemo } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import { Input } from 'reactstrap';
@@ -101,12 +101,15 @@ const Paginator = props => {
 		);
 	};
 
-	const itemsPerPage = () => (
-		[5, 10, 25, 50, 100].map(
-			i => (
-				<option key={ i } value={ i }>{ i } registros por página</option>
+	const itemsPerPage = useMemo(
+		() => (
+			[5, 10, 25, 50, 100].map(
+				i => (
+					<option key={ i } value={ i }>{ i } registros por página</option>
+				)
 			)
-		)
+		),
+		[]
 	);
 
 	const changeItemsPerPage = e => {
@@ -128,7 +131,7 @@ const Paginator = props => {
 							<div className="pagination-main justify-content-sm-between justify-content-around">
 								<Input type="select" bsSize="sm" value={ pageDetails.itemsPerPage } className="pagination-select" onChange={ changeItemsPerPage }>
 
-									{ itemsPerPage() }
+									{ itemsPerPage }
 
 								</Input>
 

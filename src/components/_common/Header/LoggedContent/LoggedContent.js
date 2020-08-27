@@ -69,6 +69,7 @@ const LoggedContent = () => {
 						<span className="logged-user">
 							<span className="logged-user-profile" onClick={ showHideProfile }>
 								<i className="fa fa-user-alt"></i>
+
 								<div className="logged-user-profile-data">
 									Perfis associados
 									<hr />
@@ -88,8 +89,10 @@ const LoggedContent = () => {
 									<hr/>
 								</div>
 							</span>
+
 							<strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
 						</span>
+
 						<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" modalCallback={ logoutApp } modalConfirm />
 					</div>
 				)

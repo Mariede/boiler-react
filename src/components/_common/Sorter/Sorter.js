@@ -1,5 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useMemo } from 'react';
 import { Redirect } from 'react-router-dom';
+
+import { UncontrolledTooltip } from 'reactstrap';
 
 import './Sorter.css';
 
@@ -65,40 +67,48 @@ const Sorter = props => {
 		}
 	};
 
-	const sortedElement = () => {
-		let resultShow = (
-			<i className="fa fa-sort" data-sort-element={ sortElement }></i>
-		);
+	const sorterElement = useMemo(
+		() => {
+			let resultShow = (
+				<i className="fa fa-sort" data-sort-element={ sortElement }></i>
+			);
 
-		if (sortFields) {
-			sortFields.split(/[,|]/).some(
-				e => {
-					const sortField = e.split(/[:]/);
+			if (sortFields) {
+				sortFields.split(/[,|]/).some(
+					e => {
+						const sortField = e.split(/[:]/);
 
-					const element = String(sortField[0] || '').trim();
-					const order = String((sortField[1] || 'ASC')).trim().toUpperCase();
+						const element = String(sortField[0] || '').trim();
+						const order = String((sortField[1] || 'ASC')).trim().toUpperCase();
 
-					if (element === sortElement) {
-						if (order === 'DESC') {
-							resultShow = (
-								<i className="fa fa-sort-down" data-sort-element={ sortElement }></i>
-							);
-						} else {
-							resultShow = (
-								<i className="fa fa-sort-up" data-sort-element={ sortElement }></i>
-							);
+						if (element === sortElement) {
+							if (order === 'DESC') {
+								resultShow = (
+									<i className="fa fa-sort-down" data-sort-element={ sortElement }></i>
+								);
+							} else {
+								resultShow = (
+									<i className="fa fa-sort-up" data-sort-element={ sortElement }></i>
+								);
+							}
+
+							return true;
 						}
 
-						return true;
+						return false;
 					}
+				);
+			}
 
-					return false;
-				}
-			);
-		}
+			return resultShow;
+		},
+		[sortElement, sortFields]
+	);
 
-		return resultShow;
-	};
+	const sorterId = useMemo(
+		() => String(sortElement || '').replace(/[^a-zA-Z0-9_]+/gi, ''),
+		[sortElement]
+	);
 
 	return (
 		<Fragment>
@@ -107,12 +117,16 @@ const Sorter = props => {
 					<Redirect to={ newSortedPage } />
 				) : (
 					<div className="sorter">
-						<span className="sorter-column" onClick={ sortPage }>
+						<span className="sorter-column" id={ sorterId } onClick={ sortPage }>
 							{ title }
 
-							{ sortedElement() }
+							{ sorterElement }
 
 						</span>
+
+						<UncontrolledTooltip placement="top" target={ sorterId } trigger="hover">
+							Segure CTRL para ordenar vários<br />Segure ALT para reiniciar
+						</UncontrolledTooltip>
 					</div>
 				)
 			}

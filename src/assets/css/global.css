@@ -122,3 +122,7 @@ button:focus {
 button.btn-link {
 	padding: 0px;
 }
+
+div.tooltip {
+	font-size: 11px;
+}

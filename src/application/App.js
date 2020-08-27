@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import RouteGate from 'application/RouteGate';
@@ -17,30 +17,31 @@ const App = props => {
 
 	const renderCount = useRef(0);
 
-	const setUserIsLogged = uData => {
-		let logged = false;
-
-		if (uData) {
-			sessionStorage.setItem('is-logged', 'true');
-			logged = true;
-		} else {
-			if (renderCount.current === 0 && sessionStorage.getItem('is-logged') === 'true') {
-				logged = undefined;
-			}
-
-			sessionStorage.removeItem('is-logged');
-		}
-
-		return logged;
-	};
-
 	useEffect(
 		() => {
 			renderCount.current++;
 		}
 	);
 
-	const userIsLogged = setUserIsLogged(userData);
+	const userIsLogged = useMemo(
+		() => {
+			let logged = false;
+
+			if (userData) {
+				sessionStorage.setItem('is-logged', 'true');
+				logged = true;
+			} else {
+				if (renderCount.current === 0 && sessionStorage.getItem('is-logged') === 'true') {
+					logged = undefined;
+				}
+
+				sessionStorage.removeItem('is-logged');
+			}
+
+			return logged;
+		},
+		[userData]
+	);
 
 	return (
 		<ContextConfig.Provider value={ configData }>
@@ -48,9 +49,11 @@ const App = props => {
 				<Router basename='/#/'>
 					<ErrorBoundary>
 						<Header isLogged={ userIsLogged } />
+
 						<div id="wrapper">
 							<RouteGate isLogged={ userIsLogged } />
 						</div>
+
 						<Footer />
 					</ErrorBoundary>
 				</Router>

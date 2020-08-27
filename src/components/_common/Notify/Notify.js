@@ -114,9 +114,11 @@ const Notify = props => {
 			showNotify ? (
 				<Toast className="notify">
 					<Button close onClick={ closeNotify } />
+
 					<ToastHeader icon={ _notifyHeader(0, notifyType) }>
 						{ (notifyHeader || _notifyHeader(1, notifyType)) }{ (handledNotifyInfo ? ` (código ${handledNotifyInfo.code})` : '') }
 					</ToastHeader>
+
 					<ToastBody>
 						{ (handledNotifyInfo ? handledNotifyInfo.message : (notifyInfo ? (notifyInfo.message || notifyInfo) : '')) }
 					</ToastBody>

@@ -40,7 +40,7 @@ const ModalWindow = props => {
 		setShowModal(!showModal);
 	};
 
-	const exitCallback = (e, _modalConfirm, _isButton, _callback) => {
+	const exitCallback = (_modalConfirm, _isButton, _callback, e) => {
 		if (e) {
 			e.preventDefault();
 		}
@@ -58,7 +58,7 @@ const ModalWindow = props => {
 
 	return (
 		showModal ? (
-			<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(e, modalConfirm, false, modalCallback) }>
+			<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(modalConfirm, false, modalCallback, e) }>
 				{
 					modalTitle !== '!no' ? (
 						<ModalHeader className="modal-header-local" toggle={ toggleModal }>
@@ -83,7 +83,7 @@ const ModalWindow = props => {
 					{
 						modalConfirm ? (
 							<Fragment>
-								<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(e, modalConfirm, true, modalCallback) }>Confirmar</Button>
+								<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, e) }>Confirmar</Button>
 								<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
 							</Fragment>
 						) : (
