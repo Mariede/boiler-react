@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import MainContent from 'components/_common/MainContent';
-import GridTable from './GridTable';
+import GridTable from 'components/_common/GridTable';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
