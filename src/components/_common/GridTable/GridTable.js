@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 
+import { Button } from 'reactstrap';
 import { Table } from 'reactstrap';
 
 import Paginator from 'components/_common/Paginator';
@@ -14,17 +15,34 @@ import './GridTable.css';
 
 	PROPS:
 		- dataReady		: OBRIGATORIO, Indica quando os dados estao prontos
+
 		- dataContent	: OBRIGATORIO, Json de retorno com o conteudo das informacoes a serem exibidas
+
 		- url			: OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)
 			-> usado pelos componentes acoplados (Paginator e Sorter)
-		- columns		: OBRIGATORIO, especifica quais os itens das colunas a serem exibidos
-			-> array de array de elementos com [titulo, elementoJson, isSorted]
-			-> elementoJson indica a propriedade Json a ser exibida (formato string), e pode ser aninhado por ponto
+
+		- rowId 		: informa qual coluna define o ID do recordset
+			-> se nao especificado, o componente tenta usar record.id ou o primeira chave do objeto record
+
+		- columns		: OBRIGATORIO, especifica quais as colunas a serem exibidas
+			-> array de objetos com [title, jsonElement, isSorted, gridCallback, buttonColor]
+				-> title informa o cabecalho da coluna. Pode ser vazio
+
+				-> jsonElement informa a propriedade Json a ser exibida (formato string), e pode ser aninhado por ponto
+					-> se jsonElement nao encontrado ele repete seu conteudo ao longo da coluna (pode ser um jsx)
+
+				-> isSorted indica se coluna pode ser ordenada. Necessita de um titulo para a coluna
+
+				-> gridCallback e um callback do parent na celula e se baseia no ID da linha em tr (rowId)
+
+				-> buttonColor so faz sentido com gridCallback e define o formato do button
+					-> ex. link, danger, success, ... - default e link
+
 		- classes		: especifica classes adicionais para tabela reacstrap, sobrescrevendo o default (hover, striped)
 			-> em formato de objeto exemplo: classes={ { dark: true } }, passar objeto vazio para nenhuma
 */
 const GridTable = props => {
-	const { dataReady, dataContent, url, columns, classes } = props;
+	const { dataReady, dataContent, url, rowId, columns, classes } = props;
 
 	const recordset = (dataContent ? dataContent.recordset : null);
 	const pageDetails = (dataContent ? dataContent.pageDetails : null);
@@ -40,17 +58,21 @@ const GridTable = props => {
 								{
 									columns.map(
 										(column, index) => {
-											const headerElement = column[0];
-											const jsonElement = column[1];
-											const isSorted = column[2] === true;
+											const title = column.title;
+											const jsonElement = (column.jsonElement || '');
+											const isSorted = column.isSorted === true;
 
 											return (
 												<th key={ index }>
 													{
-														isSorted ? (
-															<Sorter title={ headerElement } sortElement={ jsonElement } url={ url } />
+														title ? (
+															(isSorted && !React.isValidElement(jsonElement)) ? (
+																<Sorter title={ title } sortElement={ jsonElement } url={ url } />
+															) : (
+																title
+															)
 														) : (
-															headerElement
+															null
 														)
 													}
 												</th>
@@ -64,23 +86,46 @@ const GridTable = props => {
 							{
 								(Array.isArray(recordset) && recordset.length) ? (
 									recordset.map(
-										(record, index) => (
-											<tr key={ index }>
-												{
-													columns.map(
-														(column, index) => {
-															const jsonElement = column[1];
-															const data = String(jsonElement.split('.').reduce((o, i) => o[i], record) || '');
+										(record, index) => {
+											const recordId = record[rowId] || record.id || record[Object.keys(record)[0]];
 
-															return (
-																<td key={ index }>
-																	{ data }</td>
-															);
-														}
-													)
-												}
-											</tr>
-										)
+											return (
+												<tr id={ recordId } key={ index }>
+													{
+														columns.map(
+															(column, index) => {
+																const title = column.title;
+																const jsonElement = (column.jsonElement || '');
+																const gridCallback = column.gridCallback;
+																const data = (
+																	!React.isValidElement(jsonElement) ? (
+																		(String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || jsonElement)
+																	) : (
+																		jsonElement
+																	)
+																);
+
+																return (
+																	<td key={ index }>
+																		{
+																			jsonElement ? (
+																				gridCallback ? (
+																					<Button type="button" size="sm" color={ column.buttonColor || 'link' } block={ title === '' } onClick={ gridCallback }>{ data }</Button>
+																				) : (
+																					data
+																				)
+																			) : (
+																				null
+																			)
+																		}
+																	</td>
+																);
+															}
+														)
+													}
+												</tr>
+											);
+										}
 									)
 								) : (
 									<tr>

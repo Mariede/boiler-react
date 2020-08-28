@@ -18,6 +18,7 @@ table.grid-table:not(.table-dark) th {
 
 table.grid-table td, th {
 	padding: 10px 20px !important;
+	vertical-align: middle;
 }
 
 table.grid-table td.not-found {
@@ -35,4 +36,8 @@ table.grid-table tfoot td {
 
 table.grid-table:not(.table-dark) tfoot td {
 	background: #fec;
+}
+
+table.grid-table button {
+	font-size: inherit;
 }
