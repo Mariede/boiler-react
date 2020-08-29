@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useReducer, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
@@ -16,8 +16,7 @@ import './Logon.css';
 const Logon = () => {
 	const [submit, setSubmit] = useState(false);
 
-	const [{ login, pass }, handleFormElements] = useReducer(
-		(formElementsValues, newFormElementsValues) => ({ ...formElementsValues, ...newFormElementsValues }),
+	const [formElements, handleFormElements] = useState(
 		{
 			login: '',
 			pass: ''
@@ -57,8 +56,8 @@ const Logon = () => {
 
 		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
 
-		const { id, name, value } = e.target;
-		handleFormElements({ [(id || name)]: value });
+		const { id, name, value } = e.currentTarget;
+		handleFormElements(prevState => ({ ...prevState, [(id || name)]: value }));
 	};
 
 	const submitForm = e => {
@@ -85,8 +84,8 @@ const Logon = () => {
 				setSubmit(false);
 			},
 			data: {
-				login: login,
-				pass: pass
+				login: formElements.login,
+				pass: formElements.pass
 			},
 			cbCatch: {
 				header: 'Logon',
@@ -111,7 +110,7 @@ const Logon = () => {
 									<Col md={ 12 }>
 										<FormGroup>
 											<Label for="login">Usuário</Label>
-											<Input type="text" value={ login } id="login" placeholder="seu@email" onChange={ changeFormElements } />
+											<Input type="text" value={ formElements.login } id="login" placeholder="seu@email" onChange={ changeFormElements } />
 										</FormGroup>
 										<FormText>Insira seu usuário aqui.</FormText>
 									</Col>
@@ -121,7 +120,7 @@ const Logon = () => {
 									<Col md={ 12 }>
 										<FormGroup>
 											<Label for="pass">Senha</Label>
-											<InputPass value={ pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
+											<InputPass value={ formElements.pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
 										</FormGroup>
 										<FormText>Insira sua senha aqui.</FormText>
 									</Col>
