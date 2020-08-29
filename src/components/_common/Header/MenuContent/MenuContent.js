@@ -14,7 +14,8 @@ const MenuContent = props => {
 
 	const dropdownElementsInitialValues = {
 		usuarioDrop1: false,
-		usuarioDrop2: false
+		usuarioDrop2: false,
+		usuarioDrop3: false
 	};
 
 	const [dropdownElements, handleDropdownElements] = useState(dropdownElementsInitialValues);
@@ -67,6 +68,8 @@ const MenuContent = props => {
 									<em>Selecione a opção desejada</em>
 								</DropdownItem>
 
+								<DropdownItem divider />
+
 								<DropdownItem>
 									<Link to="/dsdsds">Action 1 (dsdsds)</Link>
 								</DropdownItem>
@@ -74,8 +77,6 @@ const MenuContent = props => {
 								<DropdownItem disabled>
 									Action 2
 								</DropdownItem>
-
-								<DropdownItem divider />
 
 								<DropdownItem>
 									<Link to="/usuario/33">Action 3 (usuario/33)</Link>
@@ -88,6 +89,8 @@ const MenuContent = props => {
 								<DropdownItem>
 									<Link to="/logon">Action 5 (logon)</Link>
 								</DropdownItem>
+
+								<DropdownItem divider />
 							</DropdownMenu>
 						</Dropdown>
 
@@ -101,13 +104,29 @@ const MenuContent = props => {
 									<em>Selecione a opção desejada</em>
 								</DropdownItem>
 
+								<DropdownItem divider />
+
 								<DropdownItem>
-									<Link to="/gggg">Action 1 (gggg)</Link>
+									<Link to="/gggg">Action 6 (gggg)</Link>
 								</DropdownItem>
 
 								<DropdownItem>
 									<Link to="/">Home</Link>
 								</DropdownItem>
+
+								<Dropdown isOpen={ dropdownElements.usuarioDrop3 } direction="left" toggle={ changeDropdownElements }>
+									<DropdownToggle id="usuarioDrop3" nav caret className="submenu">
+										Usuário 5
+									</DropdownToggle>
+
+									<DropdownMenu>
+										<DropdownItem>
+											<Link to="/fgfgfgf">Action 7</Link>
+										</DropdownItem>
+									</DropdownMenu>
+								</Dropdown>
+
+								<DropdownItem divider />
 							</DropdownMenu>
 						</Dropdown>
 					</Nav>
