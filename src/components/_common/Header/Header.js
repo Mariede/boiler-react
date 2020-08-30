@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Container } from 'reactstrap';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse } from 'reactstrap';
 
 import MenuContent from './MenuContent';
@@ -27,28 +26,26 @@ const Header = props => {
 
 	return (
 		<header id="header">
-			<Container fluid="md">
-				<Navbar expand="md" className="navbar-local" light>
-					<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" />{ (process.env.REACT_APP_NAME ? ` ${process.env.REACT_APP_NAME}` : '') }</NavbarBrand>
-					<NavbarToggler onClick={ toggleHeaderContent } />
-					{
-						isLogged !== undefined ? (
-							<Collapse isOpen={ isOpenHeaderContent } navbar>
-								<MenuContent isLogged={ isLogged } />
-								{
-									isLogged ? (
-										<LoggedContent />
-									) : (
-										null
-									)
-								}
-							</Collapse>
-						) : (
-							null
-						)
-					}
-				</Navbar>
-			</Container>
+			<Navbar expand="md" className="navbar-local" light>
+				<NavbarBrand tag={ Link } to="/" className="color-brand"><img src={ imgLogo } alt="logo" className="img-logo" />{ (process.env.REACT_APP_NAME ? ` ${process.env.REACT_APP_NAME}` : '') }</NavbarBrand>
+				<NavbarToggler onClick={ toggleHeaderContent } />
+				{
+					isLogged !== undefined ? (
+						<Collapse isOpen={ isOpenHeaderContent } navbar>
+							<MenuContent isLogged={ isLogged } />
+							{
+								isLogged ? (
+									<LoggedContent />
+								) : (
+									null
+								)
+							}
+						</Collapse>
+					) : (
+						null
+					)
+				}
+			</Navbar>
 		</header>
 	);
 };

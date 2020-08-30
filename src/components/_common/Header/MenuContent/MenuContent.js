@@ -13,9 +13,10 @@ const MenuContent = props => {
 	const { isLogged } = props;
 
 	const dropdownElementsInitialValues = {
-		usuarioDrop1: false,
-		usuarioDrop2: false,
-		usuarioDrop3: false
+		menuDrop1: false,
+		menuDrop2: false,
+		menuDrop3: false,
+		menuDrop4: false
 	};
 
 	const [dropdownElements, handleDropdownElements] = useState(dropdownElementsInitialValues);
@@ -31,8 +32,7 @@ const MenuContent = props => {
 			const id = container.id;
 
 			if (id && Object.prototype.hasOwnProperty.call(dropdownElementsInitialValues, id)) {
-				const value = (container.getAttribute('aria-expanded') === 'false');
-				handleDropdownElements(prevState => ({ ...prevState, [id]: value }));
+				handleDropdownElements(prevState => ({ ...prevState, [id]: !prevState[id] }));
 			} else {
 				closeAll = true;
 			}
@@ -58,8 +58,8 @@ const MenuContent = props => {
 							<NavLink tag={ Link } to="/usuario">Usuário 2</NavLink>
 						</NavItem>
 
-						<Dropdown nav isOpen={ dropdownElements.usuarioDrop1 } direction="down" toggle={ changeDropdownElements }>
-							<DropdownToggle id="usuarioDrop1" nav caret>
+						<Dropdown nav isOpen={ dropdownElements.menuDrop1 } direction="down" toggle={ changeDropdownElements }>
+							<DropdownToggle id="menuDrop1" nav caret>
 								Usuário 3
 							</DropdownToggle>
 
@@ -71,7 +71,7 @@ const MenuContent = props => {
 								<DropdownItem divider />
 
 								<DropdownItem>
-									<Link to="/dsdsds">Action 1 (dsdsds)</Link>
+									<Link to="/fgfgfgf">Action 1</Link>
 								</DropdownItem>
 
 								<DropdownItem disabled>
@@ -94,8 +94,8 @@ const MenuContent = props => {
 							</DropdownMenu>
 						</Dropdown>
 
-						<Dropdown nav isOpen={ dropdownElements.usuarioDrop2 } direction="down" toggle={ changeDropdownElements }>
-							<DropdownToggle id="usuarioDrop2" nav caret>
+						<Dropdown nav isOpen={ dropdownElements.menuDrop2 } direction="down" toggle={ changeDropdownElements }>
+							<DropdownToggle id="menuDrop2" nav caret>
 								Usuário 4
 							</DropdownToggle>
 
@@ -107,15 +107,15 @@ const MenuContent = props => {
 								<DropdownItem divider />
 
 								<DropdownItem>
-									<Link to="/gggg">Action 6 (gggg)</Link>
+									<Link to="/fgfgfgf">Action 6</Link>
 								</DropdownItem>
 
 								<DropdownItem>
 									<Link to="/">Home</Link>
 								</DropdownItem>
 
-								<Dropdown isOpen={ dropdownElements.usuarioDrop3 } direction="left" toggle={ changeDropdownElements }>
-									<DropdownToggle id="usuarioDrop3" nav caret className="submenu">
+								<Dropdown isOpen={ dropdownElements.menuDrop3 } direction="left" toggle={ changeDropdownElements }>
+									<DropdownToggle id="menuDrop3" nav caret className="submenu">
 										Usuário 5
 									</DropdownToggle>
 
@@ -123,6 +123,32 @@ const MenuContent = props => {
 										<DropdownItem>
 											<Link to="/fgfgfgf">Action 7</Link>
 										</DropdownItem>
+
+										<DropdownItem divider />
+
+										<DropdownItem>
+											<Link to="/fgfgfgf">Action 8</Link>
+										</DropdownItem>
+
+										<DropdownItem>
+											<Link to="/fgfgfgf">Action 9</Link>
+										</DropdownItem>
+
+										<Dropdown isOpen={ dropdownElements.menuDrop4 } direction="left" toggle={ changeDropdownElements }>
+											<DropdownToggle id="menuDrop4" nav caret className="submenu">
+												Usuário 6
+											</DropdownToggle>
+
+											<DropdownMenu>
+												<DropdownItem>
+													<Link to="/fgfgfgf">Action 10</Link>
+												</DropdownItem>
+
+												<DropdownItem divider />
+											</DropdownMenu>
+										</Dropdown>
+
+										<DropdownItem divider />
 									</DropdownMenu>
 								</Dropdown>
 

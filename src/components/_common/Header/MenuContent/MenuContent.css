@@ -21,13 +21,14 @@
 }
 
 #menu .dropdown-toggle.submenu {
-	border-width: 1px 0px 0px 0px;
-	border-style: solid;
+	border-width: 1px 0px;
+	border-style: dotted;
 	border-color: #eee;
 	border-radius: 0px;
 	font-size: 15px;
 	padding-left: 14px;
 	background-color: #bcd;
+	margin-bottom: -2px;
 }
 
 #menu .dropdown-toggle.submenu[aria-expanded="true"] {
