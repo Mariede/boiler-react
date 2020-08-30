@@ -25,10 +25,11 @@ const MenuContent = props => {
 		e.preventDefault();
 
 		const container = e.currentTarget;
+		const containerTag = container && container.tagName;
 
 		let closeAll = false;
 
-		if (container && container.tagName === 'A') {
+		if (containerTag === 'A') {
 			const id = container.id;
 
 			if (id && Object.prototype.hasOwnProperty.call(dropdownElementsInitialValues, id)) {
@@ -39,8 +40,16 @@ const MenuContent = props => {
 		} else {
 			const element = e.target;
 
-			if (container.tagName !== 'BUTTON' || element.tagName === 'A') {
-				closeAll = true;
+			if (containerTag) {
+				if (element.tagName === 'A') {
+					closeAll = true;
+				}
+			} else {
+				const isMenuItem = element.closest('.dropdown-menu');
+
+				if (!isMenuItem) {
+					closeAll = true;
+				}
 			}
 		}
 
