@@ -65,7 +65,7 @@ a:not([type="button"]):active {
 }
 
 /* alteracoes layout padrao bootstrap */
-input:focus {
+*[tabindex]:focus, button:focus {
 	outline: none;
 }
 
@@ -73,12 +73,14 @@ input:focus {
 	line-height: 24px;
 }
 
-button {
-	margin-bottom: 1px;
+/* apenas para casos onde form-text (reactstrap FormText) logo apos form-group */
+.form-text.outside-group {
+	margin-top: -12px;
+	margin-bottom: 16px;
 }
 
-button:focus {
-	outline: none;
+button {
+	margin-bottom: 1px;
 }
 
 button.btn-link {

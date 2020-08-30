@@ -2,9 +2,3 @@
 	width: 400px;
 	max-width: 100%;
 }
-
-/* apenas para casos onde form-text logo apos form-group */
-#logon .form-text {
-	margin-top: -12px;
-	margin-bottom: 16px;
-}

@@ -8,11 +8,15 @@
 	cursor: default;
 }
 
+#menu button:focus {
+	background-color: #fff;
+}
+
 #menu button:hover {
 	background-color: #def;
 }
 
-#menu button:focus {
+#menu button:active {
 	background-color: #def;
 }
 

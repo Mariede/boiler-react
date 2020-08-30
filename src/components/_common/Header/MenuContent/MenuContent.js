@@ -37,7 +37,11 @@ const MenuContent = props => {
 				closeAll = true;
 			}
 		} else {
-			closeAll = true;
+			const element = e.target;
+
+			if (container.tagName !== 'BUTTON' || element.tagName === 'A') {
+				closeAll = true;
+			}
 		}
 
 		if (closeAll) {
