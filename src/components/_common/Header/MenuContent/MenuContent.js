@@ -22,8 +22,6 @@ const MenuContent = props => {
 	const [dropdownElements, handleDropdownElements] = useState(dropdownElementsInitialValues);
 
 	const changeDropdownElements = e => {
-		e.preventDefault();
-
 		const container = e.currentTarget;
 		const containerTag = container && container.tagName;
 

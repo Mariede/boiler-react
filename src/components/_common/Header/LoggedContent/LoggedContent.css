@@ -40,6 +40,7 @@
 	border-radius: 4px;
 	box-shadow: 0 5px 15px rgba(150, 100, 200, 0.4);
 	display: none;
+	margin-top: -3px;
 }
 
 /* Fica abaixo para poder sobrepor display, quando solicitado */
