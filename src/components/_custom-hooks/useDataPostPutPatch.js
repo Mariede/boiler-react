@@ -7,6 +7,8 @@ import Notify from 'components/_common/Notify';
 
 import ContextConfig from 'components/_context/ContextConfig';
 
+import errWrapper from 'helpers/errWrapper';
+
 /*
 	-> Acesso REST a dados (Create / Update)
 		* Utilizar apenas com os metodos POST / PUT / PATCH
@@ -63,7 +65,7 @@ const useDataPostPutPatch = props => {
 						setNotify({ info: (err.response || err), ...cbCatch });
 					}
 
-					throw err;
+					errWrapper('custom-hook: POST/PUT/PATCH', err);
 				}
 			)
 			.finally(

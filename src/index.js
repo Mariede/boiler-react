@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import App from 'application/App';
 
+import errWrapper from 'helpers/errWrapper';
+
 import 'assets/css/global.css';
 
 const startApp = () => new Promise(
@@ -40,6 +42,6 @@ startApp()
 )
 .catch(
 	err => {
-		console.error('config.json', err); // eslint-disable-line no-console
+		errWrapper('config.json', err);
 	}
 );

@@ -7,6 +7,8 @@ import Notify from 'components/_common/Notify';
 
 import ContextConfig from 'components/_context/ContextConfig';
 
+import errWrapper from 'helpers/errWrapper';
+
 /*
 	-> Acesso REST a dados (Read)
 		* Utilizar apenas com o metodo GET
@@ -64,7 +66,7 @@ const useDataGet = props => {
 						setNotify({ info: (err.response || err), ...cbCatch });
 					}
 
-					throw err;
+					errWrapper('custom-hook: GET', err);
 				}
 			)
 			.finally(
