@@ -21,39 +21,131 @@ const MenuContent = props => {
 
 	const [dropdownElements, handleDropdownElements] = useState(dropdownElementsInitialValues);
 
-	const changeDropdownElements = e => {
-		const container = e.currentTarget;
-		const containerTag = container && container.tagName;
-
-		let closeAll = false;
-
-		if (containerTag === 'A') {
-			const id = container.id;
-
-			if (id && Object.prototype.hasOwnProperty.call(dropdownElementsInitialValues, id)) {
-				handleDropdownElements(prevState => ({ ...prevState, [id]: !prevState[id] }));
-			} else {
-				closeAll = true;
-			}
-		} else {
-			const element = e.target;
-
-			if (containerTag) {
-				if (element.tagName === 'A') {
-					closeAll = true;
+	/*
+		Array de objetos contendo as definicoes do(s) menu(s) e submenu(s) em dropdown
+	*/
+	const dropdowns = [
+		{
+			toggle: { title: 'Usuário 1', id: 'menuDrop1', state: dropdownElements.menuDrop1 },
+			links: [
+				{ text: 'Action 1 (not found)', to: '/fgfgfgf' },
+				{ text: 'Action 2 (not found)', to: '/fgfgfgf', disabled: true },
+				{ text: 'Action 3 (usuario/33)', to: '/usuario/33' },
+				{ text: 'Action 4 (usuario/40)', to: '/usuario/40' },
+				{ text: 'Action 5 (logon)', to: '/logon' },
+				{
+					toggle: { title: 'Usuário 2', id: 'menuDrop2', state: dropdownElements.menuDrop2 },
+					links: [
+						{ text: 'Action 6 (not found)', to: '/fgfgfgf' },
+						{ text: 'Action 7 (home)', to: '/' },
+						{
+							toggle: { title: 'Usuário 3', id: 'menuDrop3', state: dropdownElements.menuDrop3 },
+							links: [
+								{ text: 'Action 8 (usuario/93)', to: '/usuario/93' },
+								{ text: 'Action 9 (usuario/8)', to: '/usuario/8' }
+							]
+						}
+					]
 				}
-			} else {
-				const isMenuItem = element.closest('.dropdown-menu');
+			]
+		},
+		{
+			toggle: { title: 'Usuário 4', id: 'menuDrop4', state: dropdownElements.menuDrop4 },
+			links: [
+				{ text: 'Action 10 (not found)', to: '/fgfgfgf' },
+				{ text: 'Action 11 (not found)', to: '/fgfgfgf', disabled: true },
+				{ text: 'Action 12 (usuario/68)', to: '/usuario/68' }
+			]
+		}
+	];
 
-				if (!isMenuItem) {
-					closeAll = true;
+	const setDropdowns = () => {
+		const setDropdown = (menu, i, isSubmenu) => {
+			const changeDropdownElements = e => {
+				const container = e.currentTarget;
+				const containerTag = container && container.tagName;
+
+				let closeAll = false;
+
+				if (containerTag === 'A') {
+					const id = container.id;
+
+					if (id && Object.prototype.hasOwnProperty.call(dropdownElementsInitialValues, id)) {
+						handleDropdownElements(prevState => ({ ...prevState, [id]: !prevState[id] }));
+					} else {
+						closeAll = true;
+					}
+				} else {
+					const element = e.target;
+
+					if (containerTag) {
+						if (element.tagName === 'A') {
+							closeAll = true;
+						}
+					} else {
+						const isMenuItem = element.closest('.dropdown-menu');
+
+						if (!isMenuItem) {
+							closeAll = true;
+						}
+					}
 				}
-			}
-		}
 
-		if (closeAll) {
-			handleDropdownElements(dropdownElementsInitialValues);
-		}
+				if (closeAll) {
+					handleDropdownElements(dropdownElementsInitialValues);
+				}
+			};
+
+			return (
+				<Dropdown nav={ isSubmenu === false } isOpen={ menu.toggle.state } direction={ isSubmenu ? 'left' : 'down' } toggle={ changeDropdownElements } key={ i }>
+					<DropdownToggle id={ menu.toggle.id } nav caret className={ isSubmenu ? 'submenu' : '' }>
+						{ menu.toggle.title }
+					</DropdownToggle>
+
+					<DropdownMenu>
+						{
+							(isSubmenu) ? (
+								null
+							) : (
+								<DropdownItem header>
+									<em>Selecione a opção desejada</em>
+								</DropdownItem>
+							)
+						}
+
+						<DropdownItem divider />
+
+						{
+							menu.links.map(
+								(link, index) => {
+									if (link.toggle) {
+										return (
+											setDropdown(link, index, true)
+										);
+									}
+
+									return (
+										<DropdownItem disabled={ link.disabled === true } key={ index }>
+											<Link to={ link.to }>{ link.text }</Link>
+										</DropdownItem>
+									);
+								}
+							)
+						}
+
+						<DropdownItem divider />
+					</DropdownMenu>
+				</Dropdown>
+			);
+		};
+
+		const DropdownMenus = dropdowns.map(
+			(dropdown, index) => (
+				setDropdown(dropdown, index, false)
+			)
+		);
+
+		return DropdownMenus;
 	};
 
 	return (
@@ -62,127 +154,31 @@ const MenuContent = props => {
 				isLogged ? (
 					<Nav tabs>
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Usuário 1</NavLink>
+							<NavLink tag={ Link } to="/usuario">Usuário NAV 1</NavLink>
 						</NavItem>
 
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Usuário 2</NavLink>
+							<NavLink tag={ Link } to="/usuario">Usuário NAV 2</NavLink>
 						</NavItem>
 
-						<Dropdown nav isOpen={ dropdownElements.menuDrop1 } direction="down" toggle={ changeDropdownElements }>
-							<DropdownToggle id="menuDrop1" nav caret>
-								Usuário 3
-							</DropdownToggle>
-
-							<DropdownMenu>
-								<DropdownItem header>
-									<em>Selecione a opção desejada</em>
-								</DropdownItem>
-
-								<DropdownItem divider />
-
-								<DropdownItem>
-									<Link to="/fgfgfgf">Action 1</Link>
-								</DropdownItem>
-
-								<DropdownItem disabled>
-									Action 2
-								</DropdownItem>
-
-								<DropdownItem>
-									<Link to="/usuario/33">Action 3 (usuario/33)</Link>
-								</DropdownItem>
-
-								<DropdownItem>
-									<Link to="/usuario/40">Action 4 (usuario/40)</Link>
-								</DropdownItem>
-
-								<DropdownItem>
-									<Link to="/logon">Action 5 (logon)</Link>
-								</DropdownItem>
-
-								<DropdownItem divider />
-							</DropdownMenu>
-						</Dropdown>
-
-						<Dropdown nav isOpen={ dropdownElements.menuDrop2 } direction="down" toggle={ changeDropdownElements }>
-							<DropdownToggle id="menuDrop2" nav caret>
-								Usuário 4
-							</DropdownToggle>
-
-							<DropdownMenu>
-								<DropdownItem header>
-									<em>Selecione a opção desejada</em>
-								</DropdownItem>
-
-								<DropdownItem divider />
-
-								<DropdownItem>
-									<Link to="/fgfgfgf">Action 6</Link>
-								</DropdownItem>
-
-								<DropdownItem>
-									<Link to="/">Home</Link>
-								</DropdownItem>
-
-								<Dropdown isOpen={ dropdownElements.menuDrop3 } direction="left" toggle={ changeDropdownElements }>
-									<DropdownToggle id="menuDrop3" nav caret className="submenu">
-										Usuário 5
-									</DropdownToggle>
-
-									<DropdownMenu>
-										<DropdownItem>
-											<Link to="/fgfgfgf">Action 7</Link>
-										</DropdownItem>
-
-										<DropdownItem divider />
-
-										<DropdownItem>
-											<Link to="/fgfgfgf">Action 8</Link>
-										</DropdownItem>
-
-										<DropdownItem>
-											<Link to="/fgfgfgf">Action 9</Link>
-										</DropdownItem>
-
-										<Dropdown isOpen={ dropdownElements.menuDrop4 } direction="left" toggle={ changeDropdownElements }>
-											<DropdownToggle id="menuDrop4" nav caret className="submenu">
-												Usuário 6
-											</DropdownToggle>
-
-											<DropdownMenu>
-												<DropdownItem>
-													<Link to="/fgfgfgf">Action 10</Link>
-												</DropdownItem>
-
-												<DropdownItem divider />
-											</DropdownMenu>
-										</Dropdown>
-
-										<DropdownItem divider />
-									</DropdownMenu>
-								</Dropdown>
-
-								<DropdownItem divider />
-							</DropdownMenu>
-						</Dropdown>
+						{ setDropdowns() }
 					</Nav>
 				) : (
 					<Nav tabs>
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Usuário Out</NavLink>
+							<NavLink tag={ Link } to="/usuario">Usuário NAV 1</NavLink>
 						</NavItem>
 
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario/33">Usuário/33 Out</NavLink>
+							<NavLink tag={ Link } to="/usuario/33">Usuário/33 NAV 2</NavLink>
 						</NavItem>
 
 						<NavItem>
-							<NavLink tag={ Link } to="/usuario/40">Usuário/40 Out</NavLink>
+							<NavLink tag={ Link } to="/usuario/40">Usuário/40 NAV 3</NavLink>
 						</NavItem>
 
 						<NavItem>
-							<NavLink tag={ Link } to="/dsdsds">Not Found</NavLink>
+							<NavLink tag={ Link } to="/dsdsds">NAV Not Found</NavLink>
 						</NavItem>
 
 						<NavItem>

@@ -20,7 +20,7 @@
 	background-color: #def;
 }
 
-#menu button.disabled {
+#menu button.disabled a {
 	color: #ddd;
 }
 
