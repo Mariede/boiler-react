@@ -43,6 +43,12 @@ const Usuario = props => {
 			const rowId = e.currentTarget.closest('tr').id;
 			console.log(`DELETE data: ${rowId}`);
 		},
+		export: e => {
+			e.preventDefault();
+
+			const rowId = e.currentTarget.closest('tr').id;
+			console.log(`EXPORT data: ${rowId}`);
+		},
 		more: e => {
 			e.preventDefault();
 
@@ -64,8 +70,17 @@ const Usuario = props => {
 								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: gridTable.get },
 								{ title: 'email', jsonElement: 'email', isSorted: true },
 								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true },
-								{ title: '', jsonElement: <i className="fa fa-trash"> excluir</i>, gridCallback: gridTable.delete },
-								{ title: '', jsonElement: <i className="fa fa-newspaper"> saiba mais</i>, gridCallback: gridTable.more }
+								{
+									buttons: [
+										{ gridCallback: gridTable.delete, buttonText: <i className="fa fa-trash"> excluir</i>, buttonColor: 'danger' },
+										{ gridCallback: gridTable.export, buttonText: <i className="fa fa-file-export"> exportar</i>, buttonColor: 'primary' }
+									]
+								},
+								{
+									buttons: [
+										{ gridCallback: gridTable.more, buttonText: <i className="fa fa-newspaper"> saiba mais</i> }
+									]
+								}
 							]
 						}
 					/>

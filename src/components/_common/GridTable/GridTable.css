@@ -10,6 +10,7 @@ table.grid-table th {
 	text-transform: uppercase;
 	border: 1px solid #dee2e6;
 	border-radius: 4px;
+	white-space: nowrap;
 }
 
 table.grid-table:not(.table-dark) th {
@@ -40,4 +41,8 @@ table.grid-table:not(.table-dark) tfoot td {
 
 table.grid-table button {
 	font-size: inherit;
+}
+
+table.grid-table .btn-group {
+	width: 100%;
 }

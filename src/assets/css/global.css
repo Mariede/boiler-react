@@ -48,25 +48,26 @@ a[type="button"] {
 	margin-bottom: 1px;
 }
 
-a:not([type="button"]):link {
-	color: #69c;
+a:not([type="button"]):link, button.btn-link {
+	color: #39f;
 }
 
-a:not([type="button"]):visited {
-	color: #69c;
+a:not([type="button"]):visited, button.btn-link:visited {
+	color: #39f;
 }
 
-a:not([type="button"]):hover {
+a:not([type="button"]):hover, button.btn-link:hover {
 	color: red;
 }
 
-a:not([type="button"]):active {
-	color: #69c;
+a:not([type="button"]):active, button.btn-link:active {
+	color: #39f;
 }
 
 /* alteracoes layout padrao bootstrap */
 *[tabindex]:focus, button:focus {
 	outline: none;
+	box-shadow: 0;
 }
 
 .form-check > .form-check-label {

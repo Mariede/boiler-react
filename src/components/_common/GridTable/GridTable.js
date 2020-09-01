@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { Button } from 'reactstrap';
+import { Button, ButtonGroup } from 'reactstrap';
 import { Table } from 'reactstrap';
 
 import Paginator from 'components/_common/Paginator';
@@ -25,18 +25,28 @@ import './GridTable.css';
 			-> se nao especificado, o componente tenta usar record.id ou o primeira chave do objeto record
 
 		- columns		: OBRIGATORIO, especifica quais as colunas a serem exibidas
-			-> array de objetos com [title, jsonElement, isSorted, gridCallback, buttonColor]
-				-> title informa o cabecalho da coluna. Pode ser vazio
+			-> array de objetos com [title, jsonElement, isSorted, gridCallback, buttons]
+				-> title informa o cabecalho da coluna. Nao obrigatorio
 
 				-> jsonElement informa a propriedade Json a ser exibida (formato string), e pode ser aninhado por ponto
 					-> se jsonElement nao encontrado ele repete seu conteudo ao longo da coluna (pode ser um jsx)
 
-				-> isSorted indica se coluna pode ser ordenada. Necessita de um titulo para a coluna
+					-> ** jsonElement e buttons sao mutuamente exclusivos - apenas um deles deve existir no objeto
+
+				-> isSorted indica se coluna pode ser ordenada. Necessario um titulo para a coluna (title)
 
 				-> gridCallback e um callback do parent na celula e se baseia no ID da linha em tr (rowId)
+					-> gridCallback fora de buttons, serve de callback para jsonElement
 
-				-> buttonColor so faz sentido com gridCallback e define o formato do button
-					-> ex. link, danger, success, ... - default e link
+				-> buttons informa uma array de um ou mais botoes que serao renderizados na coluna
+					-> gridCallback e um callback do parent no botao e se baseia no ID da linha em tr (rowId)
+
+					-> buttonText define o texto do botao (pode ser um jsx)
+
+					-> buttonColor define o formato do button - default e link
+						-> ex. link, danger, success, ...
+
+					-> ** buttons e jsonElement sao mutuamente exclusivos - apenas um deles deve existir no objeto
 
 		- classes		: especifica classes adicionais para tabela reacstrap, sobrescrevendo o default (hover, striped)
 			-> em formato de objeto exemplo: classes={ { dark: true } }, passar objeto vazio para nenhuma
@@ -94,9 +104,9 @@ const GridTable = props => {
 													{
 														columns.map(
 															(column, index) => {
-																const title = column.title;
 																const jsonElement = (column.jsonElement || '');
 																const gridCallback = column.gridCallback;
+																const buttons = column.buttons;
 																const data = (
 																	!React.isValidElement(jsonElement) ? (
 																		(String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || jsonElement)
@@ -110,12 +120,24 @@ const GridTable = props => {
 																		{
 																			jsonElement ? (
 																				gridCallback ? (
-																					<Button type="button" size="sm" color={ column.buttonColor || 'link' } block={ title === '' } onClick={ gridCallback }>{ data }</Button>
+																					<Button type="button" size="sm" color="link" onClick={ gridCallback }>{ data }</Button>
 																				) : (
 																					data
 																				)
 																			) : (
-																				null
+																				Array.isArray(buttons) && buttons.length !== 0 ? (
+																					<ButtonGroup>
+																						{
+																							buttons.map(
+																								(button, index) => (
+																									<Button type="button" size="sm" color={ button.buttonColor || 'link' } onClick={ button.gridCallback } key={ index }>{ button.buttonText || 'no-text' }</Button>
+																								)
+																							)
+																						}
+																					</ButtonGroup>
+																				) : (
+																					null
+																				)
 																			)
 																		}
 																	</td>
