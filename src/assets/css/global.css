@@ -49,11 +49,11 @@ a[type="button"] {
 }
 
 a:not([type="button"]):link, button.btn-link {
-	color: #39f;
+	color: #07d;
 }
 
 a:not([type="button"]):visited, button.btn-link:visited {
-	color: #39f;
+	color: #07d;
 }
 
 a:not([type="button"]):hover, button.btn-link:hover {
@@ -61,13 +61,16 @@ a:not([type="button"]):hover, button.btn-link:hover {
 }
 
 a:not([type="button"]):active, button.btn-link:active {
-	color: #39f;
+	color: #fff;
 }
 
 /* alteracoes layout padrao bootstrap */
 *[tabindex]:focus, button:focus {
 	outline: none;
-	box-shadow: 0;
+}
+
+button.btn-link:focus {
+	box-shadow: none;
 }
 
 .form-check > .form-check-label {

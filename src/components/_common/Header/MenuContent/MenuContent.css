@@ -13,14 +13,20 @@
 }
 
 #menu button:hover {
-	background-color: #def;
+	background-color: #eee;
 }
 
 #menu button:active {
-	background-color: #def;
+	background-color: #eee;
 }
 
 #menu button.disabled a {
+	color: #ddd;
+}
+
+#menu .dropdown-header {
+	font-size: 11px;
+	font-style: italic;
 	color: #ddd;
 }
 
@@ -32,7 +38,7 @@
 	font-size: 15px;
 	padding-left: 14px;
 	background-color: #bcd;
-	margin-bottom: -2px;
+	margin-bottom: -1px;
 }
 
 #menu .dropdown-toggle.submenu[aria-expanded="true"] {

@@ -3,16 +3,16 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	border: 1px solid #cc9966;
+	border: 1px solid #c96;
 	border-radius: 4px;
-	background-color: #ffcc99;
-	color: white;
+	background-color: #fc9;
+	color: #fff;
 	width: 100%;
 	padding: 20px;
 }
 
 #error-boundary .error-boundary-details {
-	border: 1px solid white;
+	border: 1px solid #fff;
 	border-radius: 4px;
 	white-space: pre-wrap;
 	margin-top: 20px;

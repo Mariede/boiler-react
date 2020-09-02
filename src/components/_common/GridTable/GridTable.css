@@ -14,7 +14,7 @@ table.grid-table th {
 }
 
 table.grid-table:not(.table-dark) th {
-	background-color: #fec;
+	background-color: #fed;
 }
 
 table.grid-table td, th {
@@ -36,7 +36,7 @@ table.grid-table tfoot td {
 }
 
 table.grid-table:not(.table-dark) tfoot td {
-	background: #fec;
+	background: #fed;
 }
 
 table.grid-table button {
