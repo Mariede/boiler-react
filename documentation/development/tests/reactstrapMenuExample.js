@@ -25,12 +25,12 @@ const MenuContent = props => {
 		() => {
 			/*
 				Array de objetos contendo as definicoes do(s) menu(s) e submenu(s) em dropdown
-					all				-> menus exibidos tanto logado quanto deslogado
-					onlyLogged		-> menus exibidos apenas logado
-					onlyNotLogged	-> menus exibidos apenas deslogado
+					all				-> menus dropdown exibidos tanto logado quanto deslogado
+					onlyLogged		-> menus dropdown exibidos apenas logado
+					onlyNotLogged	-> menus dropdown exibidos apenas deslogado
 
-				Estrutura do menu
-					- toggle			-> cabecalho do menu e variaveis de controle de visibilidade
+				Estrutura do menu dropdown
+					- toggle		-> cabecalho do menu e variaveis de controle de visibilidade
 						title		-> titulo
 						id			-> id do menu (DEVE ter o mesmo nome da variavel de estado relacionada)
 						state		-> variavel de estado relacionada
