@@ -14,74 +14,84 @@ const MenuContent = props => {
 
 	const dropdownElementsInitialValues = {
 		menuDrop1: false,
-		menuDrop2: false,
-		menuDrop3: false,
-		menuDrop4: false
+		menuDrop12: false,
+		menuDrop13: false,
+		menuDrop2: false
 	};
 
 	const [dropdownElements, handleDropdownElements] = useState(dropdownElementsInitialValues);
 
-	const setDropdowns = useMemo(
-		() => {
-			/*
-				Array de objetos contendo as definicoes do(s) menu(s) e submenu(s) em dropdown
-					all				-> menus dropdown exibidos tanto logado quanto deslogado
-					onlyLogged		-> menus dropdown exibidos apenas logado
-					onlyNotLogged	-> menus dropdown exibidos apenas deslogado
+	/*
+		Array de objetos contendo as definicoes do(s) menu(s) e submenu(s) em dropdown
+			all				-> menus exibidos tanto logado quanto deslogado
+			onlyLogged		-> menus exibidos apenas logado
+			onlyNotLogged	-> menus exibidos apenas deslogado
 
-				Estrutura do menu dropdown
-					- toggle		-> cabecalho do menu e variaveis de controle de visibilidade
-						title		-> titulo
-						id			-> id do menu (DEVE ter o mesmo nome da variavel de estado relacionada)
-						state		-> variavel de estado relacionada
+		** Estrutura do menu dropdown
+			- toggle		-> cabecalho do menu e variaveis de controle de visibilidade
+				title		-> titulo
+				id			-> id do menu (DEVE ter o mesmo nome da variavel de estado relacionada)
+				state		-> variavel de estado relacionada
 
-					- links			-> array de um ou mais links do menus
-						text		-> texto exibido no link
-						to			-> link para a pagina
-						disabled	-> opcional, se true link desabilitado
+			- links			-> array de um ou mais links do menus
+				text		-> texto exibido no link (obrigatorio)
+				to			-> link para a pagina (obrigatorio)
+				disabled	-> opcional, se true link desabilitado
 
-				Submenus (n niveis)
-					- links 		-> podem conter um objeto completo de menu (com toggle e links)
-			*/
-			const dropdowns = {
-				all: [],
-				onlyLogged: [
+		Submenus dropdown (n niveis)
+			- links 		-> podem conter um objeto completo de menu (com toggle e links)
+
+		** Estrutura do menu simples (link direto)
+			- Se chave toggle nao existir no objeto NIVEL 1, este e considerado um link direto
+				text		-> texto exibido no link (obrigatorio)
+				to			-> link para a pagina (obrigatorio)
+				disabled	-> opcional, se true link desabilitado
+	*/
+	const dropdowns = {
+		all: [],
+		onlyLogged: [
+			{
+				toggle: { title: 'Menu 1', id: 'menuDrop1', state: dropdownElements.menuDrop1 },
+				links: [
+					{ text: 'Action 1 (not found)', to: '/fgfgfgf' },
+					{ text: 'Action 2 (not found)', to: '/fgfgfgf', disabled: true },
+					{ text: 'Action 3 (usuario/33)', to: '/usuario/33' },
+					{ text: 'Action 4 (usuario/40)', to: '/usuario/40' },
+					{ text: 'Action 5 (logon)', to: '/logon' },
 					{
-						toggle: { title: 'Menu 1', id: 'menuDrop1', state: dropdownElements.menuDrop1 },
+						toggle: { title: 'Submenu 12', id: 'menuDrop12', state: dropdownElements.menuDrop12 },
 						links: [
-							{ text: 'Action 1 (not found)', to: '/fgfgfgf' },
-							{ text: 'Action 2 (not found)', to: '/fgfgfgf', disabled: true },
-							{ text: 'Action 3 (usuario/33)', to: '/usuario/33' },
-							{ text: 'Action 4 (usuario/40)', to: '/usuario/40' },
-							{ text: 'Action 5 (logon)', to: '/logon' },
+							{ text: 'Action 6 (not found)', to: '/fgfgfgf' },
+							{ text: 'Action 7 (home)', to: '/' },
 							{
-								toggle: { title: 'Menu 2', id: 'menuDrop2', state: dropdownElements.menuDrop2 },
+								toggle: { title: 'Submenu 13', id: 'menuDrop13', state: dropdownElements.menuDrop13 },
 								links: [
-									{ text: 'Action 6 (not found)', to: '/fgfgfgf' },
-									{ text: 'Action 7 (home)', to: '/' },
-									{
-										toggle: { title: 'Menu 3', id: 'menuDrop3', state: dropdownElements.menuDrop3 },
-										links: [
-											{ text: 'Action 8 (usuario/93)', to: '/usuario/93' },
-											{ text: 'Action 9 (usuario/8)', to: '/usuario/8' }
-										]
-									}
+									{ text: 'Action 8 (usuario/93)', to: '/usuario/93' },
+									{ text: 'Action 9 (usuario/8)', to: '/usuario/8' }
 								]
 							}
 						]
-					},
-					{
-						toggle: { title: 'Menu 4', id: 'menuDrop4', state: dropdownElements.menuDrop4 },
-						links: [
-							{ text: 'Action 10 (not found)', to: '/fgfgfgf' },
-							{ text: 'Action 11 (not found)', to: '/fgfgfgf', disabled: true },
-							{ text: 'Action 12 (usuario/68)', to: '/usuario/68' }
-						]
 					}
-				],
-				onlyNotLogged: []
-			};
+				]
+			},
+			{
+				toggle: { title: 'Menu 2', id: 'menuDrop2', state: dropdownElements.menuDrop2 },
+				links: [
+					{ text: 'Action 10 (not found)', to: '/fgfgfgf' },
+					{ text: 'Action 11 (not found)', to: '/fgfgfgf', disabled: true },
+					{ text: 'Action 12 (usuario/68)', to: '/usuario/68' }
+				]
+			},
+			{ text: 'Menu 3', to: '/usuario' },
+			{ text: 'Menu 4', to: '/usuario/76' }
+		],
+		onlyNotLogged: [
+			{ text: 'Logon', to: '/logon' }
+		]
+	};
 
+	const setDropdowns = useMemo(
+		() => {
 			const setDropdown = (menu, i, isSubmenu) => {
 				const changeDropdownElements = e => {
 					const container = e.currentTarget;
@@ -149,9 +159,13 @@ const MenuContent = props => {
 												}
 
 												return (
-													<DropdownItem disabled={ link.disabled === true } key={ index }>
-														<Link to={ link.to }>{ link.text }</Link>
-													</DropdownItem>
+													(link.text && link.to) ? (
+														<DropdownItem disabled={ link.disabled === true } key={ index }>
+															<Link to={ link.to }>{ link.text }</Link>
+														</DropdownItem>
+													) : (
+														null
+													)
 												);
 											}
 										)
@@ -164,12 +178,18 @@ const MenuContent = props => {
 							</DropdownMenu>
 						</Dropdown>
 					) : (
-						null
+						(menu.text && menu.to) ? (
+							<NavItem key={ i }>
+								<NavLink tag={ Link } to={ menu.to } disabled={ menu.disabled === true }>{ menu.text }</NavLink>
+							</NavItem>
+						) : (
+							null
+						)
 					)
 				);
 			};
 
-			const dropdownsGroup = (isLogged ? dropdowns.all.concat(dropdowns.onlyLogged) : dropdowns.all.concat(dropdowns.onlyNotLogged));
+			const dropdownsGroup = (isLogged ? dropdowns.onlyLogged.concat(dropdowns.all) : dropdowns.onlyNotLogged.concat(dropdowns.all));
 
 			const DropdownMenus = (Array.isArray(dropdownsGroup) && dropdownsGroup.length !== 0) ? (
 				dropdownsGroup.map(
@@ -183,34 +203,14 @@ const MenuContent = props => {
 
 			return DropdownMenus;
 		},
-		[isLogged, dropdownElementsInitialValues, dropdownElements]
+		[isLogged, dropdownElementsInitialValues, dropdowns]
 	);
 
 	return (
 		<Nav id="menu" className="ml-auto" navbar>
-			{
-				isLogged ? (
-					<Nav tabs>
-						{ setDropdowns }
-
-						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Menu 5</NavLink>
-						</NavItem>
-
-						<NavItem>
-							<NavLink tag={ Link } to="/usuario">Menu 6</NavLink>
-						</NavItem>
-					</Nav>
-				) : (
-					<Nav tabs>
-						{ setDropdowns }
-
-						<NavItem>
-							<NavLink tag={ Link } to="/logon">Logon</NavLink>
-						</NavItem>
-					</Nav>
-				)
-			}
+			<Nav tabs>
+				{ setDropdowns }
+			</Nav>
 		</Nav>
 	);
 };
