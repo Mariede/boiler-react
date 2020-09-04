@@ -44,5 +44,9 @@ table.grid-table button {
 }
 
 table.grid-table .btn-group {
-	width: 100%;
+	display: flex;
+}
+
+table.grid-table .btn-group button {
+	flex: 1 1 0;
 }

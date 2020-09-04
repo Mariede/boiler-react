@@ -6,7 +6,7 @@ import './Footer.css';
 
 const Footer = () => (
 	<footer id="footer">
-		<Container fluid="md">
+		<Container fluid={ true }>
 			<Row>
 				<Col md={ 6 }>
 					Footer da aplicação

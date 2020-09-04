@@ -41,12 +41,18 @@ import './GridTable.css';
 				-> buttons informa uma array de um ou mais botoes que serao renderizados na coluna
 					-> gridCallback e um callback do parent no botao e se baseia no ID da linha em tr (rowId)
 
-					-> buttonText define o texto do botao (pode ser um jsx)
+					-> buttonText define o texto do botao (pode ser string ou jsx)
 
-					-> buttonColor define o formato do button - default e link
+					-> buttonColor define o formato do button - default e link (string)
 						-> ex. link, danger, success, ...
 
 					-> ** buttons e jsonElement sao mutuamente exclusivos - apenas um deles deve existir no objeto
+
+					-> buttonText e buttonColor podem tambem ser arrays com validacoes booleanas exclusivas
+						-> Obrigatorio 3 itens na array:
+							-> array[0]: elemento json de checagem (deve existir no json, pode ser aninhado)
+							-> array[1]: exibe se array[0] for true
+							-> array[2]: exibe se array[0] for false
 
 		- classes		: especifica classes adicionais para tabela reacstrap, sobrescrevendo o default (hover, striped)
 			-> em formato de objeto exemplo: classes={ { dark: true } }, passar objeto vazio para nenhuma
@@ -57,6 +63,30 @@ const GridTable = props => {
 	const recordset = (dataContent ? dataContent.recordset : null);
 	const pageDetails = (dataContent ? dataContent.pageDetails : null);
 	const extraClasses = (classes ? classes : { hover: true, striped: true });
+
+	const checkButtonStyle = (record, data, showBackup) => {
+		let styleResult = showBackup;
+
+		if (typeof data === 'string' || React.isValidElement(data)) {
+			styleResult = data;
+		} else {
+			if (Array.isArray(data)) {
+				if (data.length === 3) {
+					const checkData = data[0].split('.').reduce((o, i) => o[i], record);
+
+					if (checkData !== undefined) {
+						if (checkData) {
+							styleResult = data[1];
+						} else {
+							styleResult = data[2];
+						}
+					}
+				}
+			}
+		}
+
+		return styleResult;
+	};
 
 	return (
 		<Fragment>
@@ -130,7 +160,7 @@ const GridTable = props => {
 																						{
 																							buttons.map(
 																								(button, index) => (
-																									<Button type="button" size="sm" color={ button.buttonColor || 'link' } onClick={ button.gridCallback } key={ index }>{ button.buttonText || 'no-text' }</Button>
+																									<Button type="button" size="sm" color={ checkButtonStyle(record, button.buttonColor, 'link') } onClick={ button.gridCallback } key={ index }>{ checkButtonStyle(record, button.buttonText, 'no-text') }</Button>
 																								)
 																							)
 																						}

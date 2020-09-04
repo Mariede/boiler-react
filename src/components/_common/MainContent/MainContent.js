@@ -19,7 +19,7 @@ const MainContent = props => {
 		<Fragment>
 			<PageSubject subject={ subject } icon={ icon } />
 			<div id="main-content" className={ maxContent ? 'main-content-max-content' : 'main-content-fixed' }>
-				<Container fluid="md">
+				<Container fluid={ true }>
 					{ children }
 				</Container>
 			</div>

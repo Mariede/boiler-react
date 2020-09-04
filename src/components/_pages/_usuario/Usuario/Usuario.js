@@ -35,7 +35,12 @@ const Usuario = props => {
 			e.preventDefault();
 
 			const rowId = e.currentTarget.closest('tr').id;
-			console.log(`GET data: ${rowId}`);
+
+			const rowData = dataContent.recordset.filter(
+				record => record.idUsuario === parseInt(rowId, 10)
+			);
+
+			console.log(`GET data: ${JSON.stringify(rowData)}`);
 		},
 		delete: e => {
 			e.preventDefault();
@@ -43,11 +48,11 @@ const Usuario = props => {
 			const rowId = e.currentTarget.closest('tr').id;
 			console.log(`DELETE data: ${rowId}`);
 		},
-		export: e => {
+		activation: e => {
 			e.preventDefault();
 
 			const rowId = e.currentTarget.closest('tr').id;
-			console.log(`EXPORT data: ${rowId}`);
+			console.log(`ACTIVATION data: ${rowId}`);
 		},
 		more: e => {
 			e.preventDefault();
@@ -72,13 +77,38 @@ const Usuario = props => {
 								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true },
 								{
 									buttons: [
-										{ gridCallback: gridTable.delete, buttonText: <i className="fa fa-trash"> excluir</i>, buttonColor: 'danger' },
-										{ gridCallback: gridTable.export, buttonText: <i className="fa fa-file-export"> exportar</i>, buttonColor: 'primary' }
+										{
+											gridCallback: gridTable.delete,
+											buttonText:
+												<Fragment>
+													<i className="fa fa-trash"></i> excluir
+												</Fragment>,
+											buttonColor: 'danger'
+										},
+										{
+											gridCallback: gridTable.activation,
+											buttonText: [
+												'ativo',
+												<Fragment key="1">
+													<i className="fa fa-ban"></i> inativar
+												</Fragment>,
+												<Fragment key="2">
+													<i className="fa fa-check"></i> ativar
+												</Fragment>
+											],
+											buttonColor: ['ativo', 'info', 'success']
+										}
 									]
 								},
 								{
 									buttons: [
-										{ gridCallback: gridTable.more, buttonText: <i className="fa fa-newspaper"> saiba mais</i> }
+										{
+											gridCallback: gridTable.more,
+											buttonText:
+												<Fragment>
+													<i className="fa fa-newspaper"></i> saiba mais
+												</Fragment>
+										}
 									]
 								}
 							]
