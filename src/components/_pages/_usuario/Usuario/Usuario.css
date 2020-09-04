@@ -1,0 +1,10 @@
+#usuario > .top-group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+#usuario > .top-group > .info {
+	font-size: 14px;
+}

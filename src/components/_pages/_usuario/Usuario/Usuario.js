@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react';
 
+import { Button } from 'reactstrap';
+
 import MainContent from 'components/_common/MainContent';
 import GridTable from 'components/_common/GridTable';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
+
+import './Usuario.css';
 
 const Usuario = props => {
 	const { match, location } = props;
@@ -36,29 +40,47 @@ const Usuario = props => {
 
 			const rowId = e.currentTarget.closest('tr').id;
 
-			const rowData = dataContent.recordset.filter(
-				record => record.idUsuario === parseInt(rowId, 10)
+			const rowData = !isNaN(rowId) ? (
+				dataContent.recordset.filter(
+					record => record.idUsuario === parseInt(rowId, 10)
+				)
+			) : (
+				null
 			);
 
-			console.log(`GET data: ${JSON.stringify(rowData)}`);
+			console.log(`GET: ${rowData && JSON.stringify(rowData[0])}`);
+		},
+		insert: e => {
+			e.preventDefault();
+
+			console.log('INSERT');
 		},
 		delete: e => {
 			e.preventDefault();
 
 			const rowId = e.currentTarget.closest('tr').id;
-			console.log(`DELETE data: ${rowId}`);
+			console.log(`DELETE: ${rowId}`);
 		},
 		activation: e => {
 			e.preventDefault();
 
 			const rowId = e.currentTarget.closest('tr').id;
-			console.log(`ACTIVATION data: ${rowId}`);
+
+			const rowData = !isNaN(rowId) ? (
+				dataContent.recordset.filter(
+					record => record.idUsuario === parseInt(rowId, 10)
+				)
+			) : (
+				null
+			);
+
+			console.log(`ACTIVE: ${rowId}, ${rowData && rowData[0].ativo}`);
 		},
 		more: e => {
 			e.preventDefault();
 
 			const rowId = e.currentTarget.closest('tr').id;
-			console.log(`MORE data: ${rowId}`);
+			console.log(`MORE: ${rowId}`);
 		}
 	};
 
@@ -67,7 +89,14 @@ const Usuario = props => {
 			{ Component }
 			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">
 				<div id="usuario">
-					Dados dos usuários
+
+					<div className="top-group">
+						<span className="info">Detalhes</span>
+						<Button type="button" size="sm" color="success" onClick={ gridTable.insert }>
+							<i className="fa fa-plus"></i> novo usuário
+						</Button>
+					</div>
+
 					<GridTable dataReady={ dataReady } dataContent={ dataContent } url={ { currentPath, currentSearch } } rowId="idUsuario"
 						columns={
 							[
