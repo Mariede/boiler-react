@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 
-import { Button, ButtonGroup } from 'reactstrap';
+import { ButtonGroup } from 'reactstrap';
 import { Table } from 'reactstrap';
 
 import Paginator from 'components/_common/Paginator';
 import Sorter from 'components/_common/Sorter';
+
+import GridButton from './GridButton';
 
 import './GridTable.css';
 
@@ -63,30 +65,6 @@ const GridTable = props => {
 	const recordset = (dataContent ? dataContent.recordset : null);
 	const pageDetails = (dataContent ? dataContent.pageDetails : null);
 	const extraClasses = (classes ? classes : { hover: true, striped: true });
-
-	const checkButtonStyle = (record, data, showBackup) => {
-		let styleResult = showBackup;
-
-		if (typeof data === 'string' || React.isValidElement(data)) {
-			styleResult = data;
-		} else {
-			if (Array.isArray(data)) {
-				if (data.length === 3) {
-					const checkData = data[0].split('.').reduce((o, i) => o[i], record);
-
-					if (checkData !== undefined) {
-						if (checkData) {
-							styleResult = data[1];
-						} else {
-							styleResult = data[2];
-						}
-					}
-				}
-			}
-		}
-
-		return styleResult;
-	};
 
 	return (
 		<Fragment>
@@ -150,7 +128,7 @@ const GridTable = props => {
 																		{
 																			jsonElement ? (
 																				gridCallback ? (
-																					<Button type="button" size="sm" color="link" onClick={ gridCallback }>{ data }</Button>
+																					<GridButton gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ index } />
 																				) : (
 																					data
 																				)
@@ -160,7 +138,7 @@ const GridTable = props => {
 																						{
 																							buttons.map(
 																								(button, index) => (
-																									<Button type="button" size="sm" color={ checkButtonStyle(record, button.buttonColor, 'link') } onClick={ button.gridCallback } key={ index }>{ checkButtonStyle(record, button.buttonText, 'no-text') }</Button>
+																									<GridButton record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } key={ index } />
 																								)
 																							)
 																						}
