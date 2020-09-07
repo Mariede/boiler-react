@@ -15,7 +15,7 @@ import errWrapper from 'helpers/errWrapper';
 
 		PROPS:
 			{
-				method		=> POST / PUT / PATCH
+				method		=> POST / PUT / PATCH / DELETE
 				route		=> caminho da rota, com /
 				submit		=> controle da pagina pai
 				cbSubmit	=> funcao de callback em Finally, controle da pagina pai
@@ -26,7 +26,7 @@ import errWrapper from 'helpers/errWrapper';
 				message		=> configuracoes extras para componente Loading (opcional)
 			}
 */
-const useDataPostPutPatch = props => {
+const useDataChange = props => {
 	const { method, route, submit, cbSubmit, data, headers, cbThen, cbCatch, message } = props;
 
 	const getUrl = useContext(ContextConfig).baseUrl;
@@ -100,4 +100,4 @@ const useDataPostPutPatch = props => {
 	};
 };
 
-export default useDataPostPutPatch;
+export default useDataChange;

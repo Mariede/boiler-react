@@ -6,7 +6,7 @@ table.grid-table {
 }
 
 table.grid-table.table-hover tr:hover {
-	background-color: rgba(221, 221, 238, 0.6);
+	background-color: rgba(221, 221, 238, 0.3);
 }
 
 table.grid-table th {

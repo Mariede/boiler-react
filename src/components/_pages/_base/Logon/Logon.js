@@ -7,7 +7,7 @@ import { Row, Col } from 'reactstrap';
 import MainContent from 'components/_common/MainContent';
 import InputPass from 'components/_common/_form/InputPass';
 
-import useDataPostPutPatch from 'components/_custom-hooks/useDataPostPutPatch';
+import useDataChange from 'components/_custom-hooks/useDataChange';
 
 import formValidator from 'helpers/formValidator';
 
@@ -75,7 +75,7 @@ const Logon = () => {
 		[]
 	);
 
-	const { Component, goDataAction } = useDataPostPutPatch(
+	const { Component, goDataAction } = useDataChange(
 		{
 			method: 'POST',
 			route: '/logon',

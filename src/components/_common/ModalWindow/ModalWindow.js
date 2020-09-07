@@ -23,6 +23,7 @@ import './ModalWindow.css';
 										- caso exista, se modo INFORMATIVO sempre executa
 										- caso exista, se modo CONFIRMA executa somente no botao Confirmar
 										- Executa o preventDefault no Modal
+										- Se callback retornar falsy exceto undefined no botao Confirmar, nao fecha o modal
 
 			- modalOriginElement	-> Especifica o elemento DOM de origem que acionou o modal
 */
@@ -48,13 +49,16 @@ const ModalWindow = props => {
 			e.preventDefault();
 		}
 
+		let buttonAndCloseThis;
+
 		if (typeof _callback === 'function') {
 			if ((!_modalConfirm && !_isButton) || (_modalConfirm && _isButton)) {
-				_callback(e, modalOriginElement);
+				buttonAndCloseThis = _callback(e, modalOriginElement);
 			}
 		}
 
-		if (_isButton) {
+		// Apenas se botao pressionado, verifica o possivel retorno booleano do callback
+		if (_isButton && (buttonAndCloseThis === undefined || buttonAndCloseThis)) {
 			setShowModal(!showModal);
 		}
 	};

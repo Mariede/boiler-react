@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import Alert from 'components/_common/Alert';
 
-import useDataPostPutPatch from 'components/_custom-hooks/useDataPostPutPatch';
+import useDataChange from 'components/_custom-hooks/useDataChange';
 
 import ContextUserData from 'components/_context/ContextUserData';
 
@@ -40,7 +40,7 @@ const LoggedContent = () => {
 		setSubmit(true);
 	};
 
-	const { Component, goDataAction } = useDataPostPutPatch(
+	const { Component, goDataAction } = useDataChange(
 		{
 			method: 'POST',
 			route: '/logout',
