@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { Button } from 'reactstrap';
 
 import ModalWindow from 'components/_common/ModalWindow';
-
-import './Alert.css';
 
 /*
 	** Component Alert requer o componente de Modal (ModalWindow) instalado **
@@ -13,6 +11,7 @@ import './Alert.css';
 
 		Button:
 
+			- buttonId					-> Botao de chamada: ID DOM do botao (OPCIONAL)
 			- buttonType				-> Botao de chamada (default: "button")
 			- buttonColor				-> Botao de chamada (default: "success")
 			- buttonSize				-> Botao de chamada (default: "md")
@@ -38,15 +37,15 @@ import './Alert.css';
 											- Executa o preventDefault no Modal
 */
 const Alert = props => {
-	const { buttonType, buttonColor, buttonSize, buttonOutline, buttonBlock, buttonText, buttonExecuteBeforeShow } = props;
+	const { buttonId, buttonType, buttonSize, buttonColor, buttonOutline, buttonBlock, buttonText, buttonExecuteBeforeShow } = props;
 	const { modalConfirm, modalCentered, modalTitle, modalMessage, modalSize, modalFooterSize, modalCallback } = props;
 
-	const [showAlert, setShowAlert] = useState({ show: false, render: 0 });
+	const [showAlert, setShowAlert] = useState({ show: false, render: 0, originElement: null });
 
 	const buttonProperties = {
 		type: (buttonType || 'button'),
-		color: (buttonColor || 'success'),
 		size: (buttonSize || 'md'),
+		color: (buttonColor || 'success'),
 		outline: (buttonOutline || false),
 		block: (buttonBlock || false)
 	};
@@ -59,8 +58,14 @@ const Alert = props => {
 		modalMessage: modalMessage,
 		modalSize: modalSize,
 		modalFooterSize: modalFooterSize,
-		modalCallback: modalCallback
+		modalCallback: modalCallback,
+		modalOriginElement: showAlert.originElement
 	};
+
+	// Apenas se existir ID para o botao
+	if (buttonId) {
+		buttonProperties.id = buttonId;
+	}
 
 	const toggleAlert = e => {
 		e.preventDefault();
@@ -71,14 +76,14 @@ const Alert = props => {
 			goAlert = buttonExecuteBeforeShow();
 		}
 
-		setShowAlert({ show: goAlert, render: ++showAlert.render });
+		setShowAlert({ show: goAlert, render: ++showAlert.render, originElement: e.currentTarget });
 	};
 
 	return (
-		<span className="alert-group" key={ showAlert.render }>
+		<Fragment key={ showAlert.render }>
 			<Button { ...buttonProperties } onClick={ toggleAlert }>{ (buttonText || 'Confirmar') }</Button>
 			<ModalWindow { ...modalProperties } />
-		</span>
+		</Fragment>
 	);
 };
 

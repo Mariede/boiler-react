@@ -34,11 +34,18 @@ const Usuario = props => {
 		}
 	);
 
-	const gridTable = {
-		get: e => {
+	const getRowId = (e, target) => (target ? document.getElementById(target.id).closest('tr').id : e.currentTarget.closest('tr').id);
+
+	const pageActions = {
+		insert: e => {
 			e.preventDefault();
 
-			const rowId = e.currentTarget.closest('tr').id;
+			console.log('INSERT');
+		},
+		get: (e, target) => {
+			e.preventDefault();
+
+			const rowId = getRowId(e, target);
 
 			const rowData = !isNaN(rowId) ? (
 				dataContent.recordset.filter(
@@ -50,21 +57,16 @@ const Usuario = props => {
 
 			console.log(`GET: ${rowData && JSON.stringify(rowData[0])}`);
 		},
-		insert: e => {
+		delete: (e, target) => {
 			e.preventDefault();
 
-			console.log('INSERT');
-		},
-		delete: e => {
-			e.preventDefault();
-
-			const rowId = e.currentTarget.closest('tr').id;
+			const rowId = getRowId(e, target);
 			console.log(`DELETE: ${rowId}`);
 		},
-		activation: e => {
+		activation: (e, target) => {
 			e.preventDefault();
 
-			const rowId = e.currentTarget.closest('tr').id;
+			const rowId = getRowId(e, target);
 
 			const rowData = !isNaN(rowId) ? (
 				dataContent.recordset.filter(
@@ -76,10 +78,10 @@ const Usuario = props => {
 
 			console.log(`ACTIVE: ${rowId}, ${rowData && rowData[0].ativo}`);
 		},
-		more: e => {
+		more: (e, target) => {
 			e.preventDefault();
 
-			const rowId = e.currentTarget.closest('tr').id;
+			const rowId = getRowId(e, target);
 			console.log(`MORE: ${rowId}`);
 		}
 	};
@@ -92,7 +94,7 @@ const Usuario = props => {
 
 					<div className="top-group">
 						<span className="info">Detalhes</span>
-						<Button type="button" size="sm" color="success" onClick={ gridTable.insert }>
+						<Button type="button" size="sm" color="success" onClick={ pageActions.insert }>
 							<i className="fa fa-plus"></i> novo usuário
 						</Button>
 					</div>
@@ -101,21 +103,22 @@ const Usuario = props => {
 						columns={
 							[
 								{ title: '#', jsonElement: 'idUsuario', isSorted: false },
-								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: gridTable.get },
+								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.get },
 								{ title: 'email', jsonElement: 'email', isSorted: true },
 								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true },
 								{
 									buttons: [
 										{
-											gridCallback: gridTable.delete,
+											gridCallback: pageActions.delete,
 											buttonText:
 												<Fragment>
 													<i className="fa fa-trash"></i> excluir
 												</Fragment>,
-											buttonColor: 'danger'
+											buttonColor: 'danger',
+											buttonConfirm: 'Realmente exclui o usuário?'
 										},
 										{
-											gridCallback: gridTable.activation,
+											gridCallback: pageActions.activation,
 											buttonText: [
 												'ativo',
 												<Fragment key="1">
@@ -125,14 +128,15 @@ const Usuario = props => {
 													<i className="fa fa-check"></i> ativar
 												</Fragment>
 											],
-											buttonColor: ['ativo', 'info', 'success']
+											buttonColor: ['ativo', 'info', 'success'],
+											buttonConfirm: 'Realmente modifica o usuário?'
 										}
 									]
 								},
 								{
 									buttons: [
 										{
-											gridCallback: gridTable.more,
+											gridCallback: pageActions.more,
 											buttonText:
 												<Fragment>
 													<i className="fa fa-newspaper"></i> saiba mais

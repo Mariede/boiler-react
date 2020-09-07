@@ -31,7 +31,11 @@ import './GridTable.css';
 				-> title informa o cabecalho da coluna. Nao obrigatorio
 
 				-> jsonElement informa a propriedade Json a ser exibida (formato string), e pode ser aninhado por ponto
-					-> se jsonElement nao encontrado ele repete seu conteudo ao longo da coluna (pode ser um jsx)
+					-> pode ser uma array de propriedades Json
+
+					-> pode ser um jsx, nesse caso repete seu conteudo ao longo da coluna
+
+					-> se jsonElement nao encontrado e possuir um callback associado (gridCallback), repete seu conteudo ao longo da coluna
 
 					-> ** jsonElement e buttons sao mutuamente exclusivos - apenas um deles deve existir no objeto
 
@@ -47,6 +51,9 @@ import './GridTable.css';
 
 					-> buttonColor define o formato do button - default e link (string)
 						-> ex. link, danger, success, ...
+
+					-> buttonConfirm e opcional e define se havera um modal de confirmacao para a acao (string)
+						-> contem o texto a ser exibido no modal
 
 					-> ** buttons e jsonElement sao mutuamente exclusivos - apenas um deles deve existir no objeto
 
@@ -84,7 +91,7 @@ const GridTable = props => {
 												<th key={ index }>
 													{
 														title ? (
-															(isSorted && !React.isValidElement(jsonElement)) ? (
+															(isSorted && !React.isValidElement(jsonElement) && !Array.isArray(jsonElement)) ? (
 																<Sorter title={ title } sortElement={ jsonElement } url={ url } />
 															) : (
 																title
@@ -104,31 +111,37 @@ const GridTable = props => {
 							{
 								(Array.isArray(recordset) && recordset.length) ? (
 									recordset.map(
-										(record, index) => {
+										(record, index1) => {
 											const recordId = record[rowId] || record.id || record[Object.keys(record)[0]];
 
 											return (
-												<tr id={ recordId } key={ index }>
+												<tr id={ recordId } key={ index1 }>
 													{
 														columns.map(
-															(column, index) => {
+															(column, index2) => {
 																const jsonElement = (column.jsonElement || '');
 																const gridCallback = column.gridCallback;
 																const buttons = column.buttons;
 																const data = (
 																	!React.isValidElement(jsonElement) ? (
-																		(String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || jsonElement)
+																		!Array.isArray(jsonElement) ? (
+																			String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? jsonElement : '')
+																		) : (
+																			jsonElement.map(
+																				element => String(element.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? element : '')
+																			).join(' ')
+																		)
 																	) : (
 																		jsonElement
 																	)
 																);
 
 																return (
-																	<td key={ index }>
+																	<td key={ index2 }>
 																		{
 																			jsonElement ? (
 																				gridCallback ? (
-																					<GridButton gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ index } />
+																					<GridButton id={ `btn-${index1}${index2}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ index2 } />
 																				) : (
 																					data
 																				)
@@ -137,8 +150,8 @@ const GridTable = props => {
 																					<ButtonGroup>
 																						{
 																							buttons.map(
-																								(button, index) => (
-																									<GridButton record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } key={ index } />
+																								(button, index3) => (
+																									<GridButton id={ `btn-${index1}${index2}${index3}` } record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ index3 } />
 																								)
 																							)
 																						}

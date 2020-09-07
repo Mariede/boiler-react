@@ -9,29 +9,32 @@ import './ModalWindow.css';
 	PROPS:
 
 		MODAL:
-			- modalShow			-> Opcional, true/false, se habilitado => exibe MODAL, se nao => nao exibe MODAL
-			- modalConfirm		-> Opcional, true/false, se habilitado => modo CONFIRMA, se nao => modo INFORMATIVO
-			- modalCentered		-> Opcional, true/false, se habilitado => modo CENTRALIZADO, se nao => modo PADRAO
+			- modalShow				-> Opcional, true/false, se habilitado => exibe MODAL, se nao => nao exibe MODAL
+			- modalConfirm			-> Opcional, true/false, se habilitado => modo CONFIRMA, se nao => modo INFORMATIVO
+			- modalCentered			-> Opcional, true/false, se habilitado => modo CENTRALIZADO, se nao => modo PADRAO
 
-			- modalTitle		-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
+			- modalTitle			-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
 										- se modalTitle igual "!no" nao exibe o header do modal
-			- modalMessage		-> Modal: Aviso a ser emitido, recomendado
-			- modalSize			-> Modal (default: "lg")
-			- modalFooterSize	-> Modal: tamanho do botao no footer do modal (default: "md")
+			- modalMessage			-> Modal: Aviso a ser emitido, recomendado
+			- modalSize				-> Modal (default: "lg")
+			- modalFooterSize		-> Modal: tamanho do botao no footer do modal (default: "md")
 
-			- modalCallback		-> Executa uma funcao de callback na saida do modal
+			- modalCallback			-> Executa uma funcao de callback na saida do modal
 										- caso exista, se modo INFORMATIVO sempre executa
 										- caso exista, se modo CONFIRMA executa somente no botao Confirmar
 										- Executa o preventDefault no Modal
+
+			- modalOriginElement	-> Especifica o elemento DOM de origem que acionou o modal
 */
 const ModalWindow = props => {
 	const modalConfirm = (props.modalConfirm || false);
 	const modalCentered = (props.modalCentered || false);
 	const modalTitle = (props.modalTitle || (props.modalConfirm ? 'Confirme' : 'Aviso'));
 	const modalMessage = props.modalMessage;
-	const modalSize = (props.modalSize || 'lg');
-	const modalFooterSize = (props.modalFooterSize || 'md');
+	const modalSize = (props.modalSize || 'sm');
+	const modalFooterSize = (props.modalFooterSize || 'sm');
 	const modalCallback = props.modalCallback;
+	const modalOriginElement = props.modalOriginElement;
 
 	const [showModal, setShowModal] = useState((props.modalShow || false));
 
@@ -47,7 +50,7 @@ const ModalWindow = props => {
 
 		if (typeof _callback === 'function') {
 			if ((!_modalConfirm && !_isButton) || (_modalConfirm && _isButton)) {
-				_callback();
+				_callback(e, modalOriginElement);
 			}
 		}
 

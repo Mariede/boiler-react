@@ -5,6 +5,10 @@ table.grid-table {
 	margin-bottom: 0px;
 }
 
+table.grid-table.table-hover tr:hover {
+	background-color: rgba(221, 221, 238, 0.6);
+}
+
 table.grid-table th {
 	text-align: center;
 	text-transform: uppercase;
@@ -14,7 +18,7 @@ table.grid-table th {
 }
 
 table.grid-table:not(.table-dark) th {
-	background-color: #fed;
+	background-color: #dde;
 }
 
 table.grid-table td, th {
@@ -36,7 +40,7 @@ table.grid-table tfoot td {
 }
 
 table.grid-table:not(.table-dark) tfoot td {
-	background: #fed;
+	background: #dde;
 }
 
 table.grid-table button {

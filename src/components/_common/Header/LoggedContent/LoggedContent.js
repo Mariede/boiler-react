@@ -35,7 +35,8 @@ const LoggedContent = () => {
 		return showName;
 	};
 
-	const logoutApp = () => {
+	const logoutApp = e => {
+		e.preventDefault();
 		setSubmit(true);
 	};
 
@@ -93,7 +94,7 @@ const LoggedContent = () => {
 							<strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
 						</span>
 
-						<Alert buttonType="button" buttonColor="danger" buttonSize="sm" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalSize="sm" modalFooterSize="sm" modalCallback={ logoutApp } modalConfirm />
+						<Alert buttonType="button" buttonSize="sm" buttonColor="danger" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalCallback={ logoutApp } modalConfirm />
 					</div>
 				)
 			}
