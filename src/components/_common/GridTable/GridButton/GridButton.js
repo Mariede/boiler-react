@@ -5,6 +5,10 @@ import { Button } from 'reactstrap';
 import Alert from 'components/_common/Alert';
 
 /*
+	DEPENDENCIAS:
+		- Alert
+		- Reactstrap
+
 	PROPS:
 		id				-> ID DOM do botao (gerado automaticamente em parent GridTable)
 

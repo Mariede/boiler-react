@@ -6,6 +6,9 @@ import { Nav, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, Dropdown
 import './MenuContent.css';
 
 /*
+	DEPENDENCIAS:
+		- Reactstrap
+
 	PROPS:
 		- isLogged
 */

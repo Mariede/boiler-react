@@ -11,9 +11,11 @@ import GridButton from './GridButton';
 import './GridTable.css';
 
 /*
-	Componentes acoplados:
-		-> Paginator
-		-> Sorter
+	DEPENDENCIAS:
+		- GridButton
+		- Paginator
+		- Reactstrap
+		- Sorter
 
 	PROPS:
 		- dataReady		: OBRIGATORIO, Indica quando os dados estao prontos
@@ -77,7 +79,7 @@ const GridTable = props => {
 		<Fragment>
 			{
 				recordset ? (
-					<Table className="grid-table" { ...extraClasses } key={ dataReady }>
+					<Table className="grid-table" { ...extraClasses } responsive key={ dataReady }>
 						<thead>
 							<tr>
 								{

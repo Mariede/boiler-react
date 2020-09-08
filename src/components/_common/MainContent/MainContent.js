@@ -7,6 +7,10 @@ import PageSubject from './PageSubject';
 import './MainContent.css';
 
 /*
+	DEPENDENCIAS:
+		- PageSubject
+		- Reactstrap
+
 	PROPS:
 		- icon				-> (font-awesome, default: "fas fa-thumbtack")
 		- subject

@@ -4,6 +4,13 @@ import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 import './InputPass.css';
 
+/*
+	DEPENDENCIAS:
+		- Reactstrap
+
+	PROPS:
+		- Atributos do elemento Input
+*/
 const InputPass = props => {
 	const iconPassShow = 'fa-eye';
 	const iconPassHide = 'fa-eye-slash';

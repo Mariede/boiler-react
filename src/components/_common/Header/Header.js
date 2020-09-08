@@ -11,6 +11,11 @@ import imgLogo from 'assets/images/logo.png';
 import './Header.css';
 
 /*
+	DEPENDENCIAS:
+		- LoggedContent
+		- MenuContent
+		- Reactstrap
+
 	PROPS:
 		- isLogged			-> OBRIGATORIO, necessario para exibicao dos dados de usuario logado e menu
 */

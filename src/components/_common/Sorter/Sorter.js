@@ -9,6 +9,9 @@ import './Sorter.css';
 	** Tecla CTRL pressionada: Realiza a ordenação acumulando os elementos selecionados na url
 	** Tecla ALT pressionada: Volta ao original, removendo os elementos da url
 
+	DEPENDENCIAS:
+		- Reactstrap
+
 	PROPS:
 		- title			-> OBRIGATORIO, nome da coluna na tabela ou elemento
 		- sortElement	-> OBRIGATORIO, elemento a ser ordenado (formato string), pode ser aninhado por ponto

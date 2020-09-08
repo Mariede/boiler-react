@@ -6,6 +6,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './ModalWindow.css';
 
 /*
+	DEPENDENCIAS:
+		- Reactstrap
+
 	PROPS:
 
 		MODAL:

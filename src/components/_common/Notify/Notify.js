@@ -7,6 +7,9 @@ import { Toast, ToastHeader, ToastBody } from 'reactstrap';
 import './Notify.css';
 
 /*
+	DEPENDENCIAS:
+		- Reactstrap
+
 	PROPS:
 		- info				-> OBRIGATORIO, texto ou objeto
 		- header			-> (default: "Notificação")

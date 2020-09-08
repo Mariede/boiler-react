@@ -5,7 +5,9 @@ import { Button } from 'reactstrap';
 import ModalWindow from 'components/_common/ModalWindow';
 
 /*
-	** Component Alert requer o componente de Modal (ModalWindow) instalado **
+	DEPENDENCIAS:
+		- ModalWindow
+		- Reactstrap
 
 	PROPS:
 

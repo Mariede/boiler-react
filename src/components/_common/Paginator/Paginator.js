@@ -7,6 +7,9 @@ import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import './Paginator.css';
 
 /*
+	DEPENDENCIAS:
+		- Reactstrap
+
 	PROPS:
 		- pageDetails		-> OBRIGATORIO, controle dos dados paginados
 		- url				-> OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)

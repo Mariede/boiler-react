@@ -4,6 +4,10 @@ import { Container, Row, Col } from 'reactstrap';
 
 import './Footer.css';
 
+/*
+	DEPENDENCIAS:
+		- Reactstrap
+*/
 const Footer = () => (
 	<footer id="footer">
 		<Container fluid={ true }>

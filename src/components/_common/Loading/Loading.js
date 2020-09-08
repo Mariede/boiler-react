@@ -6,6 +6,9 @@ import { Spinner } from 'reactstrap';
 import './Loading.css';
 
 /*
+	DEPENDENCIAS:
+		- Reactstrap
+
 	PROPS:
 		- loading			-> OBRIGATORIO, informa inicio e termino da tela de loading
 		- message			-> (default: "Aguarde...")

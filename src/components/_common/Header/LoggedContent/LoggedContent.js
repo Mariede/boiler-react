@@ -9,6 +9,10 @@ import ContextUserData from 'components/_context/ContextUserData';
 
 import './LoggedContent.css';
 
+/*
+	DEPENDENCIAS LAYOUT:
+		- Alert
+*/
 const LoggedContent = () => {
 	const getUserData = useContext(ContextUserData).getUserData;
 
