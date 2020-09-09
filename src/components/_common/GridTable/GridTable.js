@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import { ButtonGroup } from 'reactstrap';
 import { Table } from 'reactstrap';
+import { Badge } from 'reactstrap';
 
 import Paginator from 'components/_common/Paginator';
 import Sorter from 'components/_common/Sorter';
@@ -65,6 +66,13 @@ import './GridTable.css';
 							-> array[1]: exibe se array[0] for true
 							-> array[2]: exibe se array[0] for false
 
+				-> tdLayout inclui detalhes de layout da celula na tablea
+					-> center: se true, conteudo centralizado
+
+					-> right: se true, conteudo a direita
+
+					-> badges: se existe, exibe conteudo como badge (primary, secondary, success, info, ...)
+
 		- classes		: especifica classes adicionais para tabela reacstrap, sobrescrevendo o default (hover, striped)
 			-> em formato de objeto exemplo: classes={ { dark: true } }, passar objeto vazio para nenhuma
 */
@@ -89,11 +97,13 @@ const GridTable = props => {
 											const jsonElement = (column.jsonElement || '');
 											const isSorted = column.isSorted === true;
 
+											const isReactElement = React.isValidElement(jsonElement);
+
 											return (
 												<th key={ index }>
 													{
 														title ? (
-															(isSorted && !React.isValidElement(jsonElement) && !Array.isArray(jsonElement)) ? (
+															(isSorted && !isReactElement) ? (
 																<Sorter title={ title } sortElement={ jsonElement } url={ url } />
 															) : (
 																title
@@ -124,22 +134,50 @@ const GridTable = props => {
 																const jsonElement = (column.jsonElement || '');
 																const gridCallback = column.gridCallback;
 																const buttons = column.buttons;
+																const tdLayout = column.tdLayout;
+
+																const isReactElement = React.isValidElement(jsonElement);
+
+																const checkFirstForArray = !isReactElement ? (
+																	{
+																		first: record[jsonElement.split('.').slice(0, 1).pop()],
+																		last: jsonElement.split('.').slice(1).join('.')
+																	}
+																) : (
+																	undefined
+																);
+
 																const data = (
-																	!React.isValidElement(jsonElement) ? (
-																		!Array.isArray(jsonElement) ? (
-																			String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? jsonElement : '')
+																	!isReactElement ? (
+																		!Array.isArray(checkFirstForArray.first) ? (
+																			tdLayout && tdLayout.badges ? (
+																				<Badge color={ tdLayout.badges }>
+																					{ String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? jsonElement : '') }
+																				</Badge>
+																			) : (
+																				String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? jsonElement : '')
+																			)
 																		) : (
-																			jsonElement.map(
-																				element => String(element.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? element : '')
-																			).join(' ')
+																			checkFirstForArray.first.map(
+																				element => String(checkFirstForArray.last.split('.').reduce((o, i) => o[i], element) || '') || (gridCallback ? element : '')
+																			)
+																			.map(
+																				(element, index) => (tdLayout && tdLayout.badges ? <Badge color={ tdLayout.badges } key={ index }>{ element }</Badge> : <span className="array-data" key={ index }>{ element }</span>)
+																			)
 																		)
 																	) : (
-																		jsonElement
+																		tdLayout && tdLayout.badges ? (
+																			<Badge color={ tdLayout.badges }>
+																				{ jsonElement }
+																			</Badge>
+																		) : (
+																			jsonElement
+																		)
 																	)
 																);
 
 																return (
-																	<td key={ index2 }>
+																	<td key={ index2 } className={ tdLayout && (tdLayout.center ? 'td-center' : (tdLayout.right ? 'td-right' : '')) }>
 																		{
 																			jsonElement ? (
 																				gridCallback ? (

@@ -102,10 +102,11 @@ const Usuario = props => {
 					<GridTable dataReady={ dataReady } dataContent={ dataContent } url={ { currentPath, currentSearch } } rowId="idUsuario"
 						columns={
 							[
-								{ title: '#', jsonElement: 'idUsuario', isSorted: false },
+								{ title: '#', jsonElement: 'idUsuario' },
 								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.get },
 								{ title: 'email', jsonElement: 'email', isSorted: true },
-								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true },
+								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true, tdLayout: { center: true } },
+								{ title: 'perfis', jsonElement: 'perfis.perfil.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
 								{
 									buttons: [
 										{

@@ -33,6 +33,14 @@ table.grid-table td.not-found {
 	letter-spacing: 1px;
 }
 
+table.grid-table td.td-center {
+	text-align: center;
+}
+
+table.grid-table td.td-right {
+	text-align: right;
+}
+
 table.grid-table tfoot td {
 	text-align: center;
 	font-size: 10px;
@@ -53,4 +61,14 @@ table.grid-table .btn-group {
 
 table.grid-table .btn-group button {
 	flex: 1 1 0;
+}
+
+table.grid-table .array-data {
+	margin: 0px 5px;
+}
+
+table.grid-table .badge {
+	font-size: inherit;
+	margin: 0px 5px;
+	padding: 4px 6px;
 }
