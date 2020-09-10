@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { Button } from 'reactstrap';
 
 import MainContent from 'components/_common/MainContent';
 import GridTable from 'components/_common/GridTable';
+import DataChange from './DataChange';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
@@ -11,6 +12,8 @@ import './Usuario.css';
 
 const Usuario = props => {
 	const { match, location } = props;
+
+	const [dataChange, setDataChange] = useState(undefined);
 
 	const paramId = match.params.id;
 	const currentKey = location.key;
@@ -34,61 +37,107 @@ const Usuario = props => {
 		}
 	);
 
-	const getRowId = (e, target) => (target ? document.getElementById(target.id).closest('tr').id : e.currentTarget.closest('tr').id);
+	const getRowId = (e, target) => {
+		const rowId = target ? (
+			document.getElementById(target.id).closest('tr').id
+		) : (
+			e.currentTarget.closest('tr').id
+		);
+
+		return !isNaN(rowId) ? (
+			parseInt(rowId, 10)
+		) : (
+			null
+		);
+	};
 
 	const pageActions = {
 		insert: e => {
 			e.preventDefault();
 
-			console.log('INSERT');
+			setDataChange(
+				{
+					submit: false,
+					method: 'post'
+				}
+			);
 		},
-		get: (e, target) => {
+		update: (e, target) => {
 			e.preventDefault();
 
 			const rowId = getRowId(e, target);
 
-			const rowData = !isNaN(rowId) ? (
+			const rowData = (
 				dataContent.recordset.filter(
-					record => record.idUsuario === parseInt(rowId, 10)
+					record => record.idUsuario === rowId
 				)
-			) : (
-				null
 			);
 
-			console.log(`GET: ${rowData && JSON.stringify(rowData[0])}`);
+			setDataChange(
+				{
+					submit: false,
+					method: 'put',
+					param: rowId,
+					data: {
+						record: Array.isArray(rowData) && rowData.pop()
+					}
+				}
+			);
 		},
 		delete: (e, target) => {
 			e.preventDefault();
 
 			const rowId = getRowId(e, target);
-			console.log(`DELETE: ${rowId}`);
+
+			setDataChange(
+				{
+					submit: true,
+					method: 'delete',
+					param: rowId
+				}
+			);
 		},
 		activation: (e, target) => {
 			e.preventDefault();
 
 			const rowId = getRowId(e, target);
 
-			const rowData = !isNaN(rowId) ? (
+			const rowData = (
 				dataContent.recordset.filter(
-					record => record.idUsuario === parseInt(rowId, 10)
+					record => record.idUsuario === rowId
 				)
-			) : (
-				null
 			);
 
-			console.log(`ACTIVE: ${rowId}, ${rowData && rowData[0].ativo}`);
+			setDataChange(
+				{
+					submit: true,
+					method: 'put',
+					extraRoute: '/ativacao',
+					param: rowId,
+					data: {
+						ativo: Array.isArray(rowData) && rowData.pop().ativo
+					}
+				}
+			);
 		},
 		more: (e, target) => {
 			e.preventDefault();
 
 			const rowId = getRowId(e, target);
-			console.log(`MORE: ${rowId}`);
+
+			setDataChange(
+				{
+					submit: false,
+					param: rowId
+				}
+			);
 		}
 	};
 
 	return (
 		<Fragment>
 			{ Component }
+			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" catchHeader="Usuario" url={ { currentPath, currentSearch } } />
 			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">
 				<div id="usuario">
 
@@ -103,7 +152,7 @@ const Usuario = props => {
 						columns={
 							[
 								{ title: '#', jsonElement: 'idUsuario' },
-								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.get },
+								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.update },
 								{ title: 'email', jsonElement: 'email', isSorted: true },
 								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true, tdLayout: { center: true } },
 								{ title: 'perfis', jsonElement: 'perfis.perfil.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },

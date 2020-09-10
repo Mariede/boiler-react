@@ -41,7 +41,7 @@ const GridButton = props => {
 		} else {
 			if (Array.isArray(arg)) {
 				if (arg.length === 3) {
-					const checkData = arg[0].split('.').reduce((o, i) => o[i], rec);
+					const checkData = arg[0].split('.').reduce((o, i) => o && o[i], rec);
 
 					if (checkData !== undefined) {
 						if (checkData) {

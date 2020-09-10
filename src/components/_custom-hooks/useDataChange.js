@@ -11,7 +11,7 @@ import errWrapper from 'helpers/errWrapper';
 
 /*
 	-> Acesso REST a dados (Create / Update)
-		* Utilizar apenas com os metodos POST / PUT / PATCH
+		* Utilizar apenas com os metodos POST / PUT / PATCH / DELETE
 
 		PROPS:
 			{
@@ -65,13 +65,14 @@ const useDataChange = props => {
 						setNotify({ info: (err.response || err), ...cbCatch });
 					}
 
-					errWrapper('custom-hook: POST/PUT/PATCH', err);
+					errWrapper('custom-hook: POST/PUT/PATCH/DELETE', err);
 				}
 			)
 			.finally(
 				() => {
 					if (isMounted) {
 						cbSubmit();
+						setGoDataAction(false);
 					}
 				}
 			);

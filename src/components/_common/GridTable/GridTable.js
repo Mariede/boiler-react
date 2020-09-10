@@ -152,14 +152,14 @@ const GridTable = props => {
 																		!Array.isArray(checkFirstForArray.first) ? (
 																			tdLayout && tdLayout.badges ? (
 																				<Badge color={ tdLayout.badges } pill>
-																					{ String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? jsonElement : '') }
+																					{ String(jsonElement.split('.').reduce((o, i) => o && o[i], record) || '') || (gridCallback ? jsonElement : '') }
 																				</Badge>
 																			) : (
-																				String(jsonElement.split('.').reduce((o, i) => o[i], record) || '') || (gridCallback ? jsonElement : '')
+																				String(jsonElement.split('.').reduce((o, i) => o && o[i], record) || '') || (gridCallback ? jsonElement : '')
 																			)
 																		) : (
 																			checkFirstForArray.first.map(
-																				element => String(checkFirstForArray.last.split('.').reduce((o, i) => o[i], element) || '') || (gridCallback ? element : '')
+																				element => String(checkFirstForArray.last.split('.').reduce((o, i) => o && o[i], element) || '') || (gridCallback ? element : '')
 																			)
 																			.map(
 																				(element, index) => (tdLayout && tdLayout.badges ? <Badge color={ tdLayout.badges } pill key={ index }>{ element }</Badge> : <span className="array-data" key={ index }>{ element }</span>)
