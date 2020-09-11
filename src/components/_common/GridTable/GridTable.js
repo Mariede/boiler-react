@@ -19,7 +19,7 @@ import './GridTable.css';
 		- Sorter
 
 	PROPS:
-		- dataReady		: OBRIGATORIO, Indica quando os dados estao prontos
+		- dataReady		: OBRIGATORIO, indica quando os dados estao prontos
 
 		- dataContent	: OBRIGATORIO, Json de retorno com o conteudo das informacoes a serem exibidas
 

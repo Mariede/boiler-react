@@ -30,8 +30,8 @@ import ModalWindow from 'components/_common/ModalWindow';
 			- modalTitle				-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
 											- se modalTitle igual "!no" nao exibe o header do modal
 			- modalMessage				-> Modal: Aviso a ser emitido, recomendado
-			- modalSize					-> Modal (default: "lg")
-			- modalFooterSize			-> Modal: tamanho do botao no footer do modal (default: "md")
+			- modalSize					-> Modal (default: "sm")
+			- modalFooterSize			-> Modal: tamanho do botao no footer do modal (default: "sm")
 
 			- modalCallback				-> Executa uma funcao de callback na saida do modal
 											- caso exista, se modo INFORMATIVO sempre executa

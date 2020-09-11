@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import MainContent from 'components/_common/MainContent';
 import GridTable from 'components/_common/GridTable';
 import DataChange from './DataChange';
+import ModalData from './ModalData';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
@@ -78,9 +79,7 @@ const Usuario = props => {
 					submit: false,
 					method: 'put',
 					param: rowId,
-					data: {
-						record: Array.isArray(rowData) && rowData.pop()
-					}
+					data: (Array.isArray(rowData) && { ...rowData.pop() }) || {}
 				}
 			);
 		},
@@ -128,6 +127,7 @@ const Usuario = props => {
 			setDataChange(
 				{
 					submit: false,
+					method: 'put',
 					param: rowId
 				}
 			);
@@ -137,7 +137,11 @@ const Usuario = props => {
 	return (
 		<Fragment>
 			{ Component }
-			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" catchHeader="Usuario" url={ { currentPath, currentSearch } } />
+
+			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" catchHeader="Usuario" url={ { currentPath, currentSearch } }>
+				{ ModalData }
+			</DataChange>
+
 			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">
 				<div id="usuario">
 
