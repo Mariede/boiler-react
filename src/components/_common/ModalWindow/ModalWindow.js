@@ -28,6 +28,10 @@ import './ModalWindow.css';
 										- Executa o preventDefault no Modal
 										- Se callback retornar falsy exceto undefined no botao Confirmar, nao fecha o modal
 
+			- modalCallbackPlanB	-> Executa uma funcao de callback na saida do modal
+										- Caso exista, executa somente se modo CONFIRMA sem botao Confirmar
+										- Se callback retornar falsy exceto undefined no botao Confirmar, nao fecha o modal
+
 			- modalOriginElement	-> Especifica o elemento DOM de origem que acionou o modal
 */
 const ModalWindow = props => {
@@ -38,6 +42,7 @@ const ModalWindow = props => {
 	const modalSize = (props.modalSize || 'sm');
 	const modalFooterSize = (props.modalFooterSize || 'sm');
 	const modalCallback = props.modalCallback;
+	const modalCallbackPlanB = props.modalCallbackPlanB;
 	const modalOriginElement = props.modalOriginElement;
 
 	const [showModal, setShowModal] = useState((props.modalShow || false));
@@ -47,7 +52,7 @@ const ModalWindow = props => {
 		setShowModal(!showModal);
 	};
 
-	const exitCallback = (_modalConfirm, _isButton, _callback, e) => {
+	const exitCallback = (_modalConfirm, _isButton, _callback, _callbackPlanB, e) => {
 		if (e) {
 			e.preventDefault();
 		}
@@ -55,8 +60,12 @@ const ModalWindow = props => {
 		let buttonAndCloseThis;
 
 		if (typeof _callback === 'function') {
-			if ((!_modalConfirm && !_isButton) || (_modalConfirm && _isButton)) {
+			if (!_modalConfirm || (_modalConfirm && _isButton)) {
 				buttonAndCloseThis = _callback(e, modalOriginElement);
+			} else {
+				if (typeof _callbackPlanB === 'function') { // Apenas para modo confirma
+					buttonAndCloseThis = _callbackPlanB(e, modalOriginElement);
+				}
 			}
 		}
 
@@ -67,7 +76,7 @@ const ModalWindow = props => {
 	};
 
 	return (
-		<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(modalConfirm, false, modalCallback, e) }>
+		<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onClosed={ e => exitCallback(modalConfirm, false, modalCallback, modalCallbackPlanB, e) }>
 			{
 				modalTitle !== '!no' ? (
 					<ModalHeader className="modal-header-local" toggle={ toggleModal }>
@@ -92,7 +101,7 @@ const ModalWindow = props => {
 				{
 					modalConfirm ? (
 						<Fragment>
-							<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, e) }>Confirmar</Button>
+							<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, modalCallbackPlanB, e) }>Confirmar</Button>
 							<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
 						</Fragment>
 					) : (
