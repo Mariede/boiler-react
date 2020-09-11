@@ -10,8 +10,8 @@ const ModalData = props => {
 
 	const [formElements, handleFormElements] = useState(
 		{
-			nome: data.nome,
-			email: data.email
+			nome: data && data.nome,
+			email: data && data.email
 		}
 	);
 
