@@ -48,6 +48,8 @@ npm run build
   - GridTable (componente de tabulação de dados baseado no custom hook useDataGet)
   - Paginator (paginação nas páginas - compatível com back-end boiler-server)
   - Sorter (ordenação nas páginas - compatível com back-end boiler-server)
+  - DataChange (encapsula as transformações de dados - POST/PUT/PATCH/DELETE - para CRUD ou similar)
+    + Trabalha em sinergia com GridTable
   - Componentes de formulários personalizados:
     + InputPass
 

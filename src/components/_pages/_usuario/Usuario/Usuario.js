@@ -4,7 +4,8 @@ import { Button } from 'reactstrap';
 
 import MainContent from 'components/_common/MainContent';
 import GridTable from 'components/_common/GridTable';
-import DataChange from './DataChange';
+import DataChange from 'components/_common/DataChange';
+
 import ModalData from './ModalData';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
