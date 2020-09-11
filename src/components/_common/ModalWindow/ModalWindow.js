@@ -67,44 +67,40 @@ const ModalWindow = props => {
 	};
 
 	return (
-		showModal ? (
-			<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(modalConfirm, false, modalCallback, e) }>
+		<Modal isOpen={ showModal } centered={ modalCentered } size={ modalSize } className="modal-window" onExit={ e => exitCallback(modalConfirm, false, modalCallback, e) }>
+			{
+				modalTitle !== '!no' ? (
+					<ModalHeader className="modal-header-local" toggle={ toggleModal }>
+						{
+							modalConfirm ? (
+								<i className="fas fa-check-double"></i>
+							) : (
+								<i className="fas fa-bell"></i>
+							)
+						} { modalTitle }
+					</ModalHeader>
+				) : (
+					null
+				)
+			}
+
+			<ModalBody className="modal-body-local">
+				{ modalMessage }
+			</ModalBody>
+
+			<ModalFooter className="modal-footer-local">
 				{
-					modalTitle !== '!no' ? (
-						<ModalHeader className="modal-header-local" toggle={ toggleModal }>
-							{
-								modalConfirm ? (
-									<i className="fas fa-check-double"></i>
-								) : (
-									<i className="fas fa-bell"></i>
-								)
-							} { modalTitle }
-						</ModalHeader>
+					modalConfirm ? (
+						<Fragment>
+							<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, e) }>Confirmar</Button>
+							<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
+						</Fragment>
 					) : (
-						null
+						<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
 					)
 				}
-
-				<ModalBody className="modal-body-local">
-					{ modalMessage }
-				</ModalBody>
-
-				<ModalFooter className="modal-footer-local">
-					{
-						modalConfirm ? (
-							<Fragment>
-								<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, e) }>Confirmar</Button>
-								<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
-							</Fragment>
-						) : (
-							<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
-						)
-					}
-				</ModalFooter>
-			</Modal>
-		) : (
-			null
-		)
+			</ModalFooter>
+		</Modal>
 	);
 };
 
