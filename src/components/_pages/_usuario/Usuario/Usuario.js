@@ -160,7 +160,7 @@ const Usuario = props => {
 								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.update },
 								{ title: 'email', jsonElement: 'email', isSorted: true },
 								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true, tdLayout: { center: true } },
-								{ title: 'perfis', jsonElement: 'perfis.perfil.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
+								{ title: 'perfis', jsonElement: 'perfis.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
 								{
 									buttons: [
 										{
