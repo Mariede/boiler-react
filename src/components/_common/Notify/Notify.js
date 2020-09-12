@@ -113,6 +113,20 @@ const Notify = props => {
 			setShowNotify(false);
 		};
 
+		const checkForArray = message => (
+			Array.isArray(message) ? (
+				message.map(
+					(messageItem, index) => (
+						<div className="toast-item" key={ index }>
+							{ messageItem }
+						</div>
+					)
+				)
+			) : (
+				message
+			)
+		);
+
 		return (
 			showNotify ? (
 				<Toast className="notify">
@@ -123,7 +137,17 @@ const Notify = props => {
 					</ToastHeader>
 
 					<ToastBody>
-						{ (handledNotifyInfo ? handledNotifyInfo.message : (notifyInfo ? (notifyInfo.message || notifyInfo) : '')) }
+						{
+							handledNotifyInfo ? (
+								checkForArray(handledNotifyInfo.customMessage || handledNotifyInfo.message)
+							) : (
+								notifyInfo ? (
+									checkForArray(notifyInfo.customMessage || notifyInfo.message || notifyInfo)
+								) : (
+									''
+								)
+							)
+						}
 					</ToastBody>
 				</Toast>
 			) : (

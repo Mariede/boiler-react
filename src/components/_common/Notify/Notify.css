@@ -6,3 +6,7 @@
 	z-index: 1998;
 	text-align: justify;
 }
+
+.notify > .toast-body > .toast-item:not(:last-child) {
+	padding-bottom: 12px;
+}
