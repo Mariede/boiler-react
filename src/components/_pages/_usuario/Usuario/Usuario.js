@@ -6,7 +6,7 @@ import MainContent from 'components/_common/MainContent';
 import GridTable from 'components/_common/GridTable';
 import DataChange from 'components/_common/DataChange';
 
-import ModalData from './ModalData';
+import DataModal from './DataModal';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
@@ -143,7 +143,7 @@ const Usuario = props => {
 			{ Component }
 
 			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" catchHeader="Usuario" url={ { currentPath, currentSearch } }>
-				{ ModalData }
+				{ DataModal }
 			</DataChange>
 
 			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">

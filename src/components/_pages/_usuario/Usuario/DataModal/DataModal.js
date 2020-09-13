@@ -13,7 +13,7 @@ import ModalForm from './ModalForm';
 		- formId 		: identificador do formulario
 		- setDataChange	: funcao de estado em parent que controla as propriedades do componente
 */
-const ModalData = props => {
+const DataModal = props => {
 	const { param, data, formId, setDataChange } = props;
 
 	const renderCount = useRef(0);
@@ -33,4 +33,4 @@ const ModalData = props => {
 	);
 };
 
-export default ModalData;
+export default DataModal;
