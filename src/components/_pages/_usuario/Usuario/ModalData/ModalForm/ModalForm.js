@@ -6,7 +6,7 @@ import { Row, Col } from 'reactstrap';
 import formValidator from 'helpers/formValidator';
 
 const ModalForm = props => {
-	const { _formElements, _changeFormElements } = props;
+	const { _formElements, _changeFormElements, _modalCallback } = props;
 
 	const [formElements, handleFormElements] = useState(_formElements);
 
@@ -44,12 +44,22 @@ const ModalForm = props => {
 	const changeFormElements = e => {
 		e.preventDefault();
 
-		formValidator.setFormValidation(configFormValidation, true); // Formulario: 2 de 2
+		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
 
 		const { id, name, value } = e.currentTarget;
 		handleFormElements(prevState => ({ ...prevState, [(id || name)]: value }));
 
 		_changeFormElements((id || name), value);
+	};
+
+	const submitForm = e => {
+		e.preventDefault();
+
+		const formCheck = formValidator.setFormValidation(configFormValidation, true); // Formulario: 2 de 2
+
+		if (formCheck) {
+			_modalCallback();
+		}
 	};
 
 	useEffect(
@@ -58,7 +68,7 @@ const ModalForm = props => {
 	);
 
 	return (
-		<Form id="usuario-form" className="form">
+		<Form id="usuario-form" className="form" onSubmit={ submitForm }>
 			<Row form>
 				<Col md={ 12 }>
 					<FormGroup>

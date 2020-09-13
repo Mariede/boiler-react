@@ -27,9 +27,7 @@ const ModalData = props => {
 		);
 	};
 
-	const modalCallback = e => {
-		e.preventDefault();
-
+	const modalCallback = () => {
 		setDataChange(
 			prevState => (
 				{
@@ -52,7 +50,7 @@ const ModalData = props => {
 	);
 
 	return (
-		<ModalWindow modalTitle={ `Usuario${param ? ` ${param}` : ''}` } modalMessage={ <ModalForm _formElements={ formElements.current } _changeFormElements={ changeFormElements } /> } modalSize="md" modalFooterSize="md" modalCallback={ modalCallback } modalCallbackPlanB={ modalCallbackPlanB } modalShow={ true } modalConfirm modalCentered key={ renderCount.current } />
+		<ModalWindow modalTitle={ `Usuario${param ? ` ${param}` : ''}` } modalMessage={ <ModalForm _formElements={ formElements.current } _changeFormElements={ changeFormElements } _modalCallback={ modalCallback } /> } modalSize="md" modalFooterSize="md" modalCallbackPlanB={ modalCallbackPlanB } modalFormSubmitID="usuario-form" modalShow={ true } modalConfirm modalCentered key={ renderCount.current } />
 	);
 };
 

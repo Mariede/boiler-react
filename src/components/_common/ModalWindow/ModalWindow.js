@@ -33,6 +33,9 @@ import './ModalWindow.css';
 										- Se callback retornar falsy exceto undefined no botao Confirmar, nao fecha o modal
 
 			- modalOriginElement	-> Especifica o elemento DOM de origem que acionou o modal
+
+			- modalFormSubmitID 		-> Especifica que o modal contem um formulario com o ID de formulario associado
+										- Troca o botao de confirmacao do tipo button para o tipo submit
 */
 const ModalWindow = props => {
 	const modalConfirm = (props.modalConfirm || false);
@@ -44,6 +47,7 @@ const ModalWindow = props => {
 	const modalCallback = props.modalCallback;
 	const modalCallbackPlanB = props.modalCallbackPlanB;
 	const modalOriginElement = props.modalOriginElement;
+	const modalFormSubmitID = props.modalFormSubmitID;
 
 	const [showModal, setShowModal] = useState((props.modalShow || false));
 
@@ -107,7 +111,13 @@ const ModalWindow = props => {
 				{
 					modalConfirm ? (
 						<Fragment>
-							<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, modalCallbackPlanB, e) }>Confirmar</Button>
+							{
+								modalFormSubmitID ? (
+									<Button type="submit" form={ modalFormSubmitID } color="success" size={ modalFooterSize }>Confirmar</Button>
+								) : (
+									<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, modalCallbackPlanB, e) }>Confirmar</Button>
+								)
+							}
 							<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
 						</Fragment>
 					) : (
