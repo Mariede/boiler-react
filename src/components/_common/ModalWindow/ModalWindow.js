@@ -59,13 +59,19 @@ const ModalWindow = props => {
 
 		let buttonAndCloseThis;
 
-		if (typeof _callback === 'function') {
-			if (!_modalConfirm || (_modalConfirm && _isButton)) {
-				buttonAndCloseThis = _callback(e, modalOriginElement);
+		if (_modalConfirm) {
+			if (_isButton) {
+				if (typeof _callback === 'function') {
+					buttonAndCloseThis = _callback(e, modalOriginElement);
+				}
 			} else {
-				if (typeof _callbackPlanB === 'function') { // Apenas para modo confirma
+				if (typeof _callbackPlanB === 'function') {
 					buttonAndCloseThis = _callbackPlanB(e, modalOriginElement);
 				}
+			}
+		} else {
+			if (typeof _callback === 'function') {
+				buttonAndCloseThis = _callback(e, modalOriginElement);
 			}
 		}
 
