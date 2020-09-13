@@ -60,7 +60,8 @@ const Usuario = props => {
 			setDataChange(
 				{
 					submit: false,
-					method: 'post'
+					method: 'post',
+					formId: 'usuario-form'
 				}
 			);
 		},
@@ -80,7 +81,8 @@ const Usuario = props => {
 					submit: false,
 					method: 'put',
 					param: rowId,
-					data: (Array.isArray(rowData) && { ...rowData.pop() }) || {}
+					data: (Array.isArray(rowData) && { ...rowData.pop() }) || {},
+					formId: 'usuario-form'
 				}
 			);
 		},
@@ -129,7 +131,8 @@ const Usuario = props => {
 				{
 					submit: false,
 					method: 'put',
-					param: rowId
+					param: rowId,
+					formId: 'usuario-form'
 				}
 			);
 		}

@@ -16,6 +16,8 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 		- data			: dados do corpo da requisicao, se existirem
 
+		- formId 		: identificador do formulario em children, apenas se existir children (submit === false)
+
 		- setDataChange	: OBRIGATORIO, funcao de estado em parent que controla as propriedades do componente
 
 		- baseRoute		: OBRIGATORIO, rota base utilizada pelo AXIOS
@@ -25,10 +27,11 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 		- url			: OBRIGATORIO, url atual (com querystring) para redirects
 
 		- children		: apenas para o caso de submit === false
-			-> contem o componente com a tela de apoio para insert/update (geralmente Modal)
+			-> contem o formulario com a tela de apoio para insert/update (dentro do modal em DataModal)
+			-> obrigatorio existir um formId especificado
 */
 const DataChange = props => {
-	const { submit, method, extraRoute, param, data, setDataChange, baseRoute, catchHeader, url, children } = props;
+	const { submit, method, extraRoute, param, data, formId, setDataChange, baseRoute, catchHeader, url, children } = props;
 
 	const ChildContent = children;
 
@@ -50,11 +53,11 @@ const DataChange = props => {
 
 	useEffect(
 		() => {
-			if (submit === false && !ChildContent) {
+			if (submit === false && (!ChildContent || !formId)) {
 				setDataChange(undefined);
 			}
 		},
-		[submit, ChildContent, setDataChange]
+		[submit, ChildContent, formId, setDataChange]
 	);
 
 	return (
@@ -65,8 +68,8 @@ const DataChange = props => {
 					<Redirect to={ `${url.currentPath + url.currentSearch}` } />
 				) : (
 					submit === false ? (
-						ChildContent ? (
-							<ChildContent param={ param } data={ data } setDataChange={ setDataChange } />
+						(ChildContent && formId) ? (
+							<ChildContent param={ param } data={ data } formId={ formId } setDataChange={ setDataChange } />
 						) : (
 							null
 						)

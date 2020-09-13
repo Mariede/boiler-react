@@ -4,40 +4,19 @@ import ModalWindow from 'components/_common/ModalWindow';
 
 import ModalForm from './ModalForm';
 
-const ModalData = props => {
-	const { param, data, setDataChange } = props;
+/*
+	** Componente de apoio para DataChange na exibicao do modal de transformacao dos dados **
 
-	const formElements = useRef(
-		{
-			nome: (data && data.nome) || '',
-			email: (data && data.email) || ''
-		}
-	);
+	PROPS:
+		- param			: parametro de rota (ID)
+		- data			: dados do corpo da requisicao, se existirem
+		- formId 		: identificador do formulario
+		- setDataChange	: funcao de estado em parent que controla as propriedades do componente
+*/
+const ModalData = props => {
+	const { param, data, formId, setDataChange } = props;
 
 	const renderCount = useRef(0);
-
-	const changeFormElements = (ref, value) => {
-		const prevState = formElements.current;
-
-		formElements.current = (
-			{
-				...prevState,
-				[ref]: value
-			}
-		);
-	};
-
-	const modalCallback = () => {
-		setDataChange(
-			prevState => (
-				{
-					...prevState,
-					submit: true,
-					data: formElements.current
-				}
-			)
-		);
-	};
 
 	const modalCallbackPlanB = () => {
 		setDataChange(undefined);
@@ -50,7 +29,7 @@ const ModalData = props => {
 	);
 
 	return (
-		<ModalWindow modalTitle={ `Usuario${param ? ` ${param}` : ''}` } modalMessage={ <ModalForm _formElements={ formElements.current } _changeFormElements={ changeFormElements } _modalCallback={ modalCallback } /> } modalSize="md" modalFooterSize="md" modalCallbackPlanB={ modalCallbackPlanB } modalFormSubmitID="usuario-form" modalShow={ true } modalConfirm modalCentered key={ renderCount.current } />
+		<ModalWindow modalTitle={ `Registro ${param ? ` ${param}` : ''}` } modalMessage={ <ModalForm data={ data } setDataChange={ setDataChange } /> } modalSize="md" modalFooterSize="md" modalCallbackPlanB={ modalCallbackPlanB } modalFormSubmitID={ formId } modalShow={ true } modalConfirm modalCentered key={ renderCount.current } />
 	);
 };
 
