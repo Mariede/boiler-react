@@ -120,14 +120,14 @@ const Sorter = props => {
 					<Redirect to={ newSortedPage } />
 				) : (
 					<div className="sorter">
-						<span className="sorter-column" id={ sorterId } onClick={ sortPage }>
+						<span className="sorter-column" id={ `sorter-${sorterId}` } onClick={ sortPage }>
 							{ title }
 
 							{ sorterElement }
 
 						</span>
 
-						<UncontrolledTooltip placement="top" target={ sorterId } trigger="hover">
+						<UncontrolledTooltip placement="top" target={ `sorter-${sorterId}` } trigger="hover">
 							Segure CTRL para ordenar vários<br />Segure ALT para reiniciar
 						</UncontrolledTooltip>
 					</div>

@@ -62,6 +62,11 @@ const apiRules = [
 		name: 'isEmail',
 		validatorFunction: validator.isEmail,
 		defaultMessage: 'E-mail inválido'
+	},
+	{
+		name: 'isCompleteName',
+		validatorFunction: validator.isCompleteName,
+		defaultMessage: 'Nome não parece completo'
 	}
 ];
 

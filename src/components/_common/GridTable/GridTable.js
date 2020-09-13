@@ -181,7 +181,7 @@ const GridTable = props => {
 																		{
 																			jsonElement ? (
 																				gridCallback ? (
-																					<GridButton id={ `btn-${index1}${index2}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ index2 } />
+																					<GridButton id={ `btn-gb-${index1}${index2}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ index2 } />
 																				) : (
 																					data
 																				)
@@ -191,7 +191,7 @@ const GridTable = props => {
 																						{
 																							buttons.map(
 																								(button, index3) => (
-																									<GridButton id={ `btn-${index1}${index2}${index3}` } record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ index3 } />
+																									<GridButton id={ `btn-gb-${index1}${index2}${index3}` } record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ index3 } />
 																								)
 																							)
 																						}
