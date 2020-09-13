@@ -24,8 +24,7 @@ import './ModalWindow.css';
 
 			- modalCallback			-> Executa uma funcao de callback na saida do modal
 										- caso exista, se modo INFORMATIVO sempre executa
-										- caso exista, se modo CONFIRMA executa somente no botao Confirmar
-										- Executa o preventDefault no Modal
+										- caso exista, se modo CONFIRMA executa somente no botao Confirmar, caso este seja diferente de submit
 										- Se callback retornar falsy exceto undefined no botao Confirmar, nao fecha o modal
 
 			- modalCallbackPlanB	-> Executa uma funcao de callback na saida do modal
@@ -34,8 +33,10 @@ import './ModalWindow.css';
 
 			- modalOriginElement	-> Especifica o elemento DOM de origem que acionou o modal
 
-			- modalFormSubmitID 		-> Especifica que o modal contem um formulario com o ID de formulario associado
-										- Troca o botao de confirmacao do tipo button para o tipo submit
+			- modalFormSubmitID 		-> Especifica que o modal contem um formulario associado
+										- Troca o botao de confirmacao do tipo button para o tipo submit e associa o ID de formulario ao botao
+										- So funciona no modo CONFIRMA, e neste caso, inutiliza eventual prop modalCallback recebida
+											- Tratar callback no evento onSubmit do formulario
 */
 const ModalWindow = props => {
 	const modalConfirm = (props.modalConfirm || false);
