@@ -1,9 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import DataModal from './DataModal';
+
 import useDataChange from 'components/_custom-hooks/useDataChange';
 
 /*
+	DEPENDENCIAS:
+		- DataModal
+
 	PROPS:
 		- submit		: OBRIGATORIO, se true executa acao de transformacao nos dados (POST/PUT/PATCH/DELETE)
 			-> se false abre tela de apoio para insert/update (geralmente Modal)
@@ -27,8 +32,8 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 		- url			: OBRIGATORIO, url atual (com querystring) para redirects
 
 		- children		: apenas para o caso de submit === false
-			-> contem o formulario com a tela de apoio para insert/update (dentro do modal em DataModal)
-			-> obrigatorio existir um formId especificado
+			-> contem o formulario com a tela de apoio para insert/update (exibido atraves do componente de apoio DataModal)
+			-> obrigatorio existir um formId
 */
 const DataChange = props => {
 	const { submit, method, extraRoute, param, data, formId, setDataChange, baseRoute, catchHeader, url, children } = props;
@@ -69,7 +74,7 @@ const DataChange = props => {
 				) : (
 					submit === false ? (
 						(ChildContent && formId) ? (
-							<ChildContent param={ param } data={ data } formId={ formId } setDataChange={ setDataChange } />
+							<DataModal param={ param } data={ data } formId={ formId } setDataChange={ setDataChange } ChildContent={ ChildContent } />
 						) : (
 							null
 						)
