@@ -67,6 +67,12 @@ const apiRules = [
 		name: 'isCompleteName',
 		validatorFunction: validator.isCompleteName,
 		defaultMessage: 'Nome não parece completo'
+	},
+	{
+		name: 'isInteger',
+		validatorFunction: validator.isInteger,
+		extraParams: [false],
+		defaultMessage: 'Valor inválido'
 	}
 ];
 

@@ -58,8 +58,8 @@ const Alert = props => {
 		modalCentered: modalCentered,
 		modalTitle: modalTitle,
 		modalMessage: modalMessage,
-		modalSize: modalSize,
-		modalFooterSize: modalFooterSize,
+		modalSize: (modalSize || 'sm'),
+		modalFooterSize: (modalFooterSize || 'sm'),
 		modalCallback: modalCallback,
 		modalOriginElement: showAlert.originElement
 	};

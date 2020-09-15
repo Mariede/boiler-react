@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import MainContent from 'components/_common/MainContent';
 import GridTable from 'components/_common/GridTable';
 import DataChange from 'components/_common/DataChange';
+import ModalWindow from 'components/_common/ModalWindow'; // Saiba mais
 
 import ModalForm from './ModalForm';
 
@@ -16,6 +17,15 @@ const Usuario = props => {
 	const { match, location } = props;
 
 	const [dataChange, setDataChange] = useState(undefined);
+
+	// Saiba mais -------------------
+	const knowMoreInitialValue = {
+		visible: false,
+		message: ''
+	};
+
+	const [knowMore, setKnowMore] = useState(knowMoreInitialValue);
+	// ------------------------------
 
 	const paramId = match.params.id;
 	const currentKey = location.key;
@@ -122,17 +132,15 @@ const Usuario = props => {
 				}
 			);
 		},
-		more: (e, target) => {
+		knowMore: (e, target) => {
 			e.preventDefault();
 
 			const rowId = getRowId(e, target);
 
-			setDataChange(
+			setKnowMore(
 				{
-					submit: false,
-					method: 'put',
-					param: rowId,
-					formId: 'usuario-form'
+					visible: true,
+					message: `Aqui mais detalhes sobre o ID ${rowId}`
 				}
 			);
 		}
@@ -194,7 +202,7 @@ const Usuario = props => {
 								{
 									buttons: [
 										{
-											gridCallback: pageActions.more,
+											gridCallback: pageActions.knowMore,
 											buttonText:
 												<Fragment>
 													<i className="fa fa-newspaper"></i> saiba mais
@@ -207,6 +215,8 @@ const Usuario = props => {
 					/>
 				</div>
 			</MainContent>
+
+			<ModalWindow modalTitle="Saiba Mais" modalMessage={ knowMore.message } modalCallback={ () => setKnowMore(knowMoreInitialValue) } modalShow={ knowMore.visible } modalCentered key={ knowMore.visible } />
 		</Fragment>
 	);
 };

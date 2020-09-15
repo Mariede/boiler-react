@@ -19,8 +19,8 @@ import './ModalWindow.css';
 			- modalTitle			-> Modal (default: "Aviso" para modo INFORMACAO ou "Confirme" para modo CONFIRMA)
 										- se modalTitle igual "!no" nao exibe o header do modal
 			- modalMessage			-> Modal: Aviso a ser emitido, recomendado
-			- modalSize				-> Modal (default: "sm")
-			- modalFooterSize		-> Modal: tamanho do botao no footer do modal (default: "sm")
+			- modalSize				-> Modal (default: "lg")
+			- modalFooterSize		-> Modal: tamanho do botao no footer do modal (default: "md")
 
 			- modalCallback			-> Executa uma funcao de callback na saida do modal
 										- caso exista, se modo INFORMATIVO sempre executa
@@ -43,8 +43,8 @@ const ModalWindow = props => {
 	const modalCentered = (props.modalCentered || false);
 	const modalTitle = (props.modalTitle || (props.modalConfirm ? 'Confirme' : 'Aviso'));
 	const modalMessage = props.modalMessage;
-	const modalSize = (props.modalSize || 'sm');
-	const modalFooterSize = (props.modalFooterSize || 'sm');
+	const modalSize = (props.modalSize || 'lg');
+	const modalFooterSize = (props.modalFooterSize || 'md');
 	const modalCallback = props.modalCallback;
 	const modalCallbackPlanB = props.modalCallbackPlanB;
 	const modalOriginElement = props.modalOriginElement;

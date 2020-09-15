@@ -10,8 +10,10 @@ const ModalForm = props => {
 
 	const [formElements, handleFormElements] = useState(
 		{
-			nome: (data && data.nome) || '',
-			email: (data && data.email) || ''
+			nome: data.nome || '',
+			email: data.email || '',
+			tipo: (data.tipo && data.tipo.id) || '',
+			ativo: (data.ativo ? 1 : (data.ativo === false ? 2 : ''))
 		}
 	);
 
@@ -37,6 +39,32 @@ const ModalForm = props => {
 				},
 				{
 					rule: 'isEmail'
+				}
+			]
+		},
+		{
+			id: 'tipo',
+			optional: false,
+			rules: [
+				{
+					rule: 'isNotEmpty',
+					message: 'Tipo não selecionado'
+				},
+				{
+					rule: 'isInteger'
+				}
+			]
+		},
+		{
+			id: 'ativo',
+			optional: false,
+			rules: [
+				{
+					rule: 'isNotEmpty',
+					message: 'Estado não selecionado'
+				},
+				{
+					rule: 'isInteger'
 				}
 			]
 		}
@@ -84,7 +112,7 @@ const ModalForm = props => {
 				<Col md={ 12 }>
 					<FormGroup>
 						<Label for="nome">Nome</Label>
-						<Input type="text" value={ formElements.nome } id="nome" onChange={ changeFormElements } />
+						<Input type="text" value={ formElements.nome } id="nome" maxLength="200" onChange={ changeFormElements } />
 					</FormGroup>
 				</Col>
 			</Row>
@@ -93,7 +121,47 @@ const ModalForm = props => {
 				<Col md={ 12 }>
 					<FormGroup>
 						<Label for="email">E-mail</Label>
-						<Input type="text" value={ formElements.email } id="email" onChange={ changeFormElements } />
+						<Input type="text" value={ formElements.email } id="email" maxLength="200" onChange={ changeFormElements } />
+					</FormGroup>
+				</Col>
+			</Row>
+
+			<Row form>
+				<Col md={ 12 }>
+					<FormGroup>
+						<Label for="tipo">Tipo</Label>
+						<Input type="select" value={ formElements.tipo } id="tipo" onChange={ changeFormElements }>
+							<option value="">-- preencher</option>
+							{
+								data.options && Array.isArray(data.options.tipos) ? (
+									data.options.tipos.map(
+										(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+									)
+								) : (
+									null
+								)
+							}
+						</Input>
+					</FormGroup>
+				</Col>
+			</Row>
+
+			<Row form>
+				<Col md={ 12 }>
+					<FormGroup>
+						<Label for="ativo">Estado</Label>
+						<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
+							<option value="">-- preencher</option>
+							{
+								data.options && Array.isArray(data.options.ativo) ? (
+									data.options.ativo.map(
+										(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+									)
+								) : (
+									null
+								)
+							}
+						</Input>
 					</FormGroup>
 				</Col>
 			</Row>

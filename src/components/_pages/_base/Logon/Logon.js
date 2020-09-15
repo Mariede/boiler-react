@@ -110,7 +110,7 @@ const Logon = () => {
 									<Col md={ 12 }>
 										<FormGroup>
 											<Label for="login">Usuário</Label>
-											<Input type="text" value={ formElements.login } id="login" placeholder="seu@email" onChange={ changeFormElements } />
+											<Input type="text" value={ formElements.login } id="login" maxLength="200" placeholder="seu@email" onChange={ changeFormElements } />
 										</FormGroup>
 										<FormText className="outside-group">Insira seu usuário aqui.</FormText>
 									</Col>
@@ -120,7 +120,7 @@ const Logon = () => {
 									<Col md={ 12 }>
 										<FormGroup>
 											<Label for="pass">Senha</Label>
-											<InputPass value={ formElements.pass } id="pass" placeholder="S3nh4" onChange={ changeFormElements } />
+											<InputPass value={ formElements.pass } id="pass" maxLength="20" placeholder="S3nh4" onChange={ changeFormElements } />
 										</FormGroup>
 										<FormText className="outside-group">Insira sua senha aqui.</FormText>
 									</Col>
