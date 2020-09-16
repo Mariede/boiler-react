@@ -14,6 +14,11 @@ input:not([type="radio"]):not([type="checkbox"]).is-invalid-element, select.is-i
 	border-radius: 4px;
 }
 
+input:not([type="radio"]):not([type="checkbox"]).is-invalid-element:focus, select.is-invalid-element:focus, textarea.is-invalid-element:focus {
+	border-color: #dc3545;
+	box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, .25);
+}
+
 .is-invalid-group {
 	color: #dc3545;
 }

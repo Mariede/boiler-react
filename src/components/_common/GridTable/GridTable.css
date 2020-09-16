@@ -9,6 +9,21 @@ table.grid-table.table-hover tr:hover {
 	background-color: rgba(221, 221, 238, 0.3);
 }
 
+table.grid-table tr.spacer td {
+	border: none;
+	padding: 0px !important;
+}
+
+table.grid-table tr.spacer td hr.spacer-top {
+	border-color: #dde;
+	margin-top: 0px;
+}
+
+table.grid-table tr.spacer td hr.spacer-bottom {
+	border-color: #dde;
+	margin-bottom: 0px;
+}
+
 table.grid-table th {
 	text-align: center;
 	text-transform: uppercase;

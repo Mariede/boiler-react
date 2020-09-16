@@ -103,7 +103,7 @@ const GridTable = props => {
 												<th key={ index }>
 													{
 														title ? (
-															(isSorted && !isReactElement) ? (
+															(isSorted && !isReactElement && recordset.length) ? (
 																<Sorter title={ title } sortElement={ jsonElement } url={ url } />
 															) : (
 																title
@@ -117,6 +117,10 @@ const GridTable = props => {
 										}
 									)
 								}
+							</tr>
+							<tr className="spacer">
+								<td colSpan={ columns.length }>
+									<hr className="spacer-top" /></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -217,6 +221,10 @@ const GridTable = props => {
 									</tr>
 								)
 							}
+							<tr className="spacer">
+								<td colSpan={ columns.length }>
+									<hr className="spacer-bottom" /></td>
+							</tr>
 						</tbody>
 						<tfoot>
 							<tr>

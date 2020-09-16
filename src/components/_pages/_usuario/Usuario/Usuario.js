@@ -154,11 +154,11 @@ const Usuario = props => {
 				{ ModalForm }
 			</DataChange>
 
-			<MainContent subject={ `Usuario${!paramId ? ' (todos)' : ''}` } icon="fas fa-user">
+			<MainContent subject={ !paramId ? 'Usuários' : 'Usuário' } icon="fas fa-user">
 				<div id="usuario">
 
 					<div className="top-group">
-						<span className="info">Detalhes</span>
+						<span className="info">{ !paramId ? 'Detalhes dos usuários' : 'Detalhes do usuário' }</span>
 						<Button type="button" size="sm" color="success" onClick={ pageActions.insert }>
 							<i className="fa fa-plus"></i> novo usuário
 						</Button>

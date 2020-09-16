@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-	font: 12px B612, Arial, Helvetica, san-serif;
+	font: 12px B612, 'Segoe UI', Verdana, Arial, Helvetica;
 	color: #000;
 	background-color: #eee;
 	text-align: center;
@@ -93,4 +93,13 @@ button.btn-link {
 
 div.tooltip {
 	font-size: 11px;
+}
+
+input.form-control, select.form-control, textarea.form-control {
+	font-size: 14px;
+	color: #333;
+}
+
+input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
+	color: #000;
 }
