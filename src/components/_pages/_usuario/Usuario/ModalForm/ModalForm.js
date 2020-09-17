@@ -14,8 +14,8 @@ const ModalForm = props => {
 		{
 			nome: data.nome || '',
 			email: data.email || '',
-			tipo: (data.tipo && data.tipo.id) || '',
-			ativo: (data.ativo ? 1 : (data.ativo === false ? 2 : ''))
+			tipo: String((data.tipo && data.tipo.id) || ''),
+			ativo: (data.ativo ? '1' : (data.ativo === false ? '2' : ''))
 		}
 	);
 

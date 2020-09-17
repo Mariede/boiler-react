@@ -13,11 +13,11 @@
 }
 
 #menu button:hover {
-	background-color: #eee;
+	background-color: rgba(221, 221, 238, 0.3);
 }
 
 #menu button:active {
-	background-color: #eee;
+	background-color: rgba(221, 221, 238, 0.3);
 }
 
 #menu button.disabled a {
@@ -33,7 +33,7 @@
 #menu .dropdown-toggle.submenu {
 	border-width: 1px 0px;
 	border-style: dotted;
-	border-color: #eee;
+	border-color: #dee2e6;
 	border-radius: 0px;
 	font-size: 15px;
 	padding-left: 14px;
