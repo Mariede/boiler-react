@@ -48,13 +48,6 @@ const apiRules = [
 	{
 		name: 'isNotEmpty',
 		validatorFunction: validator.isEmpty,
-		extraParams: [false],
-		negateResult: true,
-		defaultMessage: 'Texto não preenchido'
-	},
-	{
-		name: 'isNotEmptyTrimmed',
-		validatorFunction: validator.isEmpty,
 		negateResult: true,
 		defaultMessage: 'Texto não preenchido'
 	},
@@ -71,7 +64,6 @@ const apiRules = [
 	{
 		name: 'isCep',
 		validatorFunction: validator.isCep,
-		extraParams: [true],
 		defaultMessage: 'CEP inválido'
 	},
 	{

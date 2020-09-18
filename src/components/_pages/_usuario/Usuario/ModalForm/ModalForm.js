@@ -19,8 +19,8 @@ const ModalForm = props => {
 			email: data.email || '',
 			tipo: (data.tipo && data.tipo.id) || '',
 			ativo: (data.ativo ? true : (data.ativo === false ? false : '')),
-			cep: data.cep || '',
-			cpf: data.cpf || ''
+			cep: (data.cep ? String(data.cep).padStart(8, '0') : ''), // Mascara no formulario
+			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : '') // Mascara no formulario
 		}
 	);
 
@@ -152,7 +152,7 @@ const ModalForm = props => {
 	return (
 		<Fragment>
 			{ Component }
-			<Form id="usuario-form" className="form" onSubmit={ submitForm }>
+			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off">
 				<Row form>
 					<Col md={ 12 }>
 						<FormGroup>

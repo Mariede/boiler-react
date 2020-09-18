@@ -106,7 +106,7 @@ const Logon = () => {
 				) : (
 					<MainContent subject="Logon" icon="fas fa-sign-in-alt" maxContent={ true }>
 						<div id="logon">
-							<Form id="logon-form" className="form" onSubmit={ submitForm }>
+							<Form id="logon-form" className="form" onSubmit={ submitForm } autoComplete="off">
 								<Row form>
 									<Col md={ 12 }>
 										<FormGroup>
