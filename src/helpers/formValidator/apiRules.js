@@ -59,14 +59,30 @@ const apiRules = [
 		defaultMessage: 'Texto não preenchido'
 	},
 	{
+		name: 'isCpf',
+		validatorFunction: validator.isCpf,
+		defaultMessage: 'CPF inválido'
+	},
+	{
 		name: 'isEmail',
 		validatorFunction: validator.isEmail,
 		defaultMessage: 'E-mail inválido'
 	},
 	{
+		name: 'isCep',
+		validatorFunction: validator.isCep,
+		extraParams: [true],
+		defaultMessage: 'CEP inválido'
+	},
+	{
 		name: 'isCompleteName',
 		validatorFunction: validator.isCompleteName,
 		defaultMessage: 'Nome não parece completo'
+	},
+	{
+		name: 'isBoolean',
+		validatorFunction: validator.isBoolean,
+		defaultMessage: 'Valor inválido'
 	},
 	{
 		name: 'isInteger',

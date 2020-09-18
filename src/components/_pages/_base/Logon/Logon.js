@@ -57,6 +57,7 @@ const Logon = () => {
 		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
 
 		const { id, name, value } = e.currentTarget;
+
 		handleFormElements(prevState => ({ ...prevState, [(id || name)]: value }));
 	};
 
