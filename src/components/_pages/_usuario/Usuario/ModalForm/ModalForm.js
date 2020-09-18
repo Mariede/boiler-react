@@ -20,7 +20,8 @@ const ModalForm = props => {
 			tipo: (data.tipo && data.tipo.id) || '',
 			ativo: (data.ativo ? true : (data.ativo === false ? false : '')),
 			cep: (data.cep ? String(data.cep).padStart(8, '0') : ''), // Mascara no formulario
-			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : '') // Mascara no formulario
+			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : ''), // Mascara no formulario
+			perfis: (Array.isArray(data.perfis) ? data.perfis.map(perfil => perfil.id) : (data.perfis ? [data.perfis.id] : []))
 		}
 	);
 
@@ -106,7 +107,7 @@ const ModalForm = props => {
 
 		const element = e.currentTarget;
 		const { id, name } = element;
-		const value = functions.parseFormElementsValues(element.value);
+		const value = functions.parseFormElementsValues(element.value, element.options, element.multiple);
 
 		handleFormElements(prevState => ({ ...prevState, [(id || name)]: value }));
 	};
@@ -219,6 +220,25 @@ const ModalForm = props => {
 						<FormGroup>
 							<Label for="cpf">CPF</Label>
 							<Input type="text" value={ formElements.cpf } id="cpf" onChange={ changeFormElements } mask="999.999.999-99" maskChar=" " tag={ InputMask } />
+						</FormGroup>
+					</Col>
+				</Row>
+
+				<Row form>
+					<Col md={ 12 }>
+						<FormGroup>
+							<Label for="perfis">Perfis selecionados</Label>
+							<Input type="select" value={ formElements.perfis } id="perfis" size="3" multiple onChange={ changeFormElements }>
+								{
+									data.options && Array.isArray(data.options.perfis) ? (
+										data.options.perfis.map(
+											(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+										)
+									) : (
+										null
+									)
+								}
+							</Input>
 						</FormGroup>
 					</Col>
 				</Row>
