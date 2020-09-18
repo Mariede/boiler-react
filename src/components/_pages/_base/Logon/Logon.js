@@ -29,7 +29,8 @@ const Logon = () => {
 			optional: false,
 			rules: [
 				{
-					rule: 'isNotEmpty'
+					rule: 'isNotEmpty',
+					message: 'E-mail não preenchido'
 				},
 				{
 					rule: 'isEmail'
@@ -41,7 +42,8 @@ const Logon = () => {
 			optional: false,
 			rules: [
 				{
-					rule: 'isNotEmpty'
+					rule: 'isNotEmpty',
+					message: 'Senha não preenchida'
 				}
 			]
 		}

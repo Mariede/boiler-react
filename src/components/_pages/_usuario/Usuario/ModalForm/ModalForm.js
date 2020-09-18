@@ -172,7 +172,7 @@ const ModalForm = props => {
 				</Row>
 
 				<Row form>
-					<Col md={ 12 }>
+					<Col md={ 6 }>
 						<FormGroup>
 							<Label for="tipo">Tipo</Label>
 							<Input type="select" value={ formElements.tipo } id="tipo" onChange={ changeFormElements }>
@@ -189,10 +189,7 @@ const ModalForm = props => {
 							</Input>
 						</FormGroup>
 					</Col>
-				</Row>
-
-				<Row form>
-					<Col md={ 12 }>
+					<Col md={ 6 }>
 						<FormGroup>
 							<Label for="ativo">Estado</Label>
 							<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
