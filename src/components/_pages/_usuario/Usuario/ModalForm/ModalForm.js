@@ -4,6 +4,7 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
 import InputMask from 'react-input-mask';
+import Multiple from 'components/_common/_form/Multiple';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
@@ -93,6 +94,16 @@ const ModalForm = props => {
 					rule: 'isCpf'
 				}
 			]
+		},
+		{
+			id: 'perfis',
+			optional: false,
+			rules: [
+				{
+					rule: 'isNotEmpty',
+					message: 'Nenhum perfil selecionado'
+				}
+			]
 		}
 	];
 
@@ -177,7 +188,7 @@ const ModalForm = props => {
 						<FormGroup>
 							<Label for="tipo">Tipo</Label>
 							<Input type="select" value={ formElements.tipo } id="tipo" onChange={ changeFormElements }>
-								<option value="">&rsaquo; preencher &lsaquo;</option>
+								<option value="">&rsaquo; selecione</option>
 								{
 									data.options && Array.isArray(data.options.tipos) ? (
 										data.options.tipos.map(
@@ -194,7 +205,7 @@ const ModalForm = props => {
 						<FormGroup>
 							<Label for="ativo">Estado</Label>
 							<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
-								<option value="">&rsaquo; preencher &lsaquo;</option>
+								<option value="">&rsaquo; selecione</option>
 								{
 									data.options && Array.isArray(data.options.ativo) ? (
 										data.options.ativo.map(
@@ -228,17 +239,7 @@ const ModalForm = props => {
 					<Col md={ 12 }>
 						<FormGroup>
 							<Label for="perfis">Perfis selecionados</Label>
-							<Input type="select" value={ formElements.perfis } id="perfis" size="3" multiple onChange={ changeFormElements }>
-								{
-									data.options && Array.isArray(data.options.perfis) ? (
-										data.options.perfis.map(
-											(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
-										)
-									) : (
-										null
-									)
-								}
-							</Input>
+							<Multiple optionsData={ data.options && data.options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
 						</FormGroup>
 					</Col>
 				</Row>

@@ -131,7 +131,7 @@ const Paginator = props => {
 				) : (
 					pageDetails ? (
 						<Fragment>
-							<div className="pagination-main justify-content-sm-between justify-content-around">
+							<div className="pagination-main justify-content-md-between justify-content-around">
 								<Input type="select" bsSize="sm" value={ pageDetails.itemsPerPage } className="pagination-select" onChange={ changeItemsPerPage }>
 
 									{ itemsPerPage }

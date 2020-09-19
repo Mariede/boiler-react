@@ -52,6 +52,7 @@ npm run build
     + Trabalha em sinergia com GridTable
   - Componentes de formulários personalizados:
     + InputPass
+    + Multiple
 
 ## Componentes de Páginas
   - Divididas em Header / MainContent (wrapper) / Footer
