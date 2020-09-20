@@ -11,6 +11,11 @@
 	overflow: hidden;
 }
 
+.multiple select > option:disabled {
+	font-style: italic;
+	color: rgba(170, 170, 170, 0.4);
+}
+
 .multiple .multiple-buttons {
 	margin: 6px;
 }

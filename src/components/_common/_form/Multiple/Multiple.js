@@ -34,7 +34,7 @@ const Multiple = props => {
 	const isArrayOptionsData = Array.isArray(optionsData);
 	const isArrayOptionsSelected = Array.isArray(optionsSelected);
 
-	const multipleBoxSize = (isArrayOptionsData ? optionsData.length : 1);
+	const multipleBoxSize = (isArrayOptionsData ? (optionsData.length + 1) : 1);
 
 	const checkButtonsProps = idButton => {
 		const props = {
@@ -74,33 +74,37 @@ const Multiple = props => {
 		const finalValues = [];
 
 		for (let i = 0, l = boxIn.length; i < l; i++) {
-			const optionValue = functions.parseFormElementsValues(boxIn[i].value);
+			if (!boxIn[i].disabled) {
+				const optionValue = functions.parseFormElementsValues(boxIn[i].value);
 
-			if (idButton === 2) {
-				finalValues.push(optionValue);
-			} else {
-				const SelectedInValues = functions.parseFormElementsValues(boxIn.value, boxIn.options, boxIn.multiple);
-
-				if (!SelectedInValues.includes(optionValue)) {
+				if (idButton === 2) {
 					finalValues.push(optionValue);
-				}
-			}
+				} else {
+					const SelectedInValues = functions.parseFormElementsValues(boxIn.value, boxIn.options, boxIn.multiple);
 
-			boxIn[i].selected = false;
+					if (!SelectedInValues.includes(optionValue)) {
+						finalValues.push(optionValue);
+					}
+				}
+
+				boxIn[i].selected = false;
+			}
 		}
 
 		for (let i = 0, l = boxOut.length; i < l; i++) {
-			const optionValue = functions.parseFormElementsValues(boxOut[i].value);
+			if (!boxOut[i].disabled) {
+				const optionValue = functions.parseFormElementsValues(boxOut[i].value);
 
-			if (idButton === 2) {
-				const SelectedOutValues = functions.parseFormElementsValues(boxOut.value, boxOut.options, boxOut.multiple);
+				if (idButton === 2) {
+					const SelectedOutValues = functions.parseFormElementsValues(boxOut.value, boxOut.options, boxOut.multiple);
 
-				if (SelectedOutValues.includes(optionValue)) {
-					finalValues.push(optionValue);
+					if (SelectedOutValues.includes(optionValue)) {
+						finalValues.push(optionValue);
+					}
 				}
-			}
 
-			boxOut[i].selected = false;
+				boxOut[i].selected = false;
+			}
 		}
 
 		handleFormElements(prevState => ({ ...prevState, [id]: finalValues }));
@@ -110,6 +114,7 @@ const Multiple = props => {
 		<div className="multiple flex-md-row flex-column">
 			<div className="multiple-box-out">
 				<Input type="select" id={ multipleBoxOut } size={ multipleBoxSize } multiple>
+					<option value="" disabled>Opções disponíveis</option>
 					{
 						(isArrayOptionsData && isArrayOptionsSelected) ? (
 							optionsData
@@ -135,6 +140,7 @@ const Multiple = props => {
 
 			<div className="multiple-box-in">
 				<Input type="select" id={ multipleBoxIn } size={ multipleBoxSize } multiple>
+					<option value="" disabled>Opções selecionadas</option>
 					{
 						(isArrayOptionsData && isArrayOptionsSelected) ? (
 							optionsData
