@@ -244,7 +244,7 @@ const ModalForm = props => {
 				<Row form>
 					<Col md={ 12 }>
 						<FormGroup>
-							<Label for="perfis">Perfis selecionados</Label>
+							<Label for="perfis">Perfis</Label>
 							<div id="perfis" data-value={ formElements.perfis }>
 								<Multiple optionsData={ data.options && data.options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
 							</div>

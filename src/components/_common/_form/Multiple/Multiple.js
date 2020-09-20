@@ -34,7 +34,8 @@ const Multiple = props => {
 	const isArrayOptionsData = Array.isArray(optionsData);
 	const isArrayOptionsSelected = Array.isArray(optionsSelected);
 
-	const multipleBoxSize = (isArrayOptionsData ? (optionsData.length + 1) : 1);
+	const multipleBoxMaxSize = 10; // Altura maxima da box
+	const multipleBoxSize = (isArrayOptionsData ? (optionsData.length < multipleBoxMaxSize ? optionsData.length + 1 : multipleBoxMaxSize) : 1);
 
 	const checkButtonsProps = idButton => {
 		const props = {
@@ -114,7 +115,7 @@ const Multiple = props => {
 		<div className="multiple flex-md-row flex-column">
 			<div className="multiple-box-out">
 				<Input type="select" id={ multipleBoxOut } size={ multipleBoxSize } multiple>
-					<option value="" disabled>Opções disponíveis</option>
+					<option value="" disabled>&rsaquo; disponíveis</option>
 					{
 						(isArrayOptionsData && isArrayOptionsSelected) ? (
 							optionsData
@@ -140,7 +141,7 @@ const Multiple = props => {
 
 			<div className="multiple-box-in">
 				<Input type="select" id={ multipleBoxIn } size={ multipleBoxSize } multiple>
-					<option value="" disabled>Opções selecionadas</option>
+					<option value="" disabled>&rsaquo; selecionados</option>
 					{
 						(isArrayOptionsData && isArrayOptionsSelected) ? (
 							optionsData

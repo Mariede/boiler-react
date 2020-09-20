@@ -8,7 +8,8 @@
 
 .multiple select {
 	width: 180px;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .multiple select > option:disabled {
