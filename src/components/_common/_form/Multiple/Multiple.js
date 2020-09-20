@@ -28,13 +28,13 @@ import './Multiple.css';
 const Multiple = props => {
 	const { optionsData, optionsKeys, optionsSelected, id, handleFormElements } = props;
 
-	const multipleButtonOut = `multiple-button-out-${id}`;
-	const multipleButtonIn = `multiple-button-in-${id}`;
-
 	const multipleBoxOut = `multiple-box-out-${id}`;
 	const multipleBoxIn = `multiple-box-in-${id}`;
 
-	const multipleBoxSize = (Array.isArray(optionsData) ? optionsData.length : 1);
+	const isArrayOptionsData = Array.isArray(optionsData);
+	const isArrayOptionsSelected = Array.isArray(optionsSelected);
+
+	const multipleBoxSize = (isArrayOptionsData ? optionsData.length : 1);
 
 	const checkButtonsProps = idButton => {
 		const props = {
@@ -42,7 +42,7 @@ const Multiple = props => {
 			disabled: true
 		};
 
-		if (Array.isArray(optionsData) && Array.isArray(optionsSelected)) {
+		if (isArrayOptionsData && isArrayOptionsSelected) {
 			if (idButton === 1) {
 				const result = (optionsSelected.length === 0);
 
@@ -65,10 +65,8 @@ const Multiple = props => {
 		return props;
 	};
 
-	const changeFormElements = e => {
+	const changeFormElements = (idButton, e) => {
 		e.preventDefault();
-
-		const idElement = e.currentTarget.id;
 
 		const boxOut = document.getElementById(multipleBoxOut);
 		const boxIn = document.getElementById(multipleBoxIn);
@@ -78,7 +76,7 @@ const Multiple = props => {
 		for (let i = 0, l = boxIn.length; i < l; i++) {
 			const optionValue = functions.parseFormElementsValues(boxIn[i].value);
 
-			if (idElement === multipleButtonIn) {
+			if (idButton === 2) {
 				finalValues.push(optionValue);
 			} else {
 				const SelectedInValues = functions.parseFormElementsValues(boxIn.value, boxIn.options, boxIn.multiple);
@@ -94,7 +92,7 @@ const Multiple = props => {
 		for (let i = 0, l = boxOut.length; i < l; i++) {
 			const optionValue = functions.parseFormElementsValues(boxOut[i].value);
 
-			if (idElement === multipleButtonIn) {
+			if (idButton === 2) {
 				const SelectedOutValues = functions.parseFormElementsValues(boxOut.value, boxOut.options, boxOut.multiple);
 
 				if (SelectedOutValues.includes(optionValue)) {
@@ -109,11 +107,11 @@ const Multiple = props => {
 	};
 
 	return (
-		<div id={ id } className="multiple flex-md-row flex-column">
+		<div className="multiple flex-md-row flex-column">
 			<div className="multiple-box-out">
 				<Input type="select" id={ multipleBoxOut } size={ multipleBoxSize } multiple>
 					{
-						(Array.isArray(optionsData) && Array.isArray(optionsSelected)) ? (
+						(isArrayOptionsData && isArrayOptionsSelected) ? (
 							optionsData
 							.filter(
 								element => !optionsSelected.includes(element[optionsKeys.id])
@@ -130,15 +128,15 @@ const Multiple = props => {
 
 			<div className="multiple-buttons">
 				<ButtonGroup>
-					<Button type="button" id={ multipleButtonOut } size="sm" { ...checkButtonsProps(1) } onClick={ changeFormElements }><i className="fa fa-arrow-left"></i></Button>
-					<Button type="button" id={ multipleButtonIn } size="sm" { ...checkButtonsProps(2) } onClick={ changeFormElements }><i className="fa fa-arrow-right"></i></Button>
+					<Button type="button" size="sm" { ...checkButtonsProps(1) } onClick={ e => changeFormElements(1, e) }><i className="fa fa-arrow-left"></i></Button>
+					<Button type="button" size="sm" { ...checkButtonsProps(2) } onClick={ e => changeFormElements(2, e) }><i className="fa fa-arrow-right"></i></Button>
 				</ButtonGroup>
 			</div>
 
 			<div className="multiple-box-in">
 				<Input type="select" id={ multipleBoxIn } size={ multipleBoxSize } multiple>
 					{
-						(Array.isArray(optionsData) && Array.isArray(optionsSelected)) ? (
+						(isArrayOptionsData && isArrayOptionsSelected) ? (
 							optionsData
 							.filter(
 								element => optionsSelected.includes(element[optionsKeys.id])

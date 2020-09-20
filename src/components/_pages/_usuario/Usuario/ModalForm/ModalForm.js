@@ -108,13 +108,15 @@ const ModalForm = props => {
 	];
 
 	const initiateFormValidation = () => {
-		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 2
+		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 3
+	};
+
+	const executeFormValidation = () => {
+		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 3
 	};
 
 	const changeFormElements = e => {
 		e.preventDefault();
-
-		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
 
 		const element = e.currentTarget;
 		const { id, name } = element;
@@ -126,7 +128,7 @@ const ModalForm = props => {
 	const submitForm = e => {
 		e.preventDefault();
 
-		const formCheck = formValidator.setFormValidation(configFormValidation, true); // Formulario: 2 de 2
+		const formCheck = formValidator.setFormValidation(configFormValidation, true); // Formulario: 3 de 3 (ativa)
 
 		if (formCheck) {
 			setDataChange(
@@ -144,6 +146,10 @@ const ModalForm = props => {
 	useEffect(
 		initiateFormValidation,
 		[]
+	);
+
+	useEffect(
+		executeFormValidation
 	);
 
 	const { Component, dataReady, dataContent } = useDataGet(
@@ -239,7 +245,9 @@ const ModalForm = props => {
 					<Col md={ 12 }>
 						<FormGroup>
 							<Label for="perfis">Perfis selecionados</Label>
-							<Multiple optionsData={ data.options && data.options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
+							<div id="perfis" data-value={ formElements.perfis }>
+								<Multiple optionsData={ data.options && data.options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
+							</div>
 						</FormGroup>
 					</Col>
 				</Row>

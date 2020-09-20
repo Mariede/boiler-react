@@ -96,11 +96,11 @@ div.tooltip {
 }
 
 input.form-control, select.form-control, textarea.form-control {
-	font-size: 14px;
+	font-size: 15px;
 	color: #333;
 }
 
 input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
 	color: #000;
-	background-color: rgba(221, 221, 238, 0.3);
+	background-color: rgba(221, 221, 238, 0.1);
 }

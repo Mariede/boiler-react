@@ -50,13 +50,15 @@ const Logon = () => {
 	];
 
 	const initiateFormValidation = () => {
-		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 2
+		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 3
+	};
+
+	const executeFormValidation = () => {
+		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 3
 	};
 
 	const changeFormElements = e => {
 		e.preventDefault();
-
-		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 2
 
 		const { id, name, value } = e.currentTarget;
 
@@ -66,7 +68,7 @@ const Logon = () => {
 	const submitForm = e => {
 		e.preventDefault();
 
-		const formCheck = formValidator.setFormValidation(configFormValidation, true); // Formulario: 2 de 2
+		const formCheck = formValidator.setFormValidation(configFormValidation, true); // Formulario: 3 de 3 (ativa)
 
 		if (formCheck) {
 			setSubmit(true);
@@ -76,6 +78,10 @@ const Logon = () => {
 	useEffect(
 		initiateFormValidation,
 		[]
+	);
+
+	useEffect(
+		executeFormValidation
 	);
 
 	const { Component, goDataAction } = useDataChange(
