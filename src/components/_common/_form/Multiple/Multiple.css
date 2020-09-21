@@ -14,7 +14,7 @@
 
 .multiple select > option:disabled {
 	font-style: italic;
-	color: rgba(170, 170, 170, 0.4);
+	color: rgba(170, 170, 170, 0.6);
 }
 
 .multiple .multiple-buttons {

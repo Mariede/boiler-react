@@ -15,7 +15,7 @@ const functions = {
 		} else if (valueCheck === 'true' || valueCheck === 'false') {
 			return valueCheck === 'true';
 		} else if ((/^([+-]?\d+)(\.{1}\d+|())$/).test(valueCheck)) {
-			return Number(valueCheck, 10);
+			return Number(valueCheck);
 		}
 
 		return valueCheck;

@@ -123,7 +123,7 @@ const Multiple = props => {
 								element => !optionsSelected.includes(element[optionsKeys.id])
 							)
 							.map(
-								(element, index) => <option value={ element[optionsKeys.id] } key={ index }>{ element[optionsKeys.description] }</option>
+								(element, index) => <option value={ element[optionsKeys.id] } title={ element[optionsKeys.description] } key={ index }>{ element[optionsKeys.description] }</option>
 							)
 						) : (
 							null
@@ -149,7 +149,7 @@ const Multiple = props => {
 								element => optionsSelected.includes(element[optionsKeys.id])
 							)
 							.map(
-								(element, index) => <option value={ element[optionsKeys.id] } key={ index }>{ element[optionsKeys.description] }</option>
+								(element, index) => <option value={ element[optionsKeys.id] } title={ element[optionsKeys.description] } key={ index }>{ element[optionsKeys.description] }</option>
 							)
 						) : (
 							null
