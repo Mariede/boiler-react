@@ -23,6 +23,8 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 		- formId 		: identificador do formulario em children, apenas se existir children (submit === false)
 
+		- cbThen		: funcao que executa no then da acao - caso sucesso, apenas se existir
+
 		- setDataChange	: OBRIGATORIO, funcao de estado em parent que controla as propriedades do componente
 
 		- baseRoute		: OBRIGATORIO, rota base utilizada pelo AXIOS
@@ -36,25 +38,29 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 			-> obrigatorio existir um formId
 */
 const DataChange = props => {
-	const { submit, method, extraRoute, param, data, formId, setDataChange, baseRoute, catchHeader, url, children } = props;
+	const { submit, method, extraRoute, param, data, formId, cbThen, setDataChange, baseRoute, catchHeader, url, children } = props;
 
 	const ChildContent = children;
 
-	const { Component, goDataAction } = useDataChange(
-		{
-			method: method,
-			route: `${baseRoute + (param ? `/${param}` : '') + (extraRoute ? `${extraRoute}` : '')}`,
-			submit: submit,
-			cbSubmit: () => {
-				setDataChange(undefined);
-			},
-			data: data,
-			cbCatch: {
-				header: (catchHeader || 'Dados'),
-				type: 4
-			}
+	const objDataChange = {
+		method: method,
+		route: `${baseRoute + (param ? `/${param}` : '') + (extraRoute ? `${extraRoute}` : '')}`,
+		submit: submit,
+		cbSubmit: () => {
+			setDataChange(undefined);
+		},
+		data: data,
+		cbCatch: {
+			header: (catchHeader || 'Dados'),
+			type: 4
 		}
-	);
+	};
+
+	if (cbThen) {
+		objDataChange.cbThen = cbThen;
+	}
+
+	const { Component, goDataAction } = useDataChange(objDataChange);
 
 	useEffect(
 		() => {

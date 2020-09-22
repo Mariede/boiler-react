@@ -19,6 +19,22 @@ const functions = {
 		}
 
 		return valueCheck;
+	},
+	getArrayOnly (param, _prop) {
+	// Argumentos: param -> obj ou array de objs, prop -> string com . para propriedades aninhadas
+		const prop = String(_prop || '');
+
+		return (
+			Array.isArray(param) ? (
+				param.map(obj => prop.split('.').reduce((o, i) => o && o[i], obj))
+			) : (
+				param ? (
+					[prop.split('.').reduce((o, i) => o && o[i], param)]
+				) : (
+					[]
+				)
+			)
+		);
 	}
 };
 

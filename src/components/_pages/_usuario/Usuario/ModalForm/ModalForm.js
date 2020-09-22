@@ -22,7 +22,7 @@ const ModalForm = props => {
 			ativo: (data.ativo ? true : (data.ativo === false ? false : '')),
 			cep: (data.cep ? String(data.cep).padStart(8, '0') : ''), // Mascara no formulario
 			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : ''), // Mascara no formulario
-			perfis: (Array.isArray(data.perfis) ? data.perfis.map(perfil => perfil.id) : (data.perfis ? [data.perfis.id] : []))
+			perfis: functions.getArrayOnly(data.perfis, 'id')
 		}
 	);
 

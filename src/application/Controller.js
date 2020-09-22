@@ -7,7 +7,6 @@ import ContextUserData from 'components/_context/ContextUserData';
 const Controller = props => {
 	const { isLogged, isProtected, onlyNotLogged, children, location } = props;
 
-	const getUserData = useContext(ContextUserData).getUserData;
 	const setUserData = useContext(ContextUserData).setUserData;
 
 	const [Target, Logon, Home] = children;
@@ -24,17 +23,15 @@ const Controller = props => {
 			cbThen: res => {
 				const resDataLen = Object.keys(res.data).length;
 
-				if (resDataLen !== Object.keys(getUserData).length) {
-					setUserData((resDataLen ? JSON.stringify(res.data) : null));
+				setUserData((resDataLen ? JSON.stringify(res.data) : null));
+
+				if (resDataLen === 0) {
+					if (sessionStorage.getItem('is-logged') === 'true') {
+						sessionStorage.removeItem('is-logged');
+					}
 				} else {
-					if (resDataLen === 0) {
-						if (sessionStorage.getItem('is-logged') === 'true') {
-							sessionStorage.removeItem('is-logged');
-						}
-					} else {
-						if (sessionStorage.getItem('is-logged') !== 'true') {
-							sessionStorage.setItem('is-logged', 'true');
-						}
+					if (sessionStorage.getItem('is-logged') !== 'true') {
+						sessionStorage.setItem('is-logged', 'true');
 					}
 				}
 			},
