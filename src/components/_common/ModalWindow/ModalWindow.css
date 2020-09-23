@@ -9,6 +9,8 @@
 
 .modal-window .modal-body-local {
 	text-align: justify;
+	max-height: calc(100vh - 160px);
+	overflow-y: auto;
 }
 
 .modal-window .modal-footer-local {
