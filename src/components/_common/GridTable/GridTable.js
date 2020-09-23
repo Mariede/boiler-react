@@ -84,183 +84,175 @@ const GridTable = props => {
 	const extraClasses = (classes ? classes : { hover: true, striped: true });
 
 	return (
-		<Fragment>
-			{
-				recordset ? (
-					<Table className="grid-table" { ...extraClasses } responsive key={ dataReady }>
-						<thead>
-							<tr>
-								{
-									columns.map(
-										(column, index) => {
-											const title = column.title;
-											const jsonElement = (column.jsonElement || '');
-											const isSorted = column.isSorted === true;
+		recordset ? (
+			<Table className="grid-table" { ...extraClasses } responsive key={ dataReady }>
+				<thead>
+					<tr>
+						{
+							columns.map(
+								(column, index) => {
+									const title = column.title;
+									const jsonElement = (column.jsonElement || '');
+									const isSorted = column.isSorted === true;
 
-											const isReactElement = React.isValidElement(jsonElement);
+									const isReactElement = React.isValidElement(jsonElement);
 
-											return (
-												<th key={ index }>
-													{
-														title ? (
-															(isSorted && !isReactElement && recordset.length) ? (
-																<Sorter title={ title } sortElement={ jsonElement } url={ url } />
-															) : (
-																title
-															)
-														) : (
-															null
-														)
-													}
-												</th>
-											);
-										}
-									)
+									return (
+										<th key={ index }>
+											{
+												title ? (
+													(isSorted && !isReactElement && recordset.length) ? (
+														<Sorter title={ title } sortElement={ jsonElement } url={ url } />
+													) : (
+														title
+													)
+												) : (
+													null
+												)
+											}
+										</th>
+									);
 								}
-							</tr>
-							<tr className="spacer">
-								<td colSpan={ columns.length }>
-									<hr className="spacer-top" /></td>
-							</tr>
-						</thead>
-						<tbody>
-							{
-								(Array.isArray(recordset) && recordset.length) ? (
-									recordset.map(
-										(record, index1) => {
-											const recordId = record[rowId] || record.id || record[Object.keys(record)[0]];
+							)
+						}
+					</tr>
+					<tr className="spacer">
+						<td colSpan={ columns.length }>
+							<hr className="spacer-top" /></td>
+					</tr>
+				</thead>
+				<tbody>
+					{
+						(Array.isArray(recordset) && recordset.length) ? (
+							recordset.map(
+								(record, index1) => {
+									const recordId = record[rowId] || record.id || record[Object.keys(record)[0]];
 
-											return (
-												<tr id={ recordId } key={ index1 }>
-													{
-														columns.map(
-															(column, index2) => {
-																const jsonElement = (column.jsonElement || '');
-																const gridCallback = column.gridCallback;
-																const buttons = column.buttons;
-																const tdLayout = column.tdLayout;
+									return (
+										<tr id={ recordId } key={ index1 }>
+											{
+												columns.map(
+													(column, index2) => {
+														const jsonElement = (column.jsonElement || '');
+														const gridCallback = column.gridCallback;
+														const buttons = column.buttons;
+														const tdLayout = column.tdLayout;
 
-																const isReactElement = React.isValidElement(jsonElement);
+														const isReactElement = React.isValidElement(jsonElement);
 
-																const checkFirstForArray = !isReactElement ? (
-																	{
-																		first: record[jsonElement.split('.').slice(0, 1).pop()],
-																		last: jsonElement.split('.').slice(1).join('.')
-																	}
+														const checkFirstForArray = !isReactElement ? (
+															{
+																first: record[jsonElement.split('.').slice(0, 1).pop()],
+																last: jsonElement.split('.').slice(1).join('.')
+															}
+														) : (
+															undefined
+														);
+
+														const data = (
+															!isReactElement ? (
+																!Array.isArray(checkFirstForArray.first) ? (
+																	tdLayout && tdLayout.badges ? (
+																		<Badge color={ tdLayout.badges } pill>
+																			{ String(jsonElement.split('.').reduce((o, i) => o && o[i], record) || '') || (gridCallback ? jsonElement : '') }
+																		</Badge>
+																	) : (
+																		String(jsonElement.split('.').reduce((o, i) => o && o[i], record) || '') || (gridCallback ? jsonElement : '')
+																	)
 																) : (
-																	undefined
-																);
+																	checkFirstForArray.first.map(
+																		element => String(checkFirstForArray.last.split('.').reduce((o, i) => o && o[i], element) || '') || (gridCallback ? element : '')
+																	)
+																	.map(
+																		(element, index) => (tdLayout && tdLayout.badges ? <Badge color={ tdLayout.badges } pill key={ index }>{ element }</Badge> : <span className="array-data" key={ index }>{ element }</span>)
+																	)
+																)
+															) : (
+																tdLayout && tdLayout.badges ? (
+																	<Badge color={ tdLayout.badges } pill>
+																		{ jsonElement }
+																	</Badge>
+																) : (
+																	jsonElement
+																)
+															)
+														);
 
-																const data = (
-																	!isReactElement ? (
-																		!Array.isArray(checkFirstForArray.first) ? (
-																			tdLayout && tdLayout.badges ? (
-																				<Badge color={ tdLayout.badges } pill>
-																					{ String(jsonElement.split('.').reduce((o, i) => o && o[i], record) || '') || (gridCallback ? jsonElement : '') }
-																				</Badge>
-																			) : (
-																				String(jsonElement.split('.').reduce((o, i) => o && o[i], record) || '') || (gridCallback ? jsonElement : '')
-																			)
+														return (
+															<td key={ index2 } className={ tdLayout && (tdLayout.center ? 'td-center' : (tdLayout.right ? 'td-right' : '')) }>
+																{
+																	jsonElement ? (
+																		gridCallback ? (
+																			<GridButton id={ `btn-gb-${index1}${index2}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ index2 } />
 																		) : (
-																			checkFirstForArray.first.map(
-																				element => String(checkFirstForArray.last.split('.').reduce((o, i) => o && o[i], element) || '') || (gridCallback ? element : '')
-																			)
-																			.map(
-																				(element, index) => (tdLayout && tdLayout.badges ? <Badge color={ tdLayout.badges } pill key={ index }>{ element }</Badge> : <span className="array-data" key={ index }>{ element }</span>)
-																			)
+																			data
 																		)
 																	) : (
-																		tdLayout && tdLayout.badges ? (
-																			<Badge color={ tdLayout.badges } pill>
-																				{ jsonElement }
-																			</Badge>
+																		Array.isArray(buttons) && buttons.length !== 0 ? (
+																			<ButtonGroup>
+																				{
+																					buttons.map(
+																						(button, index3) => (
+																							<GridButton id={ `btn-gb-${index1}${index2}${index3}` } record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ index3 } />
+																						)
+																					)
+																				}
+																			</ButtonGroup>
 																		) : (
-																			jsonElement
+																			null
 																		)
 																	)
-																);
-
-																return (
-																	<td key={ index2 } className={ tdLayout && (tdLayout.center ? 'td-center' : (tdLayout.right ? 'td-right' : '')) }>
-																		{
-																			jsonElement ? (
-																				gridCallback ? (
-																					<GridButton id={ `btn-gb-${index1}${index2}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ index2 } />
-																				) : (
-																					data
-																				)
-																			) : (
-																				Array.isArray(buttons) && buttons.length !== 0 ? (
-																					<ButtonGroup>
-																						{
-																							buttons.map(
-																								(button, index3) => (
-																									<GridButton id={ `btn-gb-${index1}${index2}${index3}` } record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ index3 } />
-																								)
-																							)
-																						}
-																					</ButtonGroup>
-																				) : (
-																					null
-																				)
-																			)
-																		}
-																	</td>
-																);
-															}
-														)
+																}
+															</td>
+														);
 													}
-												</tr>
-											);
-										}
-									)
-								) : (
-									<tr>
-										<td className="not-found" colSpan={ columns.length }>
-											Dados não encontrados...</td>
-									</tr>
-								)
-							}
-							<tr className="spacer">
-								<td colSpan={ columns.length }>
-									<hr className="spacer-bottom" /></td>
-							</tr>
-						</tbody>
-						<tfoot>
+												)
+											}
+										</tr>
+									);
+								}
+							)
+						) : (
 							<tr>
-								<td colSpan={ columns.length }>
-									{
-										pageDetails ? (
-											<Paginator pageDetails={ pageDetails } url={ url } />
+								<td className="not-found" colSpan={ columns.length }>
+									Dados não encontrados...</td>
+							</tr>
+						)
+					}
+					<tr className="spacer">
+						<td colSpan={ columns.length }>
+							<hr className="spacer-bottom" /></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colSpan={ columns.length }>
+							{
+								pageDetails ? (
+									<Paginator pageDetails={ pageDetails } url={ url } />
+								) : (
+									recordset.length ? (
+										recordset.length === 1 ? (
+											<Fragment>
+												Exibindo <strong>{ recordset.length }</strong> registro
+											</Fragment>
 										) : (
 											<Fragment>
-												{
-													recordset.length ? (
-														recordset.length === 1 ? (
-															<Fragment>
-																Exibindo <strong>{ recordset.length }</strong> registro
-															</Fragment>
-														) : (
-															<Fragment>
-																Exibindo <strong>{ recordset.length }</strong> registros
-															</Fragment>
-														)
-													) : (
-														null
-													)
-												}
+												Exibindo <strong>{ recordset.length }</strong> registros
 											</Fragment>
 										)
-									}
-								</td>
-							</tr>
-						</tfoot>
-					</Table>
-				) : (
-					null
-				)
-			}
-		</Fragment>
+									) : (
+										null
+									)
+								)
+							}
+						</td>
+					</tr>
+				</tfoot>
+			</Table>
+		) : (
+			null
+		)
 	);
 };
 

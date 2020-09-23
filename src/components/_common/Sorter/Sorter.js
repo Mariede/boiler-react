@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { UncontrolledTooltip } from 'reactstrap';
@@ -114,26 +114,22 @@ const Sorter = props => {
 	);
 
 	return (
-		<Fragment>
-			{
-				newSortedPage ? (
-					<Redirect to={ newSortedPage } />
-				) : (
-					<div className="sorter">
-						<span className="sorter-column" id={ `sorter-${sorterId}` } onClick={ sortPage }>
-							{ title }
+		newSortedPage ? (
+			<Redirect to={ newSortedPage } />
+		) : (
+			<div className="sorter">
+				<span className="sorter-column" id={ `sorter-${sorterId}` } onClick={ sortPage }>
+					{ title }
 
-							{ sorterElement }
+					{ sorterElement }
 
-						</span>
+				</span>
 
-						<UncontrolledTooltip placement="top" target={ `sorter-${sorterId}` } trigger="hover">
-							Segure CTRL para ordenar vários<br />Segure ALT para reiniciar
-						</UncontrolledTooltip>
-					</div>
-				)
-			}
-		</Fragment>
+				<UncontrolledTooltip placement="top" target={ `sorter-${sorterId}` } trigger="hover">
+					Segure CTRL para ordenar vários<br />Segure ALT para reiniciar
+				</UncontrolledTooltip>
+			</div>
+		)
 	);
 };
 

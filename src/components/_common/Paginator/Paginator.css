@@ -3,31 +3,31 @@
 	flex-wrap: wrap;
 }
 
-.pagination {
+.pagination-main .pagination {
 	margin-bottom: 0px;
 	font: 8px Helvetica;
 }
 
-.pagination > .break {
+.pagination-main .pagination > .break {
 	display: flex;
 	align-items: center;
 	padding: 0px 5px;
 }
 
-.pagination > .active > a {
-	color: #fff !important;
-	background-color: #07d !important;
-	border: 1px solid #07d !important;
+.pagination-main .pagination > .active > a {
+	color: #fff;
+	background-color: #07d;
+	border: 1px solid #07d;
 }
 
-.pagination-select {
-	color: #07d !important;
-	font: 12px Helvetica !important;
-	width: 170px !important;
-	border-color: #dee2e6 !important;
+.pagination-main .pagination-select {
+	color: #07d;
+	font: 12px Helvetica;
+	width: 170px;
+	border-color: #dee2e6;
 }
 
-.pagination-select:hover {
+.pagination-main .pagination-select:hover {
 	background-color: #e9ecef;
 	cursor: pointer;
 }
