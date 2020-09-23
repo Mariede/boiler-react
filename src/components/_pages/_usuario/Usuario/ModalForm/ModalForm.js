@@ -22,6 +22,7 @@ const ModalForm = props => {
 			ativo: (data.ativo ? true : (data.ativo === false ? false : '')),
 			cep: (data.cep ? String(data.cep).padStart(8, '0') : ''), // Mascara no formulario
 			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : ''), // Mascara no formulario
+			detalhes: data.detalhes || '',
 			perfis: functions.getArrayOnly(data.perfis, 'id')
 		}
 	);
@@ -92,6 +93,16 @@ const ModalForm = props => {
 			rules: [
 				{
 					rule: 'isCpf'
+				}
+			]
+		},
+		{
+			id: 'detalhes',
+			optional: true,
+			rules: [
+				{
+					rule: 'lenRange',
+					extraParams: [5, 8000]
 				}
 			]
 		},
@@ -237,6 +248,15 @@ const ModalForm = props => {
 						<FormGroup>
 							<Label for="cpf">CPF</Label>
 							<Input type="text" value={ formElements.cpf } id="cpf" onChange={ changeFormElements } mask="999.999.999-99" maskChar=" " tag={ InputMask } />
+						</FormGroup>
+					</Col>
+				</Row>
+
+				<Row form>
+					<Col md={ 12 }>
+						<FormGroup>
+							<Label for="detalhes">Detalhes</Label>
+							<Input type="textarea" value={ formElements.detalhes } rows="6" id="detalhes" onChange={ changeFormElements } />
 						</FormGroup>
 					</Col>
 				</Row>

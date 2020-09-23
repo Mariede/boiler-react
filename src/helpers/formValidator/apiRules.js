@@ -32,6 +32,11 @@ Formato de configFormValidation na pagina de origem (exemplo Logon.js)
 						rule: 'ruleName2',
 						message: 'SpecificErrorMessageToShow'
 					},
+					{
+						rule: 'ruleName3',
+						message: 'AnotherSpecificErrorMessageToShow',
+						extraParams: [10, 8000]
+					},
 					...
 				]
 			},
@@ -81,6 +86,16 @@ const apiRules = [
 		validatorFunction: validator.isInteger,
 		extraParams: [false],
 		defaultMessage: 'Valor inválido'
+	},
+	{
+		name: 'isEqual', // Depende de extraParams local
+		validatorFunction: validator.equal,
+		defaultMessage: 'Valores não são iguais'
+	},
+	{
+		name: 'lenRange', // Depende de extraParams local
+		validatorFunction: validator.lenRange,
+		defaultMessage: 'Valor não se encontra dentro do intervalo solicitado'
 	}
 ];
 

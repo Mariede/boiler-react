@@ -266,8 +266,8 @@ const formValidator = {
 							if (!elOptional || elValue !== '') {
 								Array.from(blockElement.rules).forEach(
 									e => {
-										const setRule = (ruleName, ruleResult, ruleDefaultMessage) => {
-											if (e.rule === ruleName && isValid) {
+										const setRule = (ruleResult, ruleDefaultMessage) => {
+											if (isValid) {
 												isValid = ruleResult;
 
 												if (!isValid) {
@@ -279,16 +279,28 @@ const formValidator = {
 										// Engine --------------------------------------------------------------------------------------
 										apiRules.forEach(
 											rule => {
-												const extraParams = (Array.isArray(rule.extraParams) ? rule.extraParams : []);
-												const result = rule.validatorFunction(elValue, ...extraParams);
-												const negateResult = (rule.negateResult || false);
-												const defaultMessage = (rule.defaultMessage || _setConfig.defaultMessage);
+												if (e.rule === rule.name) {
+													const extraParams = (
+														Array.isArray(rule.extraParams) ? (
+															rule.extraParams
+														) : (
+															Array.isArray(e.extraParams) ? (
+																e.extraParams
+															) : (
+																[]
+															)
+														)
+													);
 
-												setRule(
-													rule.name,
-													(negateResult ? !result : result),
-													defaultMessage
-												);
+													const result = rule.validatorFunction(elValue, ...extraParams);
+													const negateResult = (rule.negateResult || false);
+													const defaultMessage = (rule.defaultMessage || _setConfig.defaultMessage);
+
+													setRule(
+														(negateResult ? !result : result),
+														defaultMessage
+													);
+												}
 											}
 										);
 										// ---------------------------------------------------------------------------------------------
