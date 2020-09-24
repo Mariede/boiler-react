@@ -39,7 +39,7 @@ const LoggedContent = () => {
 		return showName;
 	};
 
-	const logoutApp = e => {
+	const logoffApp = e => {
 		e.preventDefault();
 		setSubmit(true);
 	};
@@ -47,7 +47,7 @@ const LoggedContent = () => {
 	const { Component, goDataAction } = useDataChange(
 		{
 			method: 'POST',
-			route: '/logout',
+			route: '/logoff',
 			submit: submit,
 			cbSubmit: () => {
 				setSubmit(false);
@@ -56,10 +56,10 @@ const LoggedContent = () => {
 				sessionStorage.removeItem('current-path');
 			},
 			cbCatch: {
-				header: 'Logout',
+				header: 'Logoff',
 				type: 4
 			},
-			message: 'Efetuando logout...'
+			message: 'Efetuando logoff...'
 		}
 	);
 
@@ -98,7 +98,7 @@ const LoggedContent = () => {
 							<strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
 						</span>
 
-						<Alert buttonType="button" buttonSize="sm" buttonColor="danger" buttonText="Sair" modalTitle="Logout" modalMessage="Deseja realmente sair do sistema?" modalCallback={ logoutApp } modalConfirm />
+						<Alert buttonType="button" buttonSize="sm" buttonColor="danger" buttonText="Sair" modalTitle="Logoff" modalMessage="Deseja realmente sair do sistema?" modalCallback={ logoffApp } modalConfirm />
 					</div>
 				)
 			}
