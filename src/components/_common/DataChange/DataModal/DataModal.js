@@ -31,7 +31,7 @@ const DataModal = props => {
 	);
 
 	return (
-		<ModalWindow modalTitle={ `Registro ${param ? ` ${param}` : ''}` } modalMessage={ <ChildContent data={ (data || {}) } setDataChange={ setDataChange } /> } modalCallbackPlanB={ modalCallbackPlanB } modalFormSubmitID={ formId } modalShow={ true } modalConfirm modalCentered key={ renderCount.current } />
+		<ModalWindow modalTitle={ `Registro ${param ? ` ${param}` : ''}` } modalMessage={ <ChildContent param={ param } data={ (data || {}) } setDataChange={ setDataChange } /> } modalCallbackPlanB={ modalCallbackPlanB } modalFormSubmitID={ formId } modalShow={ true } modalConfirm modalCentered key={ renderCount.current } />
 	);
 };
 

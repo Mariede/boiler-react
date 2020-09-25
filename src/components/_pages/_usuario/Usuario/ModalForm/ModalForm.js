@@ -5,6 +5,7 @@ import { Row, Col } from 'reactstrap';
 
 import InputMask from 'react-input-mask';
 import Multiple from 'components/_common/_form/Multiple';
+import InputPass from 'components/_common/_form/InputPass';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
@@ -12,7 +13,7 @@ import formValidator from 'helpers/formValidator';
 import functions from 'helpers/functions';
 
 const ModalForm = props => {
-	const { data, setDataChange } = props;
+	const { param, data, setDataChange } = props;
 
 	const [formElements, handleFormElements] = useState(
 		{
@@ -23,7 +24,9 @@ const ModalForm = props => {
 			cep: (data.cep ? String(data.cep).padStart(8, '0') : ''), // Mascara no formulario
 			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : ''), // Mascara no formulario
 			detalhes: data.detalhes || '',
-			perfis: functions.getArrayOnly(data.perfis, 'id')
+			perfis: functions.getArrayOnly(data.perfis, 'id'),
+			senha: '',
+			senhaCheck: ''
 		}
 	);
 
@@ -33,7 +36,8 @@ const ModalForm = props => {
 			optional: false,
 			rules: [
 				{
-					rule: 'isNotEmpty'
+					rule: 'isNotEmpty',
+					message: 'Nome não preenchido'
 				},
 				{
 					rule: 'isCompleteName'
@@ -45,7 +49,8 @@ const ModalForm = props => {
 			optional: false,
 			rules: [
 				{
-					rule: 'isNotEmpty'
+					rule: 'isNotEmpty',
+					message: 'E-mail não preenchido'
 				},
 				{
 					rule: 'isEmail'
@@ -102,6 +107,7 @@ const ModalForm = props => {
 			rules: [
 				{
 					rule: 'lenRange',
+					message: 'Detalhes deve conter entre 5 e 8000 caracteres',
 					extraParams: [5, 8000]
 				}
 			]
@@ -113,6 +119,31 @@ const ModalForm = props => {
 				{
 					rule: 'isNotEmpty',
 					message: 'Nenhum perfil selecionado'
+				}
+			]
+		},
+		{
+			id: 'senha',
+			optional: false,
+			rules: [
+				{
+					rule: 'isNotEmpty',
+					message: 'Senha não preenchida'
+				}
+			]
+		},
+		{
+			id: 'senhaCheck',
+			optional: false,
+			rules: [
+				{
+					rule: 'isNotEmpty',
+					message: 'Confirmação de senha não preenchida'
+				},
+				{
+					rule: 'isEqual',
+					message: 'Confirmação de senha não confere',
+					extraParams: [formElements.senha]
 				}
 			]
 		}
@@ -271,6 +302,33 @@ const ModalForm = props => {
 						</FormGroup>
 					</Col>
 				</Row>
+
+				{
+					!param ? (
+						<Fragment>
+							<hr className="global-form-divider" />
+
+							<Row form>
+								<Col md={ 6 }>
+									<FormGroup>
+										<Label for="senha">Senha</Label>
+										<Input type="password" value={ formElements.senha } id="senha" maxLength="20" onChange={ changeFormElements } />
+									</FormGroup>
+								</Col>
+								<Col md={ 6 }>
+									<FormGroup>
+										<Label for="senhaCheck">Confirma senha</Label>
+										<InputPass value={ formElements.senhaCheck } id="senhaCheck" maxLength="20" onChange={ changeFormElements } />
+									</FormGroup>
+								</Col>
+							</Row>
+						</Fragment>
+					) : (
+						null
+					)
+				}
+
+				<hr className="global-form-divider" />
 			</Form>
 		</Fragment>
 	);

@@ -64,6 +64,26 @@ a:not([type="button"]):active, button.btn-link:active {
 	color: #fff;
 }
 
+/* classes globais */
+
+/* global: divisor de linhas no form */
+hr.global-form-divider {
+	border: none;
+	height: 1px;
+	margin: 0px 0px 16px 0px;
+	background: -moz-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%, rgba(187, 204, 221, 0.1) 100%);
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
+	background: radial-gradient(ellipse at center, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
+}
+
+/* global: bootstrap apenas para casos onde form-text (reactstrap FormText) logo apos form-group */
+.form-text.global-outside-group {
+	margin-top: -12px;
+	margin-bottom: 16px;
+}
+
 /* alteracoes layout padrao bootstrap */
 *[tabindex]:focus, button:focus {
 	outline: none;
@@ -75,12 +95,6 @@ button.btn-link:focus {
 
 .form-check > .form-check-label {
 	line-height: 24px;
-}
-
-/* apenas para casos onde form-text (reactstrap FormText) logo apos form-group */
-.form-text.outside-group {
-	margin-top: -12px;
-	margin-bottom: 16px;
 }
 
 button {

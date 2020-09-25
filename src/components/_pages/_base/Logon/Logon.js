@@ -19,7 +19,7 @@ const Logon = () => {
 	const [formElements, handleFormElements] = useState(
 		{
 			login: '',
-			pass: ''
+			senha: ''
 		}
 	);
 
@@ -38,7 +38,7 @@ const Logon = () => {
 			]
 		},
 		{
-			id: 'pass',
+			id: 'senha',
 			optional: false,
 			rules: [
 				{
@@ -94,7 +94,7 @@ const Logon = () => {
 			},
 			data: {
 				login: formElements.login,
-				pass: formElements.pass
+				senha: formElements.senha
 			},
 			cbCatch: {
 				header: 'Logon',
@@ -121,21 +121,21 @@ const Logon = () => {
 											<Label for="login">Usuário</Label>
 											<Input type="text" value={ formElements.login } id="login" maxLength="200" placeholder="seu@email" onChange={ changeFormElements } />
 										</FormGroup>
-										<FormText className="outside-group">Insira seu usuário aqui.</FormText>
+										<FormText className="global-outside-group">Insira seu usuário aqui.</FormText>
 									</Col>
 								</Row>
 
 								<Row form>
 									<Col md={ 12 }>
 										<FormGroup>
-											<Label for="pass">Senha</Label>
-											<InputPass value={ formElements.pass } id="pass" maxLength="20" placeholder="S3nh4" onChange={ changeFormElements } />
+											<Label for="senha">Senha</Label>
+											<InputPass value={ formElements.senha } id="senha" maxLength="20" placeholder="S3nh4" onChange={ changeFormElements } />
 										</FormGroup>
-										<FormText className="outside-group">Insira sua senha aqui.</FormText>
+										<FormText className="global-outside-group">Insira sua senha aqui.</FormText>
 									</Col>
 								</Row>
 
-								<hr />
+								<hr className="global-form-divider" />
 
 								<Row form>
 									<Col md={ 12 }>
