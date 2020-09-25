@@ -1,7 +1,7 @@
 .notify {
-	position: absolute;
+	position: fixed;
 	margin: 0px 5px;
-	top: 70px;
+	top: 10vh;
 	right: 0px;
 	z-index: 1998;
 	text-align: justify;
