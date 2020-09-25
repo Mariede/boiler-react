@@ -65,17 +65,34 @@ a:not([type="button"]):active, button.btn-link:active {
 }
 
 /* classes globais */
-
-/* global: divisor de linhas no form */
-hr.global-form-divider {
+hr.global-line {
 	border: none;
 	height: 1px;
-	margin: 0px 0px 16px 0px;
 	background: -moz-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%, rgba(187, 204, 221, 0.1) 100%);
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
 	background: -o-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
 	background: -ms-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
 	background: radial-gradient(ellipse at center, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
+}
+
+/* global: divisor de linhas quando dentro do formulario */
+hr.global-form-divider {
+	margin-top: 0px;
+}
+
+/* global: header para formularios */
+div.global-form-header {
+	font-size: 16px;
+	font-weight: bold;
+	font-style: italic;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	background-color: rgba(187, 204, 221, 0.8);
+	border-radius: 4px;
+	padding: 10px;
+	margin-bottom: 16px;
+	border-bottom: 1px solid #ced4da;
+	box-shadow: 0 5px 15px rgba(187, 204, 221, 0.6);
 }
 
 /* global: bootstrap apenas para casos onde form-text (reactstrap FormText) logo apos form-group */

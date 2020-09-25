@@ -213,6 +213,10 @@ const ModalForm = props => {
 		<Fragment>
 			{ Component }
 			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off">
+				<div className="global-form-header">
+					Dados Gerais
+				</div>
+
 				<Row form>
 					<Col md={ 12 }>
 						<FormGroup>
@@ -306,7 +310,9 @@ const ModalForm = props => {
 				{
 					!param ? (
 						<Fragment>
-							<hr className="global-form-divider" />
+							<div className="global-form-header">
+								Senha
+							</div>
 
 							<Row form>
 								<Col md={ 6 }>
@@ -328,7 +334,7 @@ const ModalForm = props => {
 					)
 				}
 
-				<hr className="global-form-divider" />
+				<hr className="global-line global-form-divider" />
 			</Form>
 		</Fragment>
 	);

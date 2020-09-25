@@ -3,7 +3,7 @@
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-around;
-	padding: 6px 12px;
+	padding: 0px 16px;
 }
 
 .multiple select {
@@ -14,7 +14,7 @@
 
 .multiple select > option:disabled {
 	font-style: italic;
-	color: rgba(170, 170, 170, 0.6);
+	color: rgba(100, 100, 100, 0.4);
 }
 
 .multiple .multiple-buttons {

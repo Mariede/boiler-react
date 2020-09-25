@@ -29,7 +29,7 @@ const NotFound = props => {
 					Página não encontrada
 				</div>
 
-				<hr />
+				<hr className="global-line" />
 
 				<Row form>
 					<Col md={ 6 }>

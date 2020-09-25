@@ -135,7 +135,7 @@ const Logon = () => {
 									</Col>
 								</Row>
 
-								<hr className="global-form-divider" />
+								<hr className="global-line global-form-divider" />
 
 								<Row form>
 									<Col md={ 12 }>

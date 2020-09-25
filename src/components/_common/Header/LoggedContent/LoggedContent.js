@@ -77,7 +77,7 @@ const LoggedContent = () => {
 
 								<div className="logged-user-profile-data">
 									Perfis associados
-									<hr />
+									<hr className="global-line" />
 									{
 										(Array.isArray(getUserData.perfis) && getUserData.perfis.length > 0) ? (
 											getUserData.perfis.map(
@@ -91,7 +91,7 @@ const LoggedContent = () => {
 											<span className="not-found"><i className="fa fa-ban"></i> Nenhum perfil informado</span>
 										)
 									}
-									<hr/>
+									<hr className="global-line" />
 								</div>
 							</span>
 
