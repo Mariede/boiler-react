@@ -92,7 +92,7 @@ div.global-form-header {
 	padding: 10px;
 	margin-bottom: 16px;
 	border-bottom: 1px solid #ced4da;
-	box-shadow: 0 5px 15px rgba(187, 204, 221, 0.6);
+	box-shadow: 0 2px 4px rgba(187, 204, 221, 0.6);
 }
 
 /* global: bootstrap apenas para casos onde form-text (reactstrap FormText) logo apos form-group */

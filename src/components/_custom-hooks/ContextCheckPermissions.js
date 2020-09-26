@@ -4,10 +4,12 @@ import ContextUserData from 'components/_context/ContextUserData';
 
 /*
 	PROPS
-		allowedPermissions	-> Identificadores das permissoes permitidas em formato de array. Obrigatorio
+		allowedPermissions	-> Identificadores das permissoes permitidas, em formato de array
 		children			-> Contem os elementos JSX a serem exibidos
 			-> ChildContentPermittted		: Exibido caso conteudo permitido (opcional)
 			-> ChildContentNotPermittted	: Exibido caso conteudo permitido (opcional)
+
+	** Validacao case insensitive
 */
 const ContextCheckPermissions = props => {
 	const { allowedPermissions, children } = props;
@@ -30,12 +32,15 @@ const ContextCheckPermissions = props => {
 
 	const getUserData = useContext(ContextUserData).getUserData;
 
-	const permitted = Array.isArray(allowedPermissions) ? (
-		getUserData.funcoes.some(
-			_f => allowedPermissions.includes(_f)
-		)
-	) : (
-		false
+	const userPermissions = getUserData && getUserData.funcoes;
+
+	// Se string: para maiusculo na validacao
+	const _allowedPermissions = (Array.isArray(allowedPermissions) ? (allowedPermissions.map(_p => (typeof _p === 'string' ? _p.toUpperCase() : _p))) : []);
+	const _userPermissions = (Array.isArray(userPermissions) ? (userPermissions.map(_p => (typeof _p === 'string' ? _p.toUpperCase() : _p))) : []);
+
+	// Valida permissao
+	const permitted = _allowedPermissions.some(
+		_p => _userPermissions.includes(_p)
 	);
 
 	return (
