@@ -38,6 +38,8 @@ npm run build
     + Com regras acopladas da mesma lib **validator** utilizada no template boiler-server
     + Permite campos e mensagens opcionais
     + Permite validação a partir de eventos variados
+  - functions => funcoes gerais js de ajuda
+  - errWrapper => catcher para manipulação de erros assíncronos
 
 ## Componentes Gerais
   - ModalWindow (modais diversos com estrutura configurável e callback)
@@ -59,6 +61,11 @@ npm run build
   - Cabeçalhos
   - Página 404 "Não Encontrado"
   - Home / Logon / Logout
+
+## Custom Hooks
+  - Hooks personalizados para automatizar tarefas repetitivas
+    + Acesso a lib axios (GET, POST, PUT, DELETE, ...)
+    + Validação de permissões de acesso do usuário logado
 
 ## Estrutura das pastas da aplicação
   - application
