@@ -4,16 +4,23 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
 import InputMask from 'react-input-mask';
+
 import Multiple from 'components/_common/_form/Multiple';
 import InputPass from 'components/_common/_form/InputPass';
-
-import useDataGet from 'components/_custom-hooks/useDataGet';
+import DataGet from 'components/_common/DataGet';
 
 import formValidator from 'helpers/formValidator';
 import functions from 'helpers/functions';
 
 const ModalForm = props => {
 	const { param, data, setDataChange } = props;
+
+	const [dataGet, setDataGet] = useState(
+		{
+			ready: false,
+			content: null
+		}
+	);
 
 	const [formElements, handleFormElements] = useState(
 		{
@@ -194,25 +201,25 @@ const ModalForm = props => {
 		executeFormValidation
 	);
 
-	const { Component, dataReady, dataContent } = useDataGet(
-		{
-			route: '/usuario/options',
-			goReady: data.options,
-			cbCatch: {
-				header: 'Opções',
-				type: 4
-			}
-		}
-	);
-
-	if (dataReady && dataContent) {
-		data.options = dataContent;
-	}
-
 	return (
 		<Fragment>
-			{ Component }
-			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off">
+			<DataGet
+				goReady={ data.options }
+				cbThen= {
+					res => {
+						data.options = res.data; // Atalho para dados das opcoes
+					}
+				}
+				setDataGet={ setDataGet }
+				baseRoute="/usuario/options"
+				cbCatch={
+					{
+						header: 'Opções'
+					}
+				}
+			/>
+
+			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off" key={ dataGet.ready }>
 				<div className="global-form-header">
 					Dados Gerais
 				</div>
@@ -300,7 +307,7 @@ const ModalForm = props => {
 					<Col md={ 12 }>
 						<FormGroup>
 							<Label for="perfis">Perfis</Label>
-							<div id="perfis" data-value={ formElements.perfis }>
+							<div id="perfis" data-value={ data.options && formElements.perfis }>
 								<Multiple optionsData={ data.options && data.options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
 							</div>
 						</FormGroup>

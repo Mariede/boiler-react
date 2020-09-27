@@ -4,17 +4,23 @@ import { Button } from 'reactstrap';
 
 import MainContent from 'components/_common/MainContent';
 import GridTable from 'components/_common/GridTable';
+import DataGet from 'components/_common/DataGet';
 import DataChange from 'components/_common/DataChange';
 import ModalWindow from 'components/_common/ModalWindow'; // Saiba mais
 
 import ModalForm from './ModalForm';
 
-import useDataGet from 'components/_custom-hooks/useDataGet';
-
 import './Usuario.css';
 
 const Usuario = props => {
 	const { match, location } = props;
+
+	const [dataGet, setDataGet] = useState(
+		{
+			ready: false,
+			content: null
+		}
+	);
 
 	const [dataChange, setDataChange] = useState(undefined);
 
@@ -32,22 +38,6 @@ const Usuario = props => {
 	const currentPath = location.pathname;
 	const currentSearch = location.search;
 	const urlParams = new URLSearchParams(currentSearch);
-
-	const { Component, dataReady, dataContent } = useDataGet(
-		{
-			route: `/usuario${paramId ? `/${paramId}` : ''}`,
-			currentKey: currentKey,
-			params: {
-				page: (urlParams.get('page') || 1),
-				items_per_page: urlParams.get('items_per_page'),
-				sort_fields: urlParams.get('sort_fields')
-			},
-			cbCatch: {
-				header: 'Usuário',
-				type: 4
-			}
-		}
-	);
 
 	const getRowId = (e, target) => {
 		const rowId = target ? (
@@ -81,7 +71,7 @@ const Usuario = props => {
 			const rowId = getRowId(e, target);
 
 			const rowData = (
-				dataContent.recordset.filter(
+				dataGet.content.recordset.filter(
 					record => record.idUsuario === rowId
 				)
 			);
@@ -115,7 +105,7 @@ const Usuario = props => {
 			const rowId = getRowId(e, target);
 
 			const rowData = (
-				dataContent.recordset.filter(
+				dataGet.content.recordset.filter(
 					record => record.idUsuario === rowId
 				)
 			);
@@ -148,7 +138,24 @@ const Usuario = props => {
 
 	return (
 		<Fragment>
-			{ Component }
+			<DataGet
+				currentKey={ currentKey }
+				param={ paramId }
+				params={
+					{
+						page: (urlParams.get('page') || 1),
+						items_per_page: urlParams.get('items_per_page'),
+						sort_fields: urlParams.get('sort_fields')
+					}
+				}
+				setDataGet={ setDataGet }
+				baseRoute="/usuario"
+				cbCatch={
+					{
+						header: 'Usuário'
+					}
+				}
+			/>
 
 			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" cbCatch={ { header: 'Usuário' } } url={ currentPath + currentSearch }>
 				{ ModalForm }
@@ -164,7 +171,7 @@ const Usuario = props => {
 						</Button>
 					</div>
 
-					<GridTable dataReady={ dataReady } dataContent={ dataContent } url={ { currentPath, currentSearch } } rowId="idUsuario"
+					<GridTable dataReady={ dataGet.ready } dataContent={ dataGet.content } url={ { currentPath, currentSearch } } rowId="idUsuario"
 						columns={
 							[
 								{ title: '#', jsonElement: 'idUsuario' },
