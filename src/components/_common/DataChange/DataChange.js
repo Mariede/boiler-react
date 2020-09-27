@@ -11,7 +11,7 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 	PROPS:
 		- submit		: OBRIGATORIO, se true executa acao de transformacao nos dados (POST/PUT/PATCH/DELETE)
-			-> se false abre tela de apoio para insert/update (geralmente Modal)
+			-> se false (e ChildContent e formId) abre tela Modal de apoio para insert/update
 
 		- method		: OBRIGATORIO, verbo utilizado pelo AXIOS
 
@@ -21,9 +21,13 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 		- data			: dados do corpo da requisicao, se existirem
 
+		- headers		: configuracoes extras da rota: headers personalizados, se existirem
+
 		- formId 		: identificador do formulario em children, apenas se existir children (submit === false)
 
 		- cbThen		: funcao que executa no then da acao - caso sucesso, apenas se existir
+
+		- message		: mensagem do componente de loading, opcional
 
 		- setDataChange	: OBRIGATORIO, funcao de estado em parent que controla as propriedades do componente
 
@@ -38,29 +42,28 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 			-> obrigatorio existir um formId
 */
 const DataChange = props => {
-	const { submit, method, extraRoute, param, data, formId, cbThen, setDataChange, baseRoute, catchHeader, url, children } = props;
+	const { submit, method, extraRoute, param, data, headers, formId, cbThen, message, setDataChange, baseRoute, catchHeader, url, children } = props;
 
 	const ChildContent = children;
 
-	const objDataChange = {
-		method: method,
-		route: `${baseRoute + (param ? `/${param}` : '') + (extraRoute ? `${extraRoute}` : '')}`,
-		submit: submit,
-		cbSubmit: () => {
-			setDataChange(undefined);
-		},
-		data: data,
-		cbCatch: {
-			header: (catchHeader || 'Dados'),
-			type: 4
+	const { Component, goDataAction } = useDataChange(
+		{
+			method: method,
+			route: `${baseRoute + (param ? `/${param}` : '') + (extraRoute ? `${extraRoute}` : '')}`,
+			submit: submit,
+			cbSubmit: () => {
+				setDataChange(undefined);
+			},
+			data: data,
+			headers: headers,
+			cbThen: cbThen,
+			cbCatch: {
+				header: (catchHeader || 'Dados'),
+				type: 4
+			},
+			message: message
 		}
-	};
-
-	if (cbThen) {
-		objDataChange.cbThen = cbThen;
-	}
-
-	const { Component, goDataAction } = useDataChange(objDataChange);
+	);
 
 	useEffect(
 		() => {
@@ -76,7 +79,7 @@ const DataChange = props => {
 			{ Component }
 			{
 				goDataAction ? (
-					<Redirect to={ `${url.currentPath + url.currentSearch}` } />
+					<Redirect to={ url } />
 				) : (
 					submit === false ? (
 						(ChildContent && formId) ? (

@@ -45,7 +45,7 @@ const useDataChange = props => {
 					method: method,
 					url: getUrl + route,
 					data: (typeof data === 'string' ? data : { ...data }),
-					headers: (headers || {})
+					headers: { ...headers }
 				}
 			)
 			.then(

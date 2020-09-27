@@ -150,7 +150,7 @@ const Usuario = props => {
 		<Fragment>
 			{ Component }
 
-			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" catchHeader="Usuario" url={ { currentPath, currentSearch } }>
+			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" catchHeader="Usuario" url={ currentPath + currentSearch }>
 				{ ModalForm }
 			</DataChange>
 
