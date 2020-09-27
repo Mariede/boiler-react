@@ -201,13 +201,16 @@ const ModalForm = props => {
 		executeFormValidation
 	);
 
+	// Define as opcoes do Modal (DataGet) - nao executa DataGet se as opcoes ja vierem via props
+	const options = (data.options || dataGet.content);
+
 	return (
 		<Fragment>
 			<DataGet
 				goReady={ data.options }
 				cbThen= {
 					res => {
-						data.options = res.data; // Atalho para dados das opcoes
+						data.options = res.data; // Atalho para dados das opcoes (data.options === dataGet.content)
 					}
 				}
 				setDataGet={ setDataGet }
@@ -219,7 +222,7 @@ const ModalForm = props => {
 				}
 			/>
 
-			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off" key={ dataGet.ready }>
+			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off">
 				<div className="global-form-header">
 					Dados Gerais
 				</div>
@@ -249,8 +252,8 @@ const ModalForm = props => {
 							<Input type="select" value={ formElements.tipo } id="tipo" onChange={ changeFormElements }>
 								<option value="">&rsaquo; selecione</option>
 								{
-									data.options && Array.isArray(data.options.tipos) ? (
-										data.options.tipos.map(
+									options && Array.isArray(options.tipos) ? (
+										options.tipos.map(
 											(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
 										)
 									) : (
@@ -266,8 +269,8 @@ const ModalForm = props => {
 							<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
 								<option value="">&rsaquo; selecione</option>
 								{
-									data.options && Array.isArray(data.options.ativo) ? (
-										data.options.ativo.map(
+									options && Array.isArray(options.ativo) ? (
+										options.ativo.map(
 											(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
 										)
 									) : (
@@ -307,8 +310,8 @@ const ModalForm = props => {
 					<Col md={ 12 }>
 						<FormGroup>
 							<Label for="perfis">Perfis</Label>
-							<div id="perfis" data-value={ data.options && formElements.perfis }>
-								<Multiple optionsData={ data.options && data.options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
+							<div id="perfis" data-value={ options && Array.isArray(options.perfis) && formElements.perfis }>
+								<Multiple optionsData={ options && options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
 							</div>
 						</FormGroup>
 					</Col>
