@@ -19,17 +19,20 @@ const InputPass = props => {
 		e.preventDefault();
 
 		const button = e.currentTarget;
-		const icon = button.querySelector('i');
 		const input = button.closest('.input-pass').querySelector('input');
 
-		if (input.type === 'password') {
-			icon.classList.remove(iconPassHide);
-			icon.classList.add(iconPassShow);
-			input.type = 'text';
-		} else {
-			icon.classList.remove(iconPassShow);
-			icon.classList.add(iconPassHide);
-			input.type = 'password';
+		if (!input.disabled) {
+			const icon = button.querySelector('i');
+
+			if (input.type === 'password') {
+				icon.classList.remove(iconPassHide);
+				icon.classList.add(iconPassShow);
+				input.type = 'text';
+			} else {
+				icon.classList.remove(iconPassShow);
+				icon.classList.add(iconPassHide);
+				input.type = 'password';
+			}
 		}
 	};
 

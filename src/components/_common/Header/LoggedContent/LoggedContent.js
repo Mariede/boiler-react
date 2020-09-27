@@ -1,9 +1,8 @@
 import React, { Fragment, useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
 
 import Alert from 'components/_common/Alert';
 
-import useDataChange from 'components/_custom-hooks/useDataChange';
+import DataChange from 'components/_common/DataChange';
 
 import ContextUserData from 'components/_context/ContextUserData';
 
@@ -16,7 +15,7 @@ import './LoggedContent.css';
 const LoggedContent = () => {
 	const getUserData = useContext(ContextUserData).getUserData;
 
-	const [submit, setSubmit] = useState(false);
+	const [dataChange, setDataChange] = useState(undefined);
 
 	const showHideProfile = e => {
 		e.preventDefault();
@@ -41,67 +40,53 @@ const LoggedContent = () => {
 
 	const logoffApp = e => {
 		e.preventDefault();
-		setSubmit(true);
-	};
 
-	const { Component, goDataAction } = useDataChange(
-		{
-			method: 'POST',
-			route: '/logoff',
-			submit: submit,
-			cbSubmit: () => {
-				setSubmit(false);
-			},
-			cbThen: () => {
-				sessionStorage.removeItem('current-path');
-			},
-			cbCatch: {
-				header: 'Logoff',
-				type: 4
-			},
-			message: 'Efetuando logoff...'
-		}
-	);
+		setDataChange(
+			{
+				submit: true,
+				method: 'post',
+				cbThen: () => {
+					sessionStorage.removeItem('current-path');
+				},
+				message: 'Efetuando logoff...'
+			}
+		);
+	};
 
 	return (
 		<Fragment>
-			{ Component }
-			{
-				goDataAction ? (
-					<Redirect to="/logon" />
-				) : (
-					<div id="logged">
-						<span className="logged-user">
-							<span className="logged-user-profile" onClick={ showHideProfile }>
-								<i className="fa fa-user-alt"></i>
+			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/logoff" cbCatch={ { header: 'Logoff' } } url="/logon" />
 
-								<div className="logged-user-profile-data">
-									Perfis associados
-									<hr className="global-line" />
-									{
-										(Array.isArray(getUserData.perfis) && getUserData.perfis.length > 0) ? (
-											getUserData.perfis.map(
-												(perfil, index) => (
-													<Fragment key={ index }>
-														<i className="fa fa-lock-open"></i> { perfil }<br />
-													</Fragment>
-												)
-											)
-										) : (
-											<span className="not-found"><i className="fa fa-ban"></i> Nenhum perfil informado</span>
+			<div id="logged">
+				<span className="logged-user">
+					<span className="logged-user-profile" onClick={ showHideProfile }>
+						<i className="fa fa-user-alt"></i>
+
+						<div className="logged-user-profile-data">
+							Perfis associados
+							<hr className="global-line" />
+							{
+								(Array.isArray(getUserData.perfis) && getUserData.perfis.length > 0) ? (
+									getUserData.perfis.map(
+										(perfil, index) => (
+											<Fragment key={ index }>
+												<i className="fa fa-lock-open"></i> { perfil }<br />
+											</Fragment>
 										)
-									}
-									<hr className="global-line" />
-								</div>
-							</span>
+									)
+								) : (
+									<span className="not-found"><i className="fa fa-ban"></i> Nenhum perfil informado</span>
+								)
+							}
+							<hr className="global-line" />
+						</div>
+					</span>
 
-							<strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
-						</span>
+					<strong>{ formatName(getUserData.nome) }</strong><br />{ getUserData.email }
+				</span>
 
-						<Alert buttonType="button" buttonSize="sm" buttonColor="danger" buttonText="Sair" modalTitle="Logoff" modalMessage="Deseja realmente sair do sistema?" modalCallback={ logoffApp } modalConfirm />
-					</div>
-				)
-			}
+				<Alert buttonType="button" buttonSize="sm" buttonColor="danger" buttonText="Sair" modalTitle="Logoff" modalMessage="Deseja realmente sair do sistema?" modalCallback={ logoffApp } modalConfirm />
+			</div>
 		</Fragment>
 	);
 };

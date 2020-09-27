@@ -11,6 +11,7 @@ const Controller = props => {
 
 	const [Target, Logon, Home] = children;
 	const currentPath = location.pathname;
+	const currentSearch = location.search;
 	const currentKey = location.key;
 
 	const { Component, dataReady } = useDataGet(
@@ -45,10 +46,10 @@ const Controller = props => {
 	useEffect(
 		() => {
 			if (dataReady && isLogged && currentPath !== '/logon') { // Usuario logado
-				sessionStorage.setItem('current-path', currentPath);
+				sessionStorage.setItem('current-path', currentPath + currentSearch);
 			}
 		},
-		[dataReady, isLogged, currentPath]
+		[dataReady, isLogged, currentPath, currentSearch]
 	);
 
 	return (
