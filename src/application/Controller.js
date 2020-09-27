@@ -10,9 +10,9 @@ const Controller = props => {
 	const setUserData = useContext(ContextUserData).setUserData;
 
 	const [Target, Logon, Home] = children;
+	const currentKey = location.key;
 	const currentPath = location.pathname;
 	const currentSearch = location.search;
-	const currentKey = location.key;
 
 	const { Component, dataReady } = useDataGet(
 		{
