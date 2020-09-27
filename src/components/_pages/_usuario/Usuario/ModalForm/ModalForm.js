@@ -199,7 +199,7 @@ const ModalForm = props => {
 			route: '/usuario/options',
 			goReady: data.options,
 			cbCatch: {
-				header: 'Usuario',
+				header: 'Opções',
 				type: 4
 			}
 		}

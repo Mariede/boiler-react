@@ -43,7 +43,7 @@ const Usuario = props => {
 				sort_fields: urlParams.get('sort_fields')
 			},
 			cbCatch: {
-				header: 'Usuario',
+				header: 'Usuário',
 				type: 4
 			}
 		}
@@ -150,7 +150,7 @@ const Usuario = props => {
 		<Fragment>
 			{ Component }
 
-			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" catchHeader="Usuario" url={ currentPath + currentSearch }>
+			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" cbCatch={ { header: 'Usuário' } } url={ currentPath + currentSearch }>
 				{ ModalForm }
 			</DataChange>
 

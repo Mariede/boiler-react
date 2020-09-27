@@ -23,17 +23,17 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 		- headers		: configuracoes extras da rota: headers personalizados, se existirem
 
-		- formId 		: identificador do formulario em children, apenas se existir children (submit === false)
-
 		- cbThen		: funcao que executa no then da acao - caso sucesso, apenas se existir
 
-		- message		: mensagem do componente de loading, opcional
+		- message		: OPCIONAL, mensagem do componente de loading
+
+		- formId		: identificador do formulario em children, apenas se existir children (submit === false)
 
 		- setDataChange	: OBRIGATORIO, funcao de estado em parent que controla as propriedades do componente
 
 		- baseRoute		: OBRIGATORIO, rota base utilizada pelo AXIOS
 
-		- catchHeader	: Header do Notify, na exibicao de erros
+		- cbCatch		: OPCIONAL, objeto com header, type e/ou form do Notify para exibicao de erros
 
 		- url			: OBRIGATORIO, url atual (com querystring) para redirects
 
@@ -42,7 +42,7 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 			-> obrigatorio existir um formId
 */
 const DataChange = props => {
-	const { submit, method, extraRoute, param, data, headers, formId, cbThen, message, setDataChange, baseRoute, catchHeader, url, children } = props;
+	const { submit, method, extraRoute, param, data, headers, cbThen, message, formId, setDataChange, baseRoute, cbCatch, url, children } = props;
 
 	const ChildContent = children;
 
@@ -58,8 +58,9 @@ const DataChange = props => {
 			headers: headers,
 			cbThen: cbThen,
 			cbCatch: {
-				header: (catchHeader || 'Dados'),
-				type: 4
+				header: (cbCatch.header || 'Dados'),
+				type: (cbCatch.type || 4),
+				form: cbCatch.form
 			},
 			message: message
 		}
