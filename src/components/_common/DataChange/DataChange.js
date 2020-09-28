@@ -55,7 +55,7 @@ const DataChange = props => {
 				setDataChange(undefined);
 			},
 			data: data,
-			headers: headers,
+			headers: { ...headers },
 			cbThen: cbThen,
 			cbCatch: {
 				header: (cbCatch.header || 'Dados'),

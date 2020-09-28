@@ -34,7 +34,7 @@ const useDataChange = props => {
 	const [goDataAction, setGoDataAction] = useState(false);
 	const [notify, setNotify] = useState(null);
 
-	const postExecute = () => {
+	const changeExecute = () => {
 		let isMounted = true;
 
 		if (submit) {
@@ -84,7 +84,7 @@ const useDataChange = props => {
 	};
 
 	useEffect(
-		postExecute,
+		changeExecute,
 		[getUrl, method, route, submit]
 	);
 
