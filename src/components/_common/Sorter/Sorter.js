@@ -73,7 +73,7 @@ const Sorter = props => {
 	const sorterElement = useMemo(
 		() => {
 			let resultShow = (
-				<i className="fa fa-sort" data-sort-element={ sortElement }></i>
+				<i className="fas fa-sort" data-sort-element={ sortElement }></i>
 			);
 
 			if (sortFields) {
@@ -87,11 +87,11 @@ const Sorter = props => {
 						if (element === sortElement) {
 							if (order === 'DESC') {
 								resultShow = (
-									<i className="fa fa-sort-down" data-sort-element={ sortElement }></i>
+									<i className="fas fa-sort-down" data-sort-element={ sortElement }></i>
 								);
 							} else {
 								resultShow = (
-									<i className="fa fa-sort-up" data-sort-element={ sortElement }></i>
+									<i className="fas fa-sort-up" data-sort-element={ sortElement }></i>
 								);
 							}
 

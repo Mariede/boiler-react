@@ -134,8 +134,8 @@ const Multiple = props => {
 
 			<div className="multiple-buttons">
 				<ButtonGroup>
-					<Button type="button" size="sm" { ...checkButtonsProps(1) } onClick={ e => changeFormElements(1, e) }><i className="fa fa-arrow-left"></i></Button>
-					<Button type="button" size="sm" { ...checkButtonsProps(2) } onClick={ e => changeFormElements(2, e) }><i className="fa fa-arrow-right"></i></Button>
+					<Button type="button" size="sm" { ...checkButtonsProps(1) } onClick={ e => changeFormElements(1, e) }><i className="fas fa-arrow-left"></i></Button>
+					<Button type="button" size="sm" { ...checkButtonsProps(2) } onClick={ e => changeFormElements(2, e) }><i className="fas fa-arrow-right"></i></Button>
 				</ButtonGroup>
 			</div>
 

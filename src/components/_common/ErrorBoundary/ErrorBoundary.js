@@ -25,7 +25,7 @@ class ErrorBoundary extends Component {
 		if (this.state.errorInfo) {
 			return (
 				<div id="error-boundary">
-					<h5><i className="fa fa-bug"></i> Alguma coisa deu errado...</h5>
+					<h5><i className="fas fa-bug"></i> Alguma coisa deu errado...</h5>
 
 					<div className="error-boundary-details">
 						{ this.state.error && this.state.error.toString() }

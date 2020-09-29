@@ -167,7 +167,7 @@ const Usuario = props => {
 					<div className="top-group">
 						<span className="info">{ !paramId ? 'Detalhes dos usuários' : 'Detalhes do usuário' }</span>
 						<Button type="button" size="sm" color="success" onClick={ pageActions.insert }>
-							<i className="fa fa-plus"></i> novo usuário
+							<i className="fas fa-plus"></i> novo usuário
 						</Button>
 					</div>
 
@@ -185,7 +185,7 @@ const Usuario = props => {
 											gridCallback: pageActions.delete,
 											buttonText:
 												<Fragment>
-													<i className="fa fa-trash"></i> excluir
+													<i className="fas fa-trash"></i> excluir
 												</Fragment>,
 											buttonColor: 'danger',
 											buttonConfirm: 'Realmente exclui o usuário?'
@@ -195,10 +195,10 @@ const Usuario = props => {
 											buttonText: [
 												'ativo',
 												<Fragment key="1">
-													<i className="fa fa-ban"></i> inativar
+													<i className="fas fa-ban"></i> inativar
 												</Fragment>,
 												<Fragment key="2">
-													<i className="fa fa-check"></i> ativar
+													<i className="fas fa-check"></i> ativar
 												</Fragment>
 											],
 											buttonColor: ['ativo', 'info', 'success'],
@@ -212,7 +212,7 @@ const Usuario = props => {
 											gridCallback: pageActions.knowMore,
 											buttonText:
 												<Fragment>
-													<i className="fa fa-newspaper"></i> saiba mais
+													<i className="fas fa-newspaper"></i> saiba mais
 												</Fragment>
 										}
 									]

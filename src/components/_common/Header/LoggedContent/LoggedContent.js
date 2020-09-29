@@ -60,7 +60,7 @@ const LoggedContent = () => {
 			<div id="logged">
 				<span className="logged-user">
 					<span className="logged-user-profile" onClick={ showHideProfile }>
-						<i className="fa fa-user-alt"></i>
+						<i className="fas fa-user-alt"></i>
 
 						<div className="logged-user-profile-data">
 							Perfis associados
@@ -70,12 +70,12 @@ const LoggedContent = () => {
 									getUserData.perfis.map(
 										(perfil, index) => (
 											<Fragment key={ index }>
-												<i className="fa fa-lock-open"></i> { perfil }<br />
+												<i className="fas fa-lock-open"></i> { perfil }<br />
 											</Fragment>
 										)
 									)
 								) : (
-									<span className="not-found"><i className="fa fa-ban"></i> Nenhum perfil informado</span>
+									<span className="not-found"><i className="fas fa-ban"></i> Nenhum perfil informado</span>
 								)
 							}
 							<hr className="global-line" />
