@@ -1,0 +1,48 @@
+div.pass-meter {
+	position: relative;
+	line-height: 16px;
+	border: 1px solid #aaa;
+	border-radius: 12px;
+	box-shadow: inset 1px 1px 8px #ddd;
+	font-size: 9px;
+	font-weight: bold;
+}
+
+div.pass-meter > div.pass-meter-text {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	color: #000;
+	text-align: center;
+}
+
+div.pass-meter > div.pass-meter-graph > div {
+	border-radius: 12px;
+	padding-left: 5px;
+	text-align: left;
+}
+
+div.pass-meter > div.pass-meter-graph > div.weak {
+	background-color: rgba(200, 200, 200, 0.8);
+	width: 20%;
+}
+
+div.pass-meter > div.pass-meter-graph > div.poor {
+	background-color: rgba(200, 200, 100, 0.8);
+	width: 40%;
+}
+
+div.pass-meter > div.pass-meter-graph > div.moderate {
+	background-color: rgba(100, 200, 200, 0.8);
+	width: 60%;
+}
+
+div.pass-meter > div.pass-meter-graph > div.good {
+	background-color: rgba(100, 200, 100, 0.8);
+	width: 80%;
+}
+
+div.pass-meter > div.pass-meter-graph > div.strong {
+	background-color: rgba(50, 200, 50, 0.8);
+	width: 100%;
+}

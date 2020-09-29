@@ -52,6 +52,8 @@ npm run build
   - Sorter (ordenação nas páginas - compatível com back-end boiler-server)
   - DataChange (encapsula as transformações de dados - POST/PUT/PATCH/DELETE - para CRUD ou similar)
     + Trabalha em sinergia com GridTable
+  - DataGet (encapsula requisições de dados - GET)
+  - PassMeter (informa força da senha)
   - Componentes de formulários personalizados:
     + InputPass
     + Multiple

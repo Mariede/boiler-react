@@ -7,6 +7,7 @@ import InputMask from 'react-input-mask';
 
 import Multiple from 'components/_common/_form/Multiple';
 import InputPass from 'components/_common/_form/InputPass';
+import PassMeter from 'components/_common/PassMeter';
 import DataGet from 'components/_common/DataGet';
 
 import formValidator from 'helpers/formValidator';
@@ -335,6 +336,14 @@ const ModalForm = props => {
 									<FormGroup>
 										<Label for="senhaCheck">Confirma senha</Label>
 										<InputPass value={ formElements.senhaCheck } id="senhaCheck" maxLength="20" onChange={ changeFormElements } />
+									</FormGroup>
+								</Col>
+							</Row>
+
+							<Row form>
+								<Col md={ { offset: 1, size: 10 } }>
+									<FormGroup>
+										<PassMeter passValue={ formElements.senha } />
 									</FormGroup>
 								</Col>
 							</Row>
