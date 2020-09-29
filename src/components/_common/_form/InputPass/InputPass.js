@@ -40,7 +40,7 @@ const InputPass = props => {
 		<InputGroup className="input-pass">
 			<Input type="password" { ...props } />
 			<InputGroupAddon addonType="append">
-				<InputGroupText onClick={ showHidePass }><i className={ `fa ${iconPassHide}` }></i></InputGroupText>
+				<InputGroupText onClick={ showHidePass }><i className={ `fas ${iconPassHide}` }></i></InputGroupText>
 			</InputGroupAddon>
 		</InputGroup>
 	);
