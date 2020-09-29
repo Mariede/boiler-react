@@ -40,22 +40,23 @@ const PassMeter = props => {
 
 				const passLen = _passValue.length;
 
-				let hasLoweCase = false,
-					hasUpperCase = false,
-					hasNumber = false,
-					hasSpecial = false,
-					multiples = '',
-					checkResult = 0;
+				let checkResult = 0;
 
 				if (passLen !== 0) {
+					let hasLowerCase = false,
+						hasUpperCase = false,
+						hasNumber = false,
+						hasSpecial = false,
+						multiples = '';
+
 					for (let i = 0; i < passLen; i++) {
 						const chSenha = _passValue.substr(i, 1);
 						const chSenhaCCOD = parseInt(chSenha.charCodeAt(0), 10);
 
-						if (!hasLoweCase) {
+						if (!hasLowerCase) {
 							if (chSenhaCCOD > 96 && chSenhaCCOD < 123) {
 								// Letras minusculas
-								hasLoweCase = true;
+								hasLowerCase = true;
 							}
 						}
 
@@ -85,7 +86,7 @@ const PassMeter = props => {
 						}
 					}
 
-					if (hasLoweCase) {
+					if (hasLowerCase) {
 						checkResult = 1 + checkResult;
 					}
 
