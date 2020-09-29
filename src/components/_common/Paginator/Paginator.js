@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useMemo } from 'react';
+import React, { Fragment, useState, useMemo, useCallback } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import { Input } from 'reactstrap';
@@ -29,80 +29,86 @@ const Paginator = props => {
 	const _currentPage = ((pageDetails && pageDetails.currentPage) || 0);
 	const currentPage = (_currentPage >= initialPage && _currentPage <= finalPage ? _currentPage : 1);
 
-	const paginationUrl = to => {
-		const paginationParams = new URLSearchParams(urlSearch);
+	const paginationUrl = useCallback(
+		to => {
+			const paginationParams = new URLSearchParams(urlSearch);
 
-		switch (to) {
-			case 'first': {
-				paginationParams.set('page', initialPage);
-				break;
+			switch (to) {
+				case 'first': {
+					paginationParams.set('page', initialPage);
+					break;
+				}
+				case 'previous': {
+					paginationParams.set('page', (currentPage > initialPage ? currentPage - 1 : initialPage));
+					break;
+				}
+				case 'next': {
+					paginationParams.set('page', (currentPage < finalPage ? currentPage + 1 : finalPage));
+					break;
+				}
+				case 'last': {
+					paginationParams.set('page', finalPage);
+					break;
+				}
+				default: {
+					paginationParams.set('page', to);
+				}
 			}
-			case 'previous': {
-				paginationParams.set('page', (currentPage > initialPage ? currentPage - 1 : initialPage));
-				break;
+
+			return `${urlBase}?${paginationParams.toString()}`;
+		},
+		[currentPage, initialPage, finalPage, urlBase, urlSearch]
+	);
+
+	const paginationInterval = useMemo(
+		() => {
+			const pages = [];
+			const interval = 1;
+
+			const _initialInterval = (currentPage - interval > initialPage ? currentPage - interval : initialPage);
+			const _finalInterval = (currentPage + interval < finalPage ? currentPage + interval : finalPage);
+
+			const initialInterval = (currentPage === finalPage && _initialInterval > initialPage ? _initialInterval - interval : _initialInterval);
+			const finalInterval = (currentPage === initialPage && _finalInterval < finalPage ? _finalInterval + interval : _finalInterval);
+
+			for (let i = initialInterval; i <= finalInterval; i++) {
+				pages.push(i);
 			}
-			case 'next': {
-				paginationParams.set('page', (currentPage < finalPage ? currentPage + 1 : finalPage));
-				break;
-			}
-			case 'last': {
-				paginationParams.set('page', finalPage);
-				break;
-			}
-			default: {
-				paginationParams.set('page', to);
-			}
-		}
 
-		return `${urlBase}?${paginationParams.toString()}`;
-	};
-
-	const paginationInterval = () => {
-		const pages = [];
-		const interval = 1;
-
-		const _initialInterval = (currentPage - interval > initialPage ? currentPage - interval : initialPage);
-		const _finalInterval = (currentPage + interval < finalPage ? currentPage + interval : finalPage);
-
-		const initialInterval = (currentPage === finalPage && _initialInterval > initialPage ? _initialInterval - interval : _initialInterval);
-		const finalInterval = (currentPage === initialPage && _finalInterval < finalPage ? _finalInterval + interval : _finalInterval);
-
-		for (let i = initialInterval; i <= finalInterval; i++) {
-			pages.push(i);
-		}
-
-		return (
-			pages.map(
-				(i, index) => (
-					<Fragment key={ i }>
-						{
-							(index === 0 && i !== initialPage) ? (
-								<PaginationItem className="break">
-									<i className="fas fa-ellipsis-h"></i>
-								</PaginationItem>
-							) : (
-								null
-							)
-						}
-						<PaginationItem active={ (_currentPage === i) }>
-							<PaginationLink tag={ Link } to={ paginationUrl(i) }>
-								{ i }
-							</PaginationLink>
-						</PaginationItem>
-						{
-							(index + 1 === pages.length && i !== finalPage) ? (
-								<PaginationItem className="break">
-									<i className="fas fa-ellipsis-h"></i>
-								</PaginationItem>
-							) : (
-								null
-							)
-						}
-					</Fragment>
+			return (
+				pages.map(
+					(i, index) => (
+						<Fragment key={ i }>
+							{
+								(index === 0 && i !== initialPage) ? (
+									<PaginationItem className="break">
+										<i className="fas fa-ellipsis-h"></i>
+									</PaginationItem>
+								) : (
+									null
+								)
+							}
+							<PaginationItem active={ (_currentPage === i) }>
+								<PaginationLink tag={ Link } to={ paginationUrl(i) }>
+									{ i }
+								</PaginationLink>
+							</PaginationItem>
+							{
+								(index + 1 === pages.length && i !== finalPage) ? (
+									<PaginationItem className="break">
+										<i className="fas fa-ellipsis-h"></i>
+									</PaginationItem>
+								) : (
+									null
+								)
+							}
+						</Fragment>
+					)
 				)
-			)
-		);
-	};
+			);
+		},
+		[_currentPage, currentPage, initialPage, finalPage, paginationUrl]
+	);
 
 	const itemsPerPage = useMemo(
 		() => (
@@ -149,7 +155,7 @@ const Paginator = props => {
 								</PaginationLink>
 							</PaginationItem>
 
-							{ paginationInterval() }
+							{ paginationInterval }
 
 							<PaginationItem disabled={ currentPage === finalPage }>
 								<PaginationLink tag={ Link } to={ paginationUrl('next') } next>
