@@ -3,6 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { Button } from 'reactstrap';
 
 import MainContent from 'components/_common/MainContent';
+import Searcher from 'components/_common/Searcher';
 import GridTable from 'components/_common/GridTable';
 import DataGet from 'components/_common/DataGet';
 import DataChange from 'components/_common/DataChange';
@@ -13,7 +14,7 @@ import ModalForm from './ModalForm';
 import './Usuario.css';
 
 const Usuario = props => {
-	const { match, location } = props;
+	const { match, location, history } = props;
 
 	const [dataGet, setDataGet] = useState(
 		{
@@ -145,7 +146,9 @@ const Usuario = props => {
 					{
 						page: (urlParams.get('page') || 1),
 						items_per_page: urlParams.get('items_per_page'),
-						sort_fields: urlParams.get('sort_fields')
+						sort_fields: urlParams.get('sort_fields'),
+						fullsearch_fields: urlParams.get('fullsearch_fields'),
+						fullsearch_value: urlParams.get('fullsearch_value')
 					}
 				}
 				setDataGet={ setDataGet }
@@ -170,6 +173,8 @@ const Usuario = props => {
 							<i className="fas fa-plus"></i> novo usuário
 						</Button>
 					</div>
+
+					<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'tipo'] } url={ { currentPath, currentSearch } } history={ history } />
 
 					<GridTable dataReady={ dataGet.ready } dataContent={ dataGet.content } url={ { currentPath, currentSearch } } rowId="idUsuario"
 						columns={

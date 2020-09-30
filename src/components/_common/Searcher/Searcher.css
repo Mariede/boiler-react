@@ -1,0 +1,8 @@
+.searcher > button {
+	float: right;
+	font-size: 0.8rem;
+}
+
+.searcher > .input-group button {
+	min-width: 40px;
+}

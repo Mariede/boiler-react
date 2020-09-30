@@ -38,7 +38,7 @@ const InputPass = props => {
 
 	return (
 		<InputGroup className="input-pass">
-			<Input type="password" { ...props } />
+			<Input type="password" { ...props } autoComplete="new-password" />
 			<InputGroupAddon addonType="append">
 				<InputGroupText onClick={ showHidePass }><i className={ `fas ${iconPassHide}` }></i></InputGroupText>
 			</InputGroupAddon>

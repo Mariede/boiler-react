@@ -13,13 +13,15 @@ import './Multiple.css';
 
 	PROPS
 		- optionsData			: json de dados que definem as opcoes possiveis relacionadas (colecao de dados)
+			-> deve estar em formato ARRAY
 
 		- optionsKeys			: chaves das propriedades em optionsData - objeto
-			-> id e o valor da opcao (unico)
-			-> description e o texto informativo da opcao
+			-> id: e o valor da opcao (unico)
+			-> description: e o texto informativo da opcao
 
-		- optionsSelected		: array que define as opcoes selecionadas
+		- optionsSelected		: define as opcoes selecionadas
 			-> e o proprio conteudo do elemento de formulario controlado associado (id)
+			-> deve estar em formato ARRAY
 
 		- id					: id que especifica qual o elemento do formulario (conteudo sempre array)
 
