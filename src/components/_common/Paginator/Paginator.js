@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useMemo, useCallback } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { Fragment, useMemo, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Input } from 'reactstrap';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
@@ -12,12 +12,11 @@ import './Paginator.css';
 
 	PROPS:
 		- pageDetails		-> OBRIGATORIO, controle dos dados paginados
+		- history			-> OBRIGATORIO, redirect via history router dom
 		- url				-> OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)
 */
 const Paginator = props => {
-	const { pageDetails, url } = props;
-
-	const [newItemsPerPage, setNewItemsPerPage] = useState(null);
+	const { pageDetails, history, url } = props;
 
 	const urlBase = (url.currentPath || '');
 	const urlSearch = (url.currentSearch || '');
@@ -126,57 +125,53 @@ const Paginator = props => {
 
 		urlParams.set('items_per_page', e.currentTarget.value);
 
-		setNewItemsPerPage(`${urlBase}?${urlParams.toString()}`);
+		history.push(`${urlBase}?${urlParams.toString()}`);
 	};
 
 	return (
-		newItemsPerPage ? (
-			<Redirect to={ newItemsPerPage } />
+		pageDetails ? (
+			<Fragment>
+				<div className="pagination-main justify-content-md-between justify-content-around">
+					<Input type="select" bsSize="sm" value={ pageDetails.itemsPerPage } className="pagination-select" onChange={ changeItemsPerPage }>
+
+						{ itemsPerPage }
+
+					</Input>
+
+					<Pagination>
+						<PaginationItem disabled={ currentPage === initialPage }>
+							<PaginationLink tag={ Link } to={ paginationUrl('first') } first>
+								<i className="fas fa-angle-double-left"></i>
+							</PaginationLink>
+						</PaginationItem>
+
+						<PaginationItem disabled={ currentPage === initialPage }>
+							<PaginationLink tag={ Link } to={ paginationUrl('previous') } previous>
+								<i className="fas fa-angle-left"></i>
+							</PaginationLink>
+						</PaginationItem>
+
+						{ paginationInterval }
+
+						<PaginationItem disabled={ currentPage === finalPage }>
+							<PaginationLink tag={ Link } to={ paginationUrl('next') } next>
+								<i className="fas fa-angle-right"></i>
+							</PaginationLink>
+						</PaginationItem>
+
+						<PaginationItem disabled={ currentPage === finalPage }>
+							<PaginationLink tag={ Link } to={ paginationUrl('last') } last>
+								<i className="fas fa-angle-double-right"></i>
+							</PaginationLink>
+						</PaginationItem>
+					</Pagination>
+				</div>
+				<div className="pagination-text">
+					Página <strong>{ pageDetails.currentPage }</strong> de <strong>{ pageDetails.totalPages }</strong> | Exibindo <strong>{ pageDetails.itemsFrom }</strong> a <strong>{ pageDetails.itemsTo }</strong> de <strong>{ pageDetails.itemsCount }</strong> registros
+				</div>
+			</Fragment>
 		) : (
-			pageDetails ? (
-				<Fragment>
-					<div className="pagination-main justify-content-md-between justify-content-around">
-						<Input type="select" bsSize="sm" value={ pageDetails.itemsPerPage } className="pagination-select" onChange={ changeItemsPerPage }>
-
-							{ itemsPerPage }
-
-						</Input>
-
-						<Pagination>
-							<PaginationItem disabled={ currentPage === initialPage }>
-								<PaginationLink tag={ Link } to={ paginationUrl('first') } first>
-									<i className="fas fa-angle-double-left"></i>
-								</PaginationLink>
-							</PaginationItem>
-
-							<PaginationItem disabled={ currentPage === initialPage }>
-								<PaginationLink tag={ Link } to={ paginationUrl('previous') } previous>
-									<i className="fas fa-angle-left"></i>
-								</PaginationLink>
-							</PaginationItem>
-
-							{ paginationInterval }
-
-							<PaginationItem disabled={ currentPage === finalPage }>
-								<PaginationLink tag={ Link } to={ paginationUrl('next') } next>
-									<i className="fas fa-angle-right"></i>
-								</PaginationLink>
-							</PaginationItem>
-
-							<PaginationItem disabled={ currentPage === finalPage }>
-								<PaginationLink tag={ Link } to={ paginationUrl('last') } last>
-									<i className="fas fa-angle-double-right"></i>
-								</PaginationLink>
-							</PaginationItem>
-						</Pagination>
-					</div>
-					<div className="pagination-text">
-						Página <strong>{ pageDetails.currentPage }</strong> de <strong>{ pageDetails.totalPages }</strong> | Exibindo <strong>{ pageDetails.itemsFrom }</strong> a <strong>{ pageDetails.itemsTo }</strong> de <strong>{ pageDetails.itemsCount }</strong> registros
-					</div>
-				</Fragment>
-			) : (
-				null
-			)
+			null
 		)
 	);
 };

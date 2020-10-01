@@ -1,5 +1,4 @@
-import React, { useState, useMemo } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useMemo } from 'react';
 
 import { UncontrolledTooltip } from 'reactstrap';
 
@@ -15,12 +14,11 @@ import './Sorter.css';
 	PROPS:
 		- title			-> OBRIGATORIO, nome da coluna na tabela ou elemento
 		- sortElement	-> OBRIGATORIO, elemento a ser ordenado (formato string), pode ser aninhado por ponto
+		- history		-> OBRIGATORIO, redirect via history router dom
 		- url			-> OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)
 */
 const Sorter = props => {
-	const { title, sortElement, url } = props;
-
-	const [newSortedPage, setNewSortedPage] = useState(null);
+	const { title, sortElement, history, url } = props;
 
 	const urlBase = (url.currentPath || '');
 	const urlSearch = (url.currentSearch || '');
@@ -66,7 +64,7 @@ const Sorter = props => {
 				urlParams.set('sort_fields', sortNewGo);
 			}
 
-			setNewSortedPage(`${urlBase}?${urlParams.toString()}`);
+			history.push(`${urlBase}?${urlParams.toString()}`);
 		}
 	};
 
@@ -114,22 +112,18 @@ const Sorter = props => {
 	);
 
 	return (
-		newSortedPage ? (
-			<Redirect to={ newSortedPage } />
-		) : (
-			<div className="sorter">
-				<span className="sorter-column" id={ `sorter-${sorterId}` } onClick={ sortPage }>
-					{ title }
+		<div className="sorter">
+			<span className="sorter-column" id={ `sorter-${sorterId}` } onClick={ sortPage }>
+				{ title }
 
-					{ sorterElement }
+				{ sorterElement }
 
-				</span>
+			</span>
 
-				<UncontrolledTooltip placement="top" target={ `sorter-${sorterId}` } trigger="hover">
-					Segure CTRL para ordenar vários<br />Segure ALT para reiniciar
-				</UncontrolledTooltip>
-			</div>
-		)
+			<UncontrolledTooltip placement="top" target={ `sorter-${sorterId}` } trigger="hover">
+				Segure CTRL para ordenar vários<br />Segure ALT para reiniciar
+			</UncontrolledTooltip>
+		</div>
 	);
 };
 

@@ -19,9 +19,9 @@ import './GridTable.css';
 		- Sorter
 
 	PROPS:
-		- dataReady		: OBRIGATORIO, indica quando os dados estao prontos
-
 		- dataContent	: OBRIGATORIO, Json de retorno com o conteudo das informacoes a serem exibidas
+
+		- history		: OBRIGATORIO, redirect via history router dom nos filhos (Sorter e Paginator)
 
 		- url			: OBRIGATORIO, controle da URL e links de paginacao (currentPath e currentSearch)
 			-> usado pelos componentes acoplados (Paginator e Sorter)
@@ -77,7 +77,7 @@ import './GridTable.css';
 			-> em formato de objeto exemplo: classes={ { dark: true } }, passar objeto vazio para nenhuma
 */
 const GridTable = props => {
-	const { dataReady, dataContent, url, rowId, columns, classes } = props;
+	const { dataContent, history, url, rowId, columns, classes } = props;
 
 	const recordset = (dataContent ? dataContent.recordset : null);
 	const pageDetails = (dataContent ? dataContent.pageDetails : null);
@@ -85,7 +85,7 @@ const GridTable = props => {
 
 	return (
 		recordset ? (
-			<Table className="grid-table" { ...extraClasses } responsive key={ dataReady }>
+			<Table className="grid-table" { ...extraClasses } responsive>
 				<thead>
 					<tr>
 						{
@@ -102,7 +102,7 @@ const GridTable = props => {
 											{
 												title ? (
 													(isSorted && !isReactElement && recordset.length) ? (
-														<Sorter title={ title } sortElement={ jsonElement } url={ url } />
+														<Sorter title={ title } sortElement={ jsonElement } history={ history } url={ url } />
 													) : (
 														title
 													)
@@ -229,7 +229,7 @@ const GridTable = props => {
 						<td colSpan={ columns.length }>
 							{
 								pageDetails ? (
-									<Paginator pageDetails={ pageDetails } url={ url } />
+									<Paginator pageDetails={ pageDetails } history={ history } url={ url } />
 								) : (
 									recordset.length ? (
 										recordset.length === 1 ? (

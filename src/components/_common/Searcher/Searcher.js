@@ -15,12 +15,12 @@ import './Searcher.css';
 		- searchFields		-> OBRIGATORIO, define as colunas no banco de dados que serao pesquisadas
 			- em formato de ARRAY
 
-		- url				-> OBRIGATORIO, controle da URL para pesquisas (currentPath e currentSearch)
-
 		- history			-> OBRIGATORIO, redirect via history router dom
+
+		- url				-> OBRIGATORIO, controle da URL para pesquisas (currentPath e currentSearch)
 */
 const Searcher = props => {
-	const { dataReady, searchFields, url, history } = props;
+	const { dataReady, searchFields, history, url } = props;
 
 	const elementButtonIcon = useRef();
 

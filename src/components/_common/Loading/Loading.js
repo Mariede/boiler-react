@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Spinner } from 'reactstrap';
-
 import './Loading.css';
 
 /*
-	DEPENDENCIAS:
-		- Reactstrap
-
 	PROPS:
 		- loading			-> OBRIGATORIO, informa inicio e termino da tela de loading
 		- message			-> (default: "Aguarde...")
@@ -25,7 +20,7 @@ const Loading = props => {
 					if (loading) {
 						setShowLoading(true);
 					}
-				}, 600
+				}, 800
 			);
 
 			return () => {
@@ -40,7 +35,7 @@ const Loading = props => {
 		showLoading ? (
 			<div id="loading">
 				<div className="message">
-					<Spinner color="info" />
+					<i className="fas fa-cog fa-spin"></i>
 					<br />
 					{ (message || 'Aguarde...') }
 				</div>

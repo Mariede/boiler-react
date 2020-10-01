@@ -48,12 +48,15 @@ npm run build
   - Notify (informações na tela - Erros / Avisos / etc...) com temporizador
   - ErrorBoundary (captura error síncronos nos componentes do react e mostra na UI)
   - GridTable (componente de tabulação de dados baseado no custom hook useDataGet)
+    + GridButton (botões personalizados de GridTable - pode usar Alert)
   - Paginator (paginação nas páginas - compatível com back-end boiler-server)
   - Sorter (ordenação nas páginas - compatível com back-end boiler-server)
   - DataChange (encapsula as transformações de dados - POST/PUT/PATCH/DELETE - para CRUD ou similar)
+    + DataModal (tela em modal para updates e inserts gerais)
     + Trabalha em sinergia com GridTable
   - DataGet (encapsula requisições de dados - GET)
   - PassMeter (informa força da senha)
+  - Searcher (pesquisas dinâmicas - compatível com back-end boiler-server)
   - Componentes de formulários personalizados:
     + InputPass
     + Multiple

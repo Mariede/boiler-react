@@ -174,9 +174,9 @@ const Usuario = props => {
 						</Button>
 					</div>
 
-					<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'tipo'] } url={ { currentPath, currentSearch } } history={ history } />
+					<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'tipo'] } history={ history } url={ { currentPath, currentSearch } } />
 
-					<GridTable dataReady={ dataGet.ready } dataContent={ dataGet.content } url={ { currentPath, currentSearch } } rowId="idUsuario"
+					<GridTable dataContent={ dataGet.content } history={ history } url={ { currentPath, currentSearch } } rowId="idUsuario"
 						columns={
 							[
 								{ title: '#', jsonElement: 'idUsuario' },

@@ -8,6 +8,7 @@
 	height: 100%;
 	z-index: 1999;
 	background-color: rgba(250, 250, 250, 0.3);
+	color: #333;
 }
 
 #loading .message {
@@ -17,7 +18,11 @@
 	transform: translate(-50%, -50%);
 	text-align: center;
 	width: 100%;
-	font: 13px Rakkas, Arial, Helvetica, san-serif;
+	font: 13px Rakkas, 'Segoe UI', Verdana, Arial, Helvetica;
 	font-style: italic;
 	letter-spacing: 2px;
+}
+
+#loading .message > i {
+	font-size: 26px;
 }

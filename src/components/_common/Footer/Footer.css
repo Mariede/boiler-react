@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Cairo);
 
 #footer {
-	font: 12px Cairo, Arial, Helvetica, san-serif;
+	font: 12px Cairo, 'Segoe UI', Verdana, Arial, Helvetica;
 	letter-spacing: 2px;
 	background-color: #bcd;
 	position: absolute;
