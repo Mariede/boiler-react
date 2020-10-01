@@ -139,13 +139,13 @@ const Paginator = props => {
 					</Input>
 
 					<Pagination>
-						<PaginationItem disabled={ currentPage === initialPage }>
+						<PaginationItem disabled={ _currentPage === initialPage }>
 							<PaginationLink tag={ Link } to={ paginationUrl('first') } first>
 								<i className="fas fa-angle-double-left"></i>
 							</PaginationLink>
 						</PaginationItem>
 
-						<PaginationItem disabled={ currentPage === initialPage }>
+						<PaginationItem disabled={ _currentPage === initialPage }>
 							<PaginationLink tag={ Link } to={ paginationUrl('previous') } previous>
 								<i className="fas fa-angle-left"></i>
 							</PaginationLink>
@@ -153,13 +153,13 @@ const Paginator = props => {
 
 						{ paginationInterval }
 
-						<PaginationItem disabled={ currentPage === finalPage }>
+						<PaginationItem disabled={ _currentPage === finalPage }>
 							<PaginationLink tag={ Link } to={ paginationUrl('next') } next>
 								<i className="fas fa-angle-right"></i>
 							</PaginationLink>
 						</PaginationItem>
 
-						<PaginationItem disabled={ currentPage === finalPage }>
+						<PaginationItem disabled={ _currentPage === finalPage }>
 							<PaginationLink tag={ Link } to={ paginationUrl('last') } last>
 								<i className="fas fa-angle-double-right"></i>
 							</PaginationLink>

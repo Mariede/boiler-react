@@ -83,6 +83,12 @@ const Searcher = props => {
 		}
 	};
 
+	const checkEnterPressed = e => {
+		if (e.key === 'Enter') {
+			goSearch(e);
+		}
+	};
+
 	useEffect(
 		() => {
 			if (dataReady && elementButtonIcon.current.classList.contains(iconSpin)) {
@@ -98,7 +104,7 @@ const Searcher = props => {
 			<Button type="button" size="sm" color="link" onClick={ goClean }>limpar</Button>
 
 			<InputGroup>
-				<Input type="text" value={ formElements.searchValue } id="searchValue" maxLength="50" placeholder="digite aqui a sua pesquisa" onChange={ changeFormElements } autoComplete="off" />
+				<Input type="text" value={ formElements.searchValue } id="searchValue" maxLength="50" placeholder="digite aqui a sua pesquisa" onChange={ changeFormElements } onKeyPress={ checkEnterPressed } autoComplete="off" />
 				<InputGroupAddon addonType="append">
 					<Button type="button" color="success" onClick={ goSearch } disabled={ (formElements.searchValue.trim() === '') || (dataReady === false) }><i ref={ elementButtonIcon } className={ `fas ${iconSearch}` }></i></Button>
 				</InputGroupAddon>
