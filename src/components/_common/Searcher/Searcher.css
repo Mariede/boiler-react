@@ -6,3 +6,7 @@
 .searcher > .input-group button {
 	min-width: 40px;
 }
+
+.searcher > hr {
+	margin: 15px 0px;
+}
