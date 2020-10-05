@@ -22,17 +22,19 @@ import './Searcher.css';
 const Searcher = props => {
 	const { dataReady, searchFields, history, url } = props;
 
-	const elementButtonIcon = useRef();
-
-	const formInitialValues = {
-		searchValue: ''
-	};
-
-	const [formElements, handleFormElements] = useState(formInitialValues);
-
 	const urlBase = (url.currentPath || '');
 	const urlSearch = (url.currentSearch || '');
 	const urlParams = new URLSearchParams(urlSearch);
+
+	const elementButtonIcon = useRef();
+
+	const formInitialValues = initial => (
+		{
+			searchValue: (initial ? (urlParams.get('fullsearch_value') || '') : '')
+		}
+	);
+
+	const [formElements, handleFormElements] = useState(formInitialValues(true));
 
 	const iconSearch = 'fa-search';
 	const iconSearching = 'fa-hourglass-start';
@@ -49,7 +51,7 @@ const Searcher = props => {
 	const goClean = e => {
 		e.preventDefault();
 
-		handleFormElements(formInitialValues);
+		handleFormElements(formInitialValues(false));
 
 		urlParams.delete('fullsearch_fields');
 		urlParams.delete('fullsearch_value');
