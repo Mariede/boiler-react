@@ -176,7 +176,7 @@ const Usuario = props => {
 
 					{
 						!paramId ? (
-							<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'tipo'] } history={ history } url={ { currentPath, currentSearch } } />
+							<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'tipo', 'perfil'] } history={ history } url={ { currentPath, currentSearch } } />
 						) : (
 							null
 						)
