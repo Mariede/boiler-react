@@ -47,6 +47,13 @@ import './GridTable.css';
 				-> gridCallback e um callback do parent na celula e se baseia no ID da linha em tr (rowId)
 					-> gridCallback fora de buttons, serve de callback para jsonElement
 
+				-> tdLayout inclui detalhes de layout da celula na tablea
+					-> center: se true, conteudo centralizado
+
+					-> right: se true, conteudo a direita
+
+					-> badges: se existe, exibe conteudo como badge (primary, secondary, success, info, ...)
+
 				-> buttons informa uma array de um ou mais botoes que serao renderizados na coluna
 					-> gridCallback e um callback do parent no botao e se baseia no ID da linha em tr (rowId)
 
@@ -65,13 +72,6 @@ import './GridTable.css';
 							-> array[0]: elemento json de checagem (deve existir no json, pode ser aninhado)
 							-> array[1]: exibe se array[0] for true
 							-> array[2]: exibe se array[0] for false
-
-				-> tdLayout inclui detalhes de layout da celula na tablea
-					-> center: se true, conteudo centralizado
-
-					-> right: se true, conteudo a direita
-
-					-> badges: se existe, exibe conteudo como badge (primary, secondary, success, info, ...)
 
 		- classes		: especifica classes adicionais para tabela reacstrap, sobrescrevendo o default (hover, striped)
 			-> em formato de objeto exemplo: classes={ { dark: true } }, passar objeto vazio para nenhuma
