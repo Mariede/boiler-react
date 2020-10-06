@@ -26,15 +26,15 @@ const Searcher = props => {
 	const urlSearch = (url.currentSearch || '');
 	const urlParams = new URLSearchParams(urlSearch);
 
+	const urlSearchValue = (urlParams.get('fullsearch_value') || '');
+
+	const formInitialValues = {
+		searchValue: urlSearchValue
+	};
+
+	const [formElements, handleFormElements] = useState(formInitialValues);
+
 	const elementButtonIcon = useRef();
-
-	const formInitialValues = initial => (
-		{
-			searchValue: (initial ? (urlParams.get('fullsearch_value') || '') : '')
-		}
-	);
-
-	const [formElements, handleFormElements] = useState(formInitialValues(true));
 
 	const iconSearch = 'fa-search';
 	const iconSearching = 'fa-hourglass-start';
@@ -50,8 +50,6 @@ const Searcher = props => {
 
 	const goClean = e => {
 		e.preventDefault();
-
-		handleFormElements(formInitialValues(false));
 
 		urlParams.delete('fullsearch_fields');
 		urlParams.delete('fullsearch_value');
@@ -91,6 +89,12 @@ const Searcher = props => {
 		}
 	};
 
+	const checkUrlSearchValue = () => {
+		if (formElements.searchValue !== urlSearchValue) {
+			handleFormElements(formInitialValues);
+		}
+	};
+
 	useEffect(
 		() => {
 			if (dataReady && elementButtonIcon.current.classList.contains(iconSpin)) {
@@ -99,6 +103,11 @@ const Searcher = props => {
 			}
 		},
 		[dataReady]
+	);
+
+	useEffect(
+		checkUrlSearchValue,
+		[urlSearch]
 	);
 
 	return (
