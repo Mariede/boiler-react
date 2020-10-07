@@ -18,7 +18,7 @@
     "reactstrap": "^8.6.0"
   },
   "devDependencies": {
-    "eslint-plugin-react": "^7.20.6"
+    "eslint-plugin-react": "^7.21.3"
   },
   "scripts": {
     "start": "react-scripts start",
