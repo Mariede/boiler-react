@@ -261,16 +261,6 @@ const ModalForm = props => {
 				</Row>
 
 				<Row form>
-					<Col md={ 12 }>
-						<FormGroup>
-							<Label for="file">Arquivo</Label>
-							<Input type="file" id="file" onChange={ addFiles } multiple />
-						</FormGroup>
-						<FormText className="global-outside-group">Insira seu arquivo aqui.</FormText>
-					</Col>
-				</Row>
-
-				<Row form>
 					<Col md={ 6 }>
 						<FormGroup>
 							<Label for="tipo">Tipo</Label>
@@ -376,6 +366,15 @@ const ModalForm = props => {
 						null
 					)
 				}
+
+				<Row form>
+					<Col md={ 12 }>
+						<FormGroup>
+							<Input type="file" id="file" onChange={ addFiles } multiple />
+						</FormGroup>
+						<FormText className="global-outside-group">Selecione um ou mais arquivos aqui.</FormText>
+					</Col>
+				</Row>
 
 				<hr className="global-line global-form-divider" />
 			</Form>
