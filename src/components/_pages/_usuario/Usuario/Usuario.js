@@ -198,6 +198,7 @@ const Usuario = props => {
 												<Fragment>
 													<i className="fas fa-trash"></i> excluir
 												</Fragment>,
+											buttonWidth: 100,
 											buttonColor: 'danger',
 											buttonConfirm: 'Realmente exclui o usuário?'
 										},
@@ -212,6 +213,7 @@ const Usuario = props => {
 													<i className="fas fa-check"></i> ativar
 												</Fragment>
 											],
+											buttonWidth: 100,
 											buttonColor: ['ativo', 'info', 'success'],
 											buttonConfirm: 'Realmente modifica o usuário?'
 										}

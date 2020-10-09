@@ -59,6 +59,9 @@ import './GridTable.css';
 
 					-> buttonText define o texto do botao (pode ser string ou jsx)
 
+					-> buttonWidth e opcional e define um numero inteiro, em px que define o tamanho da coluna
+						-> se mais de um botao na array, o algoritmo soma todos os buttonWidth existentes
+
 					-> buttonColor define o formato do button - default e link (string)
 						-> ex. link, danger, success, ...
 
@@ -67,7 +70,7 @@ import './GridTable.css';
 
 					-> ** buttons e jsonElement sao mutuamente exclusivos - apenas um deles deve existir no objeto
 
-					-> buttonText e buttonColor podem tambem ser arrays com validacoes booleanas exclusivas
+					-> ** buttonText e buttonColor podem tambem ser arrays com validacoes booleanas exclusivas
 						-> Obrigatorio 3 itens na array:
 							-> array[0]: elemento json de checagem (deve existir no json, pode ser aninhado)
 							-> array[1]: exibe se array[0] for true
@@ -135,8 +138,16 @@ const GridTable = props => {
 													(column, index2) => {
 														const jsonElement = (column.jsonElement || '');
 														const gridCallback = column.gridCallback;
-														const buttons = column.buttons;
 														const tdLayout = column.tdLayout;
+														const buttons = column.buttons;
+
+														const tableCellWidth = (
+															(!jsonElement && Array.isArray(buttons) && buttons.length !== 0) ? (
+																buttons.reduce((acc, button) => (acc + (button.buttonWidth || 0)), 0)
+															) : (
+																0
+															)
+														);
 
 														const isReactElement = React.isValidElement(jsonElement);
 
@@ -179,7 +190,7 @@ const GridTable = props => {
 														);
 
 														return (
-															<td key={ index2 } className={ tdLayout && (tdLayout.center ? 'td-center' : (tdLayout.right ? 'td-right' : '')) }>
+															<td key={ index2 } className={ tdLayout && (tdLayout.center ? 'td-center' : (tdLayout.right ? 'td-right' : '')) } style={ (tableCellWidth ? { width: `${tableCellWidth}px` } : {}) }>
 																{
 																	jsonElement ? (
 																		gridCallback ? (
