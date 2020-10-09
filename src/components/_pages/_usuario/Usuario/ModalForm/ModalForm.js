@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
 import InputMask from 'react-input-mask';
@@ -175,6 +175,20 @@ const ModalForm = props => {
 		handleFormElements(prevState => ({ ...prevState, [(id || name)]: value }));
 	};
 
+	const addFiles = e => {
+		e.preventDefault();
+
+		const element = e.currentTarget;
+		const content = element.files;
+
+		if (content && content.length !== 0) {
+			handleFormElements(prevState => ({ ...prevState, fileContent: content }));
+		} else {
+			const { fileContent, ...newState } = formElements;
+			handleFormElements(newState);
+		}
+	};
+
 	const submitForm = e => {
 		e.preventDefault();
 
@@ -243,6 +257,16 @@ const ModalForm = props => {
 							<Label for="email">E-mail</Label>
 							<Input type="text" value={ formElements.email } id="email" maxLength="200" onChange={ changeFormElements } />
 						</FormGroup>
+					</Col>
+				</Row>
+
+				<Row form>
+					<Col md={ 12 }>
+						<FormGroup>
+							<Label for="file">Arquivo</Label>
+							<Input type="file" id="file" onChange={ addFiles } multiple />
+						</FormGroup>
+						<FormText className="global-outside-group">Insira seu arquivo aqui.</FormText>
 					</Col>
 				</Row>
 

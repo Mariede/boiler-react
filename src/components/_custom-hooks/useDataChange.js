@@ -40,11 +40,55 @@ const useDataChange = props => {
 		if (submit) {
 			setNotify(null);
 
+			const mountDataObject = _data => {
+				if (_data) {
+					const hasFile = Object.entries(_data).some(
+						entry => entry[1] instanceof FileList && entry[1].length !== 0
+					);
+
+					if (hasFile) {
+						const formData = new FormData();
+
+						Object.entries(_data).forEach(
+							([key, value]) => {
+								if (value instanceof FileList && value.length !== 0) {
+									Array.from(value).forEach(
+										file => {
+											formData.append(
+												key,
+												file
+											);
+										}
+									);
+								} else {
+									formData.append(
+										key,
+										JSON.stringify(value)
+									);
+								}
+							}
+						);
+
+						return formData;
+					}
+				}
+
+				return { ..._data };
+			};
+
+			const finalData = (
+				typeof data === 'string' ? (
+					data
+				) : (
+					mountDataObject(data)
+				)
+			);
+
 			axios(
 				{
 					method: method,
 					url: getUrl + route,
-					data: (typeof data === 'string' ? data : { ...data }),
+					data: finalData,
 					headers: { ...headers }
 				}
 			)
