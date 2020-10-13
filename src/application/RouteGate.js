@@ -27,7 +27,7 @@ const RouteGate = props => {
 		<Switch>
 			{
 				routes.getRoutes.map(
-					(route, i = 0) => <FadingRoute isProtected={ route.isProtected } onlyNotLogged={ (route.onlyNotLogged || false) } component={ route.component } exact={ route.exact } path={ route.path } key={ i } />
+					(route, index) => <FadingRoute isProtected={ route.isProtected } onlyNotLogged={ (route.onlyNotLogged || false) } component={ route.component } exact={ route.exact } path={ route.path } key={ index } />
 				)
 			}
 		</Switch>
