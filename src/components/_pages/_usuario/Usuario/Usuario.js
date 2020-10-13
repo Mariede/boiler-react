@@ -40,21 +40,20 @@ const Usuario = props => {
 	const currentSearch = location.search;
 	const urlParams = new URLSearchParams(currentSearch);
 
-	const getRowId = (e, target) => {
-		const rowId = target ? (
-			document.getElementById(target.id).closest('tr').id
-		) : (
-			e.currentTarget.closest('tr').id
-		);
-
-		return !isNaN(rowId) ? (
-			parseInt(rowId, 10)
-		) : (
-			null
-		);
-	};
-
 	const pageActions = {
+		getRowId: (e, target) => {
+			const rowId = target ? (
+				document.getElementById(target.id).closest('tr').id
+			) : (
+				e.currentTarget.closest('tr').id
+			);
+
+			return !isNaN(rowId) ? (
+				parseInt(rowId, 10)
+			) : (
+				null
+			);
+		},
 		insert: e => {
 			e.preventDefault();
 
@@ -69,7 +68,7 @@ const Usuario = props => {
 		update: (e, target) => {
 			e.preventDefault();
 
-			const rowId = getRowId(e, target);
+			const rowId = pageActions.getRowId(e, target);
 
 			const rowData = (
 				dataGet.content.recordset.filter(
@@ -90,7 +89,7 @@ const Usuario = props => {
 		delete: (e, target) => {
 			e.preventDefault();
 
-			const rowId = getRowId(e, target);
+			const rowId = pageActions.getRowId(e, target);
 
 			setDataChange(
 				{
@@ -103,7 +102,7 @@ const Usuario = props => {
 		activation: (e, target) => {
 			e.preventDefault();
 
-			const rowId = getRowId(e, target);
+			const rowId = pageActions.getRowId(e, target);
 
 			const rowData = (
 				dataGet.content.recordset.filter(
@@ -126,7 +125,7 @@ const Usuario = props => {
 		knowMore: (e, target) => {
 			e.preventDefault();
 
-			const rowId = getRowId(e, target);
+			const rowId = pageActions.getRowId(e, target);
 
 			setKnowMore(
 				{
