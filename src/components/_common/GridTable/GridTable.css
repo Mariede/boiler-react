@@ -43,8 +43,8 @@ table.grid-table td, th {
 
 table.grid-table td.not-found {
 	color: red;
-	text-align: center;
 	font-style: italic;
+	text-align: center;
 	letter-spacing: 1px;
 }
 
@@ -57,17 +57,13 @@ table.grid-table td.td-right {
 }
 
 table.grid-table tfoot td {
+	font-size: 0.9rem;
 	text-align: center;
-	font-size: 10px;
 	height: 36px;
 }
 
 table.grid-table:not(.table-dark) tfoot td {
 	background: #dde;
-}
-
-table.grid-table button {
-	font-size: inherit;
 }
 
 table.grid-table .btn-group {

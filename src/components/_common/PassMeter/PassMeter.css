@@ -4,7 +4,7 @@ div.pass-meter {
 	border: 1px solid #aaa;
 	border-radius: 12px;
 	box-shadow: inset 1px 1px 8px #ddd;
-	font-size: 9px;
+	font-size: 0.8rem;
 	font-weight: bold;
 }
 

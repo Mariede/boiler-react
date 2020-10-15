@@ -4,13 +4,13 @@
 @import url(https://fonts.googleapis.com/css?family=B612);
 
 html, body {
+	font: 12px B612, 'Segoe UI', Verdana, Arial, Helvetica;
+	color: #000;
 	width: 100%;
 	height: 100%;
 }
 
 body {
-	font: 12px B612, 'Segoe UI', Verdana, Arial, Helvetica;
-	color: #000;
 	background-color: #eee;
 	text-align: center;
 	outline: 0px;
@@ -82,7 +82,7 @@ hr.global-form-divider {
 
 /* global: header para formularios */
 div.global-form-header {
-	font-size: 16px;
+	font-size: 1.2rem;
 	font-weight: bold;
 	font-style: italic;
 	text-transform: uppercase;
@@ -114,6 +114,10 @@ button.btn-link:focus {
 	line-height: 24px;
 }
 
+div.tooltip {
+	font-size: 0.9rem;
+}
+
 button {
 	margin-bottom: 1px;
 }
@@ -122,16 +126,28 @@ button.btn-link {
 	padding: 0px;
 }
 
-div.tooltip {
-	font-size: 11px;
+button.btn, a.btn {
+	font-size: 1rem;
+}
+
+button.btn.btn-sm, a.btn.btn-sm {
+	font-size: 1.2rem;
+}
+
+button.btn.btn-md, a.btn.btn-md {
+	font-size: 1.3rem;
+}
+
+button.btn.btn-lg, a.btn.btn-lg {
+	font-size: 1.4rem;
+}
+
+input.form-control, select.form-control, textarea.form-control, div.input-group * {
+	font-size: 1.2rem;
 }
 
 input.form-control, select.form-control, textarea.form-control {
 	color: #333;
-}
-
-input.form-control, select.form-control, textarea.form-control, div.input-group * {
-	font-size: 0.875rem;
 }
 
 input.form-control:focus, select.form-control:focus, textarea.form-control:focus {

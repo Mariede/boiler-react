@@ -8,7 +8,7 @@
 }
 
 #logged > .logged-user {
-	font: 10px B612, 'Segoe UI', Verdana, Arial, Helvetica;
+	font-size: 0.9rem;
 	letter-spacing: 1px;
 	color: #000;
 	background-color: #fff;
@@ -50,8 +50,8 @@
 
 #logged > .logged-user > .logged-user-profile > .logged-user-profile-data > .not-found {
 	color: red;
-	text-align: center;
 	font-style: italic;
+	text-align: center;
 	letter-spacing: 1px;
 }
 

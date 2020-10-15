@@ -112,7 +112,7 @@ const Searcher = props => {
 
 	return (
 		<div className="searcher">
-			<Button type="button" size="sm" color="link" onClick={ goClean }>limpar</Button>
+			<Button type="button" color="link" onClick={ goClean }>limpar</Button>
 
 			<InputGroup>
 				<Input type="text" value={ formElements.searchValue } id="searchValue" maxLength="50" placeholder="digite aqui a sua pesquisa" onChange={ changeFormElements } onKeyPress={ checkEnterPressed } autoComplete="off" />

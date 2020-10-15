@@ -1,10 +1,10 @@
 #menu {
-	font-size: 15px;
+	font-size: 1.2rem;
 	padding: 8px;
 }
 
 #menu button {
-	font-size: 15px;
+	font-size: 1.2rem;
 	cursor: default;
 }
 
@@ -25,17 +25,17 @@
 }
 
 #menu .dropdown-header {
-	font-size: 11px;
+	font-size: 1rem;
 	font-style: italic;
 	color: #ddd;
 }
 
 #menu .dropdown-toggle.submenu {
+	font-size: 1.2rem;
 	border-width: 1px 0px;
 	border-style: dotted;
 	border-color: #dee2e6;
 	border-radius: 0px;
-	font-size: 15px;
 	padding-left: 14px;
 	background-color: #bcd;
 	margin-bottom: -1px;

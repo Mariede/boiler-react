@@ -75,7 +75,7 @@ const LoggedContent = () => {
 										)
 									)
 								) : (
-									<span className="not-found"><i className="fas fa-ban"></i> Nenhum perfil informado</span>
+									<span className="not-found"><i className="fas fa-ban"></i> Nenhum perfil</span>
 								)
 							}
 							<hr className="global-line" />

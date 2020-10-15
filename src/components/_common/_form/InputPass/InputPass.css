@@ -1,7 +1,11 @@
 .input-pass .input-group-text {
 	cursor: pointer;
-	width: 46px;
+	width: 40px;
 	transition: all 0.4s ease 0s;
+}
+
+.input-pass .input-group-text > i {
+	margin: auto;
 }
 
 .input-pass .input-group-text:hover {

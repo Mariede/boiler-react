@@ -1,6 +1,5 @@
-.searcher > button {
+.searcher > button.btn {
 	float: right;
-	font-size: 0.8rem;
 }
 
 .searcher > .input-group button {

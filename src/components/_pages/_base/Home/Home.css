@@ -1,5 +1,5 @@
 #home {
-	font-size: 32px;
+	font-size: 3rem;
 	background-color: #edd;
 	text-align: center;
 	border: 1px solid #aaa;
@@ -11,7 +11,7 @@
 }
 
 #home .description {
-	font-size: 16px;
+	font-size: 1.2rem;
 	font-style: italic;
 	white-space: normal;
 }

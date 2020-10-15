@@ -2,9 +2,23 @@
 	position: fixed;
 	margin: 0px 5px;
 	top: 10vh;
-	right: 0px;
+	right: 1px;
 	z-index: 1998;
 	text-align: justify;
+}
+
+.notify > .toast-header {
+	font-size: 1rem;
+	padding: 8px;
+}
+
+.notify > button.close {
+	float: right;
+	padding: 8px;
+}
+
+.notify > .toast-body {
+	font-size: 1.2rem;
 }
 
 .notify > .toast-body > .toast-item:not(:last-child) {

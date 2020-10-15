@@ -4,14 +4,14 @@
 
 #not-found .info {
 	color: red;
-	font-size: 80px;
+	font-size: 6rem;
 }
 
 #not-found .info .img-not-found {
-	width: 120px;
+	width: 100px;
 	max-width: 100%;
 }
 
 #not-found .description {
-	font-size: 22px;
+	font-size: 1.5rem;
 }

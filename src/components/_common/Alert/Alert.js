@@ -16,7 +16,7 @@ import ModalWindow from 'components/_common/ModalWindow';
 			- buttonId					-> Botao de chamada: ID DOM do botao (OPCIONAL)
 			- buttonType				-> Botao de chamada (default: "button")
 			- buttonColor				-> Botao de chamada (default: "success")
-			- buttonSize				-> Botao de chamada (default: "md")
+			- buttonSize				-> Botao de chamada (default: "")
 			- buttonOutline				-> Botao de chamada: true/false (default: { false })
 			- buttonBlock				-> Botao de chamada: true/false (default: { false })
 			- buttonText				-> Botao de chamada (default: "Confirmar")
@@ -46,7 +46,7 @@ const Alert = props => {
 
 	const buttonProperties = {
 		type: (buttonType || 'button'),
-		size: (buttonSize || 'md'),
+		size: (buttonSize || ''),
 		color: (buttonColor || 'success'),
 		outline: (buttonOutline || false),
 		block: (buttonBlock || false)

@@ -1,5 +1,6 @@
 span.form-feedback {
 	color: red;
+	font-size: 1rem;
 	text-align: left;
 	padding: 4px 12px;
 	border: 1px solid #dc3545;

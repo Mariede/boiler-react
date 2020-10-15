@@ -18,11 +18,11 @@
 	transform: translate(-50%, -50%);
 	text-align: center;
 	width: 100%;
-	font: 13px Rakkas, 'Segoe UI', Verdana, Arial, Helvetica;
+	font: 1rem Rakkas, 'Segoe UI', Verdana, Arial, Helvetica;
 	font-style: italic;
 	letter-spacing: 2px;
 }
 
 #loading .message > i {
-	font-size: 26px;
+	font-size: 2rem;
 }

@@ -6,8 +6,8 @@
 }
 
 .pagination-main .pagination {
+	font-size: 0.7rem;
 	margin-bottom: 0px;
-	font: 8px Helvetica;
 }
 
 .pagination-main .pagination > .break {
@@ -24,7 +24,7 @@
 
 .pagination-main .pagination-select {
 	color: #07d;
-	font: 12px Helvetica;
+	font-size: 0.9rem;
 	width: 170px;
 	border-color: #dee2e6;
 }
@@ -35,7 +35,7 @@
 }
 
 .pagination-text {
+	font-size: 0.9rem;
 	margin-top: 10px;
-	font-size: 10px;
 	text-align: center;
 }

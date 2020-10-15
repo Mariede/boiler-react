@@ -124,7 +124,7 @@ const Logon = () => {
 
 						<Row form>
 							<Col md={ 12 }>
-								<Button type="submit" color="success" block>Enviar</Button>
+								<Button type="submit" size="md" color="success" block>Enviar</Button>
 							</Col>
 						</Row>
 					</Form>
