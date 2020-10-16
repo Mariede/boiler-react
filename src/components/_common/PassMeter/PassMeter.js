@@ -147,14 +147,15 @@ const PassMeter = props => {
 
 			// Mede a forca da senha
 			const classToShow = passStrength();
+			const _elementMeter = elementMeter.current;
 
-			elementMeter.current.setAttribute('class', '');
+			_elementMeter.setAttribute('class', '');
 
 			if (classToShow) {
-				elementMeter.current.classList.add(classToShow);
+				_elementMeter.classList.add(classToShow);
 			}
 
-			elementMeter.current.innerHTML = `<i class="fas fa-lock"></i>${passTextAfter(classToShow)}`;
+			_elementMeter.innerHTML = `<i class="fas fa-lock"></i>${passTextAfter(classToShow)}`;
 		}
 	);
 

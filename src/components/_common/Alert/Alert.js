@@ -42,7 +42,7 @@ const Alert = props => {
 	const { buttonId, buttonType, buttonSize, buttonColor, buttonOutline, buttonBlock, buttonText, buttonExecuteBeforeShow } = props;
 	const { modalConfirm, modalCentered, modalTitle, modalMessage, modalSize, modalFooterSize, modalCallback } = props;
 
-	const [showAlert, setShowAlert] = useState({ show: false, render: 0, originElement: null });
+	const [showAlert, setShowAlert] = useState({ show: false, renderKey: false, originElement: null });
 
 	const buttonProperties = {
 		type: (buttonType || 'button'),
@@ -78,11 +78,11 @@ const Alert = props => {
 			goAlert = buttonExecuteBeforeShow();
 		}
 
-		setShowAlert({ show: goAlert, render: ++showAlert.render, originElement: e.currentTarget });
+		setShowAlert({ show: goAlert, renderKey: !showAlert.renderKey, originElement: e.currentTarget });
 	};
 
 	return (
-		<Fragment key={ showAlert.render }>
+		<Fragment key={ showAlert.renderKey }>
 			<Button { ...buttonProperties } onClick={ toggleAlert }>{ (buttonText || 'Confirmar') }</Button>
 			<ModalWindow { ...modalProperties } />
 		</Fragment>

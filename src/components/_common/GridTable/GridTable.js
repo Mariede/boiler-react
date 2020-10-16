@@ -87,8 +87,8 @@ import './GridTable.css';
 const GridTable = props => {
 	const { dataContent, history, url, rowId, columns, classes } = props;
 
-	const recordset = (dataContent ? dataContent.recordset : null);
-	const pageDetails = (dataContent ? dataContent.pageDetails : null);
+	const recordset = dataContent && dataContent.recordset;
+	const pageDetails = dataContent && dataContent.pageDetails;
 	const extraClasses = (classes ? classes : { hover: true, striped: true });
 
 	return (

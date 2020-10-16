@@ -55,8 +55,10 @@ const Searcher = props => {
 		urlParams.delete('fullsearch_value');
 
 		if (dataReady) {
-			elementButtonIcon.current.classList.replace(iconSearch, iconSearching);
-			elementButtonIcon.current.classList.add(iconSpin);
+			const _elementButtonIcon = elementButtonIcon.current;
+
+			_elementButtonIcon.classList.replace(iconSearch, iconSearching);
+			_elementButtonIcon.classList.add(iconSpin);
 		}
 
 		history.push(`${urlBase}?${urlParams.toString()}`);
@@ -74,8 +76,10 @@ const Searcher = props => {
 				urlParams.set('fullsearch_value', _searchValue);
 
 				if (dataReady) {
-					elementButtonIcon.current.classList.replace(iconSearch, iconSearching);
-					elementButtonIcon.current.classList.add(iconSpin);
+					const _elementButtonIcon = elementButtonIcon.current;
+
+					_elementButtonIcon.classList.replace(iconSearch, iconSearching);
+					_elementButtonIcon.classList.add(iconSpin);
 				}
 
 				history.push(`${urlBase}?${urlParams.toString()}`);
@@ -89,6 +93,15 @@ const Searcher = props => {
 		}
 	};
 
+	const stopIconSpin = () => {
+		const _elementButtonIcon = elementButtonIcon.current;
+
+		if (dataReady && _elementButtonIcon.classList.contains(iconSpin)) {
+			_elementButtonIcon.classList.replace(iconSearching, iconSearch);
+			_elementButtonIcon.classList.remove(iconSpin);
+		}
+	};
+
 	const checkUrlSearchValue = () => {
 		if (formElements.searchValue !== urlSearchValue) {
 			handleFormElements(formInitialValues);
@@ -96,12 +109,7 @@ const Searcher = props => {
 	};
 
 	useEffect(
-		() => {
-			if (dataReady && elementButtonIcon.current.classList.contains(iconSpin)) {
-				elementButtonIcon.current.classList.replace(iconSearching, iconSearch);
-				elementButtonIcon.current.classList.remove(iconSpin);
-			}
-		},
+		stopIconSpin,
 		[dataReady]
 	);
 
