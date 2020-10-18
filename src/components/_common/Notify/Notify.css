@@ -1,10 +1,11 @@
 .notify {
 	position: fixed;
-	margin: 0px 5px;
-	top: 10vh;
+	top: 5px;
 	right: 1px;
+	width: 100%;
 	z-index: 1998;
 	text-align: justify;
+	margin: 0 5px;
 }
 
 .notify > .toast-header {

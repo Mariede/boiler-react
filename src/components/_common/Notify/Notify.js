@@ -81,7 +81,7 @@ const Notify = props => {
 
 				Array.from(document.getElementsByClassName('notify')).forEach(
 					(element, i) => {
-						arrayHeight.push(element.offsetHeight);
+						arrayHeight.push(element.offsetHeight + element.offsetTop);
 						totalHeight = totalHeight + (i === 0 ? element.offsetTop : arrayHeight[i - 1]);
 						lastElement = element;
 					}

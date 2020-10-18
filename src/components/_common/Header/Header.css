@@ -1,12 +1,12 @@
 #header {
 	border: 1px solid #aaa;
 	border-radius: 4px;
-	margin: 0px 5px;
+	margin: 0 5px;
 }
 
 #header .navbar-local {
 	background-color: #bcd;
-	padding: 0px;
+	padding: 0;
 }
 
 #header .navbar-local a.navbar-brand {
@@ -18,9 +18,9 @@
 }
 
 #header .navbar-local .img-logo {
-	animation: app-logo-spin infinite 20s linear;
 	height: 50px;
 	margin-left: 8px;
+	animation: app-logo-spin infinite 20s linear;
 }
 
 @keyframes app-logo-spin {

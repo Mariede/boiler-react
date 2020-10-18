@@ -2,13 +2,13 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
-	border: 1px solid #c96;
-	border-radius: 4px;
 	background-color: #fc9;
 	color: #fff;
+	border: 1px solid #c96;
+	border-radius: 4px;
 	width: 100%;
 	padding: 20px;
+	transform: translate(-50%, -50%);
 }
 
 #error-boundary .error-boundary-details {

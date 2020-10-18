@@ -2,7 +2,7 @@ table.grid-table {
 	border: 1px solid #dee2e6;
 	border-collapse: separate;
 	border-radius: 4px;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 table.grid-table.table-hover tr:hover {
@@ -10,18 +10,18 @@ table.grid-table.table-hover tr:hover {
 }
 
 table.grid-table tr.spacer td {
-	border: none;
-	padding: 0px !important;
+	border: 0;
+	padding: 0 !important;
 }
 
 table.grid-table tr.spacer td hr.spacer-top {
 	border-color: #dde;
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 table.grid-table tr.spacer td hr.spacer-bottom {
 	border-color: #dde;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 table.grid-table th {
@@ -75,7 +75,7 @@ table.grid-table .btn-group button {
 }
 
 table.grid-table .array-data {
-	margin: 0px 5px;
+	margin: 0 5px;
 }
 
 table.grid-table .badge {

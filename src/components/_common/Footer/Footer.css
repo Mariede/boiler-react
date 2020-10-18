@@ -1,13 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Cairo);
 
 #footer {
-	font: 1rem Cairo, 'Segoe UI', Verdana, Arial, Helvetica;
-	letter-spacing: 2px;
-	background-color: #bcd;
 	position: absolute;
-	bottom: 0px;
+	bottom: 0;
 	width: 100%;
 	height: 60px; /* Altura do rodape */
+	background-color: #bcd;
+	font: 1rem Cairo, 'Segoe UI', Verdana, Arial, Helvetica;
+	letter-spacing: 2px;
 	border-top: 1px solid #aaa;
 	padding: 10px;
 }

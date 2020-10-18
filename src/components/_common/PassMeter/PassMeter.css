@@ -1,16 +1,16 @@
 div.pass-meter {
 	position: relative;
+	font-size: 0.8rem;
+	font-weight: bold;
 	line-height: 16px;
 	border: 1px solid #aaa;
 	border-radius: 12px;
 	box-shadow: inset 1px 1px 8px #ddd;
-	font-size: 0.8rem;
-	font-weight: bold;
 }
 
 div.pass-meter > div.pass-meter-text {
 	position: absolute;
-	top: 0px;
+	top: 0;
 	width: 100%;
 	color: #000;
 	text-align: center;

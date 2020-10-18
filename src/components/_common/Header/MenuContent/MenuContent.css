@@ -25,20 +25,20 @@
 }
 
 #menu .dropdown-header {
+	color: #ddd;
 	font-size: 1rem;
 	font-style: italic;
-	color: #ddd;
 }
 
 #menu .dropdown-toggle.submenu {
+	background-color: #bcd;
 	font-size: 1.2rem;
-	border-width: 1px 0px;
+	border-width: 1px 0;
 	border-style: dotted;
 	border-color: #dee2e6;
-	border-radius: 0px;
-	padding-left: 14px;
-	background-color: #bcd;
+	border-radius: 0;
 	margin-bottom: -1px;
+	padding-left: 14px;
 }
 
 #menu .dropdown-toggle.submenu[aria-expanded="true"] {

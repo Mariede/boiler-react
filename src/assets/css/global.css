@@ -13,34 +13,34 @@ html, body {
 body {
 	background-color: #eee;
 	text-align: center;
-	outline: 0px;
-	margin: 0px;
-	padding: 0px 5px;
+	outline: 0;
+	margin: 0;
+	padding: 0 5px;
 }
 
 #root {
 	position: relative;
+	background-color: #fff;
 	width: 100%;
 	max-width: 1680px;
-	margin: auto;
-	background-color: #fff;
 	min-height: 100%;
-	border-width: 0px 1px;
+	border-width: 0 1px;
 	border-style: solid;
 	border-color: #aaa;
+	margin: auto;
 	padding-top: 5px;
 	padding-bottom: 65px; /* Deve sobrepor altura do rodape */
 }
 
 #wrapper {
-	margin: 0px 10px;
-	padding: 5px 0px;
+	margin: 0 10px;
+	padding: 5px 0;
 	text-align: justify;
 }
 
 /* image */
 img {
-	border: 0px;
+	border: 0;
 }
 
 /* link */
@@ -66,7 +66,7 @@ a:not([type="button"]):active, button.btn-link:active {
 
 /* classes globais */
 hr.global-line {
-	border: none;
+	border: 0;
 	height: 1px;
 	background: -moz-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%, rgba(187, 204, 221, 0.1) 100%);
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(187, 204, 221, 1) 0%,rgba(187, 204, 221, 0.1) 100%);
@@ -77,21 +77,21 @@ hr.global-line {
 
 /* global: divisor de linhas quando dentro do formulario */
 hr.global-form-divider {
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 /* global: header para formularios */
 div.global-form-header {
+	background-color: rgba(187, 204, 221, 0.8);
 	font-size: 1.2rem;
 	font-weight: bold;
 	font-style: italic;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	background-color: rgba(187, 204, 221, 0.8);
 	border-radius: 4px;
-	padding: 10px;
-	margin-bottom: 16px;
 	border-bottom: 1px solid #ced4da;
+	margin-bottom: 16px;
+	padding: 10px;
 	box-shadow: 0 2px 4px rgba(187, 204, 221, 0.6);
 }
 
@@ -103,11 +103,11 @@ div.global-form-header {
 
 /* alteracoes layout padrao bootstrap */
 *[tabindex]:focus, button:focus, input[type=file] {
-	outline: none;
+	outline: 0;
 }
 
 button.btn-link:focus {
-	box-shadow: none;
+	box-shadow: 0;
 }
 
 .form-check > .form-check-label {
@@ -123,7 +123,7 @@ button {
 }
 
 button.btn-link {
-	padding: 0px;
+	padding: 0;
 }
 
 button.btn, a.btn {
@@ -151,6 +151,6 @@ input.form-control, select.form-control, textarea.form-control {
 }
 
 input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
-	color: #000;
 	background-color: rgba(221, 221, 238, 0.1);
+	color: #000;
 }
