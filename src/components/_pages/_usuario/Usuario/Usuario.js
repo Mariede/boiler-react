@@ -48,8 +48,10 @@ const Usuario = props => {
 				e.currentTarget.closest('tr').id
 			);
 
-			return !isNaN(rowId) ? (
-				parseInt(rowId, 10)
+			const parsedRowId = parseInt(rowId, 10);
+
+			return Number.isInteger(parsedRowId) ? (
+				parsedRowId
 			) : (
 				null
 			);
