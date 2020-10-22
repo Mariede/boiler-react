@@ -46,7 +46,7 @@ const App = props => {
 	return (
 		<ContextConfig.Provider value={ configData }>
 			<ContextUserData.Provider value={ { getUserData: userData ? JSON.parse(userData) : {}, setUserData: uData => setUserData(uData) } }>
-				<Router basename='/#/'>
+				<Router basename='/#'>
 					<ErrorBoundary>
 						<Header isLogged={ userIsLogged } />
 
