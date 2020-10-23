@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Form, FormGroup, Label, Input, FormText, Button, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 

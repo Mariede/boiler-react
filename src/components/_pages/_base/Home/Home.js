@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MainContent from 'components/_common/MainContent';
 
 import './Home.css';

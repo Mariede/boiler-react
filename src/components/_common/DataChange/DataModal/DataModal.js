@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ModalWindow from 'components/_common/ModalWindow';
 
 /*

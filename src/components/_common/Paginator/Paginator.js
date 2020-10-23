@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useCallback } from 'react';
+import { Fragment, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Input } from 'reactstrap';

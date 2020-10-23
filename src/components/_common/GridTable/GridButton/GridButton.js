@@ -1,4 +1,4 @@
-import React, { useMemo, isValidElement } from 'react';
+import { useMemo, isValidElement } from 'react';
 
 import { Button } from 'reactstrap';
 

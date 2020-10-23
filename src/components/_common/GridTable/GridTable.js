@@ -1,4 +1,4 @@
-import React, { Fragment, isValidElement } from 'react';
+import { Fragment, isValidElement } from 'react';
 
 import { ButtonGroup } from 'reactstrap';
 import { Table } from 'reactstrap';

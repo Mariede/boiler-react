@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import DataModal from './DataModal';

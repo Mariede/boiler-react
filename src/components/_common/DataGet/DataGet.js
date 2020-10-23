@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 

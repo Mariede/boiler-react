@@ -13,6 +13,9 @@
 		"eslint:recommended",
 		"plugin:react/recommended"
 	],
+	"globals": {
+		"React": "writable"
+	},
 	"parserOptions": {
 		"ecmaVersion": 2020,
 		"ecmaFeatures": {
