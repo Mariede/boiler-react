@@ -9,12 +9,12 @@
     "node": ">=10.5.0"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.4",
+    "react-scripts": "^4.0.0",
     "reactstrap": "^8.6.0"
   },
   "devDependencies": {

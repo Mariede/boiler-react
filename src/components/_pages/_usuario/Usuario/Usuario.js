@@ -145,11 +145,13 @@ const Usuario = props => {
 				param={ paramId }
 				params={
 					{
+						/* eslint-disable camelcase */
 						page: (urlParams.get('page') || 1),
 						items_per_page: urlParams.get('items_per_page'),
 						sort_fields: urlParams.get('sort_fields'),
 						fullsearch_fields: urlParams.get('fullsearch_fields'),
 						fullsearch_value: urlParams.get('fullsearch_value')
+						/* eslint-enable camelcase */
 					}
 				}
 				setDataGet={ setDataGet }

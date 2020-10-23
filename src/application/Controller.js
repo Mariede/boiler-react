@@ -19,7 +19,7 @@ const Controller = props => {
 			route: '/islogged',
 			currentKey: currentKey,
 			params: {
-				result_type: 1
+				result_type: 1 // eslint-disable-line camelcase
 			},
 			cbThen: res => {
 				const resDataLen = Object.keys(res.data).length;
