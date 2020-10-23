@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, isValidElement } from 'react';
 
 import { ButtonGroup } from 'reactstrap';
 import { Table } from 'reactstrap';
@@ -103,7 +103,7 @@ const GridTable = props => {
 									const jsonElement = (column.jsonElement || '');
 									const isSorted = column.isSorted === true;
 
-									const isReactElement = React.isValidElement(jsonElement);
+									const isReactElement = isValidElement(jsonElement);
 
 									return (
 										<th key={ index }>
@@ -162,7 +162,7 @@ const GridTable = props => {
 															)
 														);
 
-														const isReactElement = React.isValidElement(jsonElement);
+														const isReactElement = isValidElement(jsonElement);
 
 														const checkFirstForArray = !isReactElement ? (
 															{

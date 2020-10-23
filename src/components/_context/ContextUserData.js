@@ -1,7 +1,7 @@
-import React from 'react';
+import { createContext } from 'react';
 
 // Acesso global aos dados do usuario logado
-const ContextDataUser = React.createContext(
+const ContextDataUser = createContext(
 	{
 		getUserData: {},
 		setUserData: () => null

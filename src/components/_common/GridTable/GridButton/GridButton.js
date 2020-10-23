@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, isValidElement } from 'react';
 
 import { Button } from 'reactstrap';
 
@@ -36,7 +36,7 @@ const GridButton = props => {
 	const applyButtonStyle = (rec, arg, iniVal) => {
 		let buttonStyleResult = iniVal;
 
-		if (typeof arg === 'string' || React.isValidElement(arg)) {
+		if (typeof arg === 'string' || isValidElement(arg)) {
 			buttonStyleResult = arg;
 		} else {
 			if (Array.isArray(arg)) {

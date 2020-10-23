@@ -1,6 +1,6 @@
-import React from 'react';
+import { createContext } from 'react';
 
 // Acesso global aos dados do arquivo config
-const ContextConfig = React.createContext({});
+const ContextConfig = createContext({});
 
 export default ContextConfig;
