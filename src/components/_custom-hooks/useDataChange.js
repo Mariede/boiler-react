@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useContext } from 'react';
+import { Fragment, useState, useLayoutEffect, useContext } from 'react';
 
 import axios from 'axios';
 
@@ -127,7 +127,7 @@ const useDataChange = props => {
 		};
 	};
 
-	useEffect(
+	useLayoutEffect(
 		changeExecute,
 		[getUrl, method, route, submit]
 	);
