@@ -129,7 +129,7 @@ const useDataChange = props => {
 
 	useLayoutEffect(
 		changeExecute,
-		[getUrl, method, route, submit]
+		[getUrl, method, route, submit] // eslint-disable-line react-hooks/exhaustive-deps
 	);
 
 	const Component = (

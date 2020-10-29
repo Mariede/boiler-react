@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useRef, useState, useEffect } from 'react';
 
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
@@ -21,6 +21,8 @@ const Logon = () => {
 			senha: ''
 		}
 	);
+
+	const componentFirstRender = useRef(true);
 
 	const configFormValidation = [
 		{
@@ -47,14 +49,6 @@ const Logon = () => {
 			]
 		}
 	];
-
-	const initiateFormValidation = () => {
-		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 3
-	};
-
-	const executeFormValidation = () => {
-		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 3
-	};
 
 	const changeFormElements = e => {
 		e.preventDefault();
@@ -84,13 +78,18 @@ const Logon = () => {
 		}
 	};
 
+	// Validacao de formulario
 	useEffect(
-		initiateFormValidation,
-		[]
-	);
-
-	useEffect(
-		executeFormValidation
+		() => {
+			if (componentFirstRender.current) {
+				// So deve rodar no primeiro render
+				formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 3
+				componentFirstRender.current = false;
+			} else {
+				// Roda em todos os render subsequentes
+				formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 3
+			}
+		}
 	);
 
 	return (

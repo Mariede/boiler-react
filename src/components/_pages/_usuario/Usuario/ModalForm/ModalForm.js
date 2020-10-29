@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useRef, useState, useEffect } from 'react';
 
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
@@ -37,6 +37,8 @@ const ModalForm = props => {
 			senhaCheck: ''
 		}
 	);
+
+	const componentFirstRender = useRef(true);
 
 	const configFormValidation = [
 		{
@@ -157,14 +159,6 @@ const ModalForm = props => {
 		}
 	];
 
-	const initiateFormValidation = () => {
-		formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 3
-	};
-
-	const executeFormValidation = () => {
-		formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 3
-	};
-
 	const changeFormElements = e => {
 		e.preventDefault();
 
@@ -207,13 +201,18 @@ const ModalForm = props => {
 		}
 	};
 
+	// Validacao de formulario
 	useEffect(
-		initiateFormValidation,
-		[]
-	);
-
-	useEffect(
-		executeFormValidation
+		() => {
+			if (componentFirstRender.current) {
+				// So deve rodar no primeiro render
+				formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 3
+				componentFirstRender.current = false;
+			} else {
+				// Roda em todos os render subsequentes
+				formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 3
+			}
+		}
 	);
 
 	// Define as opcoes do Modal (DataGet) - nao executa DataGet se as opcoes ja vierem via props

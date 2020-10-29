@@ -16,17 +16,26 @@ import './MenuContent.css';
 const MenuContent = props => {
 	const { isLogged } = props;
 
-	const dropdownElementsInitialValues = {
-		menuDrop1: false,
-		menuDrop12: false,
-		menuDrop13: false,
-		menuDrop2: false
-	};
+	/*
+		Objeto de estados apenas para menus em dropdown
+			-> incluidos de forma hierarquica, para cada submenu interno
+	*/
+	const dropdownElementsInitialValues = useMemo(
+		() => (
+			{
+				menuDrop1: false,
+				menuDrop12: false,
+				menuDrop13: false,
+				menuDrop2: false
+			}
+		),
+		[]
+	);
 
 	const [dropdownElements, handleDropdownElements] = useState(dropdownElementsInitialValues);
 
 	/*
-		Array de objetos contendo as definicoes do(s) menu(s) e submenu(s) em dropdown
+		Array de objetos contendo as definicoes do(s) menu(s) e submenu(s)
 			all				-> menus exibidos tanto logado quanto deslogado
 			onlyLogged		-> menus exibidos apenas logado
 			onlyNotLogged	-> menus exibidos apenas deslogado
@@ -51,48 +60,53 @@ const MenuContent = props => {
 				to			-> link para a pagina (obrigatorio)
 				disabled	-> opcional, se true link desabilitado
 	*/
-	const dropdowns = {
-		all: [],
-		onlyLogged: [
+	const dropdowns = useMemo(
+		() => (
 			{
-				toggle: { title: 'Menu 1', id: 'menuDrop1', state: dropdownElements.menuDrop1 },
-				links: [
-					{ text: 'Action 1 (not found)', to: '/fgfgfgf' },
-					{ text: 'Action 2 (not found)', to: '/fgfgfgf', disabled: true },
-					{ text: 'Action 3 (usuario/33)', to: '/usuario/33' },
-					{ text: 'Action 4 (usuario/40)', to: '/usuario/40' },
-					{ text: 'Action 5 (logon)', to: '/logon' },
+				all: [],
+				onlyLogged: [
 					{
-						toggle: { title: 'Submenu 12', id: 'menuDrop12', state: dropdownElements.menuDrop12 },
+						toggle: { title: 'Menu 1', id: 'menuDrop1', state: dropdownElements.menuDrop1 },
 						links: [
-							{ text: 'Action 6 (not found)', to: '/fgfgfgf' },
-							{ text: 'Action 7 (home)', to: '/' },
+							{ text: 'Action 1 (not found)', to: '/fgfgfgf' },
+							{ text: 'Action 2 (not found)', to: '/fgfgfgf', disabled: true },
+							{ text: 'Action 3 (usuario/33)', to: '/usuario/33' },
+							{ text: 'Action 4 (usuario/40)', to: '/usuario/40' },
+							{ text: 'Action 5 (logon)', to: '/logon' },
 							{
-								toggle: { title: 'Submenu 13', id: 'menuDrop13', state: dropdownElements.menuDrop13 },
+								toggle: { title: 'Submenu 12', id: 'menuDrop12', state: dropdownElements.menuDrop12 },
 								links: [
-									{ text: 'Action 8 (usuario/93)', to: '/usuario/93' },
-									{ text: 'Action 9 (usuario/8)', to: '/usuario/8' }
+									{ text: 'Action 6 (not found)', to: '/fgfgfgf' },
+									{ text: 'Action 7 (home)', to: '/' },
+									{
+										toggle: { title: 'Submenu 13', id: 'menuDrop13', state: dropdownElements.menuDrop13 },
+										links: [
+											{ text: 'Action 8 (usuario/93)', to: '/usuario/93' },
+											{ text: 'Action 9 (usuario/8)', to: '/usuario/8' }
+										]
+									}
 								]
 							}
 						]
-					}
+					},
+					{
+						toggle: { title: 'Menu 2', id: 'menuDrop2', state: dropdownElements.menuDrop2 },
+						links: [
+							{ text: 'Action 10 (not found)', to: '/fgfgfgf' },
+							{ text: 'Action 11 (not found)', to: '/fgfgfgf', disabled: true },
+							{ text: 'Action 12 (usuario/68)', to: '/usuario/68' }
+						]
+					},
+					{ text: 'Menu 3', to: '/usuario' },
+					{ text: 'Menu 4', to: '/usuario/76' }
+				],
+				onlyNotLogged: [
+					{ text: 'Logon', to: '/logon' }
 				]
-			},
-			{
-				toggle: { title: 'Menu 2', id: 'menuDrop2', state: dropdownElements.menuDrop2 },
-				links: [
-					{ text: 'Action 10 (not found)', to: '/fgfgfgf' },
-					{ text: 'Action 11 (not found)', to: '/fgfgfgf', disabled: true },
-					{ text: 'Action 12 (usuario/68)', to: '/usuario/68' }
-				]
-			},
-			{ text: 'Menu 3', to: '/usuario' },
-			{ text: 'Menu 4', to: '/usuario/76' }
-		],
-		onlyNotLogged: [
-			{ text: 'Logon', to: '/logon' }
-		]
-	};
+			}
+		),
+		[dropdownElements]
+	);
 
 	const setDropdowns = useMemo(
 		() => {

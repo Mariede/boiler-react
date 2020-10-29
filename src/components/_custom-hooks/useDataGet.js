@@ -85,7 +85,7 @@ const useDataGet = props => {
 
 	useEffect(
 		getExecute,
-		[getUrl, route, goReady, currentKey]
+		[getUrl, route, goReady, currentKey] // eslint-disable-line react-hooks/exhaustive-deps
 	);
 
 	const Component = (

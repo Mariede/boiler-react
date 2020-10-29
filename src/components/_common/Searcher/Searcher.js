@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 
 import { Input, InputGroup, InputGroupAddon, Button } from 'reactstrap';
 
@@ -28,9 +28,14 @@ const Searcher = props => {
 
 	const urlSearchValue = (urlParams.get('fullsearch_value') || '');
 
-	const formInitialValues = {
-		searchValue: urlSearchValue
-	};
+	const formInitialValues = useMemo(
+		() => (
+			{
+				searchValue: urlSearchValue
+			}
+		),
+		[urlSearchValue]
+	);
 
 	const [formElements, handleFormElements] = useState(formInitialValues);
 
@@ -93,29 +98,24 @@ const Searcher = props => {
 		}
 	};
 
-	const stopIconSpin = () => {
-		const _elementButtonIcon = elementButtonIcon.current;
-
-		if (dataReady && _elementButtonIcon.classList.contains(iconSpin)) {
-			_elementButtonIcon.classList.replace(iconSearching, iconSearch);
-			_elementButtonIcon.classList.remove(iconSpin);
-		}
-	};
-
-	const checkUrlSearchValue = () => {
-		if (formElements.searchValue !== urlSearchValue) {
-			handleFormElements(formInitialValues);
-		}
-	};
-
 	useEffect(
-		stopIconSpin,
+		() => {
+			const _elementButtonIcon = elementButtonIcon.current;
+
+			// Stop icon spin
+			if (dataReady && _elementButtonIcon.classList.contains(iconSpin)) {
+				_elementButtonIcon.classList.replace(iconSearching, iconSearch);
+				_elementButtonIcon.classList.remove(iconSpin);
+			}
+		},
 		[dataReady]
 	);
 
 	useEffect(
-		checkUrlSearchValue,
-		[urlSearch]
+		() => {
+			handleFormElements(formInitialValues);
+		},
+		[formInitialValues]
 	);
 
 	return (

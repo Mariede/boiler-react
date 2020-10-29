@@ -11,7 +11,8 @@
 	},
 	"extends": [
 		"eslint:recommended",
-		"plugin:react/recommended"
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended"
 	],
 	"globals": {
 		"React": "writable"
@@ -136,7 +137,7 @@
 		"no-array-constructor": 2,
 		"no-async-promise-executor": 2,
 		"no-confusing-arrow": 2,
-		"no-console": 2,
+		"no-console": 1,
 		"no-else-return": 2,
 		"no-empty-function": 2,
 		"no-eq-null": 2,
