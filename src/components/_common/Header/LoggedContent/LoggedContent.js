@@ -18,8 +18,6 @@ const LoggedContent = () => {
 	const [dataChange, setDataChange] = useState(undefined);
 
 	const showHideProfile = e => {
-		e.preventDefault();
-
 		const button = e.currentTarget;
 		const profile = button.querySelector('.logged-user-profile-data');
 
@@ -28,6 +26,19 @@ const LoggedContent = () => {
 		} else {
 			profile.classList.add('show');
 		}
+	};
+
+	const checkEnterPressed = e => {
+		e.preventDefault();
+
+		if (e.key === 'Enter') {
+			showHideProfile(e);
+		}
+	};
+
+	const checkClicked = e => {
+		e.preventDefault();
+		showHideProfile(e);
 	};
 
 	const formatName = _name => {
@@ -59,7 +70,7 @@ const LoggedContent = () => {
 
 			<div id="logged">
 				<span className="logged-user">
-					<span className="logged-user-profile" onClick={ showHideProfile }>
+					<span className="logged-user-profile" tabIndex="0" role="button" onKeyPress={ checkEnterPressed } onClick={ checkClicked }>
 						<i className="fas fa-user-alt"></i>
 
 						<div className="logged-user-profile-data">

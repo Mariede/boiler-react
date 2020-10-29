@@ -14,8 +14,6 @@ const InputPass = props => {
 	const iconPassHide = 'fa-eye-slash';
 
 	const showHidePass = e => {
-		e.preventDefault();
-
 		const button = e.currentTarget;
 		const input = button.closest('.input-pass').querySelector('input');
 
@@ -34,11 +32,24 @@ const InputPass = props => {
 		}
 	};
 
+	const checkEnterPressed = e => {
+		e.preventDefault();
+
+		if (e.key === 'Enter') {
+			showHidePass(e);
+		}
+	};
+
+	const checkClicked = e => {
+		e.preventDefault();
+		showHidePass(e);
+	};
+
 	return (
 		<InputGroup className="input-pass">
 			<Input type="password" { ...props } autoComplete="new-password" />
 			<InputGroupAddon addonType="append">
-				<InputGroupText onClick={ showHidePass }><i className={ `fas ${iconPassHide}` }></i></InputGroupText>
+				<InputGroupText tabIndex="0" role="button" onKeyPress={ checkEnterPressed } onClick={ checkClicked }><i className={ `fas ${iconPassHide}` }></i></InputGroupText>
 			</InputGroupAddon>
 		</InputGroup>
 	);

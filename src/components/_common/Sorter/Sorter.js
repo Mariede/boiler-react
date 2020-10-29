@@ -27,8 +27,6 @@ const Sorter = props => {
 	const sortFields = (urlParams.get('sort_fields') || '');
 
 	const sortPage = e => {
-		e.preventDefault();
-
 		const container = e.currentTarget.querySelector('i');
 		const dataSortElement = container && container.getAttribute('data-sort-element');
 		const dataSortClassList = container && container.classList;
@@ -66,6 +64,19 @@ const Sorter = props => {
 
 			history.push(`${urlBase}?${urlParams.toString()}`);
 		}
+	};
+
+	const checkEnterPressed = e => {
+		e.preventDefault();
+
+		if (e.key === 'Enter') {
+			sortPage(e);
+		}
+	};
+
+	const checkClicked = e => {
+		e.preventDefault();
+		sortPage(e);
 	};
 
 	const sorterElement = useMemo(
@@ -113,7 +124,7 @@ const Sorter = props => {
 
 	return (
 		<div className="sorter">
-			<span className="sorter-column" id={ `sorter-${sorterId}` } onClick={ sortPage }>
+			<span className="sorter-column" id={ `sorter-${sorterId}` } tabIndex="0" role="button" onKeyUp={ checkEnterPressed } onClick={ checkClicked }>
 				{ title }
 
 				{ sorterElement }

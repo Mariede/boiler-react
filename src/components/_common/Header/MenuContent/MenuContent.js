@@ -148,7 +148,7 @@ const MenuContent = props => {
 
 				return (
 					menu.toggle ? (
-						<Dropdown nav={ isSubmenu === false } isOpen={ menu.toggle.state } direction={ isSubmenu ? 'left' : 'down' } toggle={ changeDropdownElements } key={ i }>
+						<Dropdown a11y={ false } nav={ isSubmenu === false } isOpen={ menu.toggle.state } direction={ isSubmenu ? 'left' : 'down' } toggle={ changeDropdownElements } key={ i }>
 							<DropdownToggle id={ menu.toggle.id } nav caret className={ isSubmenu ? 'submenu' : '' }>
 								{ menu.toggle.title }
 							</DropdownToggle>
@@ -178,8 +178,8 @@ const MenuContent = props => {
 
 												return (
 													(link.text && link.to) ? (
-														<DropdownItem disabled={ link.disabled === true } key={ index }>
-															<Link to={ link.to }>{ link.text }</Link>
+														<DropdownItem tag={ Link } to={ link.to } disabled={ link.disabled === true } key={ index }>
+															{ link.text }
 														</DropdownItem>
 													) : (
 														null
@@ -198,7 +198,9 @@ const MenuContent = props => {
 					) : (
 						(menu.text && menu.to) ? (
 							<NavItem key={ i }>
-								<NavLink tag={ Link } to={ menu.to } disabled={ menu.disabled === true }>{ menu.text }</NavLink>
+								<NavLink tag={ Link } to={ menu.to } disabled={ menu.disabled === true }>
+									{ menu.text }
+								</NavLink>
 							</NavItem>
 						) : (
 							null

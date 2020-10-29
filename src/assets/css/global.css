@@ -58,6 +58,7 @@ a:not([type="button"]):visited, button.btn-link:visited {
 
 a:not([type="button"]):hover, button.btn-link:hover {
 	color: red;
+	text-decoration: none;
 }
 
 a:not([type="button"]):active, button.btn-link:active {
@@ -102,12 +103,17 @@ div.global-form-header {
 }
 
 /* alteracoes layout padrao bootstrap */
-*[tabindex]:focus, button:focus, input[type=file] {
+*:focus {
 	outline: 0;
 }
 
+*:focus-visible:not(input):not(select):not(textarea) {
+	outline: 0.5px dashed #000 !important;
+}
+
 button.btn-link:focus {
-	box-shadow: 0;
+	box-shadow: none;
+	text-decoration: none;
 }
 
 .form-check > .form-check-label {

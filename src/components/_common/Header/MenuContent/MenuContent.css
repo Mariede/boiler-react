@@ -3,24 +3,23 @@
 	padding: 8px;
 }
 
-#menu button {
+#menu div.dropdown-menu > a {
 	font-size: 1.2rem;
-	cursor: default;
 }
 
-#menu button:focus {
+#menu div.dropdown-menu > a:focus {
 	background-color: #fff;
 }
 
-#menu button:hover {
+#menu div.dropdown-menu > a:hover {
 	background-color: rgba(221, 221, 238, 0.3);
 }
 
-#menu button:active {
+#menu div.dropdown-menu > a:active {
 	background-color: rgba(221, 221, 238, 0.3);
 }
 
-#menu button.disabled a {
+#menu div.dropdown-menu > a.disabled {
 	color: #ddd;
 }
 
