@@ -29,7 +29,7 @@ body {
 	border-color: #aaa;
 	margin: auto;
 	padding-top: 5px;
-	padding-bottom: 65px; /* Deve sobrepor altura do rodape */
+	padding-bottom: 95px; /* Deve sobrepor altura do rodape */
 }
 
 #wrapper {
