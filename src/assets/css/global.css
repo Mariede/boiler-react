@@ -102,15 +102,16 @@ div.global-form-header {
 	margin-bottom: 16px;
 }
 
-/* alteracoes layout padrao bootstrap */
+/* alteracoes layout a11y */
 *:focus {
-	outline: 0;
+	outline: 0 !important;
 }
 
 *:focus-visible:not(input):not(select):not(textarea) {
 	outline: 0.5px dashed #000 !important;
 }
 
+/* alteracoes layout padrao bootstrap */
 button.btn-link:focus {
 	box-shadow: none;
 	text-decoration: none;

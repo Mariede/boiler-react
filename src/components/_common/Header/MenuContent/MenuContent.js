@@ -112,7 +112,7 @@ const MenuContent = props => {
 		() => {
 			const setDropdown = (menu, i, isSubmenu) => {
 				const changeDropdownElements = e => {
-					const container = e.currentTarget;
+					const container = (e.key !== 'Enter' ? e.currentTarget : e.target);
 					const containerTag = container && container.tagName;
 
 					let closeAll = false;
