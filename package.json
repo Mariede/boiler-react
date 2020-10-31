@@ -15,7 +15,7 @@
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
-    "reactstrap": "^8.6.0"
+    "reactstrap": "^8.7.0"
   },
   "devDependencies": {
     "eslint-plugin-import": "^2.22.1",
