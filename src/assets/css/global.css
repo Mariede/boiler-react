@@ -103,7 +103,7 @@ div.global-form-header {
 }
 
 /* alteracoes layout a11y */
-*:focus {
+*:focus:not(:focus-visible) {
 	outline: 0 !important;
 }
 
