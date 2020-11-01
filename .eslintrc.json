@@ -7,7 +7,18 @@
 	"env": {
 		"node": true,
 		"es2020": true,
-		"browser": true
+		"browser": true,
+		"commonjs": false
+	},
+	"parserOptions": {
+		"ecmaVersion": 2020,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"globals": {
+		"React": "readonly"
 	},
 	"extends": [
 		"eslint:recommended",
@@ -19,9 +30,11 @@
 	"settings": {
 		"import/resolver": {
 			"node": {
-				"moduleDirectory": [
-					"node_modules",
+				"paths": [
 					"./src"
+				],
+				"moduleDirectory": [
+					"node_modules"
 				],
 				"extensions": [
 					".js",
@@ -29,16 +42,6 @@
 				]
 			}
 		}
-	},
-	"globals": {
-		"React": "writable"
-	},
-	"parserOptions": {
-		"ecmaVersion": 2020,
-		"ecmaFeatures": {
-			"jsx": true
-		},
-		"sourceType": "module"
 	},
 	"rules": {
 		"array-bracket-spacing": [

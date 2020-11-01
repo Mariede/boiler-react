@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Boilerplate em React",
   "main": "./src/index.js",
+  "type": "module",
   "license": "MIT",
   "private": true,
   "engines": {
