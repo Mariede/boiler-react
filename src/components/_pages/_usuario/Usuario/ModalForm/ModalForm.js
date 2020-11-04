@@ -241,95 +241,97 @@ const ModalForm = props => {
 					Dados Gerais
 				</div>
 
-				<Row form>
-					<Col md={ 12 }>
-						<FormGroup>
-							<Label for="nome">Nome</Label>
-							<Input type="text" value={ formElements.nome } id="nome" maxLength="200" onChange={ changeFormElements } />
-						</FormGroup>
-					</Col>
-				</Row>
+				<div className="global-form-grouped">
+					<Row form>
+						<Col md={ 12 }>
+							<FormGroup>
+								<Label for="nome">Nome</Label>
+								<Input type="text" value={ formElements.nome } id="nome" maxLength="200" onChange={ changeFormElements } />
+							</FormGroup>
+						</Col>
+					</Row>
 
-				<Row form>
-					<Col md={ 12 }>
-						<FormGroup>
-							<Label for="email">E-mail</Label>
-							<Input type="text" value={ formElements.email } id="email" maxLength="200" onChange={ changeFormElements } />
-						</FormGroup>
-					</Col>
-				</Row>
+					<Row form>
+						<Col md={ 12 }>
+							<FormGroup>
+								<Label for="email">E-mail</Label>
+								<Input type="text" value={ formElements.email } id="email" maxLength="200" onChange={ changeFormElements } />
+							</FormGroup>
+						</Col>
+					</Row>
 
-				<Row form>
-					<Col md={ 6 }>
-						<FormGroup>
-							<Label for="tipo">Tipo</Label>
-							<Input type="select" value={ formElements.tipo } id="tipo" onChange={ changeFormElements }>
-								<option value="">&rsaquo; selecione</option>
-								{
-									options && Array.isArray(options.tipos) ? (
-										options.tipos.map(
-											(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+					<Row form>
+						<Col md={ 6 }>
+							<FormGroup>
+								<Label for="tipo">Tipo</Label>
+								<Input type="select" value={ formElements.tipo } id="tipo" onChange={ changeFormElements }>
+									<option value="">&rsaquo; selecione</option>
+									{
+										options && Array.isArray(options.tipos) ? (
+											options.tipos.map(
+												(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+											)
+										) : (
+											null
 										)
-									) : (
-										null
-									)
-								}
-							</Input>
-						</FormGroup>
-					</Col>
-					<Col md={ 6 }>
-						<FormGroup>
-							<Label for="ativo">Estado</Label>
-							<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
-								<option value="">&rsaquo; selecione</option>
-								{
-									options && Array.isArray(options.ativo) ? (
-										options.ativo.map(
-											(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+									}
+								</Input>
+							</FormGroup>
+						</Col>
+						<Col md={ 6 }>
+							<FormGroup>
+								<Label for="ativo">Estado</Label>
+								<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
+									<option value="">&rsaquo; selecione</option>
+									{
+										options && Array.isArray(options.ativo) ? (
+											options.ativo.map(
+												(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+											)
+										) : (
+											null
 										)
-									) : (
-										null
-									)
-								}
-							</Input>
-						</FormGroup>
-					</Col>
-				</Row>
+									}
+								</Input>
+							</FormGroup>
+						</Col>
+					</Row>
 
-				<Row form>
-					<Col md={ 6 }>
-						<FormGroup>
-							<Label for="cep">CEP</Label>
-							<Input type="text" value={ formElements.cep } id="cep" onChange={ changeFormElements } mask="99999-999" maskChar=" " tag={ InputMask } />
-						</FormGroup>
-					</Col>
-					<Col md={ 6 }>
-						<FormGroup>
-							<Label for="cpf">CPF</Label>
-							<Input type="text" value={ formElements.cpf } id="cpf" onChange={ changeFormElements } mask="999.999.999-99" maskChar=" " tag={ InputMask } />
-						</FormGroup>
-					</Col>
-				</Row>
+					<Row form>
+						<Col md={ 6 }>
+							<FormGroup>
+								<Label for="cep">CEP</Label>
+								<Input type="text" value={ formElements.cep } id="cep" onChange={ changeFormElements } mask="99999-999" maskChar=" " tag={ InputMask } />
+							</FormGroup>
+						</Col>
+						<Col md={ 6 }>
+							<FormGroup>
+								<Label for="cpf">CPF</Label>
+								<Input type="text" value={ formElements.cpf } id="cpf" onChange={ changeFormElements } mask="999.999.999-99" maskChar=" " tag={ InputMask } />
+							</FormGroup>
+						</Col>
+					</Row>
 
-				<Row form>
-					<Col md={ 12 }>
-						<FormGroup>
-							<Label for="detalhes">Detalhes</Label>
-							<Input type="textarea" value={ formElements.detalhes } rows="6" id="detalhes" onChange={ changeFormElements } />
-						</FormGroup>
-					</Col>
-				</Row>
+					<Row form>
+						<Col md={ 12 }>
+							<FormGroup>
+								<Label for="detalhes">Detalhes</Label>
+								<Input type="textarea" value={ formElements.detalhes } rows="6" id="detalhes" onChange={ changeFormElements } />
+							</FormGroup>
+						</Col>
+					</Row>
 
-				<Row form>
-					<Col md={ 12 }>
-						<FormGroup>
-							<Label for="perfis">Perfis</Label>
-							<div id="perfis" data-value={ options && Array.isArray(options.perfis) && formElements.perfis }>
-								<Multiple optionsData={ options && options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
-							</div>
-						</FormGroup>
-					</Col>
-				</Row>
+					<Row form>
+						<Col md={ 12 }>
+							<FormGroup>
+								<Label for="perfis">Perfis</Label>
+								<div id="perfis" data-value={ options && Array.isArray(options.perfis) && formElements.perfis }>
+									<Multiple optionsData={ options && options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
+								</div>
+							</FormGroup>
+						</Col>
+					</Row>
+				</div>
 
 				{
 					!param ? (
@@ -338,43 +340,47 @@ const ModalForm = props => {
 								Senha
 							</div>
 
-							<Row form>
-								<Col md={ 6 }>
-									<FormGroup>
-										<Label for="senha">Senha</Label>
-										<Input type="password" value={ formElements.senha } id="senha" maxLength="20" onChange={ changeFormElements } />
-									</FormGroup>
-								</Col>
-								<Col md={ 6 }>
-									<FormGroup>
-										<Label for="senhaCheck">Confirme a senha</Label>
-										<InputPass value={ formElements.senhaCheck } id="senhaCheck" maxLength="20" onChange={ changeFormElements } />
-									</FormGroup>
-								</Col>
-							</Row>
+							<div className="global-form-grouped">
+								<Row form>
+									<Col md={ 6 }>
+										<FormGroup>
+											<Label for="senha">Senha</Label>
+											<Input type="password" value={ formElements.senha } id="senha" maxLength="20" onChange={ changeFormElements } />
+										</FormGroup>
+									</Col>
+									<Col md={ 6 }>
+										<FormGroup>
+											<Label for="senhaCheck">Confirme a senha</Label>
+											<InputPass value={ formElements.senhaCheck } id="senhaCheck" maxLength="20" onChange={ changeFormElements } />
+										</FormGroup>
+									</Col>
+								</Row>
 
-							<Row form>
-								<Col md={ { offset: 1, size: 10 } }>
-									<FormGroup>
-										<PassMeter passValue={ formElements.senha } />
-									</FormGroup>
-								</Col>
-							</Row>
+								<Row form>
+									<Col md={ { offset: 1, size: 10 } }>
+										<FormGroup>
+											<PassMeter passValue={ formElements.senha } />
+										</FormGroup>
+									</Col>
+								</Row>
+							</div>
 						</Fragment>
 					) : (
 						null
 					)
 				}
 
-				<Row form>
-					<Col md={ 12 }>
-						<FormGroup>
-							<Label for="files">Arquivos</Label>
-							<Input type="file" id="files" onChange={ addFiles } multiple />
-						</FormGroup>
-						<FormText className="global-outside-group">Selecione um ou mais arquivos aqui.</FormText>
-					</Col>
-				</Row>
+				<div className="global-form-grouped">
+					<Row form>
+						<Col md={ 12 }>
+							<FormGroup>
+								<Label for="files">Arquivos</Label>
+								<Input type="file" id="files" onChange={ addFiles } multiple />
+							</FormGroup>
+							<FormText className="global-outside-group">Selecione um ou mais arquivos aqui.</FormText>
+						</Col>
+					</Row>
+				</div>
 
 				<hr className="global-line global-form-divider" />
 			</Form>

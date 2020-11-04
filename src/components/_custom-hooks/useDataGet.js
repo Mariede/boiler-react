@@ -63,7 +63,12 @@ const useDataGet = props => {
 			.catch(
 				err => {
 					if (isMounted) {
-						setNotify({ info: (err.response || err), ...cbCatch });
+						setNotify(
+							{
+								info: (err.response || err),
+								...cbCatch
+							}
+						);
 					}
 
 					errWrapper('custom-hook: GET', err);

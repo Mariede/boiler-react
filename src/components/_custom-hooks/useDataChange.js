@@ -106,7 +106,12 @@ const useDataChange = props => {
 			.catch(
 				err => {
 					if (isMounted) {
-						setNotify({ info: (err.response || err), ...cbCatch });
+						setNotify(
+							{
+								info: (err.response || err),
+								...cbCatch
+							}
+						);
 					}
 
 					errWrapper('custom-hook: POST/PUT/PATCH/DELETE', err);
