@@ -82,7 +82,8 @@ const MenuContent = props => {
 										toggle: { title: 'Submenu 13', id: 'menuDrop13', state: dropdownElements.menuDrop13 },
 										links: [
 											{ text: 'Action 8 (usuario/93)', to: '/usuario/93' },
-											{ text: 'Action 9 (usuario/8)', to: '/usuario/8' }
+											{ text: 'Action 9 (usuario/8)', to: '/usuario/8' },
+											{ text: 'Action 10 (usuario/senha)', to: '/usuario/senha' }
 										]
 									}
 								]

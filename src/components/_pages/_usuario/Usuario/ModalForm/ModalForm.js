@@ -148,11 +148,11 @@ const ModalForm = props => {
 			rules: [
 				{
 					rule: 'isNotEmpty',
-					message: 'Confirmação de senha não preenchida'
+					message: 'Confirmação não preenchida'
 				},
 				{
 					rule: 'isEqual',
-					message: 'Confirmação de senha não confere',
+					message: 'Confirmação não confere',
 					extraParams: [formElements.senha]
 				}
 			]
@@ -347,7 +347,7 @@ const ModalForm = props => {
 								</Col>
 								<Col md={ 6 }>
 									<FormGroup>
-										<Label for="senhaCheck">Confirma senha</Label>
+										<Label for="senhaCheck">Confirme a senha</Label>
 										<InputPass value={ formElements.senhaCheck } id="senhaCheck" maxLength="20" onChange={ changeFormElements } />
 									</FormGroup>
 								</Col>

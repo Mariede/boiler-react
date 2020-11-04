@@ -93,6 +93,12 @@ const apiRules = [
 		defaultMessage: 'Valores não são iguais'
 	},
 	{
+		name: 'isNotEqual', // Depende de extraParams local
+		validatorFunction: validator.equal,
+		negateResult: true,
+		defaultMessage: 'Valores são iguais'
+	},
+	{
 		name: 'lenRange', // Depende de extraParams local
 		validatorFunction: validator.lenRange,
 		defaultMessage: 'Valor não se encontra dentro do intervalo solicitado'
