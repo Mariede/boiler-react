@@ -68,7 +68,7 @@ const LoggedContent = () => {
 		<Fragment>
 			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/logoff" cbCatch={ { header: 'Logoff' } } url="/logon" />
 
-			<div id="logged">
+			<div id="logged" className="mb-2 mb-md-0">
 				<span className="logged-user">
 					<span className="logged-user-profile" tabIndex="0" role="button" onKeyPress={ checkEnterPressed } onClick={ checkClicked }>
 						<i className="fas fa-user-alt"></i>

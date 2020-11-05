@@ -4,23 +4,27 @@
 	margin: 0 5px;
 }
 
-#header .navbar-local {
+#header > .navbar-local {
 	background-color: #bcd;
 	padding: 0;
 }
 
-#header .navbar-local a.navbar-brand {
+#header > .navbar-local a.navbar-brand {
 	font-size: 2rem;
 }
 
-#header .navbar-local .color-brand {
+#header > .navbar-local .color-brand {
 	color: #000;
 }
 
-#header .navbar-local .img-logo {
+#header > .navbar-local .img-logo {
 	height: 50px;
-	margin-left: 8px;
+	margin-left: 6px;
 	animation: app-logo-spin infinite 20s linear;
+}
+
+#header > .navbar-local > .navbar-toggler {
+	margin-right: 6px;
 }
 
 @keyframes app-logo-spin {

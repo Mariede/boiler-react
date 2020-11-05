@@ -112,7 +112,7 @@ const Multiple = props => {
 	};
 
 	return (
-		<div className="multiple flex-md-row flex-column">
+		<div className="multiple flex-column flex-md-row">
 			<div className="multiple-box-out">
 				<Input type="select" id={ multipleBoxOut } size={ multipleBoxSize } multiple>
 					<option value="" disabled>&rsaquo; disponíveis</option>

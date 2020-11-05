@@ -98,10 +98,17 @@ div.global-form-header {
 
 /* global: agrupando elementos de formulario */
 div.global-form-grouped {
-	border: 1px dotted #aaa;
+	border-top: 1px solid #eee;
+	box-shadow: 0 2px 4px rgba(150, 150, 150, 0.6);
 	border-radius: 12px;
 	padding: 12px 12px 0 12px;
 	margin-bottom: 12px;
+}
+
+/* global: agrupando elementos diversos */
+div.global-form-grouped.diverse {
+	padding-bottom: 12px;
+	margin-bottom: 0;
 }
 
 /* global: bootstrap apenas para casos onde form-text (reactstrap FormText) logo apos form-group */

@@ -114,15 +114,15 @@ const ModalWindow = props => {
 						<Fragment>
 							{
 								modalFormSubmitID ? (
-									<Button type="submit" form={ modalFormSubmitID } color="success" size={ modalFooterSize }>Confirmar</Button>
+									<Button type="submit" size={ modalFooterSize } color="success" form={ modalFormSubmitID }>Confirmar</Button>
 								) : (
-									<Button type="button" color="success" size={ modalFooterSize } onClick={ e => exitCallback(modalConfirm, true, modalCallback, modalCallbackPlanB, e) }>Confirmar</Button>
+									<Button type="button" size={ modalFooterSize } color="success" onClick={ e => exitCallback(modalConfirm, true, modalCallback, modalCallbackPlanB, e) }>Confirmar</Button>
 								)
 							}
-							<Button type="button" color="danger" size={ modalFooterSize } onClick={ toggleModal }>Cancelar</Button>
+							<Button type="button" size={ modalFooterSize } color="danger" onClick={ toggleModal }>Cancelar</Button>
 						</Fragment>
 					) : (
-						<Button type="button" color="success" size={ modalFooterSize } onClick={ toggleModal }>Fechar</Button>
+						<Button type="button" size={ modalFooterSize } color="success" onClick={ toggleModal }>Fechar</Button>
 					)
 				}
 			</ModalFooter>

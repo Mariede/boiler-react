@@ -1,6 +1,6 @@
 import { Fragment, useRef, useState, useEffect, useContext } from 'react';
 
-import { Form, FormGroup, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
 import MainContent from 'components/_common/MainContent';
@@ -36,7 +36,7 @@ const Senha = () => {
 			rules: [
 				{
 					rule: 'isNotEmpty',
-					message: 'Senha não preenchida'
+					message: 'Senha atual não preenchida'
 				}
 			]
 		},
@@ -127,6 +127,7 @@ const Senha = () => {
 						<div className="global-form-grouped">
 							<Row form>
 								<Col md={ 12 }>
+									<Label for="senha">Senha</Label>
 									<FormGroup>
 										<Input type="password" value={ formElements.senha } id="senha" maxLength="20" placeholder="Senha atual" onChange={ changeFormElements } />
 									</FormGroup>
@@ -137,6 +138,7 @@ const Senha = () => {
 						<div className="global-form-grouped">
 							<Row form>
 								<Col md={ 12 }>
+									<Label for="senhaNova">Nova senha</Label>
 									<FormGroup>
 										<Input type="password" value={ formElements.senhaNova } id="senhaNova" maxLength="20" placeholder="Nova senha" onChange={ changeFormElements } />
 									</FormGroup>
@@ -150,21 +152,21 @@ const Senha = () => {
 									</FormGroup>
 								</Col>
 							</Row>
-						</div>
 
-						<Row form>
-							<Col md={ { offset: 1, size: 10 } }>
-								<FormGroup>
-									<PassMeter passValue={ formElements.senhaNova } />
-								</FormGroup>
-							</Col>
-						</Row>
+							<Row form>
+								<Col md={ { offset: 1, size: 10 } }>
+									<FormGroup>
+										<PassMeter passValue={ formElements.senhaNova } />
+									</FormGroup>
+								</Col>
+							</Row>
+						</div>
 
 						<hr className="global-line global-form-divider" />
 
 						<Row form>
 							<Col md={ 12 }>
-								<Button type="submit" size="md" color="success" block>Enviar</Button>
+								<Button type="submit" size="md" color="success" block>Confirmar</Button>
 							</Col>
 						</Row>
 					</Form>

@@ -99,33 +99,35 @@ const Logon = () => {
 			<MainContent subject="Logon" icon="fas fa-sign-in-alt" maxContent={ true }>
 				<div id="logon">
 					<Form id="logon-form" className="form" onSubmit={ submitForm } autoComplete="off">
-						<Row form>
-							<Col md={ 12 }>
-								<FormGroup>
-									<Label for="login">Usuário</Label>
-									<Input type="text" value={ formElements.login } id="login" maxLength="200" placeholder="seu@email" onChange={ changeFormElements } />
-								</FormGroup>
-								<FormText className="global-outside-group">Insira seu usuário aqui.</FormText>
-							</Col>
-						</Row>
+						<div className="global-form-grouped diverse">
+							<Row form>
+								<Col md={ 12 }>
+									<FormGroup>
+										<Label for="login">Usuário</Label>
+										<Input type="text" value={ formElements.login } id="login" maxLength="200" placeholder="seu@email" onChange={ changeFormElements } />
+									</FormGroup>
+									<FormText className="global-outside-group">Insira seu usuário aqui.</FormText>
+								</Col>
+							</Row>
 
-						<Row form>
-							<Col md={ 12 }>
-								<FormGroup>
-									<Label for="senha">Senha</Label>
-									<InputPass value={ formElements.senha } id="senha" maxLength="20" placeholder="S3nh4" onChange={ changeFormElements } />
-								</FormGroup>
-								<FormText className="global-outside-group">Insira sua senha aqui.</FormText>
-							</Col>
-						</Row>
+							<Row form>
+								<Col md={ 12 }>
+									<FormGroup>
+										<Label for="senha">Senha</Label>
+										<InputPass value={ formElements.senha } id="senha" maxLength="20" placeholder="S3nh4" onChange={ changeFormElements } />
+									</FormGroup>
+									<FormText className="global-outside-group">Insira sua senha aqui.</FormText>
+								</Col>
+							</Row>
 
-						<hr className="global-line global-form-divider" />
+							<hr className="global-line global-form-divider" />
 
-						<Row form>
-							<Col md={ 12 }>
-								<Button type="submit" size="md" color="success" block>Enviar</Button>
-							</Col>
-						</Row>
+							<Row form>
+								<Col md={ 12 }>
+									<Button type="submit" size="md" color="success" block>Enviar</Button>
+								</Col>
+							</Row>
+						</div>
 					</Form>
 				</div>
 			</MainContent>
