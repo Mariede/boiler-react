@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 
+import DataAction from './DataAction';
 import DataModal from './DataModal';
 
 import useDataChange from 'components/_custom-hooks/useDataChange';
@@ -37,12 +37,14 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 		- url			: OBRIGATORIO, url atual (com querystring) para redirects
 
+		- showConfirm 	: OPCIONAL, exibe popup de confirmacao de acao bem sucedida - DEFAULT nao exibe
+
 		- children		: apenas para o caso de submit === false
 			-> contem o formulario com a tela de apoio para insert/update (exibido atraves do componente de apoio DataModal)
 			-> obrigatorio existir um formId
 */
 const DataChange = props => {
-	const { submit, method, extraRoute, param, data, headers, cbThen, message, formId, setDataChange, baseRoute, cbCatch, url, children } = props;
+	const { submit, method, extraRoute, param, data, headers, cbThen, message, formId, setDataChange, baseRoute, cbCatch, url, showConfirm, children } = props;
 
 	const ChildContent = children;
 
@@ -78,21 +80,20 @@ const DataChange = props => {
 	return (
 		<Fragment>
 			{ Component }
+
 			{
-				goDataAction ? (
-					<Redirect to={ url } />
-				) : (
-					submit === false ? (
-						(ChildContent && formId) ? (
-							<DataModal param={ param } data={ data } formId={ formId } setDataChange={ setDataChange } ChildContent={ ChildContent } />
-						) : (
-							null
-						)
+				(!goDataAction && submit === false) ? (
+					(ChildContent && formId) ? (
+						<DataModal param={ param } data={ data } formId={ formId } setDataChange={ setDataChange } ChildContent={ ChildContent } />
 					) : (
 						null
 					)
+				) : (
+					null
 				)
 			}
+
+			<DataAction goDataAction={ goDataAction } showConfirm={ showConfirm } url={ url } />
 		</Fragment>
 	);
 };

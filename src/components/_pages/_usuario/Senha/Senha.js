@@ -119,7 +119,7 @@ const Senha = () => {
 
 	return (
 		<Fragment>
-			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" cbCatch={ { header: 'Alterar senha', form: 'usuario-senha-form' } } url="/" />
+			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" cbCatch={ { header: 'Alterar senha', form: 'usuario-senha-form' } } url="/" showConfirm />
 
 			<MainContent subject="Trocar senha" icon="fas fa-key" maxContent={ true }>
 				<div id="usuario-senha">
