@@ -1,19 +1,28 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 import './DataAction.css';
 
+/*
+	** Componente de apoio para DataChange na exibicao da mensagem informativa **
+
+	PROPS:
+		goDataAction		: Indica se a acao foi concluida ok para redirect
+		showActionInfo		: Indica realiza o redirect ou informa popup informativo
+		url					: url de redirect
+*/
 const DataAction = props => {
-	const { goDataAction, showConfirm, url } = props;
+	const { goDataAction, showActionInfo, url } = props;
 
 	const history = useHistory();
 
 	const elementConfirm = useRef();
 
-	useEffect(
+	useLayoutEffect(
 		() => {
 			if (goDataAction) {
-				if (showConfirm) {
+				if (showActionInfo) {
 					const _elementConfirm = elementConfirm.current;
 
 					if (_elementConfirm) {
@@ -24,7 +33,7 @@ const DataAction = props => {
 				}
 			}
 		},
-		[goDataAction, showConfirm, history, url]
+		[goDataAction, showActionInfo, history, url]
 	);
 
 	const dataAction = e => {
@@ -39,18 +48,31 @@ const DataAction = props => {
 	};
 
 	const Component = (
-		<div ref={ elementConfirm } className="data-action-message-action">
-			<div tabIndex="0" role="button" onKeyPress={ dataAction } onClick={ dataAction } className="data-action-message-action-box">
-				Ação concluída com êxito!
+		showActionInfo ? (
+			<div ref={ elementConfirm } className="data-action">
+				<div tabIndex="0" role="button" onKeyPress={ dataAction } onClick={ dataAction } className="data-action-box">
+					<div className="header">
+						<i className="fas fa-check"></i> Sucesso
+					</div>
+
+					<hr />
+
+					<div className="body">
+						<i className="fas fa-thumbs-up"></i>
+						<br />
+						{ typeof showActionInfo === 'string' ? showActionInfo : 'Ação concluída com êxito!' }
+					</div>
+				</div>
 			</div>
-		</div>
+		) : (
+			null
+		)
 	);
 
 	return (
-		showConfirm ? (
-			Component
-		) : (
-			null
+		ReactDOM.createPortal(
+			Component,
+			document.getElementById('root')
 		)
 	);
 };
