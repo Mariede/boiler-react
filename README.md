@@ -2,7 +2,7 @@
 
 Cliente boilerplate para aplicações Web em React - front-end
 
-Utiliza react-scripts do framework de desenvolvimento [Create React App](https://github.com/facebook/create-react-app)
+Utiliza [react-scripts](https://github.com/facebook/create-react-app)
 
 * Rodar local:
 ```
@@ -19,7 +19,7 @@ npm run build
   - Arquivo de configuração unificado (Config.json)
   - Integrado com servidor em Express/Node.js (boiler-server)
   - Single Page Application (SPA)
-  - RESTFUL
+  - Chamadas RESTFUL da API do servidor
   - Utiliza Bootstrap 4 (reactstrap)
   - CSS responsivo - interface se adapta ao tamanho da tela (inclusive mobile)
   - Webfonts => Font Awesome
@@ -30,7 +30,7 @@ npm run build
   - Configuração das rotas da aplicação em arquivo separado
   - Rotas protegidas ou abertas
   - Configuração das rotas da aplicação em arquivo separado
-  - Informações de usuário salvas globalmente em contexto
+  - Informações da aplicação salvas globalmente em contexto
   - Reloga direto na última rota acessada, caso de disconnect inesperado do servidor
 
 ## Helpers (Libs de apoio)
@@ -42,19 +42,20 @@ npm run build
   - errWrapper => catcher para manipulação de erros assíncronos
 
 ## Componentes Gerais
-  - ModalWindow (modais diversos com estrutura configurável e callback)
+  - ModalWindow (modais diversos com estrutura configurável e callbacks de execução)
   - Alert (popup de confirmação / informação com callback - acoplado com ModalWindow)
   - Loading (carregamento de página)
   - Notify (informações na tela - Erros / Avisos / etc...) com temporizador
   - ErrorBoundary (captura error síncronos nos componentes do react e mostra na UI)
-  - GridTable (componente de tabulação de dados baseado no custom hook useDataGet)
+  - GridTable (componente de tabulação de dados)
     + GridButton (botões personalizados de GridTable - pode usar Alert)
   - Paginator (paginação nas páginas - compatível com back-end boiler-server)
   - Sorter (ordenação nas páginas - compatível com back-end boiler-server)
+  - DataGet (encapsula requisições de dados - GET)
   - DataChange (encapsula as transformações de dados - POST/PUT/PATCH/DELETE - para CRUD ou similar)
+    + DataAction (exibe mensagem informativa de ação executada com sucesso, configurável)
     + DataModal (tela em modal para updates e inserts gerais)
     + Trabalha em sinergia com GridTable
-  - DataGet (encapsula requisições de dados - GET)
   - PassMeter (informa força da senha)
   - Searcher (pesquisas dinâmicas - compatível com back-end boiler-server)
   - Componentes de formulários personalizados:
@@ -70,7 +71,10 @@ npm run build
 ## Custom Hooks
   - Hooks personalizados para automatizar tarefas repetitivas
     + Acesso a lib axios (GET, POST, PUT, DELETE, ...)
+      * useDataGet - Centraliza as chamadas GET no sistema, através do componente DataGet
+      * useDataChange - Centraliza as chamadas POST, PUT, PATCH, DELETE, através do componente DataChange
     + Validação de permissões de acesso do usuário logado
+      * ContextCheckPermissions
 
 ## Estrutura das pastas da aplicação
   - application

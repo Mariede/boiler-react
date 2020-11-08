@@ -10,7 +10,7 @@
 	display: none;
 }
 
-.data-action-box {
+.data-action > .data-action-box {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -23,17 +23,17 @@
 	font-size: 1rem;
 }
 
-.data-action-box:hover {
+.data-action > .data-action-box:hover {
 	background-color: #fff;
 }
 
-.data-action-box > .header {
+.data-action > .data-action-box > .header {
 	color: green;
 	font-weight: bold;
 	text-align: left;
 }
 
-.data-action-box > .body > i {
+.data-action > .data-action-box > .body > i {
 	color: green;
 	font-size: 3.0rem;
 	margin-bottom: 12px;
