@@ -61,6 +61,8 @@ const DataAction = props => {
 						<i className="fas fa-thumbs-up"></i>
 						<br />
 						{ typeof showActionInfo === 'string' ? showActionInfo : 'Ação concluída com êxito!' }
+						<br />
+						<span>Clique para continuar...</span>
 					</div>
 				</div>
 			</div>

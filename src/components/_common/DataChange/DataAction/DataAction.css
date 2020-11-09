@@ -18,7 +18,7 @@
 	border-radius: 12px;
 	padding: 24px 36px;
 	box-shadow: 0 2px 4px rgba(150, 150, 150, 0.6);
-	background-color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(255, 255, 255, 0.8);
 	transform: translate(-50%, -50%);
 	font-size: 1rem;
 }
@@ -28,13 +28,24 @@
 }
 
 .data-action > .data-action-box > .header {
-	color: green;
+	background-color: green;
+	padding: 4px 6px;
+	color: #fff;
 	font-weight: bold;
 	text-align: left;
+}
+
+.data-action > .data-action-box > .body {
+	font-size: 1.2rem;
 }
 
 .data-action > .data-action-box > .body > i {
 	color: green;
 	font-size: 3.0rem;
 	margin-bottom: 12px;
+}
+
+.data-action > .data-action-box > .body > span {
+	font-size: .8rem;
+	font-style: italic;
 }
