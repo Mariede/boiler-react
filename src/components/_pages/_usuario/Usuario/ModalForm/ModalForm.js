@@ -31,10 +31,9 @@ const ModalForm = props => {
 		{
 			nome: data.nome || '',
 			email: data.email || '',
+			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : ''), // Mascara no formulario
 			tipo: (data.tipo && data.tipo.id) || '',
 			ativo: (data.ativo ? true : (data.ativo === false ? false : '')),
-			cep: (data.cep ? String(data.cep).padStart(8, '0') : ''), // Mascara no formulario
-			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : ''), // Mascara no formulario
 			detalhes: data.detalhes || '',
 			perfis: functions.getArrayOnly(data.perfis, 'id'),
 			senha: '',
@@ -72,6 +71,15 @@ const ModalForm = props => {
 			]
 		},
 		{
+			id: 'cpf',
+			optional: true,
+			rules: [
+				{
+					rule: 'isCpf'
+				}
+			]
+		},
+		{
 			id: 'tipo',
 			optional: false,
 			rules: [
@@ -94,24 +102,6 @@ const ModalForm = props => {
 				},
 				{
 					rule: 'isBoolean'
-				}
-			]
-		},
-		{
-			id: 'cep',
-			optional: true,
-			rules: [
-				{
-					rule: 'isCep'
-				}
-			]
-		},
-		{
-			id: 'cpf',
-			optional: true,
-			rules: [
-				{
-					rule: 'isCpf'
 				}
 			]
 		},
@@ -261,10 +251,16 @@ const ModalForm = props => {
 					</Row>
 
 					<Row form>
-						<Col md={ 12 }>
+						<Col md={ 6 }>
 							<FormGroup>
 								<Label for="email">E-mail</Label>
 								<Input type="text" value={ formElements.email } id="email" maxLength="200" onChange={ changeFormElements } />
+							</FormGroup>
+						</Col>
+						<Col md={ 6 }>
+							<FormGroup>
+								<Label for="cpf">CPF</Label>
+								<Input type="text" value={ formElements.cpf } id="cpf" onChange={ changeFormElements } mask="999.999.999-99" maskChar=" " tag={ InputMask } />
 							</FormGroup>
 						</Col>
 					</Row>
@@ -302,21 +298,6 @@ const ModalForm = props => {
 										)
 									}
 								</Input>
-							</FormGroup>
-						</Col>
-					</Row>
-
-					<Row form>
-						<Col md={ 6 }>
-							<FormGroup>
-								<Label for="cep">CEP</Label>
-								<Input type="text" value={ formElements.cep } id="cep" onChange={ changeFormElements } mask="99999-999" maskChar=" " tag={ InputMask } />
-							</FormGroup>
-						</Col>
-						<Col md={ 6 }>
-							<FormGroup>
-								<Label for="cpf">CPF</Label>
-								<Input type="text" value={ formElements.cpf } id="cpf" onChange={ changeFormElements } mask="999.999.999-99" maskChar=" " tag={ InputMask } />
 							</FormGroup>
 						</Col>
 					</Row>
