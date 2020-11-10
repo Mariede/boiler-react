@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState, useEffect } from 'react';
+import { Fragment, useRef, useState, useEffect, useContext } from 'react';
 
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
@@ -13,8 +13,12 @@ import DataGet from 'components/_common/DataGet';
 import formValidator from 'helpers/formValidator';
 import functions from 'helpers/functions';
 
+import ContextConfig from 'components/_context/ContextConfig';
+
 const ModalForm = props => {
 	const { param, data, setDataChange } = props;
+
+	const formConfig = useContext(ContextConfig).formConfig;
 
 	const [dataGet, setDataGet] = useState(
 		{
@@ -117,8 +121,8 @@ const ModalForm = props => {
 			rules: [
 				{
 					rule: 'lenRange',
-					message: 'Detalhes deve conter entre 5 e 8000 caracteres',
-					extraParams: [5, 8000]
+					message: `Detalhes deve conter entre ${formConfig.detailsMinLen} e ${formConfig.detailsMaxLen} caracteres`,
+					extraParams: [formConfig.detailsMinLen, formConfig.detailsMaxLen]
 				}
 			]
 		},
@@ -139,6 +143,11 @@ const ModalForm = props => {
 				{
 					rule: 'isNotEmpty',
 					message: 'Senha não preenchida'
+				},
+				{
+					rule: 'lenRange',
+					message: `Senha deve conter entre ${formConfig.passMinLen} e ${formConfig.passMaxLen} caracteres`,
+					extraParams: [formConfig.passMinLen, formConfig.passMaxLen]
 				}
 			]
 		},

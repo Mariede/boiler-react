@@ -1,3 +1,9 @@
 {
-	"baseUrl": "https://localhost:5000"
+	"baseUrl": "https://localhost:5000",
+	"formConfig": {
+		"passMinLen": 4,
+		"passMaxLen": 20,
+		"detailsMinLen": 5,
+		"detailsMaxLen": 8000
+	}
 }
