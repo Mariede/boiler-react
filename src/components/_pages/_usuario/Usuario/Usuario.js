@@ -179,7 +179,7 @@ const Usuario = props => {
 
 					{
 						!paramId ? (
-							<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'tipo', 'perfil'] } history={ history } url={ { currentPath, currentSearch } } />
+							<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'empresa', 'perfil'] } history={ history } url={ { currentPath, currentSearch } } />
 						) : (
 							null
 						)
@@ -191,7 +191,7 @@ const Usuario = props => {
 								{ title: '#', jsonElement: 'idUsuario' },
 								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.update },
 								{ title: 'email', jsonElement: 'email', isSorted: true },
-								{ title: 'tipo', jsonElement: 'tipo.nome', isSorted: true, tdLayout: { center: true } },
+								{ title: 'empresa', jsonElement: 'empresa.nome', isSorted: true, tdLayout: { center: true } },
 								{ title: 'perfis', jsonElement: 'perfis.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
 								{
 									buttons: [

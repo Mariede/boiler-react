@@ -32,7 +32,7 @@ const ModalForm = props => {
 			nome: data.nome || '',
 			email: data.email || '',
 			cpf: (data.cpf ? String(data.cpf).padStart(11, '0') : ''), // Mascara no formulario
-			tipo: (data.tipo && data.tipo.id) || '',
+			empresa: (data.empresa && data.empresa.id) || '',
 			ativo: (data.ativo ? true : (data.ativo === false ? false : '')),
 			detalhes: data.detalhes || '',
 			perfis: functions.getArrayOnly(data.perfis, 'id'),
@@ -80,12 +80,12 @@ const ModalForm = props => {
 			]
 		},
 		{
-			id: 'tipo',
+			id: 'empresa',
 			optional: false,
 			rules: [
 				{
 					rule: 'isNotEmpty',
-					message: 'Tipo não selecionado'
+					message: 'Empresa não selecionada'
 				},
 				{
 					rule: 'isInteger'
@@ -268,12 +268,12 @@ const ModalForm = props => {
 					<Row form>
 						<Col md={ 6 }>
 							<FormGroup>
-								<Label for="tipo">Tipo</Label>
-								<Input type="select" value={ formElements.tipo } id="tipo" onChange={ changeFormElements }>
+								<Label for="empresa">Empresa</Label>
+								<Input type="select" value={ formElements.empresa } id="empresa" onChange={ changeFormElements }>
 									<option value="">&rsaquo; selecione</option>
 									{
-										options && Array.isArray(options.tipos) ? (
-											options.tipos.map(
+										options && Array.isArray(options.empresas) ? (
+											options.empresas.map(
 												(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
 											)
 										) : (
