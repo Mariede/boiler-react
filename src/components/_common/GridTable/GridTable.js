@@ -56,6 +56,8 @@ import './GridTable.css';
 
 					-> right: se true, conteudo a direita
 
+					-> nowrap: se true, nowrap acionado para a celula
+
 					-> badges: se existir, exibe conteudo como badge (primary, secondary, success, info, ...)
 
 				-> buttons informa uma array de um ou mais botoes que serao renderizados na coluna
@@ -203,7 +205,7 @@ const GridTable = props => {
 														);
 
 														return (
-															<td key={ indexTd } className={ tdLayout && (tdLayout.center ? 'td-center' : (tdLayout.right ? 'td-right' : '')) } style={ (tableCellWidth ? { width: `${tableCellWidth}px` } : {}) }>
+															<td key={ indexTd } className={ tdLayout && (tdLayout.center ? (tdLayout.nowrap ? 'td-center td-nowrap' : 'td-center') : (tdLayout.right ? (tdLayout.nowrap ? 'td-right td-nowrap' : 'td-right') : (tdLayout.nowrap ? 'td-nowrap' : ''))) } style={ (tableCellWidth ? { width: `${tableCellWidth}px` } : {}) }>
 																{
 																	jsonElement ? (
 																		gridCallback ? (

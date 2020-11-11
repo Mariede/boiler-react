@@ -72,8 +72,12 @@ const ModalForm = props => {
 		},
 		{
 			id: 'cpf',
-			optional: true,
+			optional: false,
 			rules: [
+				{
+					rule: 'isNotEmpty',
+					message: 'CPF não preenchido'
+				},
 				{
 					rule: 'isCpf'
 				}

@@ -56,6 +56,10 @@ table.grid-table td.td-right {
 	text-align: right;
 }
 
+table.grid-table td.td-nowrap {
+	white-space: nowrap;
+}
+
 table.grid-table tfoot td {
 	font-size: 0.9rem;
 	text-align: center;

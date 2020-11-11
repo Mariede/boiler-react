@@ -193,6 +193,7 @@ const Usuario = props => {
 								{ title: 'email', jsonElement: 'email', isSorted: true },
 								{ title: 'empresa', jsonElement: 'empresa.nome', isSorted: true, tdLayout: { center: true } },
 								{ title: 'perfis', jsonElement: 'perfis.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
+								{ title: 'criado em', jsonElement: 'dataCriacao', isSorted: true, tdLayout: { right: true, nowrap: true } },
 								{
 									buttons: [
 										{
