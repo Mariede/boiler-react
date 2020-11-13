@@ -1,5 +1,6 @@
 import { Fragment, useRef, useState, useEffect, useContext } from 'react';
 
+import { Alert } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
@@ -240,6 +241,16 @@ const ModalForm = props => {
 			/>
 
 			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off">
+				{
+					(!param || (data.ativo && (data.empresa && data.empresa.ativo))) ? (
+						null
+					) : (
+						<Alert color="danger">
+							<i className="fas fa-user-slash"></i> Usuário <strong>inativo</strong>
+						</Alert>
+					)
+				}
+
 				<div className="global-form-header">
 					Dados Gerais
 				</div>
@@ -278,7 +289,7 @@ const ModalForm = props => {
 									{
 										options && Array.isArray(options.empresas) ? (
 											options.empresas.map(
-												(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+												(element, index) => <option value={ element.id } key={ index } disabled={ !element.ativo }>{ element.nome }{ !element.ativo ? ' (inativa)' : '' }</option>
 											)
 										) : (
 											null

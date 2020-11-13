@@ -18,6 +18,23 @@
 	vertical-align: middle;
 }
 
+#logged > .logged-user > .user-nome {
+	font-weight: bold;
+}
+
+#logged > .logged-user > .user-email {
+	font-size: 0.8rem;
+	font-style: italic;
+	text-transform: lowercase;
+	padding: 2px 0;
+}
+
+#logged > .logged-user > .user-empresa {
+	font-size: 0.8rem;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
 #logged > .logged-user > .logged-user-profile {
 	position: relative;
 	margin-right: 1px;
