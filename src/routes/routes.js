@@ -1,8 +1,8 @@
 import Home from 'components/_pages/_base/Home';
 import Logon from 'components/_pages/_base/Logon';
 import NotFound from 'components/_pages/_base/NotFound';
-import UsuarioSenha from 'components/_pages/_usuario/Senha';
-import Usuario from 'components/_pages/_usuario/Usuario';
+import UsuarioSenha from 'components/_pages/_user/Senha';
+import Usuario from 'components/_pages/_user/Usuario';
 
 // Rotas adicionadas aqui
 /*
