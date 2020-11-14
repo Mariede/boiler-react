@@ -9,6 +9,9 @@ import DataGet from 'components/_common/DataGet';
 import DataChange from 'components/_common/DataChange';
 import ModalWindow from 'components/_common/ModalWindow'; // Saiba mais
 
+import CheckPermissions from 'components/_common/CheckPermissions';
+import appPermissions from 'helpers/appPermissions';
+
 import ModalForm from './ModalForm';
 
 import './Usuario.css';
@@ -172,9 +175,16 @@ const Usuario = props => {
 
 					<div className="top-group">
 						<span className="info">{ !paramId ? 'Detalhes dos usuários' : 'Detalhes do usuário' }</span>
-						<Button type="button" size="sm" color="success" onClick={ pageActions.insert }>
-							<i className="fas fa-plus"></i> novo usuário
-						</Button>
+
+						<CheckPermissions allowedPermissions={ [appPermissions.edtUsuarios] }>
+							<Button type="button" size="sm" color="success" onClick={ pageActions.insert }>
+								<i className="fas fa-plus"></i> novo usuário
+							</Button>
+
+							<Button type="button" size="sm" disabled>
+								<i className="fas fa-plus"></i> novo usuário
+							</Button>
+						</CheckPermissions>
 					</div>
 
 					{
