@@ -134,9 +134,9 @@ const Senha = () => {
 						<div className="global-form-grouped">
 							<Row form>
 								<Col md={ 12 }>
-									<Label for="senha">Senha</Label>
+									<Label for="senha">Senha atual</Label>
 									<FormGroup>
-										<Input type="password" value={ formElements.senha } id="senha" maxLength="20" placeholder="Senha atual" onChange={ changeFormElements } />
+										<Input type="password" value={ formElements.senha } id="senha" maxLength="20" onChange={ changeFormElements } />
 									</FormGroup>
 								</Col>
 							</Row>
@@ -147,7 +147,7 @@ const Senha = () => {
 								<Col md={ 12 }>
 									<Label for="senhaNova">Nova senha</Label>
 									<FormGroup>
-										<Input type="password" value={ formElements.senhaNova } id="senhaNova" maxLength="20" placeholder="Nova senha" onChange={ changeFormElements } />
+										<Input type="password" value={ formElements.senhaNova } id="senhaNova" maxLength="20" placeholder="nova senha" onChange={ changeFormElements } />
 									</FormGroup>
 								</Col>
 							</Row>
@@ -155,7 +155,7 @@ const Senha = () => {
 							<Row form>
 								<Col md={ 12 }>
 									<FormGroup>
-										<InputPass value={ formElements.senhaNovaCheck } id="senhaNovaCheck" maxLength="20" placeholder="Confirme a nova senha" onChange={ changeFormElements } />
+										<InputPass value={ formElements.senhaNovaCheck } id="senhaNovaCheck" maxLength="20" placeholder="confirme a nova senha" onChange={ changeFormElements } />
 									</FormGroup>
 								</Col>
 							</Row>

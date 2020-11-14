@@ -114,7 +114,7 @@ const Logon = () => {
 								<Col md={ 12 }>
 									<FormGroup>
 										<Label for="senha">Senha</Label>
-										<InputPass value={ formElements.senha } id="senha" maxLength="20" placeholder="S3nh4" onChange={ changeFormElements } />
+										<InputPass value={ formElements.senha } id="senha" maxLength="20" placeholder="s3nh4" onChange={ changeFormElements } />
 									</FormGroup>
 									<FormText className="global-outside-group">Insira sua senha aqui.</FormText>
 								</Col>
