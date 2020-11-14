@@ -19,7 +19,7 @@ npm run build
   - Arquivo de configuração unificado (Config.json)
   - Integrado com servidor em Express/Node.js (boiler-server)
   - Single Page Application (SPA)
-  - Chamadas RESTFUL da API do servidor
+  - Compatível com chamadas RESTFUL da API do servidor
   - Utiliza Bootstrap 4 (reactstrap)
   - CSS responsivo - interface se adapta ao tamanho da tela (inclusive mobile)
   - Webfonts => Font Awesome
