@@ -30,7 +30,7 @@ import './GridTable.css';
 			-> se nao especificado, o componente tenta usar record.id ou o primeira chave do objeto record
 
 		- columns		: OBRIGATORIO, especifica quais as colunas a serem exibidas
-			-> array de objetos com [title, jsonElement, isSorted, gridCallback, tdLayout, buttons]
+			-> array de objetos com [title, jsonElement, isSorted, gridCallback, blockCallbacks, tdLayout, buttons]
 				-> title informa o cabecalho da coluna. Nao obrigatorio
 
 				-> jsonElement informa a propriedade Json a ser exibida (formato string), e pode ser aninhado por ponto
@@ -48,6 +48,10 @@ import './GridTable.css';
 
 				-> gridCallback e um callback do parent na celula e se baseia no ID da linha em tr (rowId)
 					-> gridCallback fora de buttons, serve de callback para jsonElement
+
+				-> blockCallbacks desabilita os eventos de callback existentes no elemento - jsonElement ou buttons
+					-> geralmente utilizado com permissoes de acesso
+					-> nao obrigatorio
 
 				-> tdLayout inclui detalhes de layout da celula na tabela. Nao obrigatorio
 					-> width: se existir, define um numero inteiro, em px que informa o tamanho da coluna
@@ -145,6 +149,7 @@ const GridTable = props => {
 													(column, indexTd) => {
 														const jsonElement = (column.jsonElement || '');
 														const gridCallback = column.gridCallback;
+														const blockCallbacks = column.blockCallbacks;
 														const tdLayout = column.tdLayout;
 														const buttons = column.buttons;
 
@@ -208,10 +213,14 @@ const GridTable = props => {
 															<td key={ indexTd } className={ tdLayout && (tdLayout.center ? (tdLayout.nowrap ? 'td-center td-nowrap' : 'td-center') : (tdLayout.right ? (tdLayout.nowrap ? 'td-right td-nowrap' : 'td-right') : (tdLayout.nowrap ? 'td-nowrap' : ''))) } style={ (tableCellWidth ? { width: `${tableCellWidth}px` } : {}) }>
 																{
 																	jsonElement ? (
-																		gridCallback ? (
-																			<GridButton id={ `btn-gb-${index}${indexTd}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ indexTd } />
-																		) : (
+																		blockCallbacks ? (
 																			data
+																		) : (
+																			gridCallback ? (
+																				<GridButton id={ `btn-gb-${index}${indexTd}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ indexTd } />
+																			) : (
+																				data
+																			)
 																		)
 																	) : (
 																		Array.isArray(buttons) && buttons.length !== 0 ? (
@@ -219,7 +228,7 @@ const GridTable = props => {
 																				{
 																					buttons.map(
 																						(button, indexBtn) => (
-																							<GridButton id={ `btn-gb-${index}${indexTd}${indexBtn}` } record={ record } gridCallback={ button.gridCallback } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ indexBtn } />
+																							<GridButton id={ `btn-gb-${index}${indexTd}${indexBtn}` } record={ record } gridCallback={ button.gridCallback } buttonBlockCallback={ blockCallbacks } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ indexBtn } />
 																						)
 																					)
 																				}

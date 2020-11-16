@@ -128,7 +128,7 @@ const Senha = () => {
 		<Fragment>
 			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" cbCatch={ { header: 'Alterar senha', form: 'usuario-senha-form' } } url="/" showActionInfo />
 
-			<MainContent subject="Trocar senha" icon="fas fa-key" maxContent={ true }>
+			<MainContent subject="Minha senha" icon="fas fa-key" maxContent={ true }>
 				<div id="usuario-senha">
 					<Form id="usuario-senha-form" className="form" onSubmit={ submitForm } autoComplete="off">
 						<div className="global-form-grouped">

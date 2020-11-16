@@ -9,6 +9,7 @@ import DataGet from 'components/_common/DataGet';
 import DataChange from 'components/_common/DataChange';
 import ModalWindow from 'components/_common/ModalWindow'; // Saiba mais
 
+import useCheckPermissions from 'components/_custom-hooks/useCheckPermissions';
 import CheckPermissions from 'components/_common/CheckPermissions';
 import appPermissions from 'helpers/appPermissions';
 
@@ -27,6 +28,14 @@ const Usuario = props => {
 	);
 
 	const [dataChange, setDataChange] = useState(undefined);
+
+	const pGridTableAllowedCallbacks = useCheckPermissions(
+		{
+			allowedPermissions: [
+				appPermissions.edtUsuarios
+			]
+		}
+	);
 
 	// Saiba mais -------------------
 	const knowMoreInitialValue = {
@@ -181,7 +190,7 @@ const Usuario = props => {
 								<i className="fas fa-plus"></i> novo usuário
 							</Button>
 
-							<Button type="button" size="sm" disabled>
+							<Button type="button" size="sm" color="success" disabled>
 								<i className="fas fa-plus"></i> novo usuário
 							</Button>
 						</CheckPermissions>
@@ -199,12 +208,13 @@ const Usuario = props => {
 						columns={
 							[
 								{ title: '#', jsonElement: 'idUsuario' },
-								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.update },
+								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.update, blockCallbacks: !pGridTableAllowedCallbacks },
 								{ title: 'email', jsonElement: 'email', isSorted: true },
 								{ title: 'empresa', jsonElement: 'empresa.nome', isSorted: true, tdLayout: { center: true } },
 								{ title: 'perfis', jsonElement: 'perfis.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
 								{ title: 'criado em', jsonElement: 'dataCriacao', isSorted: true, tdLayout: { right: true, nowrap: true } },
 								{
+									blockCallbacks: !pGridTableAllowedCallbacks,
 									buttons: [
 										{
 											gridCallback: pageActions.delete,

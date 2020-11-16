@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
+import useCheckPermissions from 'components/_custom-hooks/useCheckPermissions';
+import appPermissions from 'helpers/appPermissions';
+
 import './MenuContent.css';
 
 /*
@@ -23,16 +26,42 @@ const MenuContent = props => {
 	const dropdownElementsInitialValues = useMemo(
 		() => (
 			{
-				menuDrop1: false,
-				menuDrop12: false,
-				menuDrop13: false,
-				menuDrop2: false
+				gerenciamento: false,
+				menuDrop2: false,
+				menuDrop21: false,
+				menuDrop22: false
 			}
 		),
 		[]
 	);
 
 	const [dropdownElements, handleDropdownElements] = useState(dropdownElementsInitialValues);
+
+	const pMenuEmpresas = useCheckPermissions(
+		{
+			allowedPermissions: [
+				appPermissions.lstEmpresas,
+				appPermissions.edtEmpresas
+			]
+		}
+	);
+
+	const pMenuUsuarios = useCheckPermissions(
+		{
+			allowedPermissions: [
+				appPermissions.lstUsuarios,
+				appPermissions.edtUsuarios
+			]
+		}
+	);
+
+	const pMenuMinhaSenha = useCheckPermissions(
+		{
+			allowedPermissions: [
+				appPermissions.edtMinhaSenha
+			]
+		}
+	);
 
 	/*
 		Array de objetos contendo as definicoes do(s) menu(s) e submenu(s)
@@ -66,7 +95,15 @@ const MenuContent = props => {
 				all: [],
 				onlyLogged: [
 					{
-						toggle: { title: 'Menu 1', id: 'menuDrop1', state: dropdownElements.menuDrop1 },
+						toggle: { title: 'Gerenciamento', id: 'gerenciamento', state: dropdownElements.gerenciamento },
+						links: [
+							{ text: 'Empresas', to: '/empresa', disabled: !pMenuEmpresas },
+							{ text: 'Usuários', to: '/usuario', disabled: !pMenuUsuarios },
+							{ text: 'Minha senha', to: '/usuario/senha', disabled: !pMenuMinhaSenha }
+						]
+					},
+					{
+						toggle: { title: 'Menu 2', id: 'menuDrop2', state: dropdownElements.menuDrop2 },
 						links: [
 							{ text: 'Action 1 (not found)', to: '/fgfgfgf' },
 							{ text: 'Action 2 (not found)', to: '/fgfgfgf', disabled: true },
@@ -74,12 +111,12 @@ const MenuContent = props => {
 							{ text: 'Action 4 (usuario/40)', to: '/usuario/40' },
 							{ text: 'Action 5 (logon)', to: '/logon' },
 							{
-								toggle: { title: 'Submenu 12', id: 'menuDrop12', state: dropdownElements.menuDrop12 },
+								toggle: { title: 'Submenu 21', id: 'menuDrop21', state: dropdownElements.menuDrop21 },
 								links: [
 									{ text: 'Action 6 (not found)', to: '/fgfgfgf' },
 									{ text: 'Action 7 (home)', to: '/' },
 									{
-										toggle: { title: 'Submenu 13', id: 'menuDrop13', state: dropdownElements.menuDrop13 },
+										toggle: { title: 'Submenu 22', id: 'menuDrop22', state: dropdownElements.menuDrop22 },
 										links: [
 											{ text: 'Action 8 (usuario/93)', to: '/usuario/93' },
 											{ text: 'Action 9 (usuario/8)', to: '/usuario/8' },
@@ -90,14 +127,6 @@ const MenuContent = props => {
 							}
 						]
 					},
-					{
-						toggle: { title: 'Menu 2', id: 'menuDrop2', state: dropdownElements.menuDrop2 },
-						links: [
-							{ text: 'Action 10 (not found)', to: '/fgfgfgf' },
-							{ text: 'Action 11 (not found)', to: '/fgfgfgf', disabled: true },
-							{ text: 'Action 12 (usuario/68)', to: '/usuario/68' }
-						]
-					},
 					{ text: 'Menu 3', to: '/usuario' },
 					{ text: 'Menu 4', to: '/usuario/76' }
 				],
@@ -106,7 +135,7 @@ const MenuContent = props => {
 				]
 			}
 		),
-		[dropdownElements]
+		[dropdownElements, pMenuEmpresas, pMenuUsuarios, pMenuMinhaSenha]
 	);
 
 	const setDropdowns = useMemo(
