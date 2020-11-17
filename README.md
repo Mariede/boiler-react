@@ -72,7 +72,7 @@ npm run build
 ## Custom Hooks
   - Hooks personalizados para automatizar tarefas repetitivas
     + Permissões de acesso aos elementos DOM
-      * useCheckPermissions - Centraliza a verificação de acessoaos elementos da aplicação via useContext
+      * useCheckPermissions - Verificação de acessos aos elementos DOM da aplicação via useContext
     + Acesso a lib axios (GET, POST, PUT, DELETE, ...)
       * useDataGet - Centraliza as chamadas GET no sistema, através do componente DataGet
       * useDataChange - Centraliza as chamadas POST, PUT, PATCH, DELETE, através do componente DataChange

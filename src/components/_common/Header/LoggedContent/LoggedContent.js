@@ -96,7 +96,7 @@ const LoggedContent = () => {
 					<span className="user-nome">{ formatName(getUserData.nome) }</span>
 
 					<div className="user-email">{ getUserData.email }</div>
-					<div className="user-empresa">{ getUserData.empresa }</div>
+					<div className="user-empresa">{ Array.isArray(getUserData.empresa) ? getUserData.empresa[1] : '' }</div>
 				</span>
 
 				<Alert buttonType="button" buttonSize="sm" buttonColor="danger" buttonText="Sair" modalTitle="Logoff" modalMessage="Deseja realmente sair do sistema?" modalCallback={ logoffApp } modalConfirm />
