@@ -16,6 +16,8 @@ import functions from 'helpers/functions';
 
 import ContextConfig from 'components/_context/ContextConfig';
 
+import './ModalForm.css';
+
 const ModalForm = props => {
 	const { param, data, setDataChange } = props;
 
@@ -388,6 +390,8 @@ const ModalForm = props => {
 				</div>
 
 				<hr className="global-line global-form-divider" />
+
+				<div className="global-form-info-footer">{ data.dataCriacao ? `Usuário criado em ${data.dataCriacao}` : 'Novo usuário' }</div>
 			</Form>
 		</Fragment>
 	);

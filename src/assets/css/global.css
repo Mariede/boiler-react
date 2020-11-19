@@ -105,6 +105,13 @@ div.global-form-grouped {
 	margin-bottom: 12px;
 }
 
+div.global-form-info-footer {
+	color: #333;
+	font-size: 0.8rem;
+	font-style: italic;
+	text-align: right;
+}
+
 /* global: agrupando elementos diversos */
 div.global-form-grouped.diverse {
 	padding-bottom: 12px;

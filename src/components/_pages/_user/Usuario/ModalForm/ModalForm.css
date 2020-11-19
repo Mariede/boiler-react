@@ -1,0 +1,7 @@
+#usuario-form #nome {
+	text-transform: uppercase;
+}
+
+#usuario-form #email {
+	text-transform: lowercase;
+}
