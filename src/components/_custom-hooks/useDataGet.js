@@ -55,7 +55,7 @@ const useDataGet = props => {
 						dataContent.current = res.data;
 
 						if (cbThen) {
-							cbThen(res);
+							cbThen(res, setNotify);
 						}
 					}
 				}

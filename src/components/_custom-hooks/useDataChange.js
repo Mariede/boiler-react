@@ -98,7 +98,7 @@ const useDataChange = props => {
 						setGoDataAction(true);
 
 						if (cbThen) {
-							cbThen(res);
+							cbThen(res, setNotify);
 						}
 					}
 				}

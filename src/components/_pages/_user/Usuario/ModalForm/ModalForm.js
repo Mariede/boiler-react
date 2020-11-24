@@ -7,8 +7,6 @@ import { Row, Col } from 'reactstrap';
 import InputMask from 'react-input-mask';
 
 import Multiple from 'components/_common/_form/Multiple';
-import InputPass from 'components/_common/_form/InputPass';
-import PassMeter from 'components/_common/PassMeter';
 import DataGet from 'components/_common/DataGet';
 
 import formValidator from 'helpers/formValidator';
@@ -38,9 +36,7 @@ const ModalForm = props => {
 			empresa: (data.empresa && data.empresa.id) || '',
 			ativo: (data.ativo ? true : (data.ativo === false ? false : '')),
 			detalhes: data.detalhes || '',
-			perfis: functions.getArrayOnly(data.perfis, 'id'),
-			senha: '',
-			senhaCheck: ''
+			perfis: functions.getArrayOnly(data.perfis, 'id')
 		}
 	);
 
@@ -130,36 +126,6 @@ const ModalForm = props => {
 				{
 					rule: 'isNotEmpty',
 					message: 'Nenhum perfil selecionado'
-				}
-			]
-		},
-		{
-			id: 'senha',
-			optional: false,
-			rules: [
-				{
-					rule: 'isNotEmpty',
-					message: 'Senha não preenchida'
-				},
-				{
-					rule: 'lenRange',
-					message: `Senha deve conter entre ${formConfig.passMinLen} e ${formConfig.passMaxLen} caracteres`,
-					extraParams: [formConfig.passMinLen, formConfig.passMaxLen]
-				}
-			]
-		},
-		{
-			id: 'senhaCheck',
-			optional: false,
-			rules: [
-				{
-					rule: 'isNotEmpty',
-					message: 'Confirmação não preenchida'
-				},
-				{
-					rule: 'isEqual',
-					message: 'Confirmação não confere',
-					extraParams: [formElements.senha]
 				}
 			]
 		}
@@ -340,43 +306,6 @@ const ModalForm = props => {
 					</Row>
 				</div>
 
-				{
-					!param ? (
-						<Fragment>
-							<div className="global-form-header">
-								Senha
-							</div>
-
-							<div className="global-form-grouped">
-								<Row form>
-									<Col md={ 6 }>
-										<FormGroup>
-											<Label for="senha">Senha</Label>
-											<Input type="password" value={ formElements.senha } id="senha" maxLength="20" onChange={ changeFormElements } />
-										</FormGroup>
-									</Col>
-									<Col md={ 6 }>
-										<FormGroup>
-											<Label for="senhaCheck">Confirme a senha</Label>
-											<InputPass value={ formElements.senhaCheck } id="senhaCheck" maxLength="20" onChange={ changeFormElements } />
-										</FormGroup>
-									</Col>
-								</Row>
-
-								<Row form>
-									<Col md={ { offset: 1, size: 10 } }>
-										<FormGroup>
-											<PassMeter passValue={ formElements.senha } />
-										</FormGroup>
-									</Col>
-								</Row>
-							</div>
-						</Fragment>
-					) : (
-						null
-					)
-				}
-
 				<div className="global-form-grouped">
 					<Row form>
 						<Col md={ 12 }>
@@ -391,7 +320,7 @@ const ModalForm = props => {
 
 				<hr className="global-line global-form-divider" />
 
-				<div className="global-form-info-footer">{ data.dataCriacao ? `Usuário criado em ${data.dataCriacao}` : 'Novo usuário' }</div>
+				<div className="global-form-info-footer">{ data.dataCriacao ? `Usuário criado em ${data.dataCriacao}` : 'Novo usuário - a senha será enviada para o e-mail cadastrado' }</div>
 			</Form>
 		</Fragment>
 	);
