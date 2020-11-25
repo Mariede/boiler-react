@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState, useEffect, useContext } from 'react';
+import { Fragment, useRef, useState, useEffect, useMemo, useContext } from 'react';
 
 import { Alert } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
@@ -190,6 +190,36 @@ const ModalForm = props => {
 	// Define as opcoes do Modal (DataGet) - nao executa DataGet se as opcoes ja vierem via props
 	const options = (data.options || dataGet.content);
 
+	const checkCompanyDateLimit = useMemo(
+		() => {
+			const dateCheck = functions.formatStringToDate(data.empresa.dataLimiteUso);
+
+			const dateNow = (
+				options && options.agora ? (
+					new Date(
+						options.agora.ano,
+						options.agora.mes,
+						options.agora.dia,
+						options.agora.hora,
+						options.agora.minuto,
+						options.agora.segundo
+					)
+				) : (
+					null
+				)
+			);
+
+			if (dateCheck instanceof Date && dateNow instanceof Date) {
+				if (dateCheck - dateNow <= 0) {
+					return false;
+				}
+			}
+
+			return true;
+		},
+		[data.empresa.dataLimiteUso, options]
+	);
+
 	return (
 		<Fragment>
 			<DataGet
@@ -210,7 +240,17 @@ const ModalForm = props => {
 
 			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off">
 				{
-					(!param || (data.ativo && (data.empresa && data.empresa.ativo))) ? (
+					(!param || (data.empresa && data.empresa.ativo && checkCompanyDateLimit)) ? (
+						null
+					) : (
+						<Alert color="danger">
+							<i className="fas fa-user-slash"></i> Empresa <strong>inativa</strong>
+						</Alert>
+					)
+				}
+
+				{
+					(!param || data.ativo) ? (
 						null
 					) : (
 						<Alert color="danger">

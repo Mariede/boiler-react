@@ -1,3 +1,5 @@
+import { isValid, parse } from 'date-fns';
+
 const functions = {
 	parseFormElementsValues (valueCheck, optionscheck = undefined, isMultiple = false) {
 	// Analisa e retorna o tipo do dado se Array, Boolean, Number ou String
@@ -35,6 +37,21 @@ const functions = {
 				)
 			)
 		);
+	},
+	formatStringToDate (value, formatStyle = 'dd/MM/yyyy HH:mm:ss') {
+		if (typeof value === 'string') {
+			const date = parse(
+				value,
+				formatStyle,
+				new Date()
+			);
+
+			if (isValid(date)) {
+				return date; // Retorna object/Date
+			}
+		}
+
+		return value;
 	}
 };
 
