@@ -1,6 +1,9 @@
 # dependencies
 node_modules
 
+#linter
+.eslintcache
+
 # production
 /build
 
