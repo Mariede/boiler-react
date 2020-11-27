@@ -202,14 +202,7 @@ const ModalForm = props => {
 
 			const dateNow = (
 				options && options.agora ? (
-					new Date(
-						options.agora.ano,
-						options.agora.mes,
-						options.agora.dia,
-						options.agora.hora,
-						options.agora.minuto,
-						options.agora.segundo
-					)
+					functions.formatStringToDate(options.agora.valor)
 				) : (
 					null
 				)
