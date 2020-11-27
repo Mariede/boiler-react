@@ -243,7 +243,7 @@ const Usuario = props => {
 												</Fragment>,
 											buttonWidth: 100,
 											buttonColor: 'danger',
-											buttonConfirm: 'Realmente exclui o usuário?'
+											buttonConfirm: 'Realmente exclui o usuário? O CPF e e-mail relacionados ficarão impossibilitados de serem cadastrados novamente.'
 										},
 										{
 											gridCallback: pageActions.activation,

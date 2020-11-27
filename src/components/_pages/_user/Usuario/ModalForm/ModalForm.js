@@ -192,7 +192,13 @@ const ModalForm = props => {
 
 	const checkCompanyDateLimit = useMemo(
 		() => {
-			const dateCheck = functions.formatStringToDate(data.empresa.dataLimiteUso);
+			const dateCheck = (
+				data && data.empresa ? (
+					functions.formatStringToDate(data.empresa.dataLimiteUso)
+				) : (
+					null
+				)
+			);
 
 			const dateNow = (
 				options && options.agora ? (
@@ -217,7 +223,7 @@ const ModalForm = props => {
 
 			return true;
 		},
-		[data.empresa.dataLimiteUso, options]
+		[data, options]
 	);
 
 	return (
@@ -244,7 +250,7 @@ const ModalForm = props => {
 						null
 					) : (
 						<Alert color="danger">
-							<i className="fas fa-user-slash"></i> Empresa <strong>inativa</strong>
+							<i className="fas fa-user-slash"></i> Empresa <strong>inativa</strong> ou <strong>data limite de uso</strong> atingida
 						</Alert>
 					)
 				}
