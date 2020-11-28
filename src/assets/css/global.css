@@ -93,13 +93,12 @@ div.global-form-header {
 	border-bottom: 1px solid #ced4da;
 	margin-bottom: 12px;
 	padding: 12px;
-	box-shadow: 0 2px 4px rgba(187, 204, 221, 0.6);
+	box-shadow: 0 2px 4px rgba(223, 223, 223, 0.6);
 }
 
 /* global: agrupando elementos de formulario */
 div.global-form-grouped {
-	border-top: 1px solid #eee;
-	box-shadow: 0 2px 4px rgba(150, 150, 150, 0.6);
+	box-shadow: 0 2px 4px rgba(223, 223, 223, 0.6);
 	border-radius: 12px;
 	padding: 12px 12px 0 12px;
 	margin-bottom: 12px;
@@ -180,6 +179,6 @@ input.form-control, select.form-control, textarea.form-control {
 }
 
 input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
-	background-color: rgba(221, 221, 238, 0.1);
+	background-color: rgba(255, 247, 247, 0.3);
 	color: #000;
 }

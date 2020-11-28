@@ -12,11 +12,11 @@
 }
 
 #menu div.dropdown-menu > a:hover {
-	background-color: rgba(221, 221, 238, 0.3);
+	background-color: rgba(223, 223, 239, 0.3);
 }
 
 #menu div.dropdown-menu > a:active {
-	background-color: rgba(221, 221, 238, 0.3);
+	background-color: rgba(223, 223, 239, 0.3);
 }
 
 #menu div.dropdown-menu > a.disabled {

@@ -5,7 +5,7 @@ div.pass-meter {
 	line-height: 16px;
 	border: 1px solid #aaa;
 	border-radius: 12px;
-	box-shadow: inset 1px 1px 8px #ddd;
+	box-shadow: inset 1px 1px 8px rgba(223, 223, 223, 0.6);
 }
 
 div.pass-meter > div.pass-meter-text {
