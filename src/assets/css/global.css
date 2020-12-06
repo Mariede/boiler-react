@@ -83,17 +83,16 @@ hr.global-form-divider {
 
 /* global: header para formularios */
 div.global-form-header {
-	background-color: rgba(187, 204, 221, 0.8);
+	background-color: #edd;
 	font-size: 1.2rem;
 	font-weight: bold;
 	font-style: italic;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	border-radius: 4px;
-	border-bottom: 1px solid #ced4da;
-	margin-bottom: 12px;
-	padding: 12px;
 	box-shadow: 0 2px 4px rgba(223, 223, 223, 0.6);
+	border-radius: 4px;
+	padding: 12px;
+	margin-bottom: 12px;
 }
 
 /* global: agrupando elementos de formulario */
