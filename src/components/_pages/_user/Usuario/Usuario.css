@@ -4,6 +4,7 @@
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 15px;
+	height: 30px;
 }
 
 #usuario > .top-group > .info {

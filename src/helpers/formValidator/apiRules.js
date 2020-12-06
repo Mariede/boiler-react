@@ -57,6 +57,11 @@ const apiRules = [
 		defaultMessage: 'Texto não preenchido'
 	},
 	{
+		name: 'isCnpj',
+		validatorFunction: validator.isCnpj,
+		defaultMessage: 'CNPJ inválido'
+	},
+	{
 		name: 'isCpf',
 		validatorFunction: validator.isCpf,
 		defaultMessage: 'CPF inválido'
@@ -86,6 +91,11 @@ const apiRules = [
 		validatorFunction: validator.isInteger,
 		extraParams: [false],
 		defaultMessage: 'Valor inválido'
+	},
+	{
+		name: 'isDate',
+		validatorFunction: validator.isDate,
+		defaultMessage: 'Data inválida'
 	},
 	{
 		name: 'isEqual', // Depende de extraParams local

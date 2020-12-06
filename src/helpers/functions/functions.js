@@ -52,6 +52,27 @@ const functions = {
 		}
 
 		return value;
+	},
+	formatCpf (_cpf) {
+		const cpf = (_cpf || '').toString().replace(/\D/gi, '').padStart(11, '0');
+
+		const base1 = cpf.substr(0, 3);
+		const base2 = cpf.substr(3, 3);
+		const base3 = cpf.substr(6, 3);
+		const final = cpf.substr(9, 2);
+
+		return `${base1}.${base2}.${base3}-${final}`;
+	},
+	formatCnpj (_cnpj) {
+		const cnpj = (_cnpj || '').toString().replace(/\D/gi, '').padStart(14, '0');
+
+		const base1 = cnpj.substr(0, 2);
+		const base2 = cnpj.substr(2, 3);
+		const base3 = cnpj.substr(5, 3);
+		const base4 = cnpj.substr(8, 4);
+		const final = cnpj.substr(12, 2);
+
+		return `${base1}.${base2}.${base3}/${base4}-${final}`;
 	}
 };
 

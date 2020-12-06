@@ -64,6 +64,8 @@ import './GridTable.css';
 
 					-> badges: se existir, exibe conteudo como badge (primary, secondary, success, info, ...)
 
+					-> formatData: se existir, executa uma funcao de formatacao no dado json relacionado na celula
+
 				-> buttons informa uma array de um ou mais botoes que serao renderizados na coluna
 					-> gridCallback e um callback do parent no botao e se baseia no ID da linha em tr (rowId)
 
@@ -115,7 +117,7 @@ const GridTable = props => {
 										<th key={ index }>
 											{
 												title ? (
-													(isSorted && !isReactElement && recordset.length) ? (
+													(isSorted && !isReactElement && recordset.length && recordset.length > 1) ? (
 														<Sorter title={ title } sortElement={ jsonElement } history={ history } url={ url } />
 													) : (
 														title
@@ -214,12 +216,24 @@ const GridTable = props => {
 																{
 																	jsonElement ? (
 																		blockCallbacks ? (
-																			data
+																			(
+																				tdLayout && typeof tdLayout.formatData === 'function' ? (
+																					tdLayout.formatData(data)
+																				) : (
+																					data
+																				)
+																			)
 																		) : (
 																			gridCallback ? (
-																				<GridButton id={ `btn-gb-${index}${indexTd}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ data } key={ indexTd } />
+																				<GridButton id={ `btn-gb-${index}${indexTd}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ (tdLayout && typeof tdLayout.formatData === 'function' ? tdLayout.formatData(data) : data) } key={ indexTd } />
 																			) : (
-																				data
+																				(
+																					tdLayout && typeof tdLayout.formatData === 'function' ? (
+																						tdLayout.formatData(data)
+																					) : (
+																						data
+																					)
+																				)
 																			)
 																		)
 																	) : (
