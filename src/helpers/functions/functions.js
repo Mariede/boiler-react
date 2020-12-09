@@ -1,4 +1,4 @@
-import { isValid, parse } from 'date-fns';
+import { format, isValid, parse } from 'date-fns';
 
 const functions = {
 	parseFormElementsValues (valueCheck, optionscheck = undefined, isMultiple = false) {
@@ -38,6 +38,13 @@ const functions = {
 			)
 		);
 	},
+	formatDateToString (value, formatStyle = 'dd/MM/yyyy HH:mm:ss') {
+		if (value instanceof Date) {
+			return format(value, formatStyle); // Retorna string
+		}
+
+		return value;
+	},
 	formatStringToDate (value, formatStyle = 'dd/MM/yyyy HH:mm:ss') {
 		if (typeof value === 'string') {
 			const date = parse(
@@ -73,6 +80,19 @@ const functions = {
 		const final = cnpj.substr(12, 2);
 
 		return `${base1}.${base2}.${base3}/${base4}-${final}`;
+	},
+	formatRenavam (_renavam) {
+		const renavam = (_renavam || '').toString().replace(/\D/gi, '').padStart(11, '0');
+
+		return renavam;
+	},
+	formatVehicleLicensePlate (_licensePlate) {
+		const licensePlate = (_licensePlate || '').toString().toUpperCase().padStart(7, ' ');
+
+		const base1 = licensePlate.substr(0, 3).trim();
+		const base2 = licensePlate.substr(3).trim();
+
+		return `${base1} ${base2}`;
 	}
 };
 
