@@ -10,7 +10,7 @@ const Home = () => (
 
 			<hr />
 
-			<div className="description">Projeto de Boilerplate usando o Create React App</div>
+			<div className="description">Projeto de Boilerplate com reacts-scripts</div>
 		</div>
 	</MainContent>
 );

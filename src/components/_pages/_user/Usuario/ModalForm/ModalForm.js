@@ -187,13 +187,10 @@ const ModalForm = props => {
 		}
 	);
 
-	// Define as opcoes do Modal (DataGet) - nao executa DataGet se as opcoes ja vierem via props
-	const options = (data.options || dataGet.content);
-
 	const checkCompanyDateLimit = useMemo(
 		() => {
 			const dateCheck = (
-				data && data.empresa ? (
+				data.empresa ? (
 					functions.formatStringToDate(data.empresa.dataLimiteUso)
 				) : (
 					null
@@ -201,8 +198,8 @@ const ModalForm = props => {
 			);
 
 			const dateNow = (
-				options && options.agora ? (
-					functions.formatStringToDate(options.agora.valor)
+				dataGet.content && dataGet.content.agora ? (
+					functions.formatStringToDate(dataGet.content.agora.valor)
 				) : (
 					null
 				)
@@ -216,18 +213,12 @@ const ModalForm = props => {
 
 			return true;
 		},
-		[data, options]
+		[data.empresa, dataGet.content]
 	);
 
 	return (
 		<Fragment>
 			<DataGet
-				goReady={ data.options }
-				cbThen= {
-					res => {
-						data.options = res.data; // Atalho para dados das opcoes (data.options === dataGet.content)
-					}
-				}
 				setDataGet={ setDataGet }
 				baseRoute="/usuario/options"
 				cbCatch={
@@ -294,8 +285,8 @@ const ModalForm = props => {
 								<Input type="select" value={ formElements.empresa } id="empresa" onChange={ changeFormElements }>
 									<option value="">&rsaquo; selecione</option>
 									{
-										options && Array.isArray(options.empresas) ? (
-											options.empresas.map(
+										dataGet.content && Array.isArray(dataGet.content.empresas) ? (
+											dataGet.content.empresas.map(
 												(element, index) => <option value={ element.id } key={ index } disabled={ !element.ativo }>{ element.nome }{ !element.ativo ? ' (inativa)' : '' }</option>
 											)
 										) : (
@@ -311,8 +302,8 @@ const ModalForm = props => {
 								<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
 									<option value="">&rsaquo; selecione</option>
 									{
-										options && Array.isArray(options.ativo) ? (
-											options.ativo.map(
+										dataGet.content && Array.isArray(dataGet.content.ativo) ? (
+											dataGet.content.ativo.map(
 												(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
 											)
 										) : (
@@ -332,13 +323,15 @@ const ModalForm = props => {
 							</FormGroup>
 						</Col>
 					</Row>
+				</div>
 
+				<div className="global-form-grouped">
 					<Row form>
 						<Col md={ 12 }>
 							<FormGroup>
 								<Label for="perfis">Perfis</Label>
-								<div id="perfis" data-value={ options && Array.isArray(options.perfis) && formElements.perfis }>
-									<Multiple optionsData={ options && options.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
+								<div id="perfis" data-value={ dataGet.content && Array.isArray(dataGet.content.perfis) && formElements.perfis }>
+									<Multiple optionsData={ dataGet.content && dataGet.content.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
 								</div>
 							</FormGroup>
 						</Col>
