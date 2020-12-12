@@ -98,6 +98,8 @@ const Logon = () => {
 
 			<MainContent subject="Logon" icon="fas fa-sign-in-alt" maxContent={ true }>
 				<div id="logon">
+					<p>Insira o seu usuário e senha para <strong>acessar o sistema</strong></p>
+
 					<Form id="logon-form" className="form" onSubmit={ submitForm } autoComplete="off">
 						<div className="global-form-grouped diverse">
 							<Row form>
@@ -124,7 +126,7 @@ const Logon = () => {
 
 							<Row form>
 								<Col md={ 12 }>
-									<Button type="submit" size="md" color="success" block>Enviar</Button>
+									<Button type="submit" size="md" color="success" block>Acessar sistema</Button>
 								</Col>
 							</Row>
 						</div>

@@ -130,6 +130,8 @@ const Senha = () => {
 
 			<MainContent subject="Minha senha" icon="fas fa-key" maxContent={ true }>
 				<div id="usuario-senha">
+					<p>Informe os dados abaixo para <strong>alterar sua senha</strong></p>
+
 					<Form id="usuario-senha-form" className="form" onSubmit={ submitForm } autoComplete="off">
 						<div className="global-form-grouped">
 							<Row form>
@@ -142,7 +144,7 @@ const Senha = () => {
 							</Row>
 						</div>
 
-						<div className="global-form-grouped">
+						<div className="global-form-grouped diverse">
 							<Row form>
 								<Col md={ 12 }>
 									<Label for="senhaNova">Nova senha</Label>
@@ -167,15 +169,15 @@ const Senha = () => {
 									</FormGroup>
 								</Col>
 							</Row>
+
+							<hr className="global-line global-form-divider" />
+
+							<Row form>
+								<Col md={ 12 }>
+									<Button type="submit" size="md" color="success" block>Confirmar</Button>
+								</Col>
+							</Row>
 						</div>
-
-						<hr className="global-line global-form-divider" />
-
-						<Row form>
-							<Col md={ 12 }>
-								<Button type="submit" size="md" color="success" block>Confirmar</Button>
-							</Col>
-						</Row>
 					</Form>
 				</div>
 			</MainContent>
