@@ -60,6 +60,15 @@ const functions = {
 
 		return value;
 	},
+	formatStringBaseDate (value) {
+		if (typeof value === 'string') {
+			if (value.length >= 10) {
+				return value.substr(0, 10);
+			}
+		}
+
+		return value;
+	},
 	formatCpf (_cpf) {
 		const cpf = (_cpf || '').toString().replace(/\D/gi, '').padStart(11, '0');
 
