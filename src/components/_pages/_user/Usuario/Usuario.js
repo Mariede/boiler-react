@@ -76,22 +76,27 @@ const Usuario = props => {
 					submit: false,
 					method: 'post',
 					cbThen: (res, setNotify) => {
-						if (res.data && res.data.mailSent && res.data.mailSent.error) {
-							const showError = (
-								typeof res.data.mailSent.error === 'object' ? (
-									`${String(res.data.mailSent.error.code || '')} ${String(res.data.mailSent.error.responseCode || '')}`
-								) : (
-									String(res.data.mailSent.error || '')
-								)
-							);
+						// Verifica por erros no envio do e-mail
+						if (res.data && res.data.mailSent) {
+							const errorFound = res.data.mailSent.error;
 
-							setNotify(
-								{
-									info: `Usuário criado com sucesso, porém o envio do e-mail retornou o erro: ${showError}`,
-									header: 'Novo usuário',
-									type: 3
-								}
-							);
+							if (errorFound) {
+								const showError = (
+									typeof errorFound === 'object' ? (
+										`${String(errorFound.responseCode || '')} - ${String(errorFound.code || '')} ${String(errorFound.command || '')}`
+									) : (
+										String(errorFound || '')
+									)
+								);
+
+								setNotify(
+									{
+										info: `Usuário criado com sucesso, porém o envio do e-mail retornou o erro: ${showError}`,
+										header: 'Novo usuário',
+										type: 3
+									}
+								);
+							}
 						}
 					},
 					formId: 'usuario-form'
