@@ -67,6 +67,21 @@ const apiRules = [
 		defaultMessage: 'CPF inválido'
 	},
 	{
+		name: 'isCnh',
+		validatorFunction: validator.isCnh,
+		defaultMessage: 'CNH inválida'
+	},
+	{
+		name: 'isPisPasep',
+		validatorFunction: validator.isPisPasep,
+		defaultMessage: 'PIS/PASEP inválido'
+	},
+	{
+		name: 'isRenavam',
+		validatorFunction: validator.isRenavam,
+		defaultMessage: 'RENAVAM inválido'
+	},
+	{
 		name: 'isEmail',
 		validatorFunction: validator.isEmail,
 		defaultMessage: 'E-mail inválido'
@@ -82,20 +97,41 @@ const apiRules = [
 		defaultMessage: 'Nome não parece completo'
 	},
 	{
+		name: 'isAlphaNumeric',
+		validatorFunction: validator.isAlphaNumeric,
+		extraParams: [false],
+		defaultMessage: 'Valor alfanumérico inválido'
+	},
+	{
 		name: 'isBoolean',
 		validatorFunction: validator.isBoolean,
-		defaultMessage: 'Valor inválido'
+		defaultMessage: 'Valor booleano inválido'
 	},
 	{
 		name: 'isInteger',
 		validatorFunction: validator.isInteger,
 		extraParams: [false],
-		defaultMessage: 'Valor inválido'
+		defaultMessage: 'Valor inteiro inválido'
 	},
 	{
 		name: 'isDate',
 		validatorFunction: validator.isDate,
 		defaultMessage: 'Data inválida'
+	},
+	{
+		name: 'isVehicleLicensePlate',
+		validatorFunction: validator.isVehicleLicensePlate,
+		defaultMessage: 'Placa do veículo inválida'
+	},
+	{
+		name: 'isVehicleChassis',
+		validatorFunction: validator.isVehicleChassis,
+		defaultMessage: 'Chassi do veículo inválido'
+	},
+	{
+		name: 'contains', // Depende de extraParams local
+		validatorFunction: validator.contains,
+		defaultMessage: 'Valor não está contido'
 	},
 	{
 		name: 'isEqual', // Depende de extraParams local
