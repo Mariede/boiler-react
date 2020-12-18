@@ -57,6 +57,11 @@ const apiRules = [
 		defaultMessage: 'Texto não preenchido'
 	},
 	{
+		name: 'isEmpty',
+		validatorFunction: validator.isEmpty,
+		defaultMessage: 'Texto preenchido'
+	},
+	{
 		name: 'isCnpj',
 		validatorFunction: validator.isCnpj,
 		defaultMessage: 'CNPJ inválido'
