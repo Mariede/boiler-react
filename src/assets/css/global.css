@@ -101,6 +101,7 @@ div.global-form-grouped {
 	border-radius: 12px;
 	padding: 12px 12px 0 12px;
 	margin-bottom: 12px;
+	height: 100%;
 }
 
 div.global-form-info-footer {
