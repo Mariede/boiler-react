@@ -241,10 +241,10 @@ const formValidator = {
 										return (value[0] || '');
 									}
 									default: {
-										const hasDataValue = parent.getAttribute('data-value');
+										const hasDataValue = parent.hasAttribute('data-value');
 
 										if (hasDataValue) {
-											return hasDataValue;
+											return parent.getAttribute('data-value');
 										}
 
 										return parent.value;
