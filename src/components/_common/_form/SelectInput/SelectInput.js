@@ -72,77 +72,95 @@ const SelectInput = props => {
 		setBoxData(dataFound);
 	};
 
-	const showHideData = e => {
-		const element = e.currentTarget;
-		const parent = element.closest('.select-input');
-		const inputBoxData = parent.querySelector('.input-box-data');
+	const showHideData = useCallback(
+		e => {
+			const element = e.currentTarget;
+			const parent = element.closest('.select-input');
+			const inputBoxData = parent.querySelector('.input-box-data');
 
-		if (elementBlocked.disabled) {
-			setElementBlocked(
-				{
-					disabled: false,
-					icon: false
-				}
-			);
+			if (elementBlocked.disabled) {
+				setElementBlocked(
+					{
+						disabled: false,
+						icon: false
+					}
+				);
 
-			inputBoxData.classList.remove('hide');
-		} else {
-			setElementBlocked(
-				{
-					disabled: true,
-					icon: true
-				}
-			);
+				inputBoxData.classList.remove('hide');
+			} else {
+				setElementBlocked(
+					{
+						disabled: true,
+						icon: true
+					}
+				);
 
-			inputBoxData.classList.add('hide');
-		}
+				inputBoxData.classList.add('hide');
+			}
 
-		if (element.getAttribute('data-name') === 'button-check') {
+			if (element.getAttribute('data-name') === 'button-check') {
+				const inputBoxText = parent.querySelector('input[type="text"]');
+
+				handleFormElements(prevState => ({ ...prevState, [id]: '' }));
+				inputBoxText.value = '';
+			}
+		},
+		[elementBlocked, id, handleFormElements]
+	);
+
+	const getOptionSelected = useCallback(
+		e => {
+			const option = e.currentTarget;
+			const parent = option.closest('.select-input');
 			const inputBoxText = parent.querySelector('input[type="text"]');
+			const optionSelId = functions.parseFormElementsValues(option.getAttribute('data-value'));
+			const optionSelText = option.innerText;
 
-			handleFormElements(prevState => ({ ...prevState, [id]: '' }));
-			inputBoxText.value = '';
-		}
-	};
+			handleFormElements(prevState => ({ ...prevState, [id]: optionSelId }));
+			inputBoxText.value = optionSelText;
 
-	const getOptionSelected = e => {
-		const option = e.currentTarget;
-		const parent = option.closest('.select-input');
-		const inputBoxText = parent.querySelector('input[type="text"]');
-		const optionSelId = functions.parseFormElementsValues(option.getAttribute('data-value'));
-		const optionSelText = option.innerText;
-
-		handleFormElements(prevState => ({ ...prevState, [id]: optionSelId }));
-		inputBoxText.value = optionSelText;
-
-		showHideData(e);
-	};
-
-	const buttonCheckEnterPressed = e => {
-		e.preventDefault();
-
-		if (e.key === 'Enter') {
 			showHideData(e);
-		}
-	};
+		},
+		[showHideData, id, handleFormElements]
+	);
 
-	const buttonCheckClicked = e => {
-		e.preventDefault();
-		showHideData(e);
-	};
+	const buttonCheckEnterPressed = useCallback(
+		e => {
+			e.preventDefault();
 
-	const optionCheckEnterPressed = e => {
-		e.preventDefault();
+			if (e.key === 'Enter') {
+				showHideData(e);
+			}
+		},
+		[showHideData]
+	);
 
-		if (e.key === 'Enter') {
+	const buttonCheckClicked = useCallback(
+		e => {
+			e.preventDefault();
+			showHideData(e);
+		},
+		[showHideData]
+	);
+
+	const optionCheckEnterPressed = useCallback(
+		e => {
+			e.preventDefault();
+
+			if (e.key === 'Enter') {
+				getOptionSelected(e);
+			}
+		},
+		[getOptionSelected]
+	);
+
+	const optionCheckClicked = useCallback(
+		e => {
+			e.preventDefault();
 			getOptionSelected(e);
-		}
-	};
-
-	const optionCheckClicked = e => {
-		e.preventDefault();
-		getOptionSelected(e);
-	};
+		},
+		[getOptionSelected]
+	);
 
 	const setOptionName = useCallback(
 		option => (
@@ -188,6 +206,35 @@ const SelectInput = props => {
 		[optionsData, optionsKeys, optionSelected, setOptionName]
 	);
 
+	const setMountedData = useMemo(
+		() => {
+			if (Array.isArray(boxData)) {
+				const mountedData = boxData.filter(
+					element => (
+						(
+							!Object.prototype.hasOwnProperty.call(element, optionsKeys.active) || element[optionsKeys.active]
+						) || element[optionsKeys.id] === optionSelected
+					)
+				);
+
+				if (mountedData.length !== 0) {
+					return (
+						mountedData.map(
+							element => (
+								<div className="option-found" tabIndex="0" role="button" data-value={ element[optionsKeys.id] } onKeyPress={ optionCheckEnterPressed } onClick={ optionCheckClicked } key={ element[optionsKeys.id] }>{ setOptionName(element) }</div>
+							)
+						)
+					);
+				}
+			}
+
+			return (
+				<div className="option-not-found">Nenhum dado encontrado</div>
+			);
+		},
+		[boxData, optionsKeys, optionSelected, optionCheckEnterPressed, optionCheckClicked, setOptionName]
+	);
+
 	return (
 		<InputGroup className="select-input">
 			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" onKeyUp={ setOptionsData } disabled={ elementBlocked.disabled } />
@@ -195,25 +242,7 @@ const SelectInput = props => {
 				<InputGroupText tabIndex="0" role="button" data-name="button-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` }></i></InputGroupText>
 			</InputGroupAddon>
 			<div className="input-box-data hide">
-				{
-					Array.isArray(boxData) && (
-						boxData.length !== 0 ? (
-							boxData.map(
-								element => (
-									(
-										(
-											!Object.prototype.hasOwnProperty.call(element, optionsKeys.active) || element[optionsKeys.active]
-										) || element[optionsKeys.id] === optionSelected
-									) && (
-										<div className="option-found" tabIndex="0" role="button" data-value={ element[optionsKeys.id] } onKeyPress={ optionCheckEnterPressed } onClick={ optionCheckClicked } key={ element[optionsKeys.id] }>{ setOptionName(element) }</div>
-									)
-								)
-							)
-						) : (
-							<div className="option-not-found">Nenhum dado encontrado</div>
-						)
-					)
-				}
+				{ setMountedData }
 			</div>
 		</InputGroup>
 	);
