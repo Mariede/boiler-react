@@ -31,7 +31,7 @@
 	padding: 4px 6px;
 	border: 1px #888 solid;
 	background-color: #fff;
-	max-height: 100px;
+	max-height: 20vh;
 	overflow-x: hidden;
 	overflow-y: auto;
 	user-select: none;
