@@ -8,7 +8,7 @@ span.form-feedback {
 	padding: 4px 12px;
 }
 
-input:not([type="radio"]):not([type="checkbox"]).is-invalid-element, select.is-invalid-element, textarea.is-invalid-element, div.is-invalid-element {
+input:not([type="radio"]):not([type="checkbox"]).is-invalid-element, select.is-invalid-element, textarea.is-invalid-element {
 	border-width: 1px 1px 0 1px;
 	border-style: solid;
 	border-color: #dc3545;

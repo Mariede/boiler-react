@@ -141,10 +141,24 @@ const formValidator = {
 								eParentToAttach.classList.add('is-invalid-group');
 							}
 						} else {
+							const tagName = e.tagName;
+
 							if (isValidList) {
-								e.classList.remove('is-invalid-element');
+								if (tagName === 'DIV') {
+									e.querySelectorAll('input, select, textarea').forEach(
+										child => child.classList.remove('is-invalid-element')
+									);
+								} else {
+									e.classList.remove('is-invalid-element');
+								}
 							} else {
-								e.classList.add('is-invalid-element');
+								if (tagName === 'DIV') {
+									e.querySelectorAll('input, select, textarea').forEach(
+										child => child.classList.add('is-invalid-element')
+									);
+								} else {
+									e.classList.add('is-invalid-element');
+								}
 							}
 						}
 					} else {
@@ -161,10 +175,24 @@ const formValidator = {
 										eParentToAttach.classList.add('is-invalid-group');
 									}
 								} else {
+									const tagName = _e.tagName;
+
 									if (isValidList) {
-										_e.classList.remove('is-invalid-element');
+										if (tagName === 'DIV') {
+											_e.querySelectorAll('input, select, textarea').forEach(
+												child => child.classList.remove('is-invalid-element')
+											);
+										} else {
+											_e.classList.remove('is-invalid-element');
+										}
 									} else {
-										_e.classList.add('is-invalid-element');
+										if (tagName === 'DIV') {
+											_e.querySelectorAll('input, select, textarea').forEach(
+												child => child.classList.add('is-invalid-element')
+											);
+										} else {
+											_e.classList.add('is-invalid-element');
+										}
 									}
 								}
 							}
