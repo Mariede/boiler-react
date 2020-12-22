@@ -1,0 +1,61 @@
+/* Searcher auto-complete */
+.select-input > input[type="text"] {
+	padding-left: 12px;
+	text-transform: uppercase;
+}
+
+.select-input > input[type="text"]::placeholder {
+	text-transform: initial;
+}
+
+.select-input .input-group-text {
+	cursor: pointer;
+	width: 40px;
+}
+
+.select-input .input-group-text > i {
+	margin: auto;
+}
+
+.select-input .input-group-text:hover {
+	box-shadow: 0 2px 4px rgba(223, 223, 223, 0.6);
+}
+
+.select-input > .input-box-data {
+	position: absolute;
+	top: 33px;
+	left: 0;
+	text-align: left;
+	z-index: 1997;
+	width: 100%;
+	padding: 4px 6px;
+	border: 1px #888 solid;
+	background-color: #fff;
+	max-height: 100px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	user-select: none;
+}
+
+.select-input > .input-box-data.hide {
+	display: none;
+}
+
+.select-input > .input-box-data > div {
+	padding: 2px 6px;
+	white-space: nowrap;
+}
+
+.select-input > .input-box-data > div.option-found:hover {
+	cursor: pointer;
+	color: #fff;
+	background-color: #08f;
+	border-radius: 4px;
+}
+
+.select-input > .input-box-data > div.option-not-found {
+	color: red;
+	font-size: 1rem;
+	font-style: italic;
+	text-align: center;
+}
