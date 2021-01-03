@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useState, useMemo, useContext } from 'react';
 
 import Alert from 'components/_common/Alert';
 
@@ -41,14 +41,6 @@ const LoggedContent = () => {
 		showHideProfile(e);
 	};
 
-	const formatName = _name => {
-		const name = String(_name || '').trim();
-		const spaceCheck = name.indexOf(' ');
-		const showName = (spaceCheck !== -1 ? (`${name.substr(name.lastIndexOf(' ') + 1)}, ${name.substr(0, spaceCheck)}`) : name);
-
-		return showName;
-	};
-
 	const logoffApp = e => {
 		e.preventDefault();
 
@@ -63,6 +55,39 @@ const LoggedContent = () => {
 			}
 		);
 	};
+
+	const formatName = useMemo(
+		() => {
+			const name = String(getUserData.nome || '').trim();
+			const spaceCheck = name.indexOf(' ');
+			const showName = (spaceCheck !== -1 ? (`${name.substr(name.lastIndexOf(' ') + 1)}, ${name.substr(0, spaceCheck)}`) : name);
+
+			return showName;
+		},
+		[getUserData.nome]
+	);
+
+	const formatCompany = useMemo(
+		() => {
+			const showName = () => {
+				const name = String(getUserData.empresa[1] || '').trim();
+				const spaceCheck = name.indexOf(' ');
+
+				return (
+					spaceCheck !== -1 ? (`${name.substr(0, spaceCheck)}`) : name
+				);
+			};
+
+			return (
+				Array.isArray(getUserData.empresa) ? (
+					getUserData.empresa[2] ? (
+						`${showName()} (ADMIN)`
+					) : showName()
+				) : ''
+			);
+		},
+		[getUserData.empresa]
+	);
 
 	return (
 		<Fragment>
@@ -93,10 +118,10 @@ const LoggedContent = () => {
 						</div>
 					</span>
 
-					<span className="user-nome">{ formatName(getUserData.nome) }</span>
+					<span className="user-nome">{ formatName }</span>
 
 					<div className="user-email">{ getUserData.email }</div>
-					<div className="user-empresa">{ Array.isArray(getUserData.empresa) ? (getUserData.empresa[2] ? (`${getUserData.empresa[1]} (ADMIN)`) : getUserData.empresa[1]) : '' }</div>
+					<div className="user-empresa">{ formatCompany }</div>
 				</span>
 
 				<Alert buttonType="button" buttonSize="sm" buttonColor="danger" buttonText="Sair" modalTitle="Logoff" modalMessage="Deseja realmente sair do sistema?" modalCallback={ logoffApp } modalConfirm />
