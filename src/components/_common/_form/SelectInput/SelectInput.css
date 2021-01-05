@@ -8,6 +8,21 @@
 	text-transform: initial;
 }
 
+.select-input > i.fa-times {
+	position: absolute;
+	top: 0;
+	right: 40px;
+	z-index: 3;
+	color: #ccc;
+	margin: 5px;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.select-input > i.fa-times.hide {
+	display: none;
+}
+
 .select-input .input-group-text {
 	cursor: pointer;
 	width: 40px;

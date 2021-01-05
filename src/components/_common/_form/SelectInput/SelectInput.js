@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
@@ -22,7 +22,7 @@ import './SelectInput.css';
 
 		- optionSelected		: define a opcao selecionada
 			-> e o proprio conteudo do elemento de formulario controlado associado (id)
-			-> deve estar em formato ARRAY
+			-> pode ser vazio ou o valor primitivo de id (nao ARRAY)
 
 		- id					: id que especifica qual o elemento do formulario (conteudo sempre array)
 
@@ -40,45 +40,63 @@ const SelectInput = props => {
 		}
 	);
 
-	const setOptionsData = e => {
-		e.preventDefault();
+	const elementInput = useRef();
 
-		const inputBoxText = e.currentTarget;
-		const arrSearch = String(inputBoxText.value || '').trim().split(' ').filter(
-			element => element !== ''
-		);
+	const setOptionName = useCallback(
+		option => (
+			`${
+				option[optionsKeys.name] +
+				(
+					(option[optionsKeys.description] || Object.prototype.hasOwnProperty.call(option, optionsKeys.active)) ? ' (' : ''
+				) +
+				(
+					option[optionsKeys.description] ? `${option[optionsKeys.description]}` : ''
+				) +
+				(
+					Object.prototype.hasOwnProperty.call(option, optionsKeys.active) ? (
+						option[optionsKeys.active] ? `${(option[optionsKeys.description] ? ' - ' : '')}ATIVO` : `${(option[optionsKeys.description] ? ' - ' : '')}INATIVO`
+					) : ''
+				) +
+				(
+					(option[optionsKeys.description] || Object.prototype.hasOwnProperty.call(option, optionsKeys.active)) ? ')' : ''
+				)
+			}`
+		),
+		[optionsKeys]
+	);
 
-		const removeAccents = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+	const setOptionInitial = useMemo(
+		() => {
+			if (optionSelected) {
+				if (Array.isArray(optionsData)) {
+					const catched = optionsData.filter(
+						element => element[optionsKeys.id] === optionSelected
+					);
 
-		const dataFound = optionsData.filter(
-			_elementData => {
-				const elementDataName = removeAccents(_elementData[optionsKeys.name]).toUpperCase();
-				const elementDataDescription = removeAccents(_elementData[optionsKeys.description]).toUpperCase();
-
-				return (
-					arrSearch.every(
-						_elementSearch => {
-							const elementSearch = removeAccents(_elementSearch).toUpperCase();
-
-							return (
-								elementDataName.includes(elementSearch) || elementDataDescription.includes(elementSearch)
-							);
-						}
-					)
-				);
+					if (catched && catched.length === 1) {
+						return setOptionName(catched.pop());
+					}
+				}
 			}
-		);
 
-		setBoxData(dataFound);
-	};
+			return '';
+		},
+		[optionsData, optionsKeys, optionSelected, setOptionName]
+	);
 
 	const showHideData = useCallback(
 		e => {
 			const element = e.currentTarget;
 			const parent = element.closest('.select-input');
 			const inputBoxData = parent.querySelector('.input-box-data');
+			const inputBoxText = parent.querySelector('input[type="text"]');
 
 			if (elementBlocked.disabled) {
+				if (element.getAttribute('data-name') === 'button-check') {
+					inputBoxText.value = '';
+					setBoxData(optionsData);
+				}
+
 				setElementBlocked(
 					{
 						disabled: false,
@@ -88,6 +106,11 @@ const SelectInput = props => {
 
 				inputBoxData.classList.remove('hide');
 			} else {
+				if (element.getAttribute('data-name') === 'button-check') {
+					inputBoxText.value = setOptionInitial;
+					setBoxData(optionsData);
+				}
+
 				setElementBlocked(
 					{
 						disabled: true,
@@ -97,15 +120,54 @@ const SelectInput = props => {
 
 				inputBoxData.classList.add('hide');
 			}
-
-			if (element.getAttribute('data-name') === 'button-check') {
-				const inputBoxText = parent.querySelector('input[type="text"]');
-
-				handleFormElements(prevState => ({ ...prevState, [id]: '' }));
-				inputBoxText.value = '';
-			}
 		},
-		[elementBlocked, id, handleFormElements]
+		[optionsData, elementBlocked, setOptionInitial]
+	);
+
+	const setOptionsData = e => {
+		e.preventDefault();
+
+		if (e.key === 'Escape') {
+			handleFormElements(prevState => ({ ...prevState, [id]: '' }));
+			showHideData(e);
+		} else {
+			const inputBoxText = e.currentTarget;
+
+			const arrSearch = String(inputBoxText.value || '').trim().split(' ').filter(
+				element => element !== ''
+			);
+
+			const removeAccents = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+			const dataFound = optionsData.filter(
+				_elementData => {
+					const elementDataName = removeAccents(_elementData[optionsKeys.name]).toUpperCase();
+					const elementDataDescription = removeAccents(_elementData[optionsKeys.description]).toUpperCase();
+
+					return (
+						arrSearch.every(
+							_elementSearch => {
+								const elementSearch = removeAccents(_elementSearch).toUpperCase();
+
+								return (
+									elementDataName.includes(elementSearch) || elementDataDescription.includes(elementSearch)
+								);
+							}
+						)
+					);
+				}
+			);
+
+			setBoxData(dataFound);
+		}
+	};
+
+	const setOptionClean = useCallback(
+		e => {
+			handleFormElements(prevState => ({ ...prevState, [id]: '' }));
+			showHideData(e);
+		},
+		[showHideData, id, handleFormElements]
 	);
 
 	const getOptionSelected = useCallback(
@@ -122,6 +184,25 @@ const SelectInput = props => {
 			showHideData(e);
 		},
 		[showHideData, id, handleFormElements]
+	);
+
+	const cleanCheckEnterPressed = useCallback(
+		e => {
+			e.preventDefault();
+
+			if (e.key === 'Enter') {
+				setOptionClean(e);
+			}
+		},
+		[setOptionClean]
+	);
+
+	const cleanCheckClicked = useCallback(
+		e => {
+			e.preventDefault();
+			setOptionClean(e);
+		},
+		[setOptionClean]
 	);
 
 	const buttonCheckEnterPressed = useCallback(
@@ -162,50 +243,6 @@ const SelectInput = props => {
 		[getOptionSelected]
 	);
 
-	const setOptionName = useCallback(
-		option => (
-			`${
-				option[optionsKeys.name] +
-				(
-					(option[optionsKeys.description] || Object.prototype.hasOwnProperty.call(option, optionsKeys.active)) ? ' (' : ''
-				) +
-				(
-					option[optionsKeys.description] ? `${option[optionsKeys.description]}` : ''
-				) +
-				(
-					Object.prototype.hasOwnProperty.call(option, optionsKeys.active) ? (
-						option[optionsKeys.active] ? `${(option[optionsKeys.description] ? ' - ' : '')}ATIVO` : `${(option[optionsKeys.description] ? ' - ' : '')}INATIVO`
-					) : ''
-				) +
-				(
-					(option[optionsKeys.description] || Object.prototype.hasOwnProperty.call(option, optionsKeys.active)) ? ')' : ''
-				)
-			}`
-		),
-		[optionsKeys]
-	);
-
-	const setOptionInitial = useMemo(
-		() => {
-			setBoxData(optionsData);
-
-			if (optionSelected) {
-				if (Array.isArray(optionsData)) {
-					const catched = optionsData.filter(
-						element => element[optionsKeys.id] === optionSelected
-					);
-
-					if (catched && catched.length === 1) {
-						return setOptionName(catched.pop());
-					}
-				}
-			}
-
-			return '';
-		},
-		[optionsData, optionsKeys, optionSelected, setOptionName]
-	);
-
 	const setMountedData = useMemo(
 		() => {
 			if (Array.isArray(boxData)) {
@@ -235,11 +272,30 @@ const SelectInput = props => {
 		[boxData, optionsKeys, optionSelected, optionCheckEnterPressed, optionCheckClicked, setOptionName]
 	);
 
+	useEffect(
+		() => {
+			const _input = elementInput.current;
+			const parent = _input.closest('.select-input');
+			const elementClean = parent.querySelector('i.fa-times');
+
+			if (_input) {
+				if (elementBlocked.disabled) {
+					elementClean.classList.add('hide');
+				} else {
+					elementClean.classList.remove('hide');
+					_input.focus();
+				}
+			}
+		},
+		[elementBlocked]
+	);
+
 	return (
 		<InputGroup className="select-input">
-			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" onKeyUp={ setOptionsData } disabled={ elementBlocked.disabled } />
+			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" innerRef={ elementInput } onKeyUp={ setOptionsData } disabled={ elementBlocked.disabled } />
+			<i className="fas fa-times" tabIndex="0" role="button" onKeyPress={ cleanCheckEnterPressed } onClick={ cleanCheckClicked } />
 			<InputGroupAddon addonType="append">
-				<InputGroupText tabIndex="0" role="button" data-name="button-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` }></i></InputGroupText>
+				<InputGroupText tabIndex="0" role="button" data-name="button-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` } /></InputGroupText>
 			</InputGroupAddon>
 			<div className="input-box-data hide">
 				{ setMountedData }
