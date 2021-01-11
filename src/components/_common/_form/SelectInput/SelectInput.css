@@ -24,8 +24,15 @@
 }
 
 .select-input .input-group-text {
-	cursor: pointer;
 	width: 40px;
+}
+
+.select-input .input-group-text.enabled {
+	cursor: pointer;
+}
+
+.select-input .input-group-text.disabled {
+	cursor: default;
 }
 
 .select-input .input-group-text > i {
