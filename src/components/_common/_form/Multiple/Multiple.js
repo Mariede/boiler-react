@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { Button } from 'reactstrap';
 import { ButtonGroup, Input } from 'reactstrap';
 
@@ -32,42 +34,58 @@ const Multiple = props => {
 	const multipleBoxIn = `multiple-box-in-${id}`;
 
 	const isArrayOptionsData = Array.isArray(optionsData);
-	const isArrayOptionsSelected = Array.isArray(optionsSelected);
+	const goCheck = isArrayOptionsData && Array.isArray(optionsSelected);
 
 	const multipleBoxMaxSize = 10; // Altura maxima da box
 	const multipleBoxSize = (isArrayOptionsData ? (optionsData.length < multipleBoxMaxSize ? optionsData.length + 1 : multipleBoxMaxSize) : 1);
 
-	const checkButtonsProps = idButton => {
-		const props = {
-			color: 'secondary',
-			disabled: true
-		};
+	const checkButtonsPropsBack = useMemo(
+		() => {
+			const props = {
+				color: 'secondary',
+				disabled: true
+			};
 
-		if (isArrayOptionsData && isArrayOptionsSelected) {
-			if (idButton === 1) {
+			if (goCheck) {
 				const result = (optionsSelected.length === 0);
 
 				if (!result) {
 					props.color = 'danger';
 					props.disabled = false;
 				}
-			} else {
-				if (idButton === 2) {
-					const result = (optionsData.length === optionsSelected.length);
+			}
 
-					if (!result) {
-						props.color = 'success';
-						props.disabled = false;
-					}
+			return props;
+		},
+		[goCheck, optionsSelected]
+	);
+
+	const checkButtonsPropsGo = useMemo(
+		() => {
+			const props = {
+				color: 'secondary',
+				disabled: true
+			};
+
+			if (goCheck) {
+				const result = (optionsData.length === optionsSelected.length);
+
+				if (!result) {
+					props.color = 'success';
+					props.disabled = false;
 				}
 			}
-		}
 
-		return props;
-	};
+			return props;
+		},
+		[goCheck, optionsData, optionsSelected]
+	);
 
-	const changeFormElements = (idButton, e) => {
+	const changeFormElements = e => {
 		e.preventDefault();
+
+		const element = e.currentTarget;
+		const direction = (element.name === 'btn-go' ? 2 : 1);
 
 		const boxOut = document.getElementById(multipleBoxOut);
 		const boxIn = document.getElementById(multipleBoxIn);
@@ -78,7 +96,7 @@ const Multiple = props => {
 			if (!boxIn[i].disabled) {
 				const optionValue = functions.parseFormElementsValues(boxIn[i].value);
 
-				if (idButton === 2) {
+				if (direction === 2) {
 					finalValues.push(optionValue);
 				} else {
 					const SelectedInValues = functions.parseFormElementsValues(boxIn.value, boxIn.options, boxIn.multiple);
@@ -96,7 +114,7 @@ const Multiple = props => {
 			if (!boxOut[i].disabled) {
 				const optionValue = functions.parseFormElementsValues(boxOut[i].value);
 
-				if (idButton === 2) {
+				if (direction === 2) {
 					const SelectedOutValues = functions.parseFormElementsValues(boxOut.value, boxOut.options, boxOut.multiple);
 
 					if (SelectedOutValues.includes(optionValue)) {
@@ -117,7 +135,7 @@ const Multiple = props => {
 				<Input type="select" id={ multipleBoxOut } size={ multipleBoxSize } multiple>
 					<option value="" disabled>&rsaquo; disponíveis</option>
 					{
-						(isArrayOptionsData && isArrayOptionsSelected) ? (
+						(goCheck) ? (
 							optionsData
 							.filter(
 								element => !optionsSelected.includes(element[optionsKeys.id])
@@ -134,8 +152,8 @@ const Multiple = props => {
 
 			<div className="multiple-buttons">
 				<ButtonGroup>
-					<Button type="button" size="sm" { ...checkButtonsProps(1) } onClick={ e => changeFormElements(1, e) }><i className="fas fa-arrow-left"></i></Button>
-					<Button type="button" size="sm" { ...checkButtonsProps(2) } onClick={ e => changeFormElements(2, e) }><i className="fas fa-arrow-right"></i></Button>
+					<Button type="button" name="btn-back" size="sm" { ...checkButtonsPropsBack } onClick={ changeFormElements }><i className="fas fa-arrow-left"></i></Button>
+					<Button type="button" name="btn-go" size="sm" { ...checkButtonsPropsGo } onClick={ changeFormElements }><i className="fas fa-arrow-right"></i></Button>
 				</ButtonGroup>
 			</div>
 
@@ -143,7 +161,7 @@ const Multiple = props => {
 				<Input type="select" id={ multipleBoxIn } size={ multipleBoxSize } multiple>
 					<option value="" disabled>&rsaquo; selecionados</option>
 					{
-						(isArrayOptionsData && isArrayOptionsSelected) ? (
+						(goCheck) ? (
 							optionsData
 							.filter(
 								element => optionsSelected.includes(element[optionsKeys.id])
