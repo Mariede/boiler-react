@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 
 import { Button } from 'reactstrap';
 import { ButtonGroup, Input } from 'reactstrap';
@@ -17,7 +17,10 @@ import './Multiple.css';
 
 		- optionsKeys			: chaves das propriedades em optionsData - objeto
 			-> id: e o valor da opcao (unico)
-			-> description: e o texto informativo da opcao
+			-> name: e o texto informativo da opcao
+			-> description1: texto extra 1, opcional
+			-> description2: texto extra 2, opcional
+			-> active: se o texto sera exibido ou nao, opcional
 
 		- optionsSelected		: define as opcoes selecionadas
 			-> e o proprio conteudo do elemento de formulario controlado associado (id)
@@ -26,9 +29,21 @@ import './Multiple.css';
 		- id					: id que especifica qual o elemento do formulario (conteudo sempre array)
 
 		- handleFormElements	: funcao de estado em parent que controla o elemento de formulario id
+
+		- disabled				: OPCIONAL, define se o combo esta ativo ou inativo
+
+		- terminators			: OPCIONAL, especifica os terminadores de texto para as chaves
+			-> name, description1, description2, active
+			-> E uma Array de Arrays (nessa ordem, valores default informados):
+				[
+					['', ''], // name
+					[' - ', ''], // description1
+					[' - ', ''], // description2
+					[' (', ')'] // active
+				]
 */
 const Multiple = props => {
-	const { optionsData, optionsKeys, optionsSelected, id, handleFormElements } = props;
+	const { optionsData, optionsKeys, optionsSelected, id, handleFormElements, disabled, terminators } = props;
 
 	const multipleBoxOut = `multiple-box-out-${id}`;
 	const multipleBoxIn = `multiple-box-in-${id}`;
@@ -79,6 +94,59 @@ const Multiple = props => {
 			return props;
 		},
 		[goCheck, optionsData, optionsSelected]
+	);
+
+	const setOptionsTerminators = useMemo(
+		() => {
+			const objTerminators = {
+				name: Array.isArray(terminators) && terminators.length > 0 ? (
+					[terminators[0][0], terminators[0][1]]
+				) : (
+					['', '']
+				),
+				description1: Array.isArray(terminators) && terminators.length > 1 ? (
+					[terminators[1][0], terminators[1][1]]
+				) : (
+					[' - ', '']
+				),
+				description2: Array.isArray(terminators) && terminators.length > 2 ? (
+					[terminators[2][0], terminators[2][1]]
+				) : (
+					[' - ', '']
+				),
+				active: Array.isArray(terminators) && terminators.length === 4 ? (
+					[terminators[3][0], terminators[3][1]]
+				) : (
+					[' (', ')']
+				)
+			};
+
+			return objTerminators;
+		},
+		[terminators]
+	);
+
+	const setOptionName = useCallback(
+		_element => {
+			const terminators = setOptionsTerminators;
+
+			return (
+				`${
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (terminators.name[0] + _element[optionsKeys.name] + terminators.name[1]) : '') +
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (terminators.description1[0] + _element[optionsKeys.description1] + terminators.description1[1]) : '') +
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (terminators.description2[0] + _element[optionsKeys.description2] + terminators.description2[1]) : '') +
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (terminators.active[0] + (_element[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + terminators.active[1]) : '')
+				}`
+			);
+		},
+		[optionsKeys, setOptionsTerminators]
+	);
+
+	const setOptions = useCallback(
+		_element => (
+			<option value={ _element[optionsKeys.id] } title={ setOptionName(_element) } key={ _element[optionsKeys.id] }>{ setOptionName(_element) }</option>
+		),
+		[optionsKeys, setOptionName]
 	);
 
 	const changeFormElements = e => {
@@ -132,16 +200,21 @@ const Multiple = props => {
 	return (
 		<div className="multiple flex-column flex-md-row">
 			<div className="multiple-box-out">
-				<Input type="select" id={ multipleBoxOut } size={ multipleBoxSize } multiple>
+				<Input type="select" id={ multipleBoxOut } size={ multipleBoxSize } disabled={ disabled === true } multiple>
 					<option value="" disabled>&rsaquo; disponíveis</option>
 					{
 						(goCheck) ? (
 							optionsData
 							.filter(
+								element => (
+									!Object.prototype.hasOwnProperty.call(element, optionsKeys.active) || element[optionsKeys.active]
+								)
+							)
+							.filter(
 								element => !optionsSelected.includes(element[optionsKeys.id])
 							)
 							.map(
-								(element, index) => <option value={ element[optionsKeys.id] } title={ element[optionsKeys.description] } key={ index }>{ element[optionsKeys.description] }</option>
+								element => setOptions(element)
 							)
 						) : (
 							null
@@ -152,22 +225,29 @@ const Multiple = props => {
 
 			<div className="multiple-buttons">
 				<ButtonGroup>
-					<Button type="button" name="btn-back" size="sm" { ...checkButtonsPropsBack } onClick={ changeFormElements }><i className="fas fa-arrow-left"></i></Button>
-					<Button type="button" name="btn-go" size="sm" { ...checkButtonsPropsGo } onClick={ changeFormElements }><i className="fas fa-arrow-right"></i></Button>
+					<Button type="button" name="btn-back" size="sm" { ...checkButtonsPropsBack } onClick={ changeFormElements } disabled={ disabled === true }><i className="fas fa-arrow-left"></i></Button>
+					<Button type="button" name="btn-go" size="sm" { ...checkButtonsPropsGo } onClick={ changeFormElements } disabled={ disabled === true }><i className="fas fa-arrow-right"></i></Button>
 				</ButtonGroup>
 			</div>
 
 			<div className="multiple-box-in">
-				<Input type="select" id={ multipleBoxIn } size={ multipleBoxSize } multiple>
+				<Input type="select" id={ multipleBoxIn } size={ multipleBoxSize } disabled={ disabled === true } multiple>
 					<option value="" disabled>&rsaquo; selecionados</option>
 					{
 						(goCheck) ? (
 							optionsData
 							.filter(
+								element => (
+									(
+										!Object.prototype.hasOwnProperty.call(element, optionsKeys.active) || element[optionsKeys.active]
+									) || optionsSelected.includes(element[optionsKeys.id])
+								)
+							)
+							.filter(
 								element => optionsSelected.includes(element[optionsKeys.id])
 							)
 							.map(
-								(element, index) => <option value={ element[optionsKeys.id] } title={ element[optionsKeys.description] } key={ index }>{ element[optionsKeys.description] }</option>
+								element => setOptions(element)
 							)
 						) : (
 							null

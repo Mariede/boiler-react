@@ -331,7 +331,12 @@ const ModalForm = props => {
 							<FormGroup>
 								<Label for="perfis">Perfis</Label>
 								<div id="perfis" data-value={ dataGet.content && Array.isArray(dataGet.content.perfis) && formElements.perfis }>
-									<Multiple optionsData={ dataGet.content && dataGet.content.perfis } optionsKeys={ { id: 'id', description: 'nome' } } optionsSelected={ formElements.perfis } id="perfis" handleFormElements={ handleFormElements } />
+									<Multiple
+										optionsData={ dataGet.content && dataGet.content.perfis }
+										optionsKeys={ { id: 'id', name: 'nome' } }
+										optionsSelected={ formElements.perfis } id="perfis"
+										handleFormElements={ handleFormElements }
+									/>
 								</div>
 							</FormGroup>
 						</Col>

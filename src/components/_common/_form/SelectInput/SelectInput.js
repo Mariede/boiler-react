@@ -86,15 +86,15 @@ const SelectInput = props => {
 	);
 
 	const setOptionName = useCallback(
-		option => {
+		_element => {
 			const terminators = setOptionsTerminators;
 
 			return (
 				`${
-					(Object.prototype.hasOwnProperty.call(option, optionsKeys.name) ? (terminators.name[0] + option[optionsKeys.name] + terminators.name[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(option, optionsKeys.description1) ? (terminators.description1[0] + option[optionsKeys.description1] + terminators.description1[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(option, optionsKeys.description2) ? (terminators.description2[0] + option[optionsKeys.description2] + terminators.description2[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(option, optionsKeys.active) ? (terminators.active[0] + (option[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + terminators.active[1]) : '')
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (terminators.name[0] + _element[optionsKeys.name] + terminators.name[1]) : '') +
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (terminators.description1[0] + _element[optionsKeys.description1] + terminators.description1[1]) : '') +
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (terminators.description2[0] + _element[optionsKeys.description2] + terminators.description2[1]) : '') +
+					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (terminators.active[0] + (_element[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + terminators.active[1]) : '')
 				}`
 			);
 		},
@@ -246,7 +246,7 @@ const SelectInput = props => {
 		e => {
 			e.preventDefault();
 
-			if (!disabled && e.key === 'Enter') {
+			if (disabled !== true && e.key === 'Enter') {
 				showHideData(e);
 			}
 		},
@@ -257,7 +257,7 @@ const SelectInput = props => {
 		e => {
 			e.preventDefault();
 
-			if (!disabled) {
+			if (disabled !== true) {
 				showHideData(e);
 			}
 		},
@@ -335,7 +335,7 @@ const SelectInput = props => {
 			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" innerRef={ elementInput } onKeyUp={ setOptionsData } disabled={ elementBlocked.disabled } />
 			<i className="fas fa-times" tabIndex="0" role="button" onKeyPress={ cleanCheckEnterPressed } onClick={ cleanCheckClicked } />
 			<InputGroupAddon addonType="append">
-				<InputGroupText tabIndex="0" role="button" data-name="button-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked } className={ !disabled ? 'enabled' : 'disabled' }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` } /></InputGroupText>
+				<InputGroupText tabIndex="0" role="button" data-name="button-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked } className={ disabled !== true ? 'enabled' : 'disabled' }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` } /></InputGroupText>
 			</InputGroupAddon>
 			<div className="input-box-data hide">
 				{ setMountedData }
