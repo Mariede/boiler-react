@@ -321,7 +321,8 @@ const ModalForm = props => {
 												name: 'nome'
 											}
 										}
-										optionsSelected={ formElements.perfis } id="perfis"
+										optionsSelected={ formElements.perfis }
+										id="perfis"
 										handleFormElements={ handleFormElements }
 									/>
 								</div>
