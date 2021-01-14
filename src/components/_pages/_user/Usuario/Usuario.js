@@ -27,6 +27,13 @@ const Usuario = props => {
 		}
 	);
 
+	const [dataGetOptions, setDataGetOptions] = useState(
+		{
+			ready: false,
+			content: null
+		}
+	);
+
 	const [dataChange, setDataChange] = useState(undefined);
 
 	const pGridTableAllowedCallbacks = useCheckPermissions(
@@ -71,10 +78,15 @@ const Usuario = props => {
 		insert: e => {
 			e.preventDefault();
 
+			const rowOptions = {
+				options: dataGetOptions.content
+			};
+
 			setDataChange(
 				{
 					submit: false,
 					method: 'post',
+					data: rowOptions,
 					cbThen: (res, setNotify) => {
 						// Verifica por erros no envio do e-mail
 						if (res.data && res.data.mailSent) {
@@ -114,12 +126,16 @@ const Usuario = props => {
 				)
 			);
 
+			const rowOptions = {
+				options: dataGetOptions.content
+			};
+
 			setDataChange(
 				{
 					submit: false,
 					method: 'put',
 					param: rowId,
-					data: (Array.isArray(rowData) && { ...rowData.pop() }) || {},
+					data: { ...((Array.isArray(rowData) && { ...rowData.pop() }) || {}), ...rowOptions },
 					formId: 'usuario-form'
 				}
 			);
@@ -199,6 +215,17 @@ const Usuario = props => {
 				}
 			/>
 
+			<DataGet
+				currentKey={ currentKey }
+				setDataGet={ setDataGetOptions }
+				baseRoute="/usuario/options"
+				cbCatch={
+					{
+						header: 'Opções'
+					}
+				}
+			/>
+
 			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" cbCatch={ { header: 'Usuário' } } url={ currentPath + currentSearch }>
 				{ ModalForm }
 			</DataChange>
@@ -268,13 +295,15 @@ const Usuario = props => {
 									]
 								},
 								{
+									tdLayout: { nowrap: true },
 									buttons: [
 										{
 											gridCallback: pageActions.knowMore,
-											buttonText:
+											buttonText: (
 												<Fragment>
 													<i className="fas fa-newspaper"></i> saiba mais
 												</Fragment>
+											)
 										}
 									]
 								}

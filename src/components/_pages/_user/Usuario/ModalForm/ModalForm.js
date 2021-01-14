@@ -7,7 +7,6 @@ import { Row, Col } from 'reactstrap';
 import InputMask from 'react-input-mask';
 
 import Multiple from 'components/_common/_form/Multiple';
-import DataGet from 'components/_common/DataGet';
 
 import formValidator from 'helpers/formValidator';
 import functions from 'helpers/functions';
@@ -20,13 +19,6 @@ const ModalForm = props => {
 	const { param, data, setDataChange } = props;
 
 	const formConfig = useContext(ContextConfig).formConfig;
-
-	const [dataGet, setDataGet] = useState(
-		{
-			ready: false,
-			content: null
-		}
-	);
 
 	const [formElements, handleFormElements] = useState(
 		{
@@ -198,8 +190,8 @@ const ModalForm = props => {
 			);
 
 			const dateNow = (
-				dataGet.content && dataGet.content.agora ? (
-					functions.formatStringToDate(dataGet.content.agora.valor)
+				data.options && data.options.agora ? (
+					functions.formatStringToDate(data.options.agora.valor)
 				) : (
 					null
 				)
@@ -213,21 +205,11 @@ const ModalForm = props => {
 
 			return true;
 		},
-		[data.empresa, dataGet.content]
+		[data.empresa, data.options]
 	);
 
 	return (
 		<Fragment>
-			<DataGet
-				setDataGet={ setDataGet }
-				baseRoute="/usuario/options"
-				cbCatch={
-					{
-						header: 'Opções'
-					}
-				}
-			/>
-
 			<Form id="usuario-form" className="form" onSubmit={ submitForm } autoComplete="off">
 				{
 					(!param || (data.empresa && data.empresa.ativo && checkCompanyDateLimit)) ? (
@@ -285,8 +267,8 @@ const ModalForm = props => {
 								<Input type="select" value={ formElements.empresa } id="empresa" onChange={ changeFormElements }>
 									<option value="">&rsaquo; selecione</option>
 									{
-										dataGet.content && Array.isArray(dataGet.content.empresas) ? (
-											dataGet.content.empresas.map(
+										data.options && Array.isArray(data.options.empresas) ? (
+											data.options.empresas.map(
 												(element, index) => <option value={ element.id } key={ index } disabled={ !element.ativo }>{ element.nome }{ !element.ativo ? ' (inativa)' : '' }</option>
 											)
 										) : (
@@ -302,8 +284,8 @@ const ModalForm = props => {
 								<Input type="select" value={ formElements.ativo } id="ativo" onChange={ changeFormElements }>
 									<option value="">&rsaquo; selecione</option>
 									{
-										dataGet.content && Array.isArray(dataGet.content.ativo) ? (
-											dataGet.content.ativo.map(
+										data.options && Array.isArray(data.options.ativo) ? (
+											data.options.ativo.map(
 												(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
 											)
 										) : (
@@ -330,9 +312,9 @@ const ModalForm = props => {
 						<Col md={ 12 }>
 							<FormGroup>
 								<Label for="perfis">Perfis</Label>
-								<div id="perfis" data-value={ dataGet.content && Array.isArray(dataGet.content.perfis) && formElements.perfis }>
+								<div id="perfis" data-value={ data.options && Array.isArray(data.options.perfis) && formElements.perfis }>
 									<Multiple
-										optionsData={ dataGet.content && dataGet.content.perfis }
+										optionsData={ data.options && data.options.perfis }
 										optionsKeys={
 											{
 												id: 'id',
