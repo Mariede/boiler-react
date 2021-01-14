@@ -241,7 +241,7 @@ const Usuario = props => {
 								<i className="fas fa-plus"></i> novo usuário
 							</Button>
 
-							<Button type="button" size="sm" color="success" disabled>
+							<Button type="button" size="sm" color="success" disabled={ true }>
 								<i className="fas fa-plus"></i> novo usuário
 							</Button>
 						</CheckPermissions>

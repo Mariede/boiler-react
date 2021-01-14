@@ -77,7 +77,7 @@ const GridButton = props => {
 
 	return (
 		buttonBlockCallback ? (
-			<Button id={ id } type="button" color={ checkButtonStyleColor } disabled>{ checkButtonStyleText }</Button>
+			<Button id={ id } type="button" color={ checkButtonStyleColor } disabled={ true }>{ checkButtonStyleText }</Button>
 		) : (
 			buttonConfirm ? (
 				<Alert buttonId={ id } buttonType="button" buttonColor={ checkButtonStyleColor } buttonText={ checkButtonStyleText } modalTitle="Dados" modalMessage={ buttonConfirm } modalCallback={ gridCallback } modalConfirm />

@@ -81,7 +81,7 @@ const LoggedContent = () => {
 			return (
 				Array.isArray(getUserData.empresa) ? (
 					getUserData.empresa[2] ? (
-						`${showName()} (ADMIN)`
+						`${showName()} (PRINCIPAL)`
 					) : showName()
 				) : ''
 			);
