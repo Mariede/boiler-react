@@ -95,7 +95,7 @@ const Usuario = props => {
 							if (errorFound) {
 								const showError = (
 									typeof errorFound === 'object' ? (
-										`${String(errorFound.responseCode || '')} - ${String(errorFound.code || '')} ${String(errorFound.command || '')}`
+										`${String(errorFound.responseCode || '')}${(errorFound.code ? ` - ${String(errorFound.code)}` : '')}${(errorFound.command ? ` - ${String(errorFound.command)}` : '')}`
 									) : (
 										String(errorFound || '')
 									)

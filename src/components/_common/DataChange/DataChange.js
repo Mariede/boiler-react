@@ -36,10 +36,11 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 		- cbCatch		: OPCIONAL, objeto com header, type e/ou form do Notify para exibicao de erros
 
-		- url			: OBRIGATORIO, url atual (com querystring) para redirects
+		- url			: OPCIONAL, url para redirects
 
 		- showActionInfo: OPCIONAL, exibe popup informativo de acao bem sucedida - DEFAULT nao exibe
 			-> Se for tipo string, exibe a string informada
+			-> url e OBRIGATORIA para exibicao do popup
 
 		- children		: apenas para o caso de submit === false
 			-> contem o formulario com a tela de apoio para insert/update (exibido atraves do componente de apoio DataModal)
@@ -95,7 +96,11 @@ const DataChange = props => {
 				)
 			}
 
-			<DataAction goDataAction={ goDataAction } showActionInfo={ showActionInfo } url={ url } />
+			{
+				url && (
+					<DataAction goDataAction={ goDataAction } showActionInfo={ showActionInfo } url={ url } />
+				)
+			}
 		</Fragment>
 	);
 };
