@@ -10,3 +10,18 @@
 #usuario > .top-group > .info {
 	font-size: 1.2rem;
 }
+
+#usuario > .search-info {
+	margin-top: 15px;
+}
+
+#usuario > .search-info > ul {
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 0;
+}
+
+#usuario > .search-info > ul > li {
+	padding-top: 5px;
+	font-size: 0.8rem;
+}

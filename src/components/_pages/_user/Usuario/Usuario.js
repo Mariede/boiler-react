@@ -248,10 +248,8 @@ const Usuario = props => {
 					</div>
 
 					{
-						!paramId ? (
+						!paramId && (
 							<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'empresa', 'perfil'] } history={ history } url={ { currentPath, currentSearch } } />
-						) : (
-							null
 						)
 					}
 
@@ -260,7 +258,7 @@ const Usuario = props => {
 							[
 								{ title: '#', jsonElement: 'idUsuario' },
 								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.update, blockCallbacks: !pGridTableAllowedCallbacks },
-								{ title: 'email', jsonElement: 'email', isSorted: true },
+								{ title: 'e-mail', jsonElement: 'email', isSorted: true },
 								{ title: 'empresa', jsonElement: 'empresa.nome', isSorted: true, tdLayout: { center: true } },
 								{ title: 'perfis', jsonElement: 'perfis.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
 								{ title: 'criado em', jsonElement: 'dataCriacao', isSorted: true, tdLayout: { right: true, nowrap: true } },
@@ -310,6 +308,23 @@ const Usuario = props => {
 							]
 						}
 					/>
+
+					{
+						!paramId && (
+							<div className="search-info">
+								Pesquisa <strong>parcial</strong> ou <strong>completa</strong> por<br />
+								<ul>
+									<li>ID DO USUÁRIO</li>
+									<li>NOME</li>
+									<li>E-MAIL</li>
+								</ul>
+								<ul>
+									<li>EMPRESA</li>
+									<li>PERFIL</li>
+								</ul>
+							</div>
+						)
+					}
 				</div>
 			</MainContent>
 
