@@ -312,7 +312,7 @@ const Usuario = props => {
 					{
 						!paramId && (
 							<div className="search-info">
-								Pesquisa <strong>parcial</strong> ou <strong>completa</strong> por<br />
+								<i className="fas fa-info-circle"></i> Pesquisa <strong>parcial</strong> ou <strong>completa</strong> por<br />
 								<ul>
 									<li>ID DO USUÁRIO</li>
 									<li>NOME</li>
