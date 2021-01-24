@@ -103,8 +103,7 @@ const Senha = () => {
 						senha: formElements.senha,
 						senhaNova: formElements.senhaNova,
 						senhaNovaCheck: formElements.senhaNovaCheck
-					},
-					formId: 'usuario-senha-form'
+					}
 				}
 			);
 		}
