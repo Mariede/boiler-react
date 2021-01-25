@@ -269,7 +269,7 @@ const ModalForm = props => {
 									{
 										data.options && Array.isArray(data.options.empresas) ? (
 											data.options.empresas.map(
-												(element, index) => <option value={ element.id } key={ index } disabled={ !element.ativo }>{ element.nome }{ !element.ativo ? ' (inativa)' : '' }</option>
+												element => <option value={ element.id } key={ element.id } disabled={ !element.ativo }>{ element.nome }{ !element.ativo ? ' (inativa)' : '' }</option>
 											)
 										) : (
 											null
@@ -286,7 +286,7 @@ const ModalForm = props => {
 									{
 										data.options && Array.isArray(data.options.ativo) ? (
 											data.options.ativo.map(
-												(element, index) => <option value={ element.id } key={ index }>{ element.nome }</option>
+												element => <option value={ element.id } key={ element.id }>{ element.nome }</option>
 											)
 										) : (
 											null
