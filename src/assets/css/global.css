@@ -128,7 +128,7 @@ div.global-form-grouped.diverse {
 	outline: 0 !important;
 }
 
-*:focus-visible:not(input):not(select):not(textarea) {
+*:focus-visible:not(input:not([type="radio"],[type="checkbox"])):not(select):not(textarea) {
 	outline: 0.5px dashed #000 !important;
 }
 
