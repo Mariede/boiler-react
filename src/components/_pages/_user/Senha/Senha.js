@@ -14,7 +14,6 @@ import appPermissions from 'helpers/appPermissions';
 import formValidator from 'helpers/formValidator';
 
 import ContextConfig from 'components/_context/ContextConfig';
-import ContextUserData from 'components/_context/ContextUserData';
 
 import './Senha.css';
 
@@ -22,7 +21,6 @@ const Senha = props => {
 	const { history } = props;
 
 	const formConfig = useContext(ContextConfig).formConfig;
-	const getUserData = useContext(ContextUserData).getUserData;
 
 	const [dataChange, setDataChange] = useState(undefined);
 
@@ -107,7 +105,6 @@ const Senha = props => {
 				{
 					submit: true,
 					method: 'put',
-					param: getUserData.id,
 					extraRoute: '/senha',
 					data: {
 						senha: formElements.senha,
