@@ -32,10 +32,10 @@ const NotFound = props => {
 
 				<Row form>
 					<Col md={ 6 }>
-						<Button type="button" size="md" color="primary" block onClick={ navBack }>Voltar</Button>
+						<Button type="button" size="md" color="success" block tag={ Link } to="/">Home</Button>
 					</Col>
 					<Col md={ 6 }>
-						<Button type="button" size="md" color="success" block tag={ Link } to="/">Home</Button>
+						<Button type="button" size="md" color="primary" block onClick={ navBack }>Voltar</Button>
 					</Col>
 				</Row>
 			</div>
