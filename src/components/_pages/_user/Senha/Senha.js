@@ -8,6 +8,9 @@ import InputPass from 'components/_common/_form/InputPass';
 import PassMeter from 'components/_common/PassMeter';
 import DataChange from 'components/_common/DataChange';
 
+import CheckPermissions from 'components/_common/CheckPermissions';
+import appPermissions from 'helpers/appPermissions';
+
 import formValidator from 'helpers/formValidator';
 
 import ContextConfig from 'components/_context/ContextConfig';
@@ -15,7 +18,9 @@ import ContextUserData from 'components/_context/ContextUserData';
 
 import './Senha.css';
 
-const Senha = () => {
+const Senha = props => {
+	const { history } = props;
+
 	const formConfig = useContext(ContextConfig).formConfig;
 	const getUserData = useContext(ContextUserData).getUserData;
 
@@ -87,6 +92,11 @@ const Senha = () => {
 		handleFormElements(prevState => ({ ...prevState, [(id || name)]: value }));
 	};
 
+	const navBack = e => {
+		e.preventDefault();
+		history.goBack();
+	};
+
 	const submitForm = e => {
 		e.preventDefault();
 
@@ -125,7 +135,19 @@ const Senha = () => {
 
 	return (
 		<Fragment>
-			<DataChange { ...dataChange } setDataChange={ setDataChange } baseRoute="/usuario" cbCatch={ { header: 'Alterar senha', form: 'usuario-senha-form' } } url="/" showActionInfo />
+			<DataChange
+				{ ...dataChange }
+				setDataChange={ setDataChange }
+				baseRoute="/usuario"
+				cbCatch={
+					{
+						header: 'Alterar senha',
+						form: 'usuario-senha-form'
+					}
+				}
+				url="/"
+				showActionInfo="Senha alterada com sucesso!"
+			/>
 
 			<MainContent subject="Minha senha" icon="fas fa-key" maxContent={ true }>
 				<div id="usuario-senha">
@@ -143,7 +165,7 @@ const Senha = () => {
 							</Row>
 						</div>
 
-						<div className="global-form-grouped diverse">
+						<div className="global-form-grouped">
 							<Row form>
 								<Col md={ 12 }>
 									<Label for="senhaNova">Nova senha</Label>
@@ -168,15 +190,21 @@ const Senha = () => {
 									</FormGroup>
 								</Col>
 							</Row>
-
-							<hr className="global-line global-form-divider" />
-
-							<Row form>
-								<Col md={ 12 }>
-									<Button type="submit" size="md" color="success" block>Confirmar</Button>
-								</Col>
-							</Row>
 						</div>
+
+						<hr className="global-line" />
+
+						<Row form className="footer">
+							<Col md={ 12 }>
+								<CheckPermissions allowedPermissions={ [appPermissions.edtMinhaSenha] }>
+									<Button type="submit" size="md" color="success">Confirmar</Button>
+
+									<Button type="button" size="md" color="success" disabled={ true }>Confirmar</Button>
+								</CheckPermissions>
+
+								<Button type="button" size="md" color="primary" onClick={ navBack }>Voltar</Button>
+							</Col>
+						</Row>
 					</Form>
 				</div>
 			</MainContent>
