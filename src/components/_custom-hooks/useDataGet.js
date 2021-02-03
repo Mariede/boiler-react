@@ -15,18 +15,19 @@ import errWrapper from 'helpers/errWrapper';
 
 		PROPS:
 			{
-				route		=> caminho da rota, com /
-				goReady		=> indica se o GET na chamada deve ser executado ou nao (opcional - default SEMPRE executa)
-				currentKey	=> renova a cada leitura da pagina
-				params		=> parametros do GET (opcional) <-> objeto
-				config		=> configuracoes extras da rota (opcional) <-> objeto
-				cbThen		=> funcao de callback em Then (opcional)
-				cbCatch		=> configuracoes extras para Notify (opcional) <-> objeto
-				message		=> configuracoes extras para componente Loading (opcional)
+				route				=> caminho da rota, com /
+				goReady				=> indica se o GET na chamada deve ser executado ou nao (opcional - default SEMPRE executa)
+				currentKey			=> renova a cada leitura da pagina
+				params				=> parametros do GET (opcional) <-> objeto
+				config				=> configuracoes extras da rota (opcional) <-> objeto
+				cbThen				=> funcao de callback em Then (opcional)
+				cbCatch				=> configuracoes extras para Notify (opcional) <-> objeto
+				dataResetOnCatch	=> se true reinicia o valor de content caso haja erro na requisicao (opcional) <-> boolean
+				message				=> configuracoes extras para componente Loading (opcional)
 			}
 */
 const useDataGet = props => {
-	const { route, goReady, currentKey, params, config, cbThen, cbCatch, message } = props;
+	const { route, goReady, currentKey, params, config, cbThen, cbCatch, dataResetOnCatch, message } = props;
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 
@@ -63,6 +64,10 @@ const useDataGet = props => {
 			.catch(
 				err => {
 					if (isMounted) {
+						if (dataResetOnCatch === true) {
+							dataContent.current = null;
+						}
+
 						setNotify(
 							{
 								info: (err.response || err),
