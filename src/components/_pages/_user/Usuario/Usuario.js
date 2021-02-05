@@ -249,7 +249,7 @@ const Usuario = props => {
 
 					{
 						!paramId && (
-							<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'empresa', 'perfil'] } history={ history } url={ { currentPath, currentSearch } } />
+							<Searcher dataReady={ dataGet.ready } searchFields={ ['idUsuario', 'nome', 'email', 'empresa', 'perfil'] } history={ history } url={ { currentPath, currentSearch } } urlParamsToRemove={ ['page'] } />
 						)
 					}
 

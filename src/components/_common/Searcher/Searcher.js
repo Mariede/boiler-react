@@ -18,9 +18,11 @@ import './Searcher.css';
 		- history			-> OBRIGATORIO, redirect via history router dom
 
 		- url				-> OBRIGATORIO, controle da URL para pesquisas (currentPath e currentSearch)
+
+		- urlParamsToRemove	-> OPCIONAL, em formato de array, remove um o mais parametros existentes em urlParams
 */
 const Searcher = props => {
-	const { dataReady, searchFields, history, url } = props;
+	const { dataReady, searchFields, history, url, urlParamsToRemove } = props;
 
 	const urlBase = (url.currentPath || '');
 	const urlSearch = (url.currentSearch || '');
@@ -77,6 +79,12 @@ const Searcher = props => {
 			const _searchValue = String(formElements.searchValue).trim();
 
 			if (_searchValue) {
+				if (Array.isArray(urlParamsToRemove) && urlParamsToRemove.length !== 0) {
+					urlParamsToRemove.forEach(
+						param => urlParams.delete(param)
+					);
+				}
+
 				urlParams.set('fullsearch_fields', _searchFields);
 				urlParams.set('fullsearch_value', _searchValue);
 
