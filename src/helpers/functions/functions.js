@@ -38,6 +38,13 @@ const functions = {
 			)
 		);
 	},
+	formatNumberToString (value) {
+		if (typeof value === 'number') {
+			return String(value).replace(/\./, ',');
+		}
+
+		return value;
+	},
 	formatDateToString (value, formatStyle = 'dd/MM/yyyy HH:mm:ss') {
 		if (value instanceof Date) {
 			return format(value, formatStyle); // Retorna string
