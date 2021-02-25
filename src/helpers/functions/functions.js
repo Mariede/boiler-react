@@ -38,6 +38,17 @@ const functions = {
 			)
 		);
 	},
+	formatNumberDecimalsAfter (value, decimalsAfter) {
+		if (typeof value === 'number') {
+			const fatorDecimalsAfter = 10 ** decimalsAfter;
+
+			return (
+				Math.round(value * fatorDecimalsAfter) / fatorDecimalsAfter
+			);
+		}
+
+		return value;
+	},
 	formatNumberToString (value) {
 		if (typeof value === 'number') {
 			return String(value).replace(/\./, ',');
