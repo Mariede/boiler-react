@@ -486,6 +486,22 @@ const lenRange = (_param, lMin = 0, lMax = lMin, trimmed = true) => {
 
 	return vRet;
 };
+
+/*
+Verifica se valor numerico se encontra no intervalo especificado
+	* se vMax nao informado, assume o mesmo valor de vMin
+*/
+const valueRange = (_num, vMin = 0, vMax = vMin) => {
+	const num = _falsyCheck(_num) && Number(_num);
+
+	let vRet = false;
+
+	if ((typeof num === 'number') && (num >= vMin && num <= vMax)) {
+		vRet = true;
+	}
+
+	return vRet;
+};
 // -------------------------------------------------------------------------
 
 export default {
@@ -508,5 +524,6 @@ export default {
 	isVehicleChassis,
 	contains,
 	equal,
-	lenRange
+	lenRange,
+	valueRange
 };

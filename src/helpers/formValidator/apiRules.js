@@ -153,6 +153,11 @@ const apiRules = [
 		name: 'lenRange', // Depende de extraParams local
 		validatorFunction: validator.lenRange,
 		defaultMessage: 'Valor não se encontra dentro do intervalo solicitado'
+	},
+	{
+		name: 'valueRange', // Depende de extraParams local
+		validatorFunction: validator.valueRange,
+		defaultMessage: 'Valor numérico não se encontra dentro do intervalo solicitado'
 	}
 ];
 
