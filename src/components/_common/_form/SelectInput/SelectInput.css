@@ -8,6 +8,10 @@
 	text-transform: initial;
 }
 
+.select-input > input[type="text"].enabled:disabled {
+	cursor: pointer;
+}
+
 .select-input > i.fa-times {
 	position: absolute;
 	top: 0;

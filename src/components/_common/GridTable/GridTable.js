@@ -212,7 +212,7 @@ const GridTable = props => {
 														);
 
 														return (
-															<td key={ indexTd } className={ tdLayout && (tdLayout.center ? (tdLayout.nowrap ? 'td-center td-nowrap' : 'td-center') : (tdLayout.right ? (tdLayout.nowrap ? 'td-right td-nowrap' : 'td-right') : (tdLayout.nowrap ? 'td-nowrap' : ''))) } style={ (tableCellWidth ? { width: `${tableCellWidth}px` } : {}) }>
+															<td key={ indexTd } className={ tdLayout && (tdLayout.center ? (tdLayout.nowrap ? 'td-center td-nowrap' : 'td-center') : (tdLayout.right ? (tdLayout.nowrap ? 'td-right td-nowrap' : 'td-right') : (tdLayout.nowrap ? 'td-nowrap' : null))) } style={ (tableCellWidth ? { width: `${tableCellWidth}px` } : {}) }>
 																{
 																	jsonElement ? (
 																		blockCallbacks ? (

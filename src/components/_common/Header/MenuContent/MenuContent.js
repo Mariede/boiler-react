@@ -179,7 +179,7 @@ const MenuContent = props => {
 				return (
 					menu.toggle ? (
 						<Dropdown a11y={ false } nav={ isSubmenu === false } isOpen={ menu.toggle.state } direction={ isSubmenu ? 'left' : 'down' } toggle={ changeDropdownElements } key={ i }>
-							<DropdownToggle id={ menu.toggle.id } nav caret className={ isSubmenu ? 'submenu' : '' }>
+							<DropdownToggle id={ menu.toggle.id } nav caret className={ isSubmenu ? 'submenu' : null }>
 								{ menu.toggle.title }
 							</DropdownToggle>
 
