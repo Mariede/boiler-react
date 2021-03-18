@@ -48,7 +48,7 @@ const SelectInput = props => {
 
 	const [elementBlocked, setElementBlocked] = useState(
 		{
-			disabled: true,
+			readOnly: true,
 			icon: true
 		}
 	);
@@ -121,36 +121,42 @@ const SelectInput = props => {
 	);
 
 	const showHideData = useCallback(
-		e => {
+		(e, isEscaped = false) => {
 			const element = e.currentTarget;
+			const elementDataAttribute = element.getAttribute('data-name');
 			const elementHasParentClass = element.classList.contains('.select-input');
 			const parent = (elementHasParentClass ? element : element.closest('.select-input'));
 			const inputBoxData = parent.querySelector('.input-box-data');
 			const inputBoxText = parent.querySelector('input[type="text"]');
 
-			if (elementBlocked.disabled) {
-				if (element.getAttribute('data-name') === 'box-data-check') {
+			if (elementBlocked.readOnly) {
+				if (elementDataAttribute === 'box-data-check') {
 					inputBoxText.value = '';
 					setBoxData(optionsData);
 				}
 
 				setElementBlocked(
 					{
-						disabled: false,
+						readOnly: false,
 						icon: false
 					}
 				);
 
 				inputBoxData.classList.remove('hide');
 			} else {
-				if (element.getAttribute('data-name') === 'box-data-check') {
+				if (elementDataAttribute === 'box-data-check') {
 					inputBoxText.value = setOptionInitial;
 					setBoxData(optionsData);
+				} else {
+					if (elementDataAttribute === 'box-data-clean' || isEscaped) {
+						inputBoxText.value = '';
+						setBoxData(optionsData);
+					}
 				}
 
 				setElementBlocked(
 					{
-						disabled: true,
+						readOnly: true,
 						icon: true
 					}
 				);
@@ -166,7 +172,7 @@ const SelectInput = props => {
 
 		if (e.key === 'Escape') {
 			handleFormElements(prevState => ({ ...prevState, [id]: '' }));
-			showHideData(e);
+			showHideData(e, true);
 		} else {
 			const inputBoxText = e.currentTarget;
 
@@ -176,7 +182,7 @@ const SelectInput = props => {
 
 			const removeAccents = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-			const dataFound = optionsData.filter(
+			const dataFound = Array.isArray(optionsData) && optionsData.filter(
 				_elementData => {
 					const elementDataName = removeAccents(_elementData[optionsKeys.name]).toUpperCase();
 					const elementDataDescription1 = removeAccents(_elementData[optionsKeys.description1]).toUpperCase();
@@ -204,12 +210,11 @@ const SelectInput = props => {
 		e => {
 			e.preventDefault();
 
-			const element = e.target;
-			const { tagName, type } = element;
-			const elementIsDisabled = element.disabled === true;
-
 			if (disabled !== true) {
-				if (tagName.toUpperCase() === 'INPUT' && type === 'text' && elementIsDisabled) {
+				const element = e.target;
+				const { tagName, type, readOnly } = element;
+
+				if (tagName.toUpperCase() === 'INPUT' && type === 'text' && readOnly === true) {
 					showHideData(e);
 				}
 			}
@@ -333,12 +338,18 @@ const SelectInput = props => {
 	useEffect(
 		() => {
 			const _input = elementInput.current;
-			const parent = _input.closest('.select-input');
-			const elementClean = parent.querySelector('i.fa-times');
 
 			if (_input) {
-				if (elementBlocked.disabled) {
+				const parent = _input.closest('.select-input');
+				const elementClean = parent.querySelector('i[data-name="box-data-clean"]');
+
+				if (elementBlocked.readOnly) {
 					elementClean.classList.add('hide');
+
+					if (_input === document.activeElement) {
+						const elementSearch = parent.querySelector('span[data-name="box-data-check"]');
+						elementSearch.focus();
+					}
 				} else {
 					elementClean.classList.remove('hide');
 					_input.focus();
@@ -350,10 +361,10 @@ const SelectInput = props => {
 
 	return (
 		<InputGroup className="select-input" data-name="box-data-check" onClick={ parentCheckClicked }>
-			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" innerRef={ elementInput } onKeyUp={ setOptionsData } className={ disabled !== true ? 'enabled' : null } disabled={ elementBlocked.disabled } />
-			<i className="fas fa-times" tabIndex="0" role="button" onKeyPress={ cleanCheckEnterPressed } onClick={ cleanCheckClicked } />
+			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" innerRef={ elementInput } className={ disabled !== true ? 'enabled' : 'disabled' } tabIndex={ (disabled !== true && !elementBlocked.readOnly) ? 0 : -1 } onKeyUp={ setOptionsData } readOnly={ elementBlocked.readOnly } />
+			<i className="fas fa-times" tabIndex={ 0 } role="button" data-name="box-data-clean" onKeyPress={ cleanCheckEnterPressed } onClick={ cleanCheckClicked } />
 			<InputGroupAddon addonType="append">
-				<InputGroupText tabIndex="0" role="button" data-name="box-data-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked } className={ disabled !== true ? 'enabled' : 'disabled' }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` } /></InputGroupText>
+				<InputGroupText className={ disabled !== true ? 'enabled' : 'disabled' } tabIndex={ disabled !== true ? 0 : -1 } role="button" data-name="box-data-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` } /></InputGroupText>
 			</InputGroupAddon>
 			<div className="input-box-data hide">
 				{ setMountedData }

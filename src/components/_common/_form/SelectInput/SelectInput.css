@@ -8,8 +8,14 @@
 	text-transform: initial;
 }
 
-.select-input > input[type="text"].enabled:disabled {
+.select-input > input[type="text"].enabled:read-only {
 	cursor: pointer;
+}
+
+.select-input > input[type="text"].disabled {
+	background-color: #e9ecef;
+	pointer-events: none;
+	cursor: default;
 }
 
 .select-input > i.fa-times {
@@ -36,6 +42,7 @@
 }
 
 .select-input .input-group-text.disabled {
+	pointer-events: none;
 	cursor: default;
 }
 
