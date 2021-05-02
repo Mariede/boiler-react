@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "date-fns": "^2.19.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "date-fns": "^2.21.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0"
   },
   "scripts": {
