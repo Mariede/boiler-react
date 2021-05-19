@@ -48,20 +48,20 @@ a[type="button"] {
 	margin-bottom: 1px;
 }
 
-a:not([type="button"]):link, button.btn-link {
+a:not([type="button"]):link, a.btn-link, button.btn-link {
 	color: #07d;
 }
 
-a:not([type="button"]):visited, button.btn-link:visited {
+a:not([type="button"]):visited, a.btn-link:visited, button.btn-link:visited {
 	color: #07d;
 }
 
-a:not([type="button"]):hover, button.btn-link:hover {
+a:not([type="button"]):hover, a.btn-link:hover, button.btn-link:hover {
 	color: red;
 	text-decoration: none;
 }
 
-a:not([type="button"]):active, button.btn-link:active {
+a:not([type="button"]):active, a.btn-link:active, button.btn-link:active {
 	color: #fff;
 }
 
