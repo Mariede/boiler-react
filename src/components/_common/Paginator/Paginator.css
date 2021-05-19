@@ -22,15 +22,16 @@
 	border: 1px solid #07d;
 }
 
-.pagination-main .pagination-select {
+.pagination-main > .pagination-select {
 	width: 170px;
 	color: #07d;
 	font-size: 0.9rem;
 	border-color: #dee2e6;
 }
 
-.pagination-main .pagination-select:hover {
+.pagination-main > .pagination-select:focus, .pagination-main > .pagination-select:hover {
 	background-color: #e9ecef;
+	color: #07d;
 	cursor: pointer;
 }
 
