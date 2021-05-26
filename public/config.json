@@ -1,5 +1,5 @@
 {
-	"baseUrl": "https://localhost",
+	"baseUrl": "http://localhost:3000",
 	"formConfig": {
 		"passMinLen": 4,
 		"passMaxLen": 20,
