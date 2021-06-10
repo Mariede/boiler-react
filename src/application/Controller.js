@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useContext } from 'react';
+import { Fragment, useRef, useEffect, useContext } from 'react';
 
 import useDataGet from 'components/_custom-hooks/useDataGet';
 
@@ -8,6 +8,8 @@ const Controller = props => {
 	const { isLogged, isProtected, onlyNotLogged, children, location } = props;
 
 	const setUserData = useContext(ContextUserData).setUserData;
+
+	const renderCount = useRef(0);
 
 	const [Target, Logon, Home] = children;
 	const currentKey = location.key;
@@ -52,6 +54,12 @@ const Controller = props => {
 		[dataReady, isLogged, currentPath, currentSearch]
 	);
 
+	useEffect(
+		() => {
+			renderCount.current++;
+		}
+	);
+
 	return (
 		<Fragment>
 			{ Component }
@@ -75,7 +83,11 @@ const Controller = props => {
 						)
 					)
 				) : (
-					null
+					renderCount.current === 0 ? (
+						null
+					) : (
+						Logon
+					)
 				)
 			}
 		</Fragment>

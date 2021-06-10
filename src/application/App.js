@@ -17,12 +17,6 @@ const App = props => {
 
 	const renderCount = useRef(0);
 
-	useEffect(
-		() => {
-			renderCount.current++;
-		}
-	);
-
 	const userIsLogged = useMemo(
 		() => {
 			let logged = false;
@@ -41,6 +35,12 @@ const App = props => {
 			return logged;
 		},
 		[userData]
+	);
+
+	useEffect(
+		() => {
+			renderCount.current++;
+		}
 	);
 
 	return (
