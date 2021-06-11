@@ -25,11 +25,15 @@ const App = props => {
 				sessionStorage.setItem('is-logged', 'true');
 				logged = true;
 			} else {
-				if (renderCount.current === 0 && sessionStorage.getItem('is-logged') === 'true') {
-					logged = undefined;
-				}
+				if (userData === undefined) {
+					setUserData(null);
+				} else {
+					if (renderCount.current === 0 && sessionStorage.getItem('is-logged') === 'true') {
+						logged = undefined;
+					}
 
-				sessionStorage.removeItem('is-logged');
+					sessionStorage.removeItem('is-logged');
+				}
 			}
 
 			return logged;
