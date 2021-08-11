@@ -19,6 +19,17 @@ const DataAction = props => {
 
 	const elementConfirm = useRef();
 
+	const actionInfoAction = e => {
+		e.preventDefault();
+
+		const _elementConfirm = elementConfirm.current;
+
+		if (_elementConfirm) {
+			_elementConfirm.style.display = 'none';
+			history.push(url);
+		}
+	};
+
 	useLayoutEffect(
 		() => {
 			if (goDataAction) {
@@ -36,21 +47,10 @@ const DataAction = props => {
 		[goDataAction, showActionInfo, history, url]
 	);
 
-	const dataAction = e => {
-		e.preventDefault();
-
-		const _elementConfirm = elementConfirm.current;
-
-		if (_elementConfirm) {
-			_elementConfirm.style.display = 'none';
-			history.push(url);
-		}
-	};
-
 	const Component = (
 		showActionInfo ? (
 			<div ref={ elementConfirm } className="data-action">
-				<div tabIndex="0" role="button" onKeyPress={ dataAction } onClick={ dataAction } className="data-action-box">
+				<div tabIndex="0" role="button" onKeyPress={ actionInfoAction } onClick={ actionInfoAction } className="data-action-box">
 					<div className="header">
 						<i className="fas fa-check"></i> Sucesso
 					</div>
