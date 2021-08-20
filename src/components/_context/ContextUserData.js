@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 
 // Acesso global aos dados do usuario logado
-const ContextDataUser = createContext(
+const ContextUserData = createContext(
 	{
 		getUserData: {},
 		setUserData: () => null
 	}
 );
 
-export default ContextDataUser;
+export default ContextUserData;
