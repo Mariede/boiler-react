@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
+import { Fragment, useRef, useState, useEffect, useMemo, useCallback } from 'react';
 
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
@@ -17,9 +17,12 @@ import './SelectInput.css';
 		- optionsKeys			: chaves das propriedades em optionsData - objeto
 			-> id: e o valor da opcao (unico)
 			-> name: e o texto informativo da opcao
-			-> description1: texto extra 1, opcional
-			-> description2: texto extra 2, opcional
-			-> active: se o texto sera exibido ou nao, opcional
+			-> description1: texto extra 1 da opcao, OPCIONAL
+			-> description2: texto extra 2 da opcao, OPCIONAL
+			-> image: se existe uma imagem associada ao texto da opcao, OPCIONAL
+				-> image.src: a imagem a ser exibida em base64 - se a chave image existe, OBRIGATORIO
+				-> image.alt: texto alt da imagem a ser exibida - se a chave image existe, OBRIGATORIO
+			-> active: se o conteudo da opcao sera exibido ou nao, OPCIONAL
 
 		- optionSelected		: define a opcao selecionada
 			-> e o proprio conteudo do elemento de formulario controlado associado (id)
@@ -57,7 +60,7 @@ const SelectInput = props => {
 
 	const setOptionsTerminators = useMemo(
 		() => {
-			const objTerminators = {
+			const _terminators = {
 				name: Array.isArray(terminators) && terminators.length > 0 ? (
 					[terminators[0][0], terminators[0][1]]
 				) : (
@@ -80,22 +83,63 @@ const SelectInput = props => {
 				)
 			};
 
-			return objTerminators;
+			return _terminators;
 		},
 		[terminators]
 	);
 
 	const setOptionName = useCallback(
-		_element => {
-			const terminators = setOptionsTerminators;
+		(_element, displayInitial) => {
+			const _terminators = setOptionsTerminators;
+
+			const _name = Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (
+				(_terminators.name[0] + _element[optionsKeys.name] + _terminators.name[1])
+			) : (
+				''
+			);
+
+			const _description1 = Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (
+				(_terminators.description1[0] + _element[optionsKeys.description1] + _terminators.description1[1])
+			) : (
+				''
+			);
+
+			const _description2 = Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (
+				(_terminators.description2[0] + _element[optionsKeys.description2] + _terminators.description2[1])
+			) : (
+				''
+			);
+
+			const _active = Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (
+				(_terminators.active[0] + (_element[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + _terminators.active[1])
+			) : (
+				''
+			);
+
+			const optionName = _name + _description1 + _description2 + _active;
+
+			const SelectInputOption = () => {
+				const _findNestedKey = (_nestedKey, _el) => (
+					_nestedKey.split('.').reduce((o, i) => o && o[i], _el)
+				);
+
+				return (
+					(optionsKeys.image && optionsKeys.image.src && optionsKeys.image.alt) ? (
+						<Fragment>
+							<img src={ _findNestedKey(optionsKeys.image.src, _element) || '' } alt={ _findNestedKey(optionsKeys.image.alt, _element) || '' } /> { optionName }
+						</Fragment>
+					) : (
+						optionName
+					)
+				);
+			};
 
 			return (
-				`${
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (terminators.name[0] + _element[optionsKeys.name] + terminators.name[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (terminators.description1[0] + _element[optionsKeys.description1] + terminators.description1[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (terminators.description2[0] + _element[optionsKeys.description2] + terminators.description2[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (terminators.active[0] + (_element[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + terminators.active[1]) : '')
-				}`
+				displayInitial ? (
+					optionName
+				) : (
+					<SelectInputOption />
+				)
 			);
 		},
 		[optionsKeys, setOptionsTerminators]
@@ -110,7 +154,7 @@ const SelectInput = props => {
 					);
 
 					if (catched && catched.length === 1) {
-						return setOptionName(catched.pop());
+						return setOptionName(catched.pop(), true);
 					}
 				}
 			}
@@ -184,17 +228,17 @@ const SelectInput = props => {
 
 			const dataFound = Array.isArray(optionsData) && optionsData.filter(
 				_elementData => {
-					const elementDataName = removeAccents(_elementData[optionsKeys.name]).toUpperCase();
-					const elementDataDescription1 = removeAccents(_elementData[optionsKeys.description1]).toUpperCase();
-					const elementDataDescription2 = removeAccents(_elementData[optionsKeys.description2]).toUpperCase();
+					const _name = removeAccents(_elementData[optionsKeys.name]).toUpperCase();
+					const _description1 = removeAccents(_elementData[optionsKeys.description1]).toUpperCase();
+					const _description2 = removeAccents(_elementData[optionsKeys.description2]).toUpperCase();
 
 					return (
 						arrSearch.every(
 							_elementSearch => {
-								const elementSearch = removeAccents(_elementSearch).toUpperCase();
+								const _search = removeAccents(_elementSearch).toUpperCase();
 
 								return (
-									elementDataName.includes(elementSearch) || elementDataDescription1.includes(elementSearch) || elementDataDescription2.includes(elementSearch)
+									_name.includes(_search) || _description1.includes(_search) || _description2.includes(_search)
 								);
 							}
 						)
@@ -321,7 +365,7 @@ const SelectInput = props => {
 					return (
 						mountedData.map(
 							_element => (
-								<div className="option-found" tabIndex="0" role="button" data-value={ _element[optionsKeys.id] } onKeyPress={ optionCheckEnterPressed } onClick={ optionCheckClicked } key={ _element[optionsKeys.id] }>{ setOptionName(_element) }</div>
+								<div className="option-found" tabIndex="0" role="button" data-value={ _element[optionsKeys.id] } onKeyPress={ optionCheckEnterPressed } onClick={ optionCheckClicked } key={ _element[optionsKeys.id] }>{ setOptionName(_element, false) }</div>
 							)
 						)
 					);

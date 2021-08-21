@@ -86,6 +86,10 @@
 	border-radius: 4px;
 }
 
+.select-input > .input-box-data > div.option-found > img {
+	border: 0;
+}
+
 .select-input > .input-box-data > div.option-not-found {
 	color: red;
 	font-size: 1rem;
