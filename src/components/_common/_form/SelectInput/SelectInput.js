@@ -92,25 +92,25 @@ const SelectInput = props => {
 		(_element, displayInitial) => {
 			const _terminators = setOptionsTerminators;
 
-			const _name = Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (
+			const _name = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (
 				(_terminators.name[0] + _element[optionsKeys.name] + _terminators.name[1])
 			) : (
 				''
 			);
 
-			const _description1 = Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (
+			const _description1 = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (
 				(_terminators.description1[0] + _element[optionsKeys.description1] + _terminators.description1[1])
 			) : (
 				''
 			);
 
-			const _description2 = Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (
+			const _description2 = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (
 				(_terminators.description2[0] + _element[optionsKeys.description2] + _terminators.description2[1])
 			) : (
 				''
 			);
 
-			const _active = Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (
+			const _active = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (
 				(_terminators.active[0] + (_element[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + _terminators.active[1])
 			) : (
 				''
@@ -124,7 +124,7 @@ const SelectInput = props => {
 				);
 
 				return (
-					(optionsKeys.image && optionsKeys.image.src && optionsKeys.image.alt) ? (
+					(_element && optionsKeys.image && optionsKeys.image.src && optionsKeys.image.alt) ? (
 						<Fragment>
 							<img src={ _findNestedKey(optionsKeys.image.src, _element) || '' } alt={ _findNestedKey(optionsKeys.image.alt, _element) || '' } /> { optionName }
 						</Fragment>
@@ -404,7 +404,7 @@ const SelectInput = props => {
 	);
 
 	return (
-		<InputGroup className="select-input" data-name="box-data-check" onClick={ parentCheckClicked }>
+		<InputGroup className="select-input" data-name="box-data-check" onClick={ parentCheckClicked } key={ `select-input-k${optionSelected}` }>
 			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" innerRef={ elementInput } className={ disabled !== true ? 'enabled' : 'disabled' } tabIndex={ (disabled !== true && !elementBlocked.readOnly) ? 0 : -1 } onKeyUp={ setOptionsData } readOnly={ elementBlocked.readOnly } />
 			<i className="fas fa-times" tabIndex={ 0 } role="button" data-name="box-data-clean" onKeyPress={ cleanCheckEnterPressed } onClick={ cleanCheckClicked } />
 			<InputGroupAddon addonType="append">
