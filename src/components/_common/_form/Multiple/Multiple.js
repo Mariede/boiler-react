@@ -18,9 +18,9 @@ import './Multiple.css';
 		- optionsKeys			: chaves das propriedades em optionsData - objeto
 			-> id: e o valor da opcao (unico)
 			-> name: e o texto informativo da opcao
-			-> description1: texto extra 1, opcional
-			-> description2: texto extra 2, opcional
-			-> active: se o texto sera exibido ou nao, opcional
+			-> description1: texto extra 1 da opcao, OPCIONAL
+			-> description2: texto extra 2 da opcao, OPCIONAL
+			-> active: se o conteudo da opcao sera exibido ou nao, OPCIONAL
 
 		- optionsSelected		: define as opcoes selecionadas
 			-> e o proprio conteudo do elemento de formulario controlado associado (id)
@@ -98,7 +98,7 @@ const Multiple = props => {
 
 	const setOptionsTerminators = useMemo(
 		() => {
-			const objTerminators = {
+			const _terminators = {
 				name: Array.isArray(terminators) && terminators.length > 0 ? (
 					[terminators[0][0], terminators[0][1]]
 				) : (
@@ -121,22 +121,43 @@ const Multiple = props => {
 				)
 			};
 
-			return objTerminators;
+			return _terminators;
 		},
 		[terminators]
 	);
 
 	const setOptionName = useCallback(
 		_element => {
-			const terminators = setOptionsTerminators;
+			const _terminators = setOptionsTerminators;
+
+			const _name = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (
+				(_terminators.name[0] + _element[optionsKeys.name] + _terminators.name[1])
+			) : (
+				''
+			);
+
+			const _description1 = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (
+				(_terminators.description1[0] + _element[optionsKeys.description1] + _terminators.description1[1])
+			) : (
+				''
+			);
+
+			const _description2 = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (
+				(_terminators.description2[0] + _element[optionsKeys.description2] + _terminators.description2[1])
+			) : (
+				''
+			);
+
+			const _active = _element && Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (
+				(_terminators.active[0] + (_element[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + _terminators.active[1])
+			) : (
+				''
+			);
+
+			const optionName = _name + _description1 + _description2 + _active;
 
 			return (
-				`${
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.name) ? (terminators.name[0] + _element[optionsKeys.name] + terminators.name[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description1) ? (terminators.description1[0] + _element[optionsKeys.description1] + terminators.description1[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.description2) ? (terminators.description2[0] + _element[optionsKeys.description2] + terminators.description2[1]) : '') +
-					(Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) ? (terminators.active[0] + (_element[optionsKeys.active] ? 'ATIVO' : 'INATIVO') + terminators.active[1]) : '')
-				}`
+				optionName
 			);
 		},
 		[optionsKeys, setOptionsTerminators]
