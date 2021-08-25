@@ -27,10 +27,11 @@
 	margin: 5px;
 	padding: 5px;
 	cursor: pointer;
+	display: none;
 }
 
-.select-input > i.fa-times.hide {
-	display: none;
+.select-input > i.fa-times.show {
+	display: block;
 }
 
 .select-input .input-group-text {
@@ -68,10 +69,11 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	user-select: none;
+	display: none;
 }
 
-.select-input > .input-box-data.hide {
-	display: none;
+.select-input > .input-box-data.show {
+	display: block;
 }
 
 .select-input > .input-box-data > div {

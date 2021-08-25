@@ -186,7 +186,7 @@ const SelectInput = props => {
 					}
 				);
 
-				inputBoxData.classList.remove('hide');
+				inputBoxData.classList.add('show');
 			} else {
 				if (elementDataAttribute === 'box-data-check') {
 					inputBoxText.value = setOptionInitial;
@@ -205,7 +205,7 @@ const SelectInput = props => {
 					}
 				);
 
-				inputBoxData.classList.add('hide');
+				inputBoxData.classList.remove('show');
 			}
 		},
 		[optionsData, elementBlocked, setOptionInitial]
@@ -388,14 +388,14 @@ const SelectInput = props => {
 				const elementClean = parent.querySelector('i[data-name="box-data-clean"]');
 
 				if (elementBlocked.readOnly) {
-					elementClean.classList.add('hide');
+					elementClean.classList.remove('show');
 
 					if (_input === document.activeElement) {
 						const elementSearch = parent.querySelector('span[data-name="box-data-check"]');
 						elementSearch.focus();
 					}
 				} else {
-					elementClean.classList.remove('hide');
+					elementClean.classList.add('show');
 					_input.focus();
 				}
 			}
@@ -410,7 +410,7 @@ const SelectInput = props => {
 			<InputGroupAddon addonType="append">
 				<InputGroupText className={ disabled !== true ? 'enabled' : 'disabled' } tabIndex={ disabled !== true ? 0 : -1 } role="button" data-name="box-data-check" onKeyPress={ buttonCheckEnterPressed } onClick={ buttonCheckClicked }><i className={ `fas ${(elementBlocked.icon ? 'fa-search' : 'fa-search-plus')}` } /></InputGroupText>
 			</InputGroupAddon>
-			<div className="input-box-data hide">
+			<div className="input-box-data">
 				{ setMountedData }
 			</div>
 		</InputGroup>
