@@ -5,17 +5,23 @@
 	justify-content: space-around;
 }
 
-.multiple select {
-	width: 170px;
+.multiple > div {
+	flex: 1 1 0;
+	width: 100%;
+}
+
+.multiple > div.multiple-buttons {
+	text-align: center;
+	max-width: fit-content;
+	margin: 6px;
+}
+
+.multiple > div > select {
 	overflow-x: hidden;
 	overflow-y: auto;
 }
 
-.multiple select > option:disabled {
+.multiple > div > select > option:disabled {
 	font-style: italic;
 	color: #ddd;
-}
-
-.multiple .multiple-buttons {
-	margin: 6px;
 }
