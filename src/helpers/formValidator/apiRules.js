@@ -104,7 +104,6 @@ const apiRules = [
 	{
 		name: 'isAlphaNumeric',
 		validatorFunction: validator.isAlphaNumeric,
-		extraParams: [false],
 		defaultMessage: 'Valor alfanumérico inválido'
 	},
 	{
