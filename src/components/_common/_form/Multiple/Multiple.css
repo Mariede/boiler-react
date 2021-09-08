@@ -21,6 +21,10 @@
 	overflow-y: auto;
 }
 
+.multiple > div > select > option:not([disabled]) {
+	cursor: help;
+}
+
 .multiple > div > select > option:disabled {
 	font-style: italic;
 	color: #ddd;

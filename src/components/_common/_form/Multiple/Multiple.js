@@ -1,7 +1,8 @@
-import { useMemo, useCallback } from 'react';
+import { Fragment, useMemo, useCallback } from 'react';
 
 import { Button } from 'reactstrap';
 import { ButtonGroup, Input } from 'reactstrap';
+import { UncontrolledTooltip } from 'reactstrap';
 
 import functions from 'helpers/functions';
 
@@ -164,9 +165,20 @@ const Multiple = props => {
 	);
 
 	const setOptions = useCallback(
-		_element => (
-			<option value={ _element[optionsKeys.id] } title={ setOptionName(_element) } key={ _element[optionsKeys.id] }>{ setOptionName(_element) }</option>
-		),
+		(_element, _boxId) => {
+			const _blockId = `${_boxId}-${_element[optionsKeys.id]}`;
+			const _optionName = setOptionName(_element);
+
+			return (
+				<Fragment key={ _blockId }>
+					<option value={ _element[optionsKeys.id] } id={ _blockId }>{ _optionName }</option>
+
+					<UncontrolledTooltip placement="top" target={ _blockId } trigger="hover">
+						{ _optionName }
+					</UncontrolledTooltip>
+				</Fragment>
+			);
+		},
 		[optionsKeys, setOptionName]
 	);
 
@@ -235,7 +247,7 @@ const Multiple = props => {
 								element => !optionsSelected.includes(element[optionsKeys.id])
 							)
 							.map(
-								element => setOptions(element)
+								element => setOptions(element, multipleBoxOut)
 							)
 						) : (
 							null
@@ -268,7 +280,7 @@ const Multiple = props => {
 								element => optionsSelected.includes(element[optionsKeys.id])
 							)
 							.map(
-								element => setOptions(element)
+								element => setOptions(element, multipleBoxIn)
 							)
 						) : (
 							null
