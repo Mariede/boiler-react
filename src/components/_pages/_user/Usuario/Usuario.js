@@ -253,7 +253,7 @@ const Usuario = props => {
 						)
 					}
 
-					<GridTable dataContent={ dataGet.content } history={ history } url={ { currentPath, currentSearch } } rowId="idUsuario"
+					<GridTable dataReady={ dataGet.ready } dataContent={ dataGet.content } history={ history } url={ { currentPath, currentSearch } } rowId="idUsuario"
 						columns={
 							[
 								{ title: '#', jsonElement: 'idUsuario' },

@@ -19,6 +19,8 @@ import './GridTable.css';
 		- Sorter
 
 	PROPS:
+		- dataReady		: OBRIGATORIO, informa se os dados estao prontos na tela
+
 		- dataContent	: OBRIGATORIO, Json de retorno com o conteudo das informacoes a serem exibidas
 
 		- history		: OBRIGATORIO, redirect via history router dom nos filhos (Sorter e Paginator)
@@ -93,7 +95,7 @@ import './GridTable.css';
 			-> em formato de objeto exemplo: classes={ { dark: true } }, passar objeto vazio para nenhuma
 */
 const GridTable = props => {
-	const { dataContent, history, url, rowId, columns, classes } = props;
+	const { dataReady, dataContent, history, url, rowId, columns, classes } = props;
 
 	const recordset = dataContent && dataContent.recordset;
 	const pageDetails = dataContent && dataContent.pageDetails;
@@ -225,7 +227,7 @@ const GridTable = props => {
 																			)
 																		) : (
 																			gridCallback ? (
-																				<GridButton id={ `btn-gb-${index}${indexTd}` } gridCallback={ gridCallback } buttonColor="link" buttonText={ (tdLayout && typeof tdLayout.formatData === 'function' ? tdLayout.formatData(data) : data) } key={ indexTd } />
+																				<GridButton id={ `btn-gb-${index}${indexTd}` } gridCallback={ gridCallback } buttonColor="link" buttonDisabled={ !dataReady } buttonText={ (tdLayout && typeof tdLayout.formatData === 'function' ? tdLayout.formatData(data) : data) } key={ indexTd } />
 																			) : (
 																				(
 																					tdLayout && typeof tdLayout.formatData === 'function' ? (
@@ -242,7 +244,7 @@ const GridTable = props => {
 																				{
 																					buttons.map(
 																						(button, indexBtn) => (
-																							<GridButton id={ `btn-gb-${index}${indexTd}${indexBtn}` } record={ record } gridCallback={ button.gridCallback } buttonBlockCallback={ blockCallbacks } buttonColor={ button.buttonColor } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ indexBtn } />
+																							<GridButton id={ `btn-gb-${index}${indexTd}${indexBtn}` } record={ record } gridCallback={ button.gridCallback } buttonBlockCallback={ blockCallbacks } buttonColor={ button.buttonColor } buttonDisabled={ !dataReady } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ indexBtn } />
 																						)
 																					)
 																				}

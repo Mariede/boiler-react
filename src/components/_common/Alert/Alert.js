@@ -19,6 +19,7 @@ import ModalWindow from 'components/_common/ModalWindow';
 			- buttonSize				-> Botao de chamada (default: "")
 			- buttonOutline				-> Botao de chamada: true/false (default: { false })
 			- buttonBlock				-> Botao de chamada: true/false (default: { false })
+			- buttonDisabled			-> Botao de chamada: true/false (default: { false })
 			- buttonText				-> Botao de chamada (default: "Confirmar")
 
 			- buttonExecuteBeforeShow	-> Executa uma funcao no clique do botao, liberando ou nao a exibicao do modal
@@ -39,7 +40,7 @@ import ModalWindow from 'components/_common/ModalWindow';
 											- Executa o preventDefault no Modal
 */
 const Alert = props => {
-	const { buttonId, buttonType, buttonSize, buttonColor, buttonOutline, buttonBlock, buttonText, buttonExecuteBeforeShow } = props;
+	const { buttonId, buttonType, buttonSize, buttonColor, buttonOutline, buttonBlock, buttonDisabled, buttonText, buttonExecuteBeforeShow } = props;
 	const { modalConfirm, modalCentered, modalTitle, modalMessage, modalSize, modalFooterSize, modalCallback } = props;
 
 	const [showAlert, setShowAlert] = useState({ show: false, renderKey: false, originElement: null });
@@ -49,7 +50,8 @@ const Alert = props => {
 		size: (buttonSize || ''),
 		color: (buttonColor || 'success'),
 		outline: (buttonOutline || false),
-		block: (buttonBlock || false)
+		block: (buttonBlock || false),
+		disabled: (buttonDisabled === true)
 	};
 
 	const modalProperties = {

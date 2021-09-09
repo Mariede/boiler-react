@@ -25,6 +25,8 @@ import Alert from 'components/_common/Alert';
 		buttonColor		-> define o formato do button - default e link (string)
 				-> ex. link, danger, success, ...
 
+		buttonDisabled	-> define se o botao esta habilitado ou desabilitado
+
 		buttonConfirm	-> opcional, define se havera um modal de confirmacao para a acao (string)
 				-> contem o texto a ser exibido no modal
 
@@ -35,7 +37,7 @@ import Alert from 'components/_common/Alert';
 					-> array[2]: exibe se array[0] for false
 */
 const GridButton = props => {
-	const { id, record, gridCallback, buttonBlockCallback, buttonColor, buttonText, buttonConfirm } = props;
+	const { id, record, gridCallback, buttonBlockCallback, buttonColor, buttonDisabled, buttonText, buttonConfirm } = props;
 
 	const applyButtonStyle = (rec, arg, iniVal) => {
 		let buttonStyleResult = iniVal;
@@ -80,9 +82,9 @@ const GridButton = props => {
 			<Button id={ id } type="button" color={ checkButtonStyleColor } disabled={ true }>{ checkButtonStyleText }</Button>
 		) : (
 			buttonConfirm ? (
-				<Alert buttonId={ id } buttonType="button" buttonColor={ checkButtonStyleColor } buttonText={ checkButtonStyleText } modalTitle="Dados" modalMessage={ buttonConfirm } modalCallback={ gridCallback } modalConfirm />
+				<Alert buttonId={ id } buttonType="button" buttonColor={ checkButtonStyleColor } buttonDisabled={ buttonDisabled === true } buttonText={ checkButtonStyleText } modalTitle="Dados" modalMessage={ buttonConfirm } modalCallback={ gridCallback } modalConfirm />
 			) : (
-				<Button id={ id } type="button" color={ checkButtonStyleColor } onClick={ gridCallback }>{ checkButtonStyleText }</Button>
+				<Button id={ id } type="button" color={ checkButtonStyleColor } disabled={ buttonDisabled === true } onClick={ gridCallback }>{ checkButtonStyleText }</Button>
 			)
 		)
 	);
