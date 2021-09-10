@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState, useEffect, useMemo, useCallback } from 'react';
 
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { UncontrolledTooltip } from 'reactstrap';
 
 import functions from 'helpers/functions';
 
@@ -364,9 +365,30 @@ const SelectInput = props => {
 				if (mountedData.length !== 0) {
 					return (
 						mountedData.map(
-							_element => (
-								<div className="option-found" tabIndex="0" role="button" data-value={ _element[optionsKeys.id] } onKeyPress={ optionCheckEnterPressed } onClick={ optionCheckClicked } key={ _element[optionsKeys.id] }>{ setOptionName(_element, false) }</div>
-							)
+							_element => {
+								const _blockId = `select-input-${id}-${_element[optionsKeys.id]}`;
+								const _optionName = setOptionName(_element, false);
+
+								return (
+									<Fragment key={ _blockId }>
+										<div
+											className={ `option-found${_element[optionsKeys.id] === optionSelected ? ' selected' : ''}` }
+											tabIndex="0"
+											role="button"
+											data-value={ _element[optionsKeys.id] }
+											onKeyPress={ optionCheckEnterPressed }
+											onClick={ optionCheckClicked }
+											id={ _blockId }
+										>
+											{ _optionName }
+										</div>
+
+										<UncontrolledTooltip placement="top" target={ _blockId } trigger="hover">
+											{ _optionName }
+										</UncontrolledTooltip>
+									</Fragment>
+								);
+							}
 						)
 					);
 				}
@@ -376,7 +398,7 @@ const SelectInput = props => {
 				<div className="option-not-found">Nenhum dado encontrado</div>
 			);
 		},
-		[boxData, optionsKeys, optionSelected, optionCheckEnterPressed, optionCheckClicked, setOptionName]
+		[boxData, id, optionsKeys, optionSelected, optionCheckEnterPressed, optionCheckClicked, setOptionName]
 	);
 
 	useEffect(
