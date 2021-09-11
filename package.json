@@ -11,19 +11,19 @@
   },
   "proxy": "https://localhost",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "date-fns": "^2.23.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-input-mask": "^2.0.4",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
-    "reactstrap": "^8.9.0"
+    "reactstrap": "^8.10.0"
   },
   "devDependencies": {
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0"
   },
   "scripts": {
