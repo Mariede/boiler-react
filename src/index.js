@@ -1,3 +1,12 @@
+/*
+ > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >
+BOILERPLATE - CODE REPO:
+
+	https://github.com/Mariede/boiler-react
+
+ < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < <
+*/
+
 import ReactDOM from 'react-dom';
 
 import axios from 'axios';
