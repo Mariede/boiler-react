@@ -18,8 +18,11 @@ import './SelectInput.css';
 		- optionsKeys			: chaves das propriedades em optionsData - objeto
 			-> id: e o valor da opcao (unico)
 			-> name: e o texto informativo da opcao
+			-> nameBold: boolean - name em negrito ou nao, OPCIONAL
 			-> description1: texto extra 1 da opcao, OPCIONAL
+			-> description1Bold: boolean - description1 em negrito ou nao, OPCIONAL (so faz sentido se existir description1)
 			-> description2: texto extra 2 da opcao, OPCIONAL
+			-> description2Bold: boolean - description2 em negrito ou nao, OPCIONAL (so faz sentido se existir description2)
 			-> image: se existe uma imagem associada ao texto da opcao, OPCIONAL
 				-> image.src: a imagem a ser exibida em base64 - se a chave image existe, OBRIGATORIO
 				-> image.alt: texto alt da imagem a ser exibida - se a chave image existe, OBRIGATORIO
@@ -117,27 +120,42 @@ const SelectInput = props => {
 				''
 			);
 
-			const optionName = _name + _description1 + _description2 + _active;
-
 			const SelectInputOption = () => {
 				const _findNestedKey = (_nestedKey, _el) => (
 					_nestedKey.split('.').reduce((o, i) => o && o[i], _el)
 				);
 
+				const _optionName = (
+					<Fragment>
+						{
+							_name && optionsKeys.nameBold ? <strong>{ _name }</strong> : _name
+						}
+						{
+							_description1 && optionsKeys.description1Bold ? <strong>{ _description1 }</strong> : _description1
+						}
+						{
+							_description2 && optionsKeys.description2Bold ? <strong>{ _description2 }</strong> : _description2
+						}
+						{
+							_active
+						}
+					</Fragment>
+				);
+
 				return (
 					(_element && optionsKeys.image && optionsKeys.image.src && optionsKeys.image.alt) ? (
 						<Fragment>
-							<img src={ _findNestedKey(optionsKeys.image.src, _element) || '' } alt={ _findNestedKey(optionsKeys.image.alt, _element) || '' } /> { optionName }
+							<img src={ _findNestedKey(optionsKeys.image.src, _element) || '' } alt={ _findNestedKey(optionsKeys.image.alt, _element) || '' } /> { _optionName }
 						</Fragment>
 					) : (
-						optionName
+						_optionName
 					)
 				);
 			};
 
 			return (
 				displayInitial ? (
-					optionName
+					_name + _description1 + _description2 + _active
 				) : (
 					<SelectInputOption />
 				)
