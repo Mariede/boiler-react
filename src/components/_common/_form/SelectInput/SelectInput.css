@@ -1,6 +1,6 @@
 /* Searcher auto-complete */
 .select-input > input[type="text"] {
-	padding-left: 12px;
+	padding-left: 13px;
 	text-transform: uppercase;
 }
 
@@ -79,7 +79,7 @@
 .select-input > .input-box-data > div {
 	display: flex;
 	align-items: center;
-	padding: 6px 4px;
+	padding: 4px 8px;
 }
 
 .select-input > .input-box-data > div.option-found.selected {
