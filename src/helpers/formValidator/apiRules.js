@@ -157,6 +157,11 @@ const apiRules = [
 		name: 'valueRange', // Depende de extraParams local
 		validatorFunction: validator.valueRange,
 		defaultMessage: 'Valor numérico não se encontra dentro do intervalo solicitado'
+	},
+	{
+		name: 'dateDiff', // Depende de extraParams local
+		validatorFunction: validator.dateDiff,
+		defaultMessage: 'Data inicial não pode ser maior do que a data final'
 	}
 ];
 
