@@ -161,7 +161,7 @@ const apiRules = [
 	{
 		name: 'dateDiff', // Depende de extraParams local
 		validatorFunction: validator.dateDiff,
-		defaultMessage: 'Data inicial não pode ser maior do que a data final'
+		defaultMessage: 'Data inicial não pode ser maior ou igual a data final'
 	}
 ];
 
