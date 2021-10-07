@@ -11,8 +11,8 @@
   },
   "proxy": "https://localhost",
   "dependencies": {
-    "axios": "^0.21.4",
-    "date-fns": "^2.24.0",
+    "axios": "^0.22.0",
+    "date-fns": "^2.25.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-input-mask": "^2.0.4",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0"
   },
   "scripts": {
