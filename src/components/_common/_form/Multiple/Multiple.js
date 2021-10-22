@@ -173,7 +173,7 @@ const Multiple = props => {
 				<Fragment key={ _blockId }>
 					<option value={ _element[optionsKeys.id] } id={ _blockId }>{ _optionName }</option>
 
-					<UncontrolledTooltip placement="top" target={ _blockId } trigger="hover">
+					<UncontrolledTooltip placement="top" target={ _blockId } trigger={ (functions.isMobile() || functions.isTablet()) ? 'hover' : 'hover click' } delay={ { show: 100, hide: 0 } }>
 						{ _optionName }
 					</UncontrolledTooltip>
 				</Fragment>

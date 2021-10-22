@@ -401,7 +401,7 @@ const SelectInput = props => {
 											{ _optionName }
 										</div>
 
-										<UncontrolledTooltip placement="top" target={ _blockId } trigger="hover">
+										<UncontrolledTooltip placement="top" target={ _blockId } trigger={ (functions.isMobile() || functions.isTablet()) ? 'hover' : 'hover click' } delay={ { show: 100, hide: 0 } }>
 											{ _optionName }
 										</UncontrolledTooltip>
 									</Fragment>
