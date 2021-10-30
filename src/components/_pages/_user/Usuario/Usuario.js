@@ -256,12 +256,12 @@ const Usuario = props => {
 					<GridTable dataReady={ dataGet.ready } dataContent={ dataGet.content } history={ history } url={ { currentPath, currentSearch } } rowId="idUsuario"
 						columns={
 							[
-								{ title: '#', jsonElement: 'idUsuario' },
+								{ title: '#', jsonElement: 'idUsuario', isSorted: true },
 								{ title: 'nome', jsonElement: 'nome', isSorted: true, gridCallback: pageActions.update, blockCallbacks: !pGridTableAllowedCallbacks },
 								{ title: 'e-mail', jsonElement: 'email', isSorted: true },
 								{ title: 'empresa', jsonElement: 'empresa.nome', isSorted: true, tdLayout: { center: true } },
-								{ title: 'perfis', jsonElement: 'perfis.nome', isSorted: true, tdLayout: { center: true, badges: 'info' } },
 								{ title: 'criado em', jsonElement: 'dataCriacao', isSorted: true, tdLayout: { right: true, nowrap: true } },
+								{ title: 'perfis', jsonElement: 'perfis.nome', tdLayout: { center: true, badges: 'info' } },
 								{
 									blockCallbacks: !pGridTableAllowedCallbacks,
 									buttons: [
