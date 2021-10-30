@@ -34,12 +34,13 @@ npm run build
   - Reloga direto na última rota acessada, caso de disconnect inesperado do servidor
 
 ## Helpers (Libs de apoio)
+  - appPermissions => identificadores de acesso a pontos da aplicação - em conjunto com back-end
+  - errWrapper => catcher para manipulação de erros assíncronos
   - formValidator => integrado, para validação de formulários
     + Com regras acopladas da mesma lib **validator** utilizada no template boiler-server
     + Permite campos e mensagens opcionais
     + Permite validação a partir de eventos variados
-  - functions => funcoes gerais js de ajuda
-  - errWrapper => catcher para manipulação de erros assíncronos
+  - functions => funcoes gerais js de apoio
 
 ## Componentes Gerais
   - ModalWindow (modais diversos com estrutura configurável e callbacks de execução)
@@ -62,6 +63,7 @@ npm run build
   - Componentes de formulários personalizados:
     + InputPass
     + Multiple
+    + SelectInput
 
 ## Componentes de Páginas
   - Divididas em Header / MainContent (wrapper) / Footer
@@ -76,8 +78,6 @@ npm run build
     + Acesso a lib axios (GET, POST, PUT, DELETE, ...)
       * useDataGet - Centraliza as chamadas GET no sistema, através do componente DataGet
       * useDataChange - Centraliza as chamadas POST, PUT, PATCH, DELETE, através do componente DataChange
-    + Validação de permissões de acesso do usuário logado
-      * ContextCheckPermissions
 
 ## Estrutura das pastas da aplicação
   - application
