@@ -56,6 +56,11 @@ const functions = {
 			/(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/i.test(checkAgent)
 		);
 	},
+	isNumber (_n) {
+		return (
+			typeof _n === 'number' && !isNaN(_n)
+		);
+	},
 	formatNumberDecimalsAfter (value, decimalsAfter) {
 		if (typeof value === 'number') {
 			const fatorDecimalsAfter = 10 ** decimalsAfter;
@@ -125,19 +130,6 @@ const functions = {
 		const final = cnpj.substr(12, 2);
 
 		return `${base1}.${base2}.${base3}/${base4}-${final}`;
-	},
-	formatRenavam (_renavam) {
-		const renavam = (_renavam || '').toString().replace(/\D/gi, '').padStart(11, '0');
-
-		return renavam;
-	},
-	formatVehicleLicensePlate (_licensePlate) {
-		const licensePlate = (_licensePlate || '').toString().toUpperCase().padStart(7, ' ');
-
-		const base1 = licensePlate.substr(0, 3).trim();
-		const base2 = licensePlate.substr(3).trim();
-
-		return `${base1} ${base2}`;
 	}
 };
 
