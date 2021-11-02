@@ -130,6 +130,17 @@ const functions = {
 		const final = cnpj.substr(12, 2);
 
 		return `${base1}.${base2}.${base3}/${base4}-${final}`;
+	},
+	roundNumber (_valor, decimalsAfter = 10) {
+		if (typeof _valor === 'number' && !isNaN(_valor)) {
+			const fatorDecimalsAfter = 10 ** decimalsAfter;
+
+			return (
+				Math.round(_valor * fatorDecimalsAfter) / fatorDecimalsAfter
+			);
+		}
+
+		return _valor;
 	}
 };
 
