@@ -85,6 +85,13 @@ const Logon = () => {
 				// So deve rodar no primeiro render
 				formValidator.setFormResponse(configFormValidation); // Formulario: 1 de 3
 				componentFirstRender.current = false;
+
+				// Foco no input no primeiro render da pagina
+				const el = document.getElementById('login');
+
+				if (el) {
+					el.focus();
+				}
 			} else {
 				// Roda em todos os render subsequentes
 				formValidator.setFormValidation(configFormValidation); // Formulario: 2 de 3
