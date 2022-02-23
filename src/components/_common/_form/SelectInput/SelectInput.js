@@ -3,6 +3,8 @@ import { Fragment, useRef, useState, useEffect, useMemo, useCallback } from 'rea
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import { UncontrolledTooltip } from 'reactstrap';
 
+import config from './config'; // Configuracoes extras do componente
+
 import functions from 'helpers/functions';
 
 import './SelectInput.css';
@@ -374,17 +376,38 @@ const SelectInput = props => {
 			if (Array.isArray(boxData)) {
 				const mountedData = boxData.filter(
 					_element => (
-						(
+						_element[optionsKeys.id] !== optionSelected && (
 							!Object.prototype.hasOwnProperty.call(_element, optionsKeys.active) || _element[optionsKeys.active]
-						) || _element[optionsKeys.id] === optionSelected
+						)
 					)
 				);
 
-				if (mountedData.length !== 0) {
+				const mountedDataSelected = boxData.filter(
+					_element => (
+						_element[optionsKeys.id] === optionSelected
+					)
+				);
+
+				if (mountedData.length !== 0 || mountedDataSelected.length !== 0) {
+					const lenMountedInitial = mountedData.length + mountedDataSelected.length;
+					const maxInitialItemsToShow = config.maxInitialItemsToShow || lenMountedInitial;
+
+					const mountedDataShow = (
+						mountedDataSelected
+						.concat(
+							mountedData
+						)
+						.slice(
+							0,
+							maxInitialItemsToShow
+						)
+					);
+
 					return (
-						mountedData.map(
+						mountedDataShow
+						.map(
 							_element => {
-								const _blockId = `select-input-${id}-${_element[optionsKeys.id]}`;
+								const _blockId = `select-input-o-${id}-${_element[optionsKeys.id]}`;
 								const _optionName = setOptionName(_element, false);
 
 								return (
@@ -408,6 +431,13 @@ const SelectInput = props => {
 								);
 							}
 						)
+						.concat(
+							maxInitialItemsToShow < lenMountedInitial ? (
+								<div className="option-not-found" key={ `select-input-t-${id}` }>Existem mais registros a serem exibidos, favor aprimorar a pesquisa filtrando o que deseja</div>
+							) : (
+								null
+							)
+						)
 					);
 				}
 			}
@@ -426,7 +456,9 @@ const SelectInput = props => {
 			if (_input) {
 				const parent = _input.closest('.select-input');
 				const elementClean = parent.querySelector('i[data-name="box-data-clean"]');
+				const inputBoxData = parent.querySelector('.input-box-data');
 
+				// Exibe botao de limpar
 				if (elementBlocked.readOnly) {
 					elementClean.classList.remove('show');
 
@@ -438,13 +470,20 @@ const SelectInput = props => {
 					elementClean.classList.add('show');
 					_input.focus();
 				}
+
+				// Move a barra de rolagem da data-box para o topo, se existir
+				inputBoxData.scrollTo(
+					{
+						top: 0
+					}
+				);
 			}
 		},
 		[elementBlocked]
 	);
 
 	return (
-		<InputGroup className="select-input" data-name="box-data-check" onClick={ parentCheckClicked } key={ `select-input-k${optionSelected}` }>
+		<InputGroup className="select-input" data-name="box-data-check" onClick={ parentCheckClicked } key={ `select-input-c-${id}` }>
 			<Input type="text" defaultValue={ setOptionInitial } maxLength="200" placeholder="> pesquise ou selecione" innerRef={ elementInput } className={ disabled !== true ? 'enabled' : 'disabled' } tabIndex={ (disabled !== true && !elementBlocked.readOnly) ? 0 : -1 } onKeyUp={ setOptionsData } readOnly={ elementBlocked.readOnly } />
 			<i className="fas fa-times" tabIndex={ 0 } role="button" data-name="box-data-clean" onKeyPress={ cleanCheckEnterPressed } onClick={ cleanCheckClicked } />
 			<InputGroupAddon addonType="append">
