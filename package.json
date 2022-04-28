@@ -9,7 +9,7 @@
   "engines": {
     "node": ">=12.22.0"
   },
-  "proxy": "https://localhost:5000",
+  "proxy": "https://0.0.0.0:5000",
   "dependencies": {
     "axios": "^0.26.1",
     "date-fns": "^2.28.0",
