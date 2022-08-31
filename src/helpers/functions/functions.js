@@ -61,6 +61,30 @@ const functions = {
 			typeof _n === 'number' && !isNaN(_n)
 		);
 	},
+	formatNumberFixedDigits (value, digits) {
+		if (typeof value === 'number' && typeof digits === 'number') {
+			const sinal = value < 0 ? -1 : 1;
+			const _value = Math.abs(value);
+
+			const rounded = Math.round(_value);
+			const lRounded = rounded.toString().length;
+
+			const expoent = digits - lRounded;
+			const multiplier = Math.pow(10, expoent);
+
+			const result = sinal * (Math.round(_value * multiplier) / multiplier);
+
+			return (
+				lRounded > digits ? (
+					Math.round(result)
+				) : (
+					result
+				)
+			);
+		}
+
+		return value;
+	},
 	formatNumberDecimalsAfter (value, decimalsAfter) {
 		if (typeof value === 'number') {
 			const fatorDecimalsAfter = 10 ** decimalsAfter;
@@ -130,17 +154,6 @@ const functions = {
 		const final = cnpj.substr(12, 2);
 
 		return `${base1}.${base2}.${base3}/${base4}-${final}`;
-	},
-	roundNumber (_valor, decimalsAfter = 10) {
-		if (typeof _valor === 'number' && !isNaN(_valor)) {
-			const fatorDecimalsAfter = 10 ** decimalsAfter;
-
-			return (
-				Math.round(_valor * fatorDecimalsAfter) / fatorDecimalsAfter
-			);
-		}
-
-		return _valor;
 	}
 };
 
