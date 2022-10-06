@@ -79,6 +79,9 @@ import './GridTable.css';
 					-> buttonColor define o formato do button - default e link (string)
 						-> ex. link, danger, success, ...
 
+					-> buttonDisabledId e opcional e contem o ID do botao (rowId ou id) que devera estar desabilitado
+						-> Normalmente o ID do usuario logado, por ex
+
 					-> buttonConfirm e opcional e define se havera um modal de confirmacao para a acao (string)
 						-> contem o texto a ser exibido no modal
 
@@ -244,7 +247,7 @@ const GridTable = props => {
 																				{
 																					buttons.map(
 																						(button, indexBtn) => (
-																							<GridButton id={ `btn-gb-${index}${indexTd}${indexBtn}` } record={ record } gridCallback={ button.gridCallback } buttonBlockCallback={ blockCallbacks } buttonColor={ button.buttonColor } buttonDisabled={ !dataReady } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ indexBtn } />
+																							<GridButton id={ `btn-gb-${index}${indexTd}${indexBtn}` } record={ record } gridCallback={ button.gridCallback } buttonBlockCallback={ blockCallbacks } buttonColor={ button.buttonColor } buttonDisabled={ !dataReady || (button.buttonDisabledId ? button.buttonDisabledId === recordId : false) } buttonText={ button.buttonText } buttonConfirm={ button.buttonConfirm } key={ indexBtn } />
 																						)
 																					)
 																				}
