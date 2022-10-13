@@ -18,6 +18,8 @@ import useDataGet from 'components/_custom-hooks/useDataGet';
 
 		- cbThen			: funcao que executa no then da acao - caso sucesso, apenas se existir
 
+		- cbElse			: funcao que executa no catch da acao - caso falha, apenas se existir
+
 		- message			: OPCIONAL, mensagem do componente de loading
 
 		- setDataGet		: OBRIGATORIO, funcao de estado em parent que controla as propriedades do componente
@@ -30,7 +32,7 @@ import useDataGet from 'components/_custom-hooks/useDataGet';
 		- dataResetOnCatch	: OPCIONAL, boolean, se true reseta o valor de content caso haja erro na requisicao
 */
 const DataGet = props => {
-	const { goReady, currentKey, extraRoute, param, params, config, cbThen, message, setDataGet, baseRoute, cbCatch, dataResetOnCatch } = props;
+	const { goReady, currentKey, extraRoute, param, params, config, cbThen, cbElse, message, setDataGet, baseRoute, cbCatch, dataResetOnCatch } = props;
 
 	const { Component, dataReady, dataContent } = useDataGet(
 		{
@@ -40,6 +42,7 @@ const DataGet = props => {
 			params: { ...params },
 			config: { ...config },
 			cbThen: cbThen,
+			cbElse: cbElse,
 			cbCatch: {
 				header: (cbCatch.header || 'Dados'),
 				type: (cbCatch.type || 4),

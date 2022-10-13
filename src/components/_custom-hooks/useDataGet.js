@@ -21,13 +21,14 @@ import errWrapper from 'helpers/errWrapper';
 				params				=> parametros do GET (opcional) <-> objeto
 				config				=> configuracoes extras da rota (opcional) <-> objeto
 				cbThen				=> funcao de callback em Then (opcional)
+				cbElse				=> funcao de callback em Catch (opcional)
 				cbCatch				=> configuracoes extras para Notify (opcional) <-> objeto
 				dataResetOnCatch	=> se true reinicia o valor de content caso haja erro na requisicao (opcional) <-> boolean
 				message				=> configuracoes extras para componente Loading (opcional)
 			}
 */
 const useDataGet = props => {
-	const { route, goReady, currentKey, params, config, cbThen, cbCatch, dataResetOnCatch, message } = props;
+	const { route, goReady, currentKey, params, config, cbThen, cbElse, cbCatch, dataResetOnCatch, message } = props;
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 
@@ -66,6 +67,10 @@ const useDataGet = props => {
 					if (isMounted) {
 						if (dataResetOnCatch === true) {
 							dataContent.current = null;
+						}
+
+						if (cbElse) {
+							cbElse(err);
 						}
 
 						setNotify(

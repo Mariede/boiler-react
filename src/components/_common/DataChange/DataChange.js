@@ -26,6 +26,8 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 
 		- cbThen		: funcao que executa no then da acao - caso sucesso, apenas se existir
 
+		- cbElse		: funcao que executa no catch da acao - caso falha, apenas se existir
+
 		- message		: OPCIONAL, mensagem do componente de loading
 
 		- formId		: identificador do formulario em children, apenas se existir children (submit === false)
@@ -47,7 +49,7 @@ import useDataChange from 'components/_custom-hooks/useDataChange';
 			-> obrigatorio existir um formId
 */
 const DataChange = props => {
-	const { submit, method, extraRoute, param, data, headers, cbThen, message, formId, setDataChange, baseRoute, cbCatch, url, showActionInfo, children } = props;
+	const { submit, method, extraRoute, param, data, headers, cbThen, cbElse, message, formId, setDataChange, baseRoute, cbCatch, url, showActionInfo, children } = props;
 
 	const ChildContent = children;
 
@@ -62,6 +64,7 @@ const DataChange = props => {
 			data: data,
 			headers: { ...headers },
 			cbThen: cbThen,
+			cbElse: cbElse,
 			cbCatch: {
 				header: (cbCatch.header || 'Dados'),
 				type: (cbCatch.type || 4),

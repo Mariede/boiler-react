@@ -22,12 +22,13 @@ import errWrapper from 'helpers/errWrapper';
 				data		=> dados do metodo (opcional) <-> objeto ou string
 				headers		=> configuracoes extras da rota: headers personalizados (opcional) <-> objeto
 				cbThen		=> funcao de callback em Then (opcional)
+				cbElse		=> funcao de callback em Catch (opcional)
 				cbCatch		=> configuracoes extras para Notify (opcional) <-> objeto
 				message		=> configuracoes extras para componente Loading (opcional)
 			}
 */
 const useDataChange = props => {
-	const { method, route, submit, cbSubmit, data, headers, cbThen, cbCatch, message } = props;
+	const { method, route, submit, cbSubmit, data, headers, cbThen, cbElse, cbCatch, message } = props;
 
 	const getUrl = useContext(ContextConfig).baseUrl;
 
@@ -106,6 +107,10 @@ const useDataChange = props => {
 			.catch(
 				err => {
 					if (isMounted) {
+						if (cbElse) {
+							cbElse(err);
+						}
+
 						setNotify(
 							{
 								info: (err.response || err),
