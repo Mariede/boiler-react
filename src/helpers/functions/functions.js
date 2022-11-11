@@ -66,8 +66,11 @@ const functions = {
 			const sinal = value < 0 ? -1 : 1;
 			const _value = Math.abs(value);
 
-			const rounded = Math.round(_value);
-			const lRounded = rounded.toString().length;
+			const lRounded = (_value === 0 || Math.floor(_value) !== 0) ? (
+				Math.round(_value).toString().length
+			) : (
+				Math.ceil(Math.log10(_value))
+			);
 
 			const expoent = digits - lRounded;
 			const multiplier = Math.pow(10, expoent);
