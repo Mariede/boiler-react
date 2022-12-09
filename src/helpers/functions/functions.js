@@ -67,7 +67,7 @@ const functions = {
 			const _value = Math.abs(value);
 
 			const lRounded = (_value === 0 || Math.floor(_value) !== 0) ? (
-				Math.round(_value).toString().length
+				Math.floor(_value).toString().length
 			) : (
 				Math.ceil(Math.log10(_value))
 			);
